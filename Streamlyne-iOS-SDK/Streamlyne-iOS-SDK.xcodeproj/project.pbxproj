@@ -16,6 +16,8 @@
 		7720FC3718369CA20092D39B /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
 		A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDB9A183BAF03006AD769 /* SLNode.m */; };
 		A82CDB9E183BB5BC006AD769 /* SLNodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDB9D183BB5BC006AD769 /* SLNodeManager.m */; };
+		A82CDBA1183BC6BF006AD769 /* SLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDBA0183BC6BF006AD769 /* SLValue.m */; };
+		A82CDBA4183BC6D7006AD769 /* SLRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDBA3183BC6D7006AD769 /* SLRelationship.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,10 @@
 		A82CDB9A183BAF03006AD769 /* SLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLNode.m; sourceTree = "<group>"; };
 		A82CDB9C183BB5BC006AD769 /* SLNodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLNodeManager.h; path = ../SLNodeManager.h; sourceTree = "<group>"; };
 		A82CDB9D183BB5BC006AD769 /* SLNodeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLNodeManager.m; path = ../SLNodeManager.m; sourceTree = "<group>"; };
+		A82CDB9F183BC6BF006AD769 /* SLValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLValue.h; sourceTree = "<group>"; };
+		A82CDBA0183BC6BF006AD769 /* SLValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLValue.m; sourceTree = "<group>"; };
+		A82CDBA2183BC6D7006AD769 /* SLRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLRelationship.h; sourceTree = "<group>"; };
+		A82CDBA3183BC6D7006AD769 /* SLRelationship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLRelationship.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +122,10 @@
 				7720FC1D18369CA20092D39B /* Supporting Files */,
 				A82CDB99183BAF03006AD769 /* SLNode.h */,
 				A82CDB9A183BAF03006AD769 /* SLNode.m */,
+				A82CDB9F183BC6BF006AD769 /* SLValue.h */,
+				A82CDBA0183BC6BF006AD769 /* SLValue.m */,
+				A82CDBA2183BC6D7006AD769 /* SLRelationship.h */,
+				A82CDBA3183BC6D7006AD769 /* SLRelationship.m */,
 			);
 			path = "Streamlyne-iOS-SDK";
 			sourceTree = "<group>";
@@ -227,6 +237,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A82CDBA4183BC6D7006AD769 /* SLRelationship.m in Sources */,
+				A82CDBA1183BC6BF006AD769 /* SLValue.m in Sources */,
 				A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */,
 				A82CDB9E183BB5BC006AD769 /* SLNodeManager.m in Sources */,
 			);

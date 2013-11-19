@@ -7,34 +7,80 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "SLNodeManager.h"
+#import "SLValue.h"
+#import "SLRelationship.h"
 
 @interface SLNode : NSObject {
+    
+    /*
+     The SLAPI route. ex ) '/organization'
+     */
+    @protected
+    NSString *route;
+    
+    /*
+     A reference to the node manage used to instantiate this SLNode.
+     This is kept so that SLNode may call setSaved and setUnsaved passing it's
+     id.
+     */
+    @protected
+    id nodeManager;
     
     /**
      String s -> SLValue s
      */
-    @private
+    @protected
     NSDictionary *data;
     
     @protected
-    NSString *route;
+    NSDictionary *backupData;
     
-    @private
-    id nodeManager;
+    /**
+     A list of relationships to this node.
+     */
+    @protected
+    NSArray *rels;
 }
 
-- (SLNode *) initWithManager:(id) manager;
++ (SLNode *) readById:(int)nid;
 
-- (SLNode *) initWithManager:(id) manager withData:(NSDictionary *) data;
++ (SLNode *) readAll;
 
-- (void) update:(NSString *)attr value:(id)value;
++ (SLNode *) createWithData:(NSDictionary *)data withRels:(NSArray *)rels;
+
++ (void) deleteById:(int)nid;
+
++ (void) deleteNode:(SLNode *)node;
+
++ (void) deleteNodeSet:(NSArray *)nodes;
 
 /**
+ Update a single attribute.
+ */
+- (void) update:(NSString *)attr value:(id)value;
+
+
+/**
+ Persists the node to the database.
  
+ This done by iterating through {data} and compiling a list of node SLValues
+ that haven't been saved. From the set of unsaved properties a update request to
+ SLAPI may be formulated.
  */
 - (Boolean *) save;
 
+- (Boolean *) isSaved;
 
+- (void) checkSaved;
+
+
+- (void) discardChanges;
+
+- (void) discardChangesTo:(NSString *)attr;
+
+/**
+ Delete's this instance from the database.
+ */
+- (void) remove;
 
 @end
