@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
-		7720FC2018369CA20092D39B /* Streamlyne_iOS_SDK.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7720FC1F18369CA20092D39B /* Streamlyne_iOS_SDK.h */; };
-		7720FC2218369CA20092D39B /* Streamlyne_iOS_SDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC2118369CA20092D39B /* Streamlyne_iOS_SDK.m */; };
 		7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2818369CA20092D39B /* XCTest.framework */; };
 		7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
 		7720FC2C18369CA20092D39B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2B18369CA20092D39B /* UIKit.framework */; };
 		7720FC2F18369CA20092D39B /* libStreamlyne-iOS-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */; };
 		7720FC3518369CA20092D39B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7720FC3318369CA20092D39B /* InfoPlist.strings */; };
 		7720FC3718369CA20092D39B /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
+		A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDB9A183BAF03006AD769 /* SLNode.m */; };
+		A82CDB9E183BB5BC006AD769 /* SLNodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDB9D183BB5BC006AD769 /* SLNodeManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +35,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				7720FC2018369CA20092D39B /* Streamlyne_iOS_SDK.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,14 +44,16 @@
 		7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libStreamlyne-iOS-SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7720FC1A18369CA10092D39B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7720FC1E18369CA20092D39B /* Streamlyne-iOS-SDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Streamlyne-iOS-SDK-Prefix.pch"; sourceTree = "<group>"; };
-		7720FC1F18369CA20092D39B /* Streamlyne_iOS_SDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Streamlyne_iOS_SDK.h; sourceTree = "<group>"; };
-		7720FC2118369CA20092D39B /* Streamlyne_iOS_SDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Streamlyne_iOS_SDK.m; sourceTree = "<group>"; };
 		7720FC2718369CA20092D39B /* Streamlyne-iOS-SDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Streamlyne-iOS-SDKTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7720FC2818369CA20092D39B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		7720FC2B18369CA20092D39B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		7720FC3218369CA20092D39B /* Streamlyne-iOS-SDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Streamlyne-iOS-SDKTests-Info.plist"; sourceTree = "<group>"; };
 		7720FC3418369CA20092D39B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Streamlyne_iOS_SDKTests.m; sourceTree = "<group>"; };
+		A82CDB99183BAF03006AD769 /* SLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLNode.h; sourceTree = "<group>"; };
+		A82CDB9A183BAF03006AD769 /* SLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLNode.m; sourceTree = "<group>"; };
+		A82CDB9C183BB5BC006AD769 /* SLNodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLNodeManager.h; path = ../SLNodeManager.h; sourceTree = "<group>"; };
+		A82CDB9D183BB5BC006AD769 /* SLNodeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLNodeManager.m; path = ../SLNodeManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,9 +111,11 @@
 		7720FC1C18369CA20092D39B /* Streamlyne-iOS-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				7720FC1F18369CA20092D39B /* Streamlyne_iOS_SDK.h */,
-				7720FC2118369CA20092D39B /* Streamlyne_iOS_SDK.m */,
+				A82CDB9C183BB5BC006AD769 /* SLNodeManager.h */,
+				A82CDB9D183BB5BC006AD769 /* SLNodeManager.m */,
 				7720FC1D18369CA20092D39B /* Supporting Files */,
+				A82CDB99183BAF03006AD769 /* SLNode.h */,
+				A82CDB9A183BAF03006AD769 /* SLNode.m */,
 			);
 			path = "Streamlyne-iOS-SDK";
 			sourceTree = "<group>";
@@ -224,7 +227,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7720FC2218369CA20092D39B /* Streamlyne_iOS_SDK.m in Sources */,
+				A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */,
+				A82CDB9E183BB5BC006AD769 /* SLNodeManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +413,7 @@
 				7720FC3C18369CA20092D39B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7720FC3D18369CA20092D39B /* Build configuration list for PBXNativeTarget "Streamlyne-iOS-SDKTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +422,7 @@
 				7720FC3F18369CA20092D39B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
