@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 
 
+typedef enum {
+    INCOMING,
+    OUTGOING
+} Direction;
+
+typedef unsigned long int SLNid;
+
 /** --------------------------------------------------------------------------------
  */
 @interface SLValue : NSObject {
@@ -43,8 +50,19 @@
      successful call of {set}.
      */
 @private
-    Boolean *saved;
+    BOOL *saved;
 }
+
+
+/**
+ */
+- initWithType:(id)type;
+
+
+/**
+ */
+- initWithType:(id)type withValue:(id)value;
+
 
 /**
  Sets the value of this {SLValue}.
@@ -56,17 +74,20 @@
  If all predicates return true, set {value} equal to {theValue}
  and set {saved} equal to false.
  */
-- (Boolean *) set:(id) theValue;
+- (BOOL) set:(id) theValue;
+
 
 /**
  Returns the current {value}.
  */
 - (id) get;
 
+
 /**
  Returns the value of saved.
  */
-- (Boolean *) isSaved;
+- (BOOL) isSaved;
+
 
 /**
  Set saved equal to true. This does not garuantee that the value
@@ -74,11 +95,12 @@
  */
 - (void) setSaved;
 
+
 /**
  Adds {predicate} to {predicates}. {predicate} should be an
  ObjC block.
  */
-- (void) addPredicate: (id) predicate;
+- (void) addPredicate: (NSPredicate *) predicate;
 
 @end
 
@@ -110,13 +132,17 @@
     @protected
     NSArray *rels;
     
-    /**
-     Boolean stating whether the SLNode has been persisted since the previous most 
-     call to update.
-     */
-    @protected
-    Boolean *isSaved;
+    @public
+    SLNid nid;
 }
+
+
+/**
+ Boolean stating whether the SLNode has been persisted since the previous most
+ call to update.
+ */
+@property (getter=isFinished, readonly)
+BOOL *isSaved;
 
 
 /**
@@ -128,7 +154,7 @@
 /**
  Returns all nodes of the type subclassed by SLNode.
  */
-+ (SLNode *) readAll;
++ (NSArray *) readAll;
 
 
 /**
@@ -139,15 +165,28 @@
 
 
 /**
+ */
++ (SLNode *) createWithData:(NSDictionary *)data;
+
+
+/**
+ */
++ (SLNode *) createWithRels:(NSArray *)rels;
+
+
++ (SLNode *) create;
+
+
+/**
  Deletes the node with the corresponding {nid}.
  */
-+ (void) deleteById:(int)nid;
++ (void) deleteWithId:(int)nid;
 
 
 /**
  Deletes {node}. This is done by calling {deleteById} with the id of {node}.
  */
-+ (void) deleteNode:(SLNode *)node;
++ (void) deleteWithNode:(SLNode *)node;
 
 
 /**
@@ -155,7 +194,7 @@
  {deleteById} to all nodes contained in the set {nodes} using their node
  id's.
  */
-+ (void) deleteNodeSet:(NSArray *)nodes;
++ (void) deleteWithNodeArray:(NSArray *)nodes;
 
 
 /**
@@ -172,13 +211,13 @@
  that haven't been saved. From the set of unsaved properties a update request to
  SLAPI may be formulated.
  */
-- (Boolean *) save;
+- (BOOL) save;
 
 
 /**
  Returns the value of the internal boolean {isSaved}.
  */
-- (Boolean *) isSaved;
+- (BOOL) isSaved;
 
 
 /**
@@ -229,13 +268,21 @@
     @private
     NSDictionary *data;
     
-    @protected
-    SLNode *node;
+    @public
+    SLNid startNodeNid;
+    
+    @public
+    SLNid endNodeNid;
     
     @protected
     Boolean *isSaved;
 }
 
+/**
+ The direction
+ */
+- (id) initWithStartNode:(SLNode *)startNode withEndNode:(SLNode *)endNode;
 
+- (Direction *) directionWithNode:(SLNode *)theNode;
 
 @end
