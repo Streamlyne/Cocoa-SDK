@@ -7,38 +7,102 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SLValue.h"
-#import "SLRelationship.h"
 
+
+/** --------------------------------------------------------------------------------
+ */
+@interface SLValue : NSObject {
+    
+    /**
+     Stores the type of the encapsulated value.
+     ex ) NSString, int, Boolean
+     */
+@private
+    id type;
+    
+    /**
+     Stores the current value of the SLValue. The value should be
+     type unspecific.
+     */
+@private
+    id value;
+    
+    /**
+     */
+@private
+    id savedValue;
+    
+    /**
+     A list of unary functions that values must "pass" to set.
+     */
+@private
+    NSArray *predicates;
+    
+    /**
+     Tracks wether {setSaved} has been called since the last
+     successful call of {set}.
+     */
+@private
+    Boolean *saved;
+}
+
+/**
+ Sets the value of this {SLValue}.
+ 
+ Given the value runtime check that {theValue} is of type
+ {type}. If this is true iterate through all stored predicates
+ passing {theValue} as the arguement.
+ 
+ If all predicates return true, set {value} equal to {theValue}
+ and set {saved} equal to false.
+ */
+- (Boolean *) set:(id) theValue;
+
+/**
+ Returns the current {value}.
+ */
+- (id) get;
+
+/**
+ Returns the value of saved.
+ */
+- (Boolean *) isSaved;
+
+/**
+ Set saved equal to true. This does not garuantee that the value
+ has been persisted.
+ */
+- (void) setSaved;
+
+/**
+ Adds {predicate} to {predicates}. {predicate} should be an
+ ObjC block.
+ */
+- (void) addPredicate: (id) predicate;
+
+@end
+
+
+/** --------------------------------------------------------------------------------
+ */
 @interface SLNode : NSObject {
     /**
      SLNode is intended to be implemented and then subclassed.
      */
     
     /**
-     The SLAPI route. ex ) '/organization'
+     The node type name
      
      This should be defined by the subclass implementation of SLNode.
      */
     @protected
-    NSString *route;
-    
-    /*
-     A reference to the node manage used to instantiate this SLNode.
-     This is kept so that SLNode may call setSaved and setUnsaved passing it's
-     id.
-     */
-    @protected
-    id nodeManager;
+    NSString *element_type;
     
     /**
      String s -> SLValue s
      */
     @protected
     NSDictionary *data;
-    
-    @protected
-    NSDictionary *backupData;
     
     /**
      A list of relationships to this node.
@@ -145,5 +209,33 @@
  Delete's this instance from the database.
  */
 - (void) remove;
+
+@end
+
+
+/** --------------------------------------------------------------------------------
+ */
+@interface SLRelationship : NSObject {
+    
+    /**
+     Name of the relationship type.
+     */
+    @private
+    NSString *name;
+    
+    /**
+     A dictionary of {SLValue}s 
+     */
+    @private
+    NSDictionary *data;
+    
+    @protected
+    SLNode *node;
+    
+    @protected
+    Boolean *isSaved;
+}
+
+
 
 @end
