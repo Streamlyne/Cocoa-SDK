@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Streamlyne. All rights reserved.
 //
 
-#import "SLSDK.h"
+#import "SLValue.h"
 
 @implementation SLValue
 

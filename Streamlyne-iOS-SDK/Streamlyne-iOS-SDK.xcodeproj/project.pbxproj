@@ -52,6 +52,9 @@
 		7720FC3218369CA20092D39B /* Streamlyne-iOS-SDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Streamlyne-iOS-SDKTests-Info.plist"; sourceTree = "<group>"; };
 		7720FC3418369CA20092D39B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Streamlyne_iOS_SDKTests.m; sourceTree = "<group>"; };
+		777FF993183D549500B394C6 /* SLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLNode.h; sourceTree = "<group>"; };
+		777FF994183D550800B394C6 /* SLValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLValue.h; sourceTree = "<group>"; };
+		777FF995183D551300B394C6 /* SLRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLRelationship.h; sourceTree = "<group>"; };
 		A82CDB99183BAF03006AD769 /* SLSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSDK.h; sourceTree = "<group>"; };
 		A82CDB9A183BAF03006AD769 /* SLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLNode.m; sourceTree = "<group>"; };
 		A82CDBA0183BC6BF006AD769 /* SLValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLValue.m; sourceTree = "<group>"; };
@@ -119,8 +122,11 @@
 				7720FC1D18369CA20092D39B /* Supporting Files */,
 				A82CDB99183BAF03006AD769 /* SLSDK.h */,
 				A82CDB9A183BAF03006AD769 /* SLNode.m */,
+				777FF993183D549500B394C6 /* SLNode.h */,
 				A82CDBA0183BC6BF006AD769 /* SLValue.m */,
 				A82CDBA3183BC6D7006AD769 /* SLRelationship.m */,
+				777FF994183D550800B394C6 /* SLValue.h */,
+				777FF995183D551300B394C6 /* SLRelationship.h */,
 			);
 			path = "Streamlyne-iOS-SDK";
 			sourceTree = "<group>";
