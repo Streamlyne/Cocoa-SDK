@@ -7,15 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-typedef enum {
-    INCOMING,
-    OUTGOING
-} Direction;
-
-typedef unsigned long int SLNid;
-
-// Circular dependencies
-@class SLNode;
-@class SLValue;
-@class SLRelationship;
+#import "SLObject.h"
+#import "SLNode.h"
+#import "SLRelationship.h"
+#import "SLValue.h"

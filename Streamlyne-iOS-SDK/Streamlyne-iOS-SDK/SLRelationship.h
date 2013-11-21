@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Streamlyne. All rights reserved.
 //
 
-#import "SLSDK.h"
-
+#import "SLObject.h"
+#import "SLNode.h"
 
 /** --------------------------------------------------------------------------------
  */
@@ -38,9 +38,9 @@
 /**
  The direction
  */
-- (id) initWithStartNode:(SLNode *)startNode withEndNode:(SLNode *)endNode;
+- (id) initWithName:(NSString *)theName withStartNode:(SLNode *)startNode withEndNode:(SLNode *)endNode;
 
-- (Direction *) directionWithNode:(SLNode *)theNode;
+- (SLRelationshipDirection *) directionWithNode:(SLNode *)theNode;
 
 @end
 

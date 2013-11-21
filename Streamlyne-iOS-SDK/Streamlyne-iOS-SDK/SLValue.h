@@ -5,11 +5,12 @@
 //  Created by Dawson Reid and Glavin Wiechert on 11/19/2013.
 //  Copyright (c) 2013 Streamlyne. All rights reserved.
 //
-#import "SLSDK.h"
+
+#import "SLObject.h"
 
 /** --------------------------------------------------------------------------------
  */
-@interface SLValue : NSObject {
+@interface SLValue : SLObject {
     
     /**
      Stores the type of the encapsulated value.
@@ -26,6 +27,8 @@
     id value;
     
     /**
+     Stores the last saved value of the SLValue. The value should be
+     type unspecific.
      */
 @private
     id savedValue;
@@ -34,25 +37,34 @@
      A list of unary functions that values must "pass" to set.
      */
 @private
-    NSArray *predicates;
+    NSMutableArray *predicates;
     
     /**
      Tracks wether {setSaved} has been called since the last
      successful call of {set}.
      */
 @private
-    BOOL *saved;
+    BOOL saved;
 }
 
 
 /**
  */
-- initWithType:(id)type;
+- (id) initWithType:(id)theType;
 
 
 /**
  */
-- initWithType:(id)type withValue:(id)value;
+- (id) initWithType:(id)theType withValue:(id)theValue;
+
+/**
+ */
+- (id) initWithType:(id)theType withValue:(id)theValue withPredicates:(NSArray *)thePredicates;
+
+/**
+ Returns the current {value}.
+ */
+- (id) get;
 
 
 /**
@@ -67,12 +79,10 @@
  */
 - (BOOL) set:(id) theValue;
 
-
 /**
- Returns the current {value}.
+ Discard the changes and sets the {value} to {savedValue}.
  */
-- (id) get;
-
+- (BOOL) discardChanges;
 
 /**
  Returns the value of saved.

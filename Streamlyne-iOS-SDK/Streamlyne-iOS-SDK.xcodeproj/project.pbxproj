@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7711C7AD183DCE340098C3A6 /* SLNodeArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7AC183DCE340098C3A6 /* SLNodeArray.m */; };
+		7711C7AE183DCE340098C3A6 /* SLNodeArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7AC183DCE340098C3A6 /* SLNodeArray.m */; };
+		7711C7B1183DCE3F0098C3A6 /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B0183DCE3F0098C3A6 /* SLObject.m */; };
+		7711C7B2183DCE3F0098C3A6 /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B0183DCE3F0098C3A6 /* SLObject.m */; };
+		7711C7B5183DCF0A0098C3A6 /* SLRelationshipArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B4183DCF0A0098C3A6 /* SLRelationshipArray.m */; };
+		7711C7B6183DCF0A0098C3A6 /* SLRelationshipArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B4183DCF0A0098C3A6 /* SLRelationshipArray.m */; };
 		7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
 		7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2818369CA20092D39B /* XCTest.framework */; };
 		7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
@@ -43,6 +49,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7711C7AB183DCE340098C3A6 /* SLNodeArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLNodeArray.h; sourceTree = "<group>"; };
+		7711C7AC183DCE340098C3A6 /* SLNodeArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLNodeArray.m; sourceTree = "<group>"; };
+		7711C7AF183DCE3F0098C3A6 /* SLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLObject.h; sourceTree = "<group>"; };
+		7711C7B0183DCE3F0098C3A6 /* SLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLObject.m; sourceTree = "<group>"; };
+		7711C7B3183DCF0A0098C3A6 /* SLRelationshipArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLRelationshipArray.h; sourceTree = "<group>"; };
+		7711C7B4183DCF0A0098C3A6 /* SLRelationshipArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLRelationshipArray.m; sourceTree = "<group>"; };
+		7711C7B7183DEDA60098C3A6 /* SLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCommon.h; sourceTree = "<group>"; };
 		7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libStreamlyne-iOS-SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7720FC1A18369CA10092D39B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7720FC1E18369CA20092D39B /* Streamlyne-iOS-SDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Streamlyne-iOS-SDK-Prefix.pch"; sourceTree = "<group>"; };
@@ -121,12 +134,19 @@
 				A82CDBA5183CF9E7006AD769 /* node */,
 				7720FC1D18369CA20092D39B /* Supporting Files */,
 				A82CDB99183BAF03006AD769 /* SLSDK.h */,
-				A82CDB9A183BAF03006AD769 /* SLNode.m */,
+				7711C7B7183DEDA60098C3A6 /* SLCommon.h */,
 				777FF993183D549500B394C6 /* SLNode.h */,
-				A82CDBA0183BC6BF006AD769 /* SLValue.m */,
-				A82CDBA3183BC6D7006AD769 /* SLRelationship.m */,
+				A82CDB9A183BAF03006AD769 /* SLNode.m */,
 				777FF994183D550800B394C6 /* SLValue.h */,
+				A82CDBA0183BC6BF006AD769 /* SLValue.m */,
 				777FF995183D551300B394C6 /* SLRelationship.h */,
+				A82CDBA3183BC6D7006AD769 /* SLRelationship.m */,
+				7711C7AB183DCE340098C3A6 /* SLNodeArray.h */,
+				7711C7AC183DCE340098C3A6 /* SLNodeArray.m */,
+				7711C7AF183DCE3F0098C3A6 /* SLObject.h */,
+				7711C7B0183DCE3F0098C3A6 /* SLObject.m */,
+				7711C7B3183DCF0A0098C3A6 /* SLRelationshipArray.h */,
+				7711C7B4183DCF0A0098C3A6 /* SLRelationshipArray.m */,
 			);
 			path = "Streamlyne-iOS-SDK";
 			sourceTree = "<group>";
@@ -248,7 +268,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A82CDBA8183CFA0E006AD769 /* User.m in Sources */,
+				7711C7B1183DCE3F0098C3A6 /* SLObject.m in Sources */,
 				A82CDBA4183BC6D7006AD769 /* SLRelationship.m in Sources */,
+				7711C7B5183DCF0A0098C3A6 /* SLRelationshipArray.m in Sources */,
+				7711C7AD183DCE340098C3A6 /* SLNodeArray.m in Sources */,
 				A82CDBA1183BC6BF006AD769 /* SLValue.m in Sources */,
 				A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */,
 			);
@@ -258,6 +281,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7711C7B6183DCF0A0098C3A6 /* SLRelationshipArray.m in Sources */,
+				7711C7AE183DCE340098C3A6 /* SLNodeArray.m in Sources */,
+				7711C7B2183DCE3F0098C3A6 /* SLObject.m in Sources */,
 				7720FC3718369CA20092D39B /* Streamlyne_iOS_SDKTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
