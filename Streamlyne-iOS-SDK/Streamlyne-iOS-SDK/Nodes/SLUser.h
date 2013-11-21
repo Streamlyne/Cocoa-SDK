@@ -8,6 +8,9 @@
 
 #import "SLNode.h"
 
+/**
+ Custom Node, SLUser.
+ */
 @interface SLUser : SLNode
 
 @end

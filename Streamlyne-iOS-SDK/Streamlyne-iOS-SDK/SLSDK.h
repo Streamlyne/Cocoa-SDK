@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "SLObject.h"
-#import "SLAPI.h"
+#import "SLAPIManager.h"
 #import "SLNode.h"
 #import "SLRelationship.h"
 #import "SLValue.h"
 // Custom Nodes
 #import "SLUser.h"
+
+/**
+Main file to include to start using Streamlyne's iOS SDK.
+*/

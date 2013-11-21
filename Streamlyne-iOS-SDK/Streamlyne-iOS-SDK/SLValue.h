@@ -49,20 +49,33 @@
 
 
 /**
+ Initializes `SLValue` with type.
+ @param theType     The type.
+ @return
  */
 - (id) initWithType:(id)theType;
 
 
 /**
+ Initializes `SLValue` with type and value.
+ @param theType     The type.
+ @param theValue    The value.
+ @return
  */
 - (id) initWithType:(id)theType withValue:(id)theValue;
 
 /**
+ Initializes `SLValue` with type and value and predicates.
+ @param theType     The type.
+ @param theValue    The value.
+ @param thePredicates   The predicates.
+ @return
  */
 - (id) initWithType:(id)theType withValue:(id)theValue withPredicates:(NSArray *)thePredicates;
 
 /**
  Returns the current {value}.
+ @return
  */
 - (id) get;
 
@@ -76,6 +89,9 @@
  
  If all predicates return true, set {value} equal to {theValue}
  and set {saved} equal to false.
+
+ @param theValue    The value.
+ @return
  */
 - (BOOL) set:(id) theValue;
 

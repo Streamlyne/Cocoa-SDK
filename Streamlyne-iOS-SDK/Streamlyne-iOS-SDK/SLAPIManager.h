@@ -7,9 +7,8 @@
 //
 
 #import "SLObject.h"
-#import <AFNetworking.h>
 
-@interface SLAPI : SLObject {
+@interface SLAPIManager : SLObject {
     @private
     NSString *userEmail;
     NSString *password;
@@ -28,9 +27,10 @@
 
 /**
  Authenticate with user credentials.
- @param thePassword The passsword.
  @param theEmail    The user's email.
+ @param thePassword The passsword.
+ 
  */
-- (void) authenticateWithUserEmail:(NSString *)thEmail withPassword:(NSString *)thePassword;
+- (void) authenticateWithUserEmail:(NSString *)theEmail withPassword:(NSString *)thePassword;
 
 @end

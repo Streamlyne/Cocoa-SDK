@@ -7,11 +7,12 @@
 //
 
 #import "SLAPI.h"
+#import <AFNetworking.h>
 
-@interface SLAPI ()
+@interface SLAPIManager ()
 @end
 
-@implementation SLAPI
+@implementation SLAPIManager
 
 - (instancetype) init
 {
@@ -35,11 +36,6 @@
         }
         return sharedSingleton;
     }
-}
-
-+ (void) authenticateWithUserEmail:(NSString *)thEmail withPassword:(NSString *)thePassword;
-{
-    [[SLAPI sharedManager] authenticateWithUserEmail:thEmail withPassword:thePassword];
 }
 
 - (void) authenticateWithUserEmail:(NSString *)thEmail withPassword:(NSString *)thePassword
