@@ -32,6 +32,9 @@
 		7720FC2F18369CA20092D39B /* libStreamlyne-iOS-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */; };
 		7720FC3518369CA20092D39B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7720FC3318369CA20092D39B /* InfoPlist.strings */; };
 		7720FC3718369CA20092D39B /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
+		77F3D534183E8852000E9F15 /* SLAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F3D533183E8852000E9F15 /* SLAPI.m */; };
+		77F3D535183E8852000E9F15 /* SLAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F3D533183E8852000E9F15 /* SLAPI.m */; };
+		7EAFA7E2567346ADB124F0EE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2A9B6E54234EDCAD80864F /* libPods.a */; };
 		A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDB9A183BAF03006AD769 /* SLNode.m */; };
 		A82CDBA1183BC6BF006AD769 /* SLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDBA0183BC6BF006AD769 /* SLValue.m */; };
 		A82CDBA4183BC6D7006AD769 /* SLRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDBA3183BC6D7006AD769 /* SLRelationship.m */; };
@@ -60,6 +63,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		18A4AB8E472B41DBB4ABEB40 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		7711C7AF183DCE3F0098C3A6 /* SLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLObject.h; sourceTree = "<group>"; };
 		7711C7B0183DCE3F0098C3A6 /* SLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLObject.m; sourceTree = "<group>"; };
 		7711C7B7183DEDA60098C3A6 /* SLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCommon.h; sourceTree = "<group>"; };
@@ -77,6 +81,9 @@
 		777FF993183D549500B394C6 /* SLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLNode.h; sourceTree = "<group>"; };
 		777FF994183D550800B394C6 /* SLValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLValue.h; sourceTree = "<group>"; };
 		777FF995183D551300B394C6 /* SLRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLRelationship.h; sourceTree = "<group>"; };
+		77F3D532183E8852000E9F15 /* SLAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAPI.h; sourceTree = "<group>"; };
+		77F3D533183E8852000E9F15 /* SLAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAPI.m; sourceTree = "<group>"; };
+		7D2A9B6E54234EDCAD80864F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A82CDB99183BAF03006AD769 /* SLSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSDK.h; sourceTree = "<group>"; };
 		A82CDB9A183BAF03006AD769 /* SLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLNode.m; sourceTree = "<group>"; };
 		A82CDBA0183BC6BF006AD769 /* SLValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLValue.m; sourceTree = "<group>"; };
@@ -89,6 +96,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */,
+				7EAFA7E2567346ADB124F0EE /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +121,7 @@
 				7720FC3018369CA20092D39B /* Streamlyne-iOS-SDKTests */,
 				7720FC1918369CA10092D39B /* Frameworks */,
 				7720FC1818369CA10092D39B /* Products */,
+				18A4AB8E472B41DBB4ABEB40 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,6 +140,7 @@
 				7720FC1A18369CA10092D39B /* Foundation.framework */,
 				7720FC2818369CA20092D39B /* XCTest.framework */,
 				7720FC2B18369CA20092D39B /* UIKit.framework */,
+				7D2A9B6E54234EDCAD80864F /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -150,6 +160,8 @@
 				A82CDBA3183BC6D7006AD769 /* SLRelationship.m */,
 				7711C7AF183DCE3F0098C3A6 /* SLObject.h */,
 				7711C7B0183DCE3F0098C3A6 /* SLObject.m */,
+				77F3D532183E8852000E9F15 /* SLAPI.h */,
+				77F3D533183E8852000E9F15 /* SLAPI.m */,
 			);
 			path = "Streamlyne-iOS-SDK";
 			sourceTree = "<group>";
@@ -196,9 +208,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7720FC3A18369CA20092D39B /* Build configuration list for PBXNativeTarget "Streamlyne-iOS-SDK" */;
 			buildPhases = (
+				755944FE925142BA87313066 /* Check Pods Manifest.lock */,
 				7720FC1318369CA10092D39B /* Sources */,
 				7720FC1418369CA10092D39B /* Frameworks */,
 				7720FC1518369CA10092D39B /* CopyFiles */,
+				683FDCD756554860AE4117D7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -267,6 +281,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		683FDCD756554860AE4117D7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		755944FE925142BA87313066 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		77F3D531183E7A37000E9F15 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -278,7 +322,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Streamlyne\";\ncompanyID=\"com.Streamlyne\";\ncompanyURL=\"http://streamlyne.co\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Streamlyne\";\ncompanyID=\"com.Streamlyne\";\ncompanyURL=\"http://streamlyne.co\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"${PROJECT_DIR}/docs\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -290,6 +334,7 @@
 				7711C7B1183DCE3F0098C3A6 /* SLObject.m in Sources */,
 				A82CDBA4183BC6D7006AD769 /* SLRelationship.m in Sources */,
 				A82CDBA1183BC6BF006AD769 /* SLValue.m in Sources */,
+				77F3D534183E8852000E9F15 /* SLAPI.m in Sources */,
 				A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */,
 				7711C7BA183DF4A30098C3A6 /* SLUser.m in Sources */,
 			);
@@ -302,6 +347,7 @@
 				7711C7B2183DCE3F0098C3A6 /* SLObject.m in Sources */,
 				7711C7BB183DF4A30098C3A6 /* SLUser.m in Sources */,
 				7720FC3718369CA20092D39B /* Streamlyne_iOS_SDKTests.m in Sources */,
+				77F3D535183E8852000E9F15 /* SLAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +445,7 @@
 		};
 		7720FC3B18369CA20092D39B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 18A4AB8E472B41DBB4ABEB40 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/Streamlyne_iOS_SDK.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -411,6 +458,7 @@
 		};
 		7720FC3C18369CA20092D39B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 18A4AB8E472B41DBB4ABEB40 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/Streamlyne_iOS_SDK.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -510,6 +558,7 @@
 				77F3D52D183E79A8000E9F15 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

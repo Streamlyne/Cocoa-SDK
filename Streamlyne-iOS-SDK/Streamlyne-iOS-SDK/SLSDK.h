@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SLObject.h"
+#import "SLAPI.h"
 #import "SLNode.h"
 #import "SLRelationship.h"
 #import "SLValue.h"
