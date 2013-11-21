@@ -10,7 +10,7 @@
 #import "SLCommon.h"
 
 /**
-Currently useless. Streamlyne subclass of NSObject.
+Streamlyne subclass of NSObject.
  */
 @interface SLObject : NSObject
 

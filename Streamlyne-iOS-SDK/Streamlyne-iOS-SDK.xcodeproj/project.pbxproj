@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		77F3D52B183E79A8000E9F15 /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 77F3D52E183E79A8000E9F15 /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				77F3D531183E7A37000E9F15 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		7711C7B1183DCE3F0098C3A6 /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B0183DCE3F0098C3A6 /* SLObject.m */; };
 		7711C7B2183DCE3F0098C3A6 /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B0183DCE3F0098C3A6 /* SLObject.m */; };
@@ -236,6 +250,7 @@
 			targets = (
 				7720FC1618369CA10092D39B /* Streamlyne-iOS-SDK */,
 				7720FC2618369CA20092D39B /* Streamlyne-iOS-SDKTests */,
+				77F3D52B183E79A8000E9F15 /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -250,6 +265,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		77F3D531183E7A37000E9F15 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Streamlyne\";\ncompanyID=\"com.Streamlyne\";\ncompanyURL=\"http://streamlyne.co\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7720FC1318369CA10092D39B /* Sources */ = {
@@ -428,6 +459,20 @@
 			};
 			name = Release;
 		};
+		77F3D52C183E79A8000E9F15 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		77F3D52D183E79A8000E9F15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -457,6 +502,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		77F3D52E183E79A8000E9F15 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77F3D52C183E79A8000E9F15 /* Debug */,
+				77F3D52D183E79A8000E9F15 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
