@@ -33,6 +33,8 @@
 		7720FC3518369CA20092D39B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7720FC3318369CA20092D39B /* InfoPlist.strings */; };
 		7720FC3718369CA20092D39B /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
 		7772FEF7183EB66200FA8B0E /* Guide in Resources */ = {isa = PBXBuildFile; fileRef = 7772FEF6183EB66200FA8B0E /* Guide */; };
+		7772FEFB183ECB0A00FA8B0E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7772FEFA183ECB0A00FA8B0E /* libPods.a */; };
+		7772FEFD183ECB2C00FA8B0E /* libPods-AFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7772FEFC183ECB2C00FA8B0E /* libPods-AFNetworking.a */; };
 		77F3D534183E8852000E9F15 /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F3D533183E8852000E9F15 /* SLAPIManager.m */; };
 		77F3D535183E8852000E9F15 /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F3D533183E8852000E9F15 /* SLAPIManager.m */; };
 		7EAFA7E2567346ADB124F0EE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2A9B6E54234EDCAD80864F /* libPods.a */; };
@@ -62,6 +64,15 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7772FF00183ECBE800FA8B0E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +93,8 @@
 		7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Streamlyne_iOS_SDKTests.m; sourceTree = "<group>"; };
 		7772FEF6183EB66200FA8B0E /* Guide */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Guide; sourceTree = "<group>"; };
 		7772FEF8183EB6A500FA8B0E /* Readme.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.markdown; sourceTree = "<group>"; };
+		7772FEFA183ECB0A00FA8B0E /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		7772FEFC183ECB2C00FA8B0E /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
 		777FF993183D549500B394C6 /* SLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLNode.h; sourceTree = "<group>"; };
 		777FF994183D550800B394C6 /* SLValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLValue.h; sourceTree = "<group>"; };
 		777FF995183D551300B394C6 /* SLRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLRelationship.h; sourceTree = "<group>"; };
@@ -108,6 +121,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7772FEFD183ECB2C00FA8B0E /* libPods-AFNetworking.a in Frameworks */,
+				7772FEFB183ECB0A00FA8B0E /* libPods.a in Frameworks */,
 				7720FC2F18369CA20092D39B /* libStreamlyne-iOS-SDK.a in Frameworks */,
 				7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */,
 				7720FC2C18369CA20092D39B /* UIKit.framework in Frameworks */,
@@ -142,6 +157,8 @@
 		7720FC1918369CA10092D39B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7772FEFC183ECB2C00FA8B0E /* libPods-AFNetworking.a */,
+				7772FEFA183ECB0A00FA8B0E /* libPods.a */,
 				7720FC1A18369CA10092D39B /* Foundation.framework */,
 				7720FC2818369CA20092D39B /* XCTest.framework */,
 				7720FC2B18369CA20092D39B /* UIKit.framework */,
@@ -236,6 +253,8 @@
 				7720FC2318369CA20092D39B /* Sources */,
 				7720FC2418369CA20092D39B /* Frameworks */,
 				7720FC2518369CA20092D39B /* Resources */,
+				7772FEFF183ECBA000FA8B0E /* Copy Pod Resources */,
+				7772FF00183ECBE800FA8B0E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -316,6 +335,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7772FEFF183ECBA000FA8B0E /* Copy Pod Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pod Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		77F3D531183E7A37000E9F15 /* ShellScript */ = {
