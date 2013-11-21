@@ -28,6 +28,11 @@ static NSDictionary *openNodes;
     return self;
 }
 
+- (NSString *) type
+{
+    return self->element_type;
+}
+
 + (void) readById:(SLNid)nid withCallback:(void (^)(SLNode *))callback
 {
     @throw SLExceptionImplementationNotFound;

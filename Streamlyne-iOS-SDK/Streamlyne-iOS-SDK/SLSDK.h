@@ -11,3 +11,5 @@
 #import "SLNode.h"
 #import "SLRelationship.h"
 #import "SLValue.h"
+// Custom Nodes
+#import "SLUser.h"

@@ -46,6 +46,7 @@
  */
 @property (getter=isSaved, readonly) BOOL saved;
 
+- (NSString *) type;
 
 /**
  Returns the node with id corresponding to {nid}.

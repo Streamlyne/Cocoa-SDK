@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7711C7B1183DCE3F0098C3A6 /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B0183DCE3F0098C3A6 /* SLObject.m */; };
 		7711C7B2183DCE3F0098C3A6 /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B0183DCE3F0098C3A6 /* SLObject.m */; };
+		7711C7BA183DF4A30098C3A6 /* SLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B9183DF4A30098C3A6 /* SLUser.m */; };
+		7711C7BB183DF4A30098C3A6 /* SLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B9183DF4A30098C3A6 /* SLUser.m */; };
 		7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
 		7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2818369CA20092D39B /* XCTest.framework */; };
 		7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
@@ -19,7 +21,6 @@
 		A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDB9A183BAF03006AD769 /* SLNode.m */; };
 		A82CDBA1183BC6BF006AD769 /* SLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDBA0183BC6BF006AD769 /* SLValue.m */; };
 		A82CDBA4183BC6D7006AD769 /* SLRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDBA3183BC6D7006AD769 /* SLRelationship.m */; };
-		A82CDBA8183CFA0E006AD769 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDBA7183CFA0E006AD769 /* User.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		7711C7AF183DCE3F0098C3A6 /* SLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLObject.h; sourceTree = "<group>"; };
 		7711C7B0183DCE3F0098C3A6 /* SLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLObject.m; sourceTree = "<group>"; };
 		7711C7B7183DEDA60098C3A6 /* SLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCommon.h; sourceTree = "<group>"; };
+		7711C7B8183DF4A30098C3A6 /* SLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLUser.h; path = Nodes/SLUser.h; sourceTree = "<group>"; };
+		7711C7B9183DF4A30098C3A6 /* SLUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLUser.m; path = Nodes/SLUser.m; sourceTree = "<group>"; };
 		7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libStreamlyne-iOS-SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7720FC1A18369CA10092D39B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7720FC1E18369CA20092D39B /* Streamlyne-iOS-SDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Streamlyne-iOS-SDK-Prefix.pch"; sourceTree = "<group>"; };
@@ -64,8 +67,6 @@
 		A82CDB9A183BAF03006AD769 /* SLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLNode.m; sourceTree = "<group>"; };
 		A82CDBA0183BC6BF006AD769 /* SLValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLValue.m; sourceTree = "<group>"; };
 		A82CDBA3183BC6D7006AD769 /* SLRelationship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLRelationship.m; sourceTree = "<group>"; };
-		A82CDBA6183CFA0E006AD769 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		A82CDBA7183CFA0E006AD769 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +124,7 @@
 		7720FC1C18369CA20092D39B /* Streamlyne-iOS-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				A82CDBA5183CF9E7006AD769 /* node */,
+				A82CDBA5183CF9E7006AD769 /* Nodes */,
 				7720FC1D18369CA20092D39B /* Supporting Files */,
 				A82CDB99183BAF03006AD769 /* SLSDK.h */,
 				7711C7B7183DEDA60098C3A6 /* SLCommon.h */,
@@ -165,13 +166,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A82CDBA5183CF9E7006AD769 /* node */ = {
+		A82CDBA5183CF9E7006AD769 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				A82CDBA6183CFA0E006AD769 /* User.h */,
-				A82CDBA7183CFA0E006AD769 /* User.m */,
+				7711C7B8183DF4A30098C3A6 /* SLUser.h */,
+				7711C7B9183DF4A30098C3A6 /* SLUser.m */,
 			);
-			name = node;
+			name = Nodes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,11 +256,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A82CDBA8183CFA0E006AD769 /* User.m in Sources */,
 				7711C7B1183DCE3F0098C3A6 /* SLObject.m in Sources */,
 				A82CDBA4183BC6D7006AD769 /* SLRelationship.m in Sources */,
 				A82CDBA1183BC6BF006AD769 /* SLValue.m in Sources */,
 				A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */,
+				7711C7BA183DF4A30098C3A6 /* SLUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7711C7B2183DCE3F0098C3A6 /* SLObject.m in Sources */,
+				7711C7BB183DF4A30098C3A6 /* SLUser.m in Sources */,
 				7720FC3718369CA20092D39B /* Streamlyne_iOS_SDKTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -49,6 +49,9 @@
         NSLog(@"Outgoing!");
     }
     
+    NSLog(@"Creating SLUser Node");
+    SLUser *user = [[SLUser alloc] init];
+    NSLog(@"%@", [user type]);
     
     return;
     
