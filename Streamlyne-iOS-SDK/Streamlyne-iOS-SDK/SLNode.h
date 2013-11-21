@@ -46,8 +46,6 @@
  */
 @property (getter=isSaved, readonly) BOOL saved;
 
-- (NSString *) type;
-
 /**
  Returns the node with id corresponding to {nid}.
  */
@@ -64,27 +62,27 @@
  Creates a node client side (not persisted). This node needs to be
  be saved to be persisted in any manner.
  */
-+ (SLNode *) createWithData:(NSDictionary *)data withRels:(SLRelationshipArray *)rels;
++ (instancetype) createWithData:(NSDictionary *)data withRels:(SLRelationshipArray *)rels;
 
 
 /**
  Creates a node client side (not persisted). This node needs to be
  be saved to be persisted in any manner.
  */
-+ (SLNode *) createWithData:(NSDictionary *)data;
++ (instancetype) createWithData:(NSDictionary *)data;
 
 
 /**
  Creates a node client side (not persisted). This node needs to be
  be saved to be persisted in any manner.
  */
-+ (SLNode *) createWithRels:(SLRelationshipArray *)rels;
++ (instancetype) createWithRels:(SLRelationshipArray *)rels;
 
 /**
  Creates a node client side (not persisted). This node needs to be
  be saved to be persisted in any manner.
  */
-+ (SLNode *) create;
++ (instancetype) create;
 
 
 /**
@@ -129,6 +127,22 @@
  id's.
  */
 + (void) deleteWithNodeArray:(SLNodeArray *)nodes withProgressCallback:(void (^)(NSUInteger idx))progress withCallback:(SLSuccessCallback)callback;
+
+
+/**
+ Return the {type} of this node.
+ */
+- (NSString *) type;
+
+/**
+ Returns the {rels}, relationships, of this node.
+ */
+- (SLRelationshipArray *) relationships;
+
+/**
+ Pushes a relationship into {rels}, verify if start or end node is this node.
+ */
+- (BOOL) addRelationship:(SLRelationship *)theRel;
 
 
 /**

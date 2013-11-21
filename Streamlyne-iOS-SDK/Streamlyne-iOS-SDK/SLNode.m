@@ -8,6 +8,7 @@
 
 #import "SLNode.h"
 #import "SLValue.h"
+#import "SLRelationship.h"
 
 @implementation SLNode
 
@@ -28,11 +29,6 @@ static NSDictionary *openNodes;
     return self;
 }
 
-- (NSString *) type
-{
-    return self->element_type;
-}
-
 + (void) readById:(SLNid)nid withCallback:(void (^)(SLNode *))callback
 {
     @throw SLExceptionImplementationNotFound;
@@ -45,22 +41,22 @@ static NSDictionary *openNodes;
     // TODO: Implement AFNetworking
 }
 
-+ (SLNode *) createWithData:(NSDictionary *)data withRels:(SLRelationshipArray *)rels
++ (instancetype) createWithData:(NSDictionary *)data withRels:(SLRelationshipArray *)rels
 {
     return [[[self class] alloc] init];
 }
 
-+ (SLNode *) createWithData:(NSDictionary *)data
++ (instancetype) createWithData:(NSDictionary *)data
 {
     return [[self class] createWithData:data withRels:nil];
 }
 
-+ (SLNode *) createWithRels:(SLRelationshipArray *)rels
++ (instancetype) createWithRels:(SLRelationshipArray *)rels
 {
     return [[self class] createWithData:nil withRels:rels];
 }
 
-+ (SLNode *) create
++ (instancetype) create
 {
     return [[self class] createWithData:nil withRels:nil];
 }
@@ -126,6 +122,28 @@ static NSDictionary *openNodes;
             completed++;
             completionCallback();
         }];
+    }
+}
+
+
+- (NSString *) type
+{
+    return self->element_type;
+}
+
+- (SLRelationshipArray *) relationships
+{
+    return self->rels;
+}
+
+- (BOOL) addRelationship:(SLRelationship *)theRel
+{
+    // Validate relationship
+    if ( (theRel->startNode == self) || (theRel->endNode == self) ) {
+        [self->rels addObject:theRel];
+        return true;
+    } else {
+        return false;
     }
 }
 

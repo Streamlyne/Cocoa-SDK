@@ -26,10 +26,10 @@
     NSDictionary *data;
     
 @public
-    SLNid startNodeNid;
+    SLNode *startNode;
     
 @public
-    SLNid endNodeNid;
+    SLNode *endNode;
     
 @protected
     Boolean *isSaved;

@@ -17,18 +17,18 @@
     if (self) {
         // Initialize variables
         self->name = theName;
-        self->startNodeNid = startNode->nid;
-        self->endNodeNid = endNode->nid;
+        self->startNode = startNode;
+        self->endNode = endNode;
     }
     return self;
 }
 
 - (SLRelationshipDirection) directionWithNode:(SLNode *)theNode
 {
-    if (self->endNodeNid == theNode->nid)
+    if (self->endNode == theNode)
     {
         return SLRelationshipIncoming;
-    } else if (self->startNodeNid == theNode->nid)
+    } else if (self->startNode == theNode)
     {
         return SLRelationshipOutgoing;
     } else
