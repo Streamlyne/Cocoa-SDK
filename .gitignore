@@ -1,5 +1,10 @@
+# .gitignore for Streamlyne Objective-C SDK
+
+# Streamlyne Specific
+docs/
+
 #########################
-# .gitignore file for Xcode4 / OS X Source projects
+# .gitignore file for Xcode 4 & 5 / OS X Source projects
 #
 # Version 2.1
 # For latest version, see: http://stackoverflow.com/questions/49478/git-ignore-file-for-xcode-projects
@@ -14,6 +19,26 @@
 # files that we want to exclude
 #
 #########################
+
+
+# Xcode 5
+.DS_Store
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+*.xcworkspace
+!default.xcworkspace
+xcuserdata
+profile
+*.moved-aside
+DerivedData
+.idea/
 
 #####
 # OS X temporary files that should never be committed
@@ -159,5 +184,3 @@ xcuserdata
 #
 # ...none. Everything is now explained.
 
-*swp
-docs
