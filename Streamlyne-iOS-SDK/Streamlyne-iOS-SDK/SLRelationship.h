@@ -40,7 +40,7 @@
  */
 - (id) initWithName:(NSString *)theName withStartNode:(SLNode *)startNode withEndNode:(SLNode *)endNode;
 
-- (SLRelationshipDirection *) directionWithNode:(SLNode *)theNode;
+- (SLRelationshipDirection) directionWithNode:(SLNode *)theNode;
 
 @end
 

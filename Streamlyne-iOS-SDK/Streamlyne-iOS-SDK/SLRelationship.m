@@ -23,7 +23,7 @@
     return self;
 }
 
-- (SLRelationshipDirection *) directionWithNode:(SLNode *)theNode
+- (SLRelationshipDirection) directionWithNode:(SLNode *)theNode
 {
     if (self->endNodeNid == theNode->nid)
     {
@@ -33,7 +33,7 @@
         return SLRelationshipOutgoing;
     } else
     {
-        return nil;
+        return false;
     }
 }
 

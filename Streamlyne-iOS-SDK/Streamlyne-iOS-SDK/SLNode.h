@@ -7,8 +7,6 @@
 //
 
 #import "SLObject.h"
-#import "SLNodeArray.h"
-#import "SLRelationshipArray.h"
 
 /** --------------------------------------------------------------------------------
  */

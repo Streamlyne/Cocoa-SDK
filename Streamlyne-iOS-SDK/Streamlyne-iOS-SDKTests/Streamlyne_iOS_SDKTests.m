@@ -32,13 +32,25 @@
 {
     // XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
     
+    NSLog(@"Creating Value");
+    SLValue *val = [[SLValue alloc] initWithType:@"Awesome" withValue:@"totally" withPredicates:@[]];
+    
     NSLog(@"Creating Node");
-    SLNode *node1 = [SLNode createWithData:@{@"test":@"ing"} withRels:(SLRelationshipArray *)@[@"123"]];
+    SLNode *node1 = [SLNode createWithData:@{@"test":val} withRels:(SLRelationshipArray *)@[@"123"]];
     NSLog(@"%@", node1);
+    SLNode *node2 = [SLNode createWithData:@{@"test":val} withRels:(SLRelationshipArray *)@[@"123"]];
     
     NSLog(@"Creating Relationship");
+    SLRelationship *rel1 = [[SLRelationship alloc] initWithName:@"creator" withStartNode:node1 withEndNode:node2];
+    SLRelationshipDirection dir = [rel1 directionWithNode:node1];
+    if (dir == SLRelationshipIncoming) {
+        NSLog(@"Incoming!");
+    } else if (dir == SLRelationshipIncoming) {
+        NSLog(@"Outgoing!");
+    }
     
     
+    return;
     
     NSLog(@"Deleting nodes");
     SLSuccessCallback completionCallback = ^(BOOL successful) {

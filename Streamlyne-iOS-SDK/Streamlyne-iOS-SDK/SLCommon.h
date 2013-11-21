@@ -30,6 +30,9 @@ typedef NS_ENUM(NSUInteger, SLRelationshipDirection)
  */
 typedef unsigned long int SLNid;
 
+typedef NSMutableArray SLRelationshipArray;
+typedef NSMutableArray SLNodeArray;
+
 /**
  Typedef for Successful Callback
  */
