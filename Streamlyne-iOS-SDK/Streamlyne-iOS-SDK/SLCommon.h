@@ -46,6 +46,7 @@ typedef void(^SLSuccessCallback)(BOOL successful);
 /**
  // Circular dependencies
  */
+@class SLAPI;
 @class SLNode;
 @class SLValue;
 @class SLRelationship;
