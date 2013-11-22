@@ -81,7 +81,11 @@
     switch (theMethod) {
         case SLHTTPMethodGET:
         {
-            @throw SLExceptionImplementationNotFound;
+            [self->httpManager GET:[fullPath absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"JSON: %@", responseObject);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+            }];
         }
             break;
         case SLHTTPMethodPOST:

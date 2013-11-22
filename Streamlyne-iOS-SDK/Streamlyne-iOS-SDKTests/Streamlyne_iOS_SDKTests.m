@@ -33,12 +33,15 @@
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
     
     SLAPIManager *manager = [SLAPIManager sharedManager];
-    [manager setBaseURL:[NSURL URLWithString:@"http://54.208.98.191:5000/api/"]];
+    //[manager setBaseURL:[NSURL URLWithString:@"http://54.208.98.191:5000/api/"]];
+    [manager setBaseURL:[NSURL URLWithString:@"http://localhost:5000/api/"]];
     // [[SLAPIManager sharedManager] authenticateWithUserEmail:@"Glavin" withPassword:@"test"];
     
     [manager setEmail:@"testing@streamlyne.co"];
     [manager setToken:@"sl-dev"];
     
+    
+    [manager performRequestWithMethod:SLHTTPMethodGET withPath:@"/user" withParameters:nil withCallback:nil];
     
 }
 

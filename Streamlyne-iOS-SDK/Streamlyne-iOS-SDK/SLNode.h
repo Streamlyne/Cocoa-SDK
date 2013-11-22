@@ -8,12 +8,10 @@
 
 #import "SLObject.h"
 
-/** --------------------------------------------------------------------------------
+/**
+ `SLNode` is intended to be implemented and then subclassed.
  */
 @interface SLNode : SLObject {
-    /**
-     SLNode is intended to be implemented and then subclassed.
-     */
     
     /**
      The node type name
@@ -41,13 +39,15 @@
 
 
 /**
- Boolean stating whether the SLNode has been persisted since the previous most
+ Boolean stating whether the `SLNode` has been persisted since the previous most
  call to update.
  */
 @property (getter=isSaved, readonly) BOOL saved;
 
 /**
- Returns the node with id corresponding to {nid}.
+ Returns the node with id corresponding to `SLNid`.
+ @param nid     A valid `SLNid` for a node that will be retrieved from the database.
+ @param callback    A callback for when the asycronous request has returned with the node.
  */
 + (void) readById:(SLNid)nid withCallback:(void (^)(SLNode *))callback;
 
