@@ -22,21 +22,16 @@
 
 /* Begin PBXBuildFile section */
 		7711C7B1183DCE3F0098C3A6 /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B0183DCE3F0098C3A6 /* SLObject.m */; };
-		7711C7B2183DCE3F0098C3A6 /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B0183DCE3F0098C3A6 /* SLObject.m */; };
 		7711C7BA183DF4A30098C3A6 /* SLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B9183DF4A30098C3A6 /* SLUser.m */; };
-		7711C7BB183DF4A30098C3A6 /* SLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7711C7B9183DF4A30098C3A6 /* SLUser.m */; };
 		7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
 		7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2818369CA20092D39B /* XCTest.framework */; };
 		7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
 		7720FC2C18369CA20092D39B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2B18369CA20092D39B /* UIKit.framework */; };
 		7720FC2F18369CA20092D39B /* libStreamlyne-iOS-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */; };
 		7720FC3518369CA20092D39B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7720FC3318369CA20092D39B /* InfoPlist.strings */; };
-		7720FC3718369CA20092D39B /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
 		7772FEF7183EB66200FA8B0E /* Guide in Resources */ = {isa = PBXBuildFile; fileRef = 7772FEF6183EB66200FA8B0E /* Guide */; };
-		7772FEFB183ECB0A00FA8B0E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7772FEFA183ECB0A00FA8B0E /* libPods.a */; };
-		7772FEFD183ECB2C00FA8B0E /* libPods-AFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7772FEFC183ECB2C00FA8B0E /* libPods-AFNetworking.a */; };
+		77ED5DB0183FE91500905A3D /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
 		77F3D534183E8852000E9F15 /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F3D533183E8852000E9F15 /* SLAPIManager.m */; };
-		77F3D535183E8852000E9F15 /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F3D533183E8852000E9F15 /* SLAPIManager.m */; };
 		7EAFA7E2567346ADB124F0EE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2A9B6E54234EDCAD80864F /* libPods.a */; };
 		A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDB9A183BAF03006AD769 /* SLNode.m */; };
 		A82CDBA1183BC6BF006AD769 /* SLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDBA0183BC6BF006AD769 /* SLValue.m */; };
@@ -121,8 +116,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7772FEFD183ECB2C00FA8B0E /* libPods-AFNetworking.a in Frameworks */,
-				7772FEFB183ECB0A00FA8B0E /* libPods.a in Frameworks */,
 				7720FC2F18369CA20092D39B /* libStreamlyne-iOS-SDK.a in Frameworks */,
 				7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */,
 				7720FC2C18369CA20092D39B /* UIKit.framework in Frameworks */,
@@ -385,10 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7711C7B2183DCE3F0098C3A6 /* SLObject.m in Sources */,
-				7711C7BB183DF4A30098C3A6 /* SLUser.m in Sources */,
-				7720FC3718369CA20092D39B /* Streamlyne_iOS_SDKTests.m in Sources */,
-				77F3D535183E8852000E9F15 /* SLAPIManager.m in Sources */,
+				77ED5DB0183FE91500905A3D /* Streamlyne_iOS_SDKTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +502,7 @@
 		};
 		7720FC3E18369CA20092D39B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 18A4AB8E472B41DBB4ABEB40 /* Pods.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -533,6 +524,7 @@
 		};
 		7720FC3F18369CA20092D39B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 18A4AB8E472B41DBB4ABEB40 /* Pods.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
