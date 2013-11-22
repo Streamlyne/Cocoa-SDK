@@ -9,12 +9,11 @@
 #import "SLNode.h"
 #import "SLValue.h"
 #import "SLRelationship.h"
+#import "SLAPIManager.h"
 
 @implementation SLNode
 
 @synthesize saved = _saved;
-
-static NSDictionary *openNodes;
 
 - (id) init
 {
@@ -24,9 +23,16 @@ static NSDictionary *openNodes;
         _saved = false;
         data = [NSDictionary dictionary];
         rels = [SLRelationshipArray array];
-        element_type = @"SLNode";
+        //element_type = @"SLNode";
     }
     return self;
+}
+
++ (NSString *) type
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
 }
 
 + (void) readById:(SLNid)nid withCallback:(void (^)(SLNode *))callback
@@ -37,8 +43,13 @@ static NSDictionary *openNodes;
 
 + (void) readAllWithCallback:(void (^)(SLNodeArray *))callback
 {
-    @throw SLExceptionImplementationNotFound;
-    // TODO: Implement AFNetworking
+    void (^completionBlock)(BOOL) = ^(BOOL success){
+        NSLog(@"Completion Block!");
+    };
+
+    NSDictionary *jsonQuery = @{@"filter":@{@"fields":[NSNumber numberWithBool:TRUE], @"rels":[NSNumber numberWithBool:TRUE]}};
+    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:jsonQuery withCallback:completionBlock];
+
 }
 
 + (instancetype) createWithData:(NSDictionary *)data withRels:(SLRelationshipArray *)rels
@@ -125,10 +136,9 @@ static NSDictionary *openNodes;
     }
 }
 
-
 - (NSString *) type
 {
-    return self->element_type;
+    return [[self class] type];
 }
 
 - (SLRelationshipArray *) relationships

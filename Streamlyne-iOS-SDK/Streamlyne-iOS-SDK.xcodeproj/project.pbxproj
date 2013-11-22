@@ -31,6 +31,7 @@
 		7720FC3518369CA20092D39B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7720FC3318369CA20092D39B /* InfoPlist.strings */; };
 		7772FEF7183EB66200FA8B0E /* Guide in Resources */ = {isa = PBXBuildFile; fileRef = 7772FEF6183EB66200FA8B0E /* Guide */; };
 		77ED5DB0183FE91500905A3D /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
+		77ED5DB3183FFCC700905A3D /* SLWorkOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77ED5DB2183FFCC700905A3D /* SLWorkOrder.m */; };
 		77F3D534183E8852000E9F15 /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F3D533183E8852000E9F15 /* SLAPIManager.m */; };
 		7EAFA7E2567346ADB124F0EE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2A9B6E54234EDCAD80864F /* libPods.a */; };
 		A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDB9A183BAF03006AD769 /* SLNode.m */; };
@@ -93,6 +94,8 @@
 		777FF993183D549500B394C6 /* SLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLNode.h; sourceTree = "<group>"; };
 		777FF994183D550800B394C6 /* SLValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLValue.h; sourceTree = "<group>"; };
 		777FF995183D551300B394C6 /* SLRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLRelationship.h; sourceTree = "<group>"; };
+		77ED5DB1183FFCC700905A3D /* SLWorkOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLWorkOrder.h; sourceTree = "<group>"; };
+		77ED5DB2183FFCC700905A3D /* SLWorkOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLWorkOrder.m; sourceTree = "<group>"; };
 		77F3D532183E8852000E9F15 /* SLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAPIManager.h; sourceTree = "<group>"; };
 		77F3D533183E8852000E9F15 /* SLAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAPIManager.m; sourceTree = "<group>"; };
 		7D2A9B6E54234EDCAD80864F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,6 +216,8 @@
 			children = (
 				7711C7B8183DF4A30098C3A6 /* SLUser.h */,
 				7711C7B9183DF4A30098C3A6 /* SLUser.m */,
+				77ED5DB1183FFCC700905A3D /* SLWorkOrder.h */,
+				77ED5DB2183FFCC700905A3D /* SLWorkOrder.m */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -367,6 +372,7 @@
 			files = (
 				7711C7B1183DCE3F0098C3A6 /* SLObject.m in Sources */,
 				A82CDBA4183BC6D7006AD769 /* SLRelationship.m in Sources */,
+				77ED5DB3183FFCC700905A3D /* SLWorkOrder.m in Sources */,
 				A82CDBA1183BC6BF006AD769 /* SLValue.m in Sources */,
 				77F3D534183E8852000E9F15 /* SLAPIManager.m in Sources */,
 				A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */,

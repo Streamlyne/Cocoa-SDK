@@ -32,6 +32,13 @@
 {
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
     
+    __block BOOL hasCalledBack = NO;
+    
+    void (^completionBlock)(BOOL) = ^(BOOL success){
+        NSLog(@"Completion Block!");
+        hasCalledBack = YES;
+    };
+    
     SLAPIManager *manager = [SLAPIManager sharedManager];
     //[manager setBaseURL:[NSURL URLWithString:@"http://54.208.98.191:5000/api/"]];
     [manager setBaseURL:[NSURL URLWithString:@"http://localhost:5000/api/"]];
@@ -40,8 +47,32 @@
     [manager setEmail:@"testing@streamlyne.co"];
     [manager setToken:@"sl-dev"];
     
+    //[manager performRequestWithMethod:SLHTTPMethodGET withPath:@"user/" withParameters:nil withCallback:completionBlock];
     
-    [manager performRequestWithMethod:SLHTTPMethodGET withPath:@"/user" withParameters:nil withCallback:nil];
+    [SLUser readAllWithCallback:^(SLNodeArray *nodes){
+        completionBlock(true);
+    }];
+    
+    // Repeatedly process events in the run loop until we see the callback run.
+    
+    // This code will wait for up to 10 seconds for something to come through
+    // on the main queue before it times out. If your tests need longer than
+    // that, bump up the time limit. Giving it a timeout like this means your
+    // tests won't hang indefinitely.
+    
+    // -[NSRunLoop runMode:beforeDate:] always processes exactly one event or
+    // returns after timing out.
+    
+    NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:10];
+    while (hasCalledBack == NO && [loopUntil timeIntervalSinceNow] > 0) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:loopUntil];
+    }
+    
+    if (!hasCalledBack)
+    {
+        // STFail(@"I know this will fail, thanks");
+    }
     
 }
 

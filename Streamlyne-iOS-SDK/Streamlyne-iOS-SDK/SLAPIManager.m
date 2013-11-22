@@ -29,7 +29,9 @@
         userEmail = nil;
         userToken = nil;
         baseURL = nil;
-        httpManager = [AFHTTPRequestOperationManager init];
+        httpManager = [AFHTTPRequestOperationManager manager];
+        httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        [httpManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     }
     return self;
 }
@@ -63,12 +65,12 @@
     [self->httpManager.requestSerializer setValue:self->userToken forHTTPHeaderField:@"X-SL-Token"];
 }
 
-- (void) performPostRequestWithPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(id)theCallback
+- (void) performPostRequestWithPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLSuccessCallback)theCallback
 {
     [self performRequestWithMethod:SLHTTPMethodPOST withPath:thePath withParameters:theParams withCallback:theCallback];
 }
 
-- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(id)theCallback
+- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLSuccessCallback)theCallback
 {
 
     if (self->baseURL == nil)
@@ -76,15 +78,31 @@
         @throw SLExceptionMissingBaseUrl;
     }
     
+    NSLog(@"thePath: %@", thePath);
     NSURL *fullPath = [NSURL URLWithString:thePath relativeToURL:baseURL];
+    NSLog(@"Full path: %@", [fullPath absoluteString]);
     
     switch (theMethod) {
         case SLHTTPMethodGET:
         {
-            [self->httpManager GET:[fullPath absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theParams
+                                                               options:NSJSONWritingPrettyPrinted
+                                                                 error:&error];
+            NSString *encodedJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            NSLog(@"encodedJson: %@", encodedJson);
+            //encodedJson = @"{\"filter\":{\"fields\":true,\"rels\":true}}";
+            [self->httpManager GET:[fullPath absoluteString] parameters:@{@"p":encodedJson} success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"JSON: %@", responseObject);
+                if (theCallback != nil) {
+                    theCallback(true);
+                }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
+                NSLog(@"Response: %@", operation.responseString);
+                if (theCallback != nil) {
+                    theCallback(true);
+                }
             }];
         }
             break;

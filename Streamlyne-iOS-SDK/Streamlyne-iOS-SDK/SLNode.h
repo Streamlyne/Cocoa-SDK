@@ -14,14 +14,6 @@
 @interface SLNode : SLObject {
     
     /**
-     The node type name
-     
-     This should be defined by the subclass implementation of SLNode.
-     */
-@protected
-    NSString *element_type;
-    
-    /**
      String s -> SLValue s
      */
 @protected
@@ -37,6 +29,12 @@
     SLNid nid;
 }
 
+/**
+ The node type name
+ 
+ This should be defined by the subclass implementation of `SLNode`.
+ */
++ (NSString *) type;
 
 /**
  Boolean stating whether the `SLNode` has been persisted since the previous most

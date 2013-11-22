@@ -15,10 +15,14 @@
     self = [super init];
     if (self) {
         // Initialize variables
-        self->element_type = @"SLUser";
+        //self->element_type = @"SLUser";
     }
     return self;
 }
 
++ (NSString *) type
+{
+    return @"user";
+}
 
 @end
