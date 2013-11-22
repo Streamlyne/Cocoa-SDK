@@ -31,8 +31,15 @@
 - (void)testExample
 {
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
-    [[SLAPIManager sharedManager] authenticateWithUserEmail:@"Glavin" withPassword:@"test"];
-
+    
+    SLAPIManager *manager = [SLAPIManager sharedManager];
+    [manager setBaseURL:[NSURL URLWithString:@"http://54.208.98.191:5000/api/"]];
+    // [[SLAPIManager sharedManager] authenticateWithUserEmail:@"Glavin" withPassword:@"test"];
+    
+    [manager setEmail:@"testing@streamlyne.co"];
+    [manager setToken:@"sl-dev"];
+    
+    
 }
 
 - (void) testNode

@@ -7,9 +7,15 @@
 //
 
 #import "SLAPIManager.h"
-#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking.h>
 
-@interface SLAPIManager ()
+@interface SLAPIManager () {
+    /**
+     
+     */
+    AFHTTPRequestOperationManager *httpManager;
+}
+
 @end
 
 @implementation SLAPIManager
@@ -21,18 +27,16 @@
     {
         // Initialize variables
         userEmail = nil;
-        token = nil;
-        password = nil;
-        serverAddress = nil;
-        serverPort = 80;
-        pathRoot = @"";
+        userToken = nil;
+        baseURL = nil;
+        httpManager = [AFHTTPRequestOperationManager init];
     }
     return self;
 }
 
 + (instancetype) sharedManager
 {
-    static SLAPI *sharedSingleton;
+    static SLAPIManager *sharedSingleton;
     @synchronized(self)
     {
         if (!sharedSingleton) {
@@ -42,23 +46,57 @@
     }
 }
 
-- (void) performPostRequestWithPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(id)theCallback
+- (void) setBaseURL:(NSURL *)theBaseURL
 {
-
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *fullPath = [NSString stringWithFormat:@"%@:%lu/%@/%@", serverAddress, (unsigned long)serverPort, pathRoot,  thePath];
-    NSLog(@"%@", fullPath);
-    [manager POST:fullPath parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-
+    self->baseURL = theBaseURL;
 }
 
-- (void) performRequestWithMethod:(NSString *)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(id)theCallback
+- (void) setEmail:(NSString *)theEmail
 {
-    @throw SLExceptionImplementationNotFound;
+    self->userEmail = theEmail;
+    [self->httpManager.requestSerializer setValue:self->userEmail forHTTPHeaderField:@"X-SL-Email"];
+}
+
+- (void) setToken:(NSString *)theToken
+{
+    self->userToken = theToken;
+    [self->httpManager.requestSerializer setValue:self->userToken forHTTPHeaderField:@"X-SL-Token"];
+}
+
+- (void) performPostRequestWithPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(id)theCallback
+{
+    [self performRequestWithMethod:SLHTTPMethodPOST withPath:thePath withParameters:theParams withCallback:theCallback];
+}
+
+- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(id)theCallback
+{
+
+    if (self->baseURL == nil)
+    {
+        @throw SLExceptionMissingBaseUrl;
+    }
+    
+    NSURL *fullPath = [NSURL URLWithString:thePath relativeToURL:baseURL];
+    
+    switch (theMethod) {
+        case SLHTTPMethodGET:
+        {
+            @throw SLExceptionImplementationNotFound;
+        }
+            break;
+        case SLHTTPMethodPOST:
+        {
+            [self->httpManager POST:[fullPath absoluteString] parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"JSON: %@", responseObject);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+            }];
+        }
+            break;
+        default:
+            @throw SLExceptionImplementationNotFound;
+            break;
+    }
 }
 
 

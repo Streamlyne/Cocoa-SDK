@@ -93,8 +93,8 @@
 		7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Streamlyne_iOS_SDKTests.m; sourceTree = "<group>"; };
 		7772FEF6183EB66200FA8B0E /* Guide */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Guide; sourceTree = "<group>"; };
 		7772FEF8183EB6A500FA8B0E /* Readme.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.markdown; sourceTree = "<group>"; };
-		7772FEFA183ECB0A00FA8B0E /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
-		7772FEFC183ECB2C00FA8B0E /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
+		7772FEFA183ECB0A00FA8B0E /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		7772FEFC183ECB2C00FA8B0E /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
 		777FF993183D549500B394C6 /* SLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLNode.h; sourceTree = "<group>"; };
 		777FF994183D550800B394C6 /* SLValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLValue.h; sourceTree = "<group>"; };
 		777FF995183D551300B394C6 /* SLRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLRelationship.h; sourceTree = "<group>"; };

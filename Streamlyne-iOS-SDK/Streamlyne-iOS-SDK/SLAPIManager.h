@@ -8,6 +8,23 @@
 
 #import "SLObject.h"
 
+/**
+ 
+ */
+typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
+{
+    SLHTTPMethodGET,
+    SLHTTPMethodPOST,
+    SLHTTPMethodPUT,
+    SLHTTPMethodDELETE
+};
+
+/**
+ 
+ */
+#define SLExceptionMissingBaseUrl [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Must specify base URL." userInfo:nil]
+
+
 @interface SLAPIManager : SLObject {
     @private
     /**
@@ -17,23 +34,11 @@
     /**
      
      */
-    NSString *password;
+    NSString *userToken;
     /**
      
      */
-    NSString *token;
-    /**
-     Address of API service.
-     */
-    NSString *serverAddress;
-    /**
-     Port number of API service.
-     */
-    NSUInteger serverPort;
-    /**
-     Path root to API.
-     */
-    NSString *pathRoot;
+    NSURL *baseURL;
     
     @protected
     
@@ -42,9 +47,24 @@
 }
 
 /**
- Returns the Shared Manager instance of `SLAPI`.
+ Returns the Shared Manager instance of `SLAPIManager`.
  */
 + (instancetype) sharedManager;
+
+/**
+ 
+ */
+- (void) setBaseURL:(NSURL *)theBaseURL;
+
+/**
+ 
+ */
+- (void) setEmail:(NSString *)theEmail;
+
+/**
+ 
+ */
+- (void) setToken:(NSString *)theToken;
 
 /**
  Perform an API POST request against the server.
@@ -59,7 +79,7 @@
  @param thePath
  @param theCallback
  */
-- (void) performRequestWithMethod:(NSString *)theMethod withPath:(NSString *)thePath withCallback:(id)theCallback;
+- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(id)theCallback;
 
 /**
  Authenticate with user credentials.
