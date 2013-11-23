@@ -150,9 +150,36 @@
 }
 
 
-- (void) authenticateWithUserEmail:(NSString *)theEmail withPassword:(NSString *)thePassword
+- (void) authenticateWithUserEmail:(NSString *)theEmail withPassword:(NSString *)thePassword withCallback:(SLSuccessCallback)theCallback;
 {
-    [self performRequestWithMethod:SLHTTPMethodPOST withPath:@"authenticate" withParameters:@{@"email":theEmail, @"password":thePassword} withCallback:nil];
+    if (theEmail != nil && thePassword != nil )
+    {
+        
+        [self performRequestWithMethod:SLHTTPMethodPOST withPath:@"authenticate" withParameters:@{@"email":theEmail, @"password":thePassword} withCallback:^(NSError *error, id operation, id responseObject) {
+            if (error == nil )
+            {
+                // Store the token
+                NSDictionary *response = (NSDictionary *)responseObject;
+                [self setEmail:response[@"email"]];
+                [self setToken:response[@"token"]];
+                
+                theCallback(true);
+            } else
+            {
+                theCallback(false);
+            }
+        }];
+    } else
+    {
+        theCallback(false);
+    }
 }
+
+- (void) authenticateWithUser:(SLUser *)theUser
+                 withCallback:(SLSuccessCallback)theCallback
+{
+    [self authenticateWithUserEmail:[[theUser get:@"email"] get] withPassword:[[theUser get:@"password"] get] withCallback:theCallback];
+}
+
 
 @end

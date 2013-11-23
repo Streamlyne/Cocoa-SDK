@@ -153,7 +153,7 @@
     
     __block int pendingCallbacks = 0;
     
-    void (^completionBlock)(BOOL) = ^(BOOL success){
+    SLSuccessCallback completionBlock = ^(BOOL success){
         NSLog(@"Completion Block: '%d'", pendingCallbacks);
         pendingCallbacks = pendingCallbacks - 1; // Decrement
     };
@@ -164,7 +164,7 @@
     //NSLog(@"Creating SLUser Node");
     int r = arc4random() % 100;
     NSDictionary *data = @{
-        @"email": [NSString stringWithFormat:@"test-%u@gmail.com", r],
+        @"email": [NSString stringWithFormat:@"test-%u@streamlyne.co", r],
         @"password": @"test",
         @"job_title": @"developer",
         @"name_first": @"Testy",
@@ -172,25 +172,59 @@
         };
     
     SLUser *user1 = [SLUser createWithData:data withRels:(SLRelationshipArray *)@[]];
-    
     pendingCallbacks++;
-    [SLOrganization readAllWithCallback:^(SLNodeArray *nodes) {
-        SLOrganization *org1 = (SLOrganization *) nodes[0];
+    [SLOrganization readAllWithCallback:^(SLNodeArray *orgs) {
+        SLOrganization *org1 = (SLOrganization *) orgs[0];
+        NSLog(@"%lu number of Organizations", (unsigned long)[orgs count]);
+
         //NSLog(@"Organization: %@", org1);
-        
+        /*
         SLRelationship *rel = [[SLRelationship alloc] initWithName:@"member" withStartNode:user1 withEndNode:org1];
         //[user1 addRelationship:rel];
-        
         //NSLog(@"User: %@", user1);
-        
         NSLog(@"Dir User: %u", [rel directionWithNode:user1]);
         NSLog(@"Dir Org: %u", [rel directionWithNode:org1]);
-        
         pendingCallbacks++;
         [user1 saveWithCallback:completionBlock];
+        */
+        
+        pendingCallbacks++;
+        [SLUser registerUser:user1 withOrganization:org1 withCallback:^(BOOL success) {
+            
+            // Authenticate / Login
+            pendingCallbacks++;
+            [[SLAPIManager sharedManager] authenticateWithUser:user1 withCallback:completionBlock];
+            
+            // Read All
+            pendingCallbacks++;
+            [SLUser readAllWithCallback:^(SLNodeArray *users){
+                //NSLog(@"Users: %@", users);
+                NSLog(@"%lu number of Users", (unsigned long)[users count]);
+                completionBlock(true);
+            }];
+            
+            /*
+            // Update
+            pendingCallbacks++;
+            [user1 saveWithCallback:completionBlock];
+            */
+            
+            completionBlock(true);
+        }];
         
         completionBlock(true);
     }];
+    
+    // Authenticate
+    /*
+     pendingCallbacks++;
+    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodPOST withPath:@"authenticate" withParameters:@{@"email":@"test-46@gmail.com", @"password":@"test"} withCallback:^(NSError *error, id operation, id responseObject) {
+            NSLog(@"Authentication completionBlock!");
+            NSLog(@"<%@>: %@", [responseObject class], responseObject);
+            completionBlock(true);
+    }];
+     */
+    
     
     //NSLog(@"%@", [user type]);
     //[SLNode deleteWithNode:user];

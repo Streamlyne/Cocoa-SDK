@@ -7,6 +7,7 @@
 //
 
 #import "SLObject.h"
+#import "SLUser.h"
 
 /**
  
@@ -73,13 +74,27 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
  @param thePath
  @param theCallback
  */
-- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLRequestCallback)theCallback;
+- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod
+                         withPath:(NSString *)thePath
+                   withParameters:(NSDictionary *)theParams
+                     withCallback:(SLRequestCallback)theCallback;
 
 /**
  Authenticate with user credentials.
  @param theEmail    The user's email.
  @param thePassword The passsword.
  */
-- (void) authenticateWithUserEmail:(NSString *)theEmail withPassword:(NSString *)thePassword;
+- (void) authenticateWithUserEmail:(NSString *)theEmail
+                      withPassword:(NSString *)thePassword
+                      withCallback:(SLSuccessCallback)theCallback;
+
+/**
+ Authenticate with user credentials.
+ @param theEmail    The user's email.
+ @param thePassword The passsword.
+ */
+- (void) authenticateWithUser:(SLUser *)theUser
+                 withCallback:(SLSuccessCallback)theCallback;
+
 
 @end

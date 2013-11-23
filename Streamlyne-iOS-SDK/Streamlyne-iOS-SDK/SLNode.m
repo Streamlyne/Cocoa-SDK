@@ -282,7 +282,7 @@
     NSString *key;
     for (key in data)
     {
-        SLValue *val = [data objectForKey:key];
+        SLValue *val = [self->data objectForKey:key];
         if (![val isSaved])
         {
             // Value is not already saved
@@ -291,7 +291,7 @@
     }
     NSMutableArray *notSavedRels = [NSMutableArray array];
     SLRelationship* rel;
-    for (rel in rels)
+    for (rel in self->rels)
     {
         SLRelationshipDirection dir = [rel directionWithNode:self];
         
@@ -328,13 +328,27 @@
         NSLog(@"<%@>: %@", [responseObject class], responseObject);
         
         // TODO: Check if successful, then mark the successful data and relationship fields as `saved`
-        
-        // Process
-        //id node = [[self class] createWithData:responseObject[@"data"] withRels:nil];
-        //((SLNode *)node)->nid = (SLNid) responseObject[@"id"];
-        
-        // Return
-        callback(true);
+        if (error == nil)
+        {
+            NSDictionary *responseData = (NSDictionary *)responseObject;
+            
+            // Update the Node Id.
+            [self setNid:responseData[@"id"]];
+            
+            // Mark all data as saved.
+            NSString *key;
+            for (key in self->data)
+            {
+                SLValue *val = [self->data objectForKey:key];
+                [val setSaved]; // Mark as saved.
+            }
+            
+            // Return
+            callback(true);
+                
+        } else {
+            callback(false);
+        }
     };
     //
     NSString *thePath;

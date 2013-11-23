@@ -8,8 +8,7 @@
 
 #import "SLUser.h"
 #import "SLValue.h"
-
-#import "SLAPIManager.h"
+#import "SLRelationship.h"
 
 @implementation SLUser
 
@@ -40,41 +39,38 @@
     return @"user";
 }
 
-+ (void) registerUser:(SLUser *)theUser withCallback:(SLSuccessCallback)theCallback
++ (void) registerUser:(SLUser *)theUser withOrganization:(SLOrganization *)theOrg withCallback:(SLSuccessCallback)theCallback
 {
+    /*
     SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
-        NSLog(@"SLRequestCallback completionBlock!");
-        NSLog(@"<%@>: %@", [responseObject class], responseObject);
+        //NSLog(@"SLRequestCallback completionBlock!");
+        //NSLog(@"<%@>: %@", [responseObject class], responseObject);
         theCallback ? theCallback(true) : nil;
     };
-    
-    NSDictionary *jsonQuery = @{
-                                @"data": @{
-                                        },
-                                @"rels": @[
-                                        [NSNumber numberWithBool:TRUE]
-                                        ]
-                                };
-    /*
-    'data': {
-        'email': '{0}@streamlyne.co'.format(generateRandomString(6)),
-        'password': 'asdfasdf',
-        'job_title': 'developer',
-        'name_first': 'Testy',
-        'name_last': 'Tester'
-    },
-    'rels': [
-             {
-                 'id': organizationId,
-                 'dir': 'out',
-                 'nodeType': 'organization',
-                 'relsType': 'member'
-             }
-             ]
-*/
-    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodPOST withPath:[[self class] type] withParameters:jsonQuery withCallback:completionBlock];
-
+     */
+    SLRelationship *rel = [[SLRelationship alloc] initWithName:@"member" withStartNode:theUser withEndNode:theOrg];
+    [theUser saveWithCallback:theCallback];
 }
 
+
++ (void) registerUserWithEmail:(NSString *)email
+                  withPassword:(NSString *)password
+                  withJobTitle:(NSString *)jobTitle
+                 withFirstName:(NSString *)firstName
+                  withLastName:(NSString *)lastName
+              withOrganization:(SLOrganization *)theOrg
+                  withCallback:(SLSuccessCallback)theCallback
+{
+    NSDictionary *data = @{
+                           @"email": email,
+                           @"password": password,
+                           @"job_title": jobTitle,
+                           @"name_first": firstName,
+                           @"name_last": lastName
+                       };
+    SLUser *newUser = [SLUser createWithData:data
+                                    withRels:(SLRelationshipArray *)@[]];
+    [[self class] registerUser:newUser withOrganization:theOrg withCallback:theCallback];
+}
 
 @end
