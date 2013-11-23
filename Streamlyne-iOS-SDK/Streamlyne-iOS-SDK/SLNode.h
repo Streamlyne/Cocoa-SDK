@@ -6,12 +6,25 @@
 //  Copyright (c) 2013 Streamlyne. All rights reserved.
 //
 
+#import "SLNodeProtocol.h"
 #import "SLObject.h"
+#import "SLValue.h"
+
 
 /**
  `SLNode` is intended to be implemented and then subclassed.
+ 
+ ## Subclassing Notes
+ `SLNode` is intended to be implemented and then subclassed.
+ 
+ ### Methods to Override
+ In a subclass, you must override all these methods.
+ 
+ - `init`
+ - `type`
+ 
  */
-@interface SLNode : SLObject {
+@interface SLNode : SLObject <SLNodeProtocol> {
     
     /**
      String s -> SLValue s
@@ -28,9 +41,31 @@
 @public
     SLNid nid;
 }
+// Properties
+@property NSDictionary *data;
+@property SLRelationshipArray *rels;
+@property SLNid nid;
+
 
 /**
- The node type name
+ Returns an object initialized.
+ 
+ ## Manipulating the Schema
+ Sample code to put in your init method.
+ 
+    // Create a Mutable copy of the data
+    NSMutableDictionary *tempData = [self->data mutableCopy];
+    // Make changes, by adding `SLValue`s
+    SLValue *idVal = [[SLValue alloc]initWithType:[NSString class]];
+    [tempData setValue:idVal forKey:@"id"];
+    // Change the base data schema to the new data schema.
+    self->data = tempData;
+ 
+ */
+- (instancetype) init;
+
+/**
+ Return the node type name. This is used in the requests to the `SLAPIManager`.
  
  This should be defined by the subclass implementation of `SLNode`.
  */
@@ -60,8 +95,7 @@
  Creates a node client side (not persisted). This node needs to be
  be saved to be persisted in any manner.
  */
-+ (instancetype) createWithData:(NSDictionary *)data withRels:(SLRelationshipArray *)rels;
-
++ (instancetype) createWithData:(NSDictionary *)theData withRels:(SLRelationshipArray *)theRels;
 
 /**
  Creates a node client side (not persisted). This node needs to be
@@ -84,12 +118,12 @@
 
 
 /**
- Deletes the node with the corresponding {nid}.
+ Deletes the node with the corresponding `SLNid`.
  */
 + (void) deleteWithId:(SLNid)nid;
 
 /**
- Deletes the node with the corresponding {nid}, with callback.
+ Deletes the node with the corresponding `SLNid`, with callback.
  */
 + (void) deleteWithId:(SLNid)nid withCallback:(SLSuccessCallback)callback;
 
@@ -126,7 +160,6 @@
  */
 + (void) deleteWithNodeArray:(SLNodeArray *)nodes withProgressCallback:(void (^)(NSUInteger idx))progress withCallback:(SLSuccessCallback)callback;
 
-
 /**
  Return the {type} of this node.
  */
@@ -142,6 +175,10 @@
  */
 - (BOOL) addRelationship:(SLRelationship *)theRel;
 
+/**
+ Returns the `SLValue` of the node's data with the key `attr`.
+ */
+- (SLValue *) get:(NSString *)attr;
 
 /**
  Update a single attribute. Updating a node sets it's internal boolean,

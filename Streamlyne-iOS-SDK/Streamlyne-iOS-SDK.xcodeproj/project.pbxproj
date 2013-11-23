@@ -33,6 +33,7 @@
 		77ED5DB0183FE91500905A3D /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
 		77ED5DB3183FFCC700905A3D /* SLWorkOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77ED5DB2183FFCC700905A3D /* SLWorkOrder.m */; };
 		77F3D534183E8852000E9F15 /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F3D533183E8852000E9F15 /* SLAPIManager.m */; };
+		77FC1AB2184037A1001356CF /* SLOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 77FC1AB1184037A1001356CF /* SLOrganization.m */; };
 		7EAFA7E2567346ADB124F0EE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2A9B6E54234EDCAD80864F /* libPods.a */; };
 		A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDB9A183BAF03006AD769 /* SLNode.m */; };
 		A82CDBA1183BC6BF006AD769 /* SLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = A82CDBA0183BC6BF006AD769 /* SLValue.m */; };
@@ -98,6 +99,8 @@
 		77ED5DB2183FFCC700905A3D /* SLWorkOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLWorkOrder.m; sourceTree = "<group>"; };
 		77F3D532183E8852000E9F15 /* SLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAPIManager.h; sourceTree = "<group>"; };
 		77F3D533183E8852000E9F15 /* SLAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAPIManager.m; sourceTree = "<group>"; };
+		77FC1AB0184037A1001356CF /* SLOrganization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLOrganization.h; sourceTree = "<group>"; };
+		77FC1AB1184037A1001356CF /* SLOrganization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLOrganization.m; sourceTree = "<group>"; };
 		7D2A9B6E54234EDCAD80864F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A82CDB99183BAF03006AD769 /* SLSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSDK.h; sourceTree = "<group>"; };
 		A82CDB9A183BAF03006AD769 /* SLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLNode.m; sourceTree = "<group>"; };
@@ -218,6 +221,8 @@
 				7711C7B9183DF4A30098C3A6 /* SLUser.m */,
 				77ED5DB1183FFCC700905A3D /* SLWorkOrder.h */,
 				77ED5DB2183FFCC700905A3D /* SLWorkOrder.m */,
+				77FC1AB0184037A1001356CF /* SLOrganization.h */,
+				77FC1AB1184037A1001356CF /* SLOrganization.m */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -251,7 +256,6 @@
 				7720FC2318369CA20092D39B /* Sources */,
 				7720FC2418369CA20092D39B /* Frameworks */,
 				7720FC2518369CA20092D39B /* Resources */,
-				7772FEFF183ECBA000FA8B0E /* Copy Pod Resources */,
 				7772FF00183ECBE800FA8B0E /* CopyFiles */,
 			);
 			buildRules = (
@@ -335,21 +339,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		7772FEFF183ECBA000FA8B0E /* Copy Pod Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pod Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		77F3D531183E7A37000E9F15 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -377,6 +366,7 @@
 				77F3D534183E8852000E9F15 /* SLAPIManager.m in Sources */,
 				A82CDB9B183BAF03006AD769 /* SLNode.m in Sources */,
 				7711C7BA183DF4A30098C3A6 /* SLUser.m in Sources */,
+				77FC1AB2184037A1001356CF /* SLOrganization.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +477,7 @@
 				DSTROOT = /tmp/Streamlyne_iOS_SDK.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Streamlyne-iOS-SDK/Streamlyne-iOS-SDK-Prefix.pch";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -510,7 +501,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 18A4AB8E472B41DBB4ABEB40 /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -523,6 +513,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Streamlyne-iOS-SDKTests/Streamlyne-iOS-SDKTests-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -532,7 +523,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 18A4AB8E472B41DBB4ABEB40 /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

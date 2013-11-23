@@ -14,16 +14,22 @@
 @implementation SLNode
 
 @synthesize saved = _saved;
+@synthesize nid;
 
 - (id) init
 {
     self = [super init];
     if (self) {
         // Initialize variables
-        _saved = false;
-        data = [NSDictionary dictionary];
-        rels = [SLRelationshipArray array];
-        //element_type = @"SLNode";
+        self->_saved = false;
+        self->nid = SLNidNodeNotCreated;
+        self->data = [NSDictionary dictionary];
+        self->rels = [SLRelationshipArray array];
+        // Edit data schema
+        NSMutableDictionary *tempData = [self->data mutableCopy];
+        //SLValue *idVal = [[SLValue alloc]initWithType:[NSString class]];
+        //[tempData setValue:idVal forKey:@"id"];
+        self->data = tempData;
     }
     return self;
 }
@@ -31,20 +37,47 @@
 + (NSString *) type
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
+                                   reason:[NSString stringWithFormat:@"You must override %@ in the subclass %@.", NSStringFromSelector(_cmd), [self class]]
                                  userInfo:nil];
 }
 
 + (void) readById:(SLNid)nid withCallback:(void (^)(SLNode *))callback
 {
-    @throw SLExceptionImplementationNotFound;
-    // TODO: Implement AFNetworking
+    
+    SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
+        //NSLog(@"SLRequestCallback completionBlock!");
+        //NSLog(@"<%@>: %@", [responseObject class], responseObject);
+        
+        // Process
+        id<SLNodeProtocol> node = [[self class] createWithData:responseObject[@"data"] withRels:nil];
+        NSLog(@"Node Id: %@", responseObject[@"id"]);
+        [((SLNode *)node) setNid: (SLNid) responseObject[@"id"] ];
+
+        // Return
+        callback(node);
+    };
+    
+    NSDictionary *jsonQuery = @{@"filter":@{@"fields":[NSNumber numberWithBool:TRUE], @"rels":[NSNumber numberWithBool:TRUE]}};
+    NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
+    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodGET withPath:thePath withParameters:jsonQuery withCallback:completionBlock];
+    
 }
 
 + (void) readAllWithCallback:(void (^)(SLNodeArray *))callback
 {
-    void (^completionBlock)(BOOL) = ^(BOOL success){
-        NSLog(@"Completion Block!");
+    SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
+        //NSLog(@"SLRequestCallback completionBlock!");
+        //NSLog(@"<%@>: %@", [responseObject class], responseObject);
+        SLNodeArray *nodes = [SLNodeArray array];
+        NSArray *arr = ((NSDictionary *)responseObject)[@"nodes"];
+        for (NSDictionary* curr in arr)
+        {
+            id<SLNodeProtocol> node = [[self class] createWithData:curr[@"data"] withRels:nil];
+            NSLog(@"Node Id: %@", curr[@"id"]);
+            [((SLNode *)node) setNid: (SLNid) curr[@"id"] ];
+            [nodes addObject:node];
+        }
+        callback(nodes);
     };
 
     NSDictionary *jsonQuery = @{@"filter":@{@"fields":[NSNumber numberWithBool:TRUE], @"rels":[NSNumber numberWithBool:TRUE]}};
@@ -52,9 +85,24 @@
 
 }
 
-+ (instancetype) createWithData:(NSDictionary *)data withRels:(SLRelationshipArray *)rels
++ (instancetype) createWithData:(NSDictionary *)theData withRels:(SLRelationshipArray *)theRels
 {
-    return [[[self class] alloc] init];
+    SLNode *node = [[[self class] alloc] init];
+    // TODO: Fix this so it validates data and rels first
+    // Data
+    NSString *key = nil;
+    for (key in theData)
+    {
+        NSLog(@"Update %@: %@", key, [theData objectForKey:key]);
+        [node update:key value:[theData objectForKey:key]];
+    }
+    // Rels
+    SLRelationship *currRel;
+    for (currRel in theRels)
+    {
+        [node addRelationship:currRel];
+    }
+    return node;
 }
 
 + (instancetype) createWithData:(NSDictionary *)data
@@ -79,8 +127,20 @@
 
 + (void) deleteWithId:(SLNid)nid withCallback:(SLSuccessCallback)callback
 {
-    @throw SLExceptionImplementationNotFound;
-    // TODO: Implement AFNetworking
+    
+    SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
+        NSLog(@"SLRequestCallback completionBlock!");
+        NSLog(@"<%@>: %@", [responseObject class], responseObject);
+        
+        // TODO: Check if successful
+        
+        callback(true);
+    };
+    
+    NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
+    NSLog(@"theDeletePath: %@", thePath);
+    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodDELETE withPath:thePath withParameters:nil withCallback:completionBlock];
+
 }
 
 + (void) deleteWithNode:(SLNode *)node
@@ -90,7 +150,16 @@
 
 + (void) deleteWithNode:(SLNode *)node withCallback:(SLSuccessCallback)callback
 {
-    [[self class] deleteWithId:node->nid withCallback:callback];
+    [[self class] deleteWithId:node->nid withCallback:^(BOOL success) {
+        if (success)
+        {
+            node->nid = SLNidNodeNotCreated; // Remove
+            callback(true);
+        } else
+        {
+            callback(false);
+        }
+    }];
 }
 
 + (void) deleteWithNodeArray:(SLNodeArray *)nodes
@@ -136,6 +205,21 @@
     }
 }
 
+- (NSString *) description
+{
+    
+     return [NSString stringWithFormat:@"<%@ %p: %@>", [self class], self,
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             NSNullIfNil([self nid]), @"id",
+             NSNullIfNil([self type]), @"type",
+             NSNullIfNil([self->data description]), @"data",
+             NSNullIfNil([self->rels description]), @"relationships",
+             nil
+             ] ];
+     
+    //return [NSString stringWithFormat:@"<%@: { type: \"%@\", data: %@, relationships: %@ } >", [self class], [self type], [self->data description], [self->rels description]];
+}
+
 - (NSString *) type
 {
     return [[self class] type];
@@ -150,17 +234,40 @@
 {
     // Validate relationship
     if ( (theRel->startNode == self) || (theRel->endNode == self) ) {
-        [self->rels addObject:theRel];
+        
+        // Check if already exists
+        // This will eventually contain the index of the object.
+        // Initialize it to NSNotFound so you can check the results after the block has run.
+        __block NSInteger foundIndex = NSNotFound;
+        
+        [self->rels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[SLRelationship class]]) {
+                foundIndex = idx;
+                // stop the enumeration
+                *stop = YES;
+            }
+        }];
+        
+        if (foundIndex != NSNotFound) {
+            // You've found the first object of that class in the array
+        } else {
+            [self->rels addObject:theRel];
+        }
         return true;
     } else {
         return false;
     }
 }
 
+- (SLValue *) get:(NSString *)attr
+{
+    return [self->data objectForKey:attr];
+}
+
 
 - (void) update:(NSString *)attr value:(id)value
 {
-    [(SLValue *)[data objectForKey:attr] set:value];
+    [((SLValue *)[data objectForKey:attr]) set:value];
 }
 
 - (void) save
@@ -170,19 +277,80 @@
 
 - (void) saveWithCallback:(SLSuccessCallback)callback
 {
-    NSMutableDictionary *notSaved = [NSMutableDictionary dictionary];
-    SLValue *val;
-    for (NSString *key in data)
+    // Create serialized delta
+    NSMutableDictionary *notSavedData = [NSMutableDictionary dictionary];
+    NSString *key;
+    for (key in data)
     {
-        val = [data objectForKey:key];
+        SLValue *val = [data objectForKey:key];
         if (![val isSaved])
         {
             // Value is not already saved
-            [notSaved setObject:val forKey:key];
+            [notSavedData setObject:[val get] forKey:key];
         }
     }
-    // TODO: Implement AFNetworking
-    @throw SLExceptionImplementationNotFound;
+    NSMutableArray *notSavedRels = [NSMutableArray array];
+    SLRelationship* rel;
+    for (rel in rels)
+    {
+        SLRelationshipDirection dir = [rel directionWithNode:self];
+        
+        if (dir == SLRelationshipIncoming) {
+            SLNode *node = rel->startNode;
+            [notSavedRels addObject:@{
+                                      @"id":node->nid,
+                                      @"dir":@"in",
+                                      @"nodeType": [rel->startNode type],
+                                      @"relsType": rel->name
+                                      }];
+        } else if (dir == SLRelationshipOutgoing) {
+            SLNode *node = rel->endNode;
+            [notSavedRels addObject:@{
+                                      @"id":node->nid,
+                                      @"dir":@"out",
+                                      @"nodeType": [rel->endNode type],
+                                      @"relsType": rel->name
+                                      }];
+        } else {
+            // SLRelationshipNotFound
+            NSLog(@"SLRelationshipNotFound");
+            //[notSavedRels addObject:rel];
+            @throw SLExceptionImplementationNotFound;
+        }
+    }
+    
+    NSDictionary *delta = @{@"data": notSavedData, @"rels": notSavedRels};
+    NSLog(@"Save data: %@", delta);
+    
+    // POST the CREATE/UPDATE
+    SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
+        NSLog(@"SLRequestCallback completionBlock!");
+        NSLog(@"<%@>: %@", [responseObject class], responseObject);
+        
+        // TODO: Check if successful, then mark the successful data and relationship fields as `saved`
+        
+        // Process
+        //id node = [[self class] createWithData:responseObject[@"data"] withRels:nil];
+        //((SLNode *)node)->nid = (SLNid) responseObject[@"id"];
+        
+        // Return
+        callback(true);
+    };
+    //
+    NSString *thePath;
+    if (nid == SLNidNodeNotCreated)
+    {
+        // New
+        thePath = [NSString stringWithFormat:@"%@", [[self class] type]];
+    } else
+    {
+        // Update
+        thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
+    }
+    NSLog(@"Save Path: %@", thePath);
+    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodPOST withPath:thePath withParameters:delta withCallback:completionBlock];
+    
+    
 }
 
 - (BOOL) isSaved

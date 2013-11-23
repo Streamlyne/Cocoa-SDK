@@ -18,25 +18,25 @@
         // Initialize variables
         predicates = [NSMutableArray array];
         saved = NO;
-        savedValue = NULL;
-        value = NULL;
+        savedValue = nil;
+        value = nil;
     }
     return self;
 }
 
-- (id) initWithType:(id)theType
+- (instancetype) initWithType:(Class)theType
 {
     self = [self initWithType:theType withValue:nil withPredicates:nil];
     return self;
 }
 
-- (id) initWithType:(id)theType withValue:(id)theValue
+- (instancetype) initWithType:(Class)theType withValue:(id)theValue
 {
     self = [self initWithType:theType withValue:theValue withPredicates:nil];
     return self;
 }
 
-- (id) initWithType:(id)theType withValue:(id)theValue withPredicates:(NSArray *)thePredicates {
+- (instancetype) initWithType:(Class)theType withValue:(id)theValue withPredicates:(NSArray *)thePredicates {
     self = [self init];
     if (self)
     {
@@ -48,6 +48,23 @@
     return self;
 }
 
+- (NSString *) description
+{
+    return [NSString stringWithFormat:@"<%@ %p: %@>", [self class], self, NSNullIfNil([self get]) ];
+    
+    /*
+     return [NSString stringWithFormat:@"<%@: %@>", [self class],
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             [NSNumber numberWithBool:saved], @"saved",
+             NSNullIfNil(savedValue), @"savedValue",
+             NSNullIfNil(value), @"value",
+             NSNullIfNil(predicates), @"predicates",
+             nil
+             ] ];
+     */
+    //return [NSString stringWithFormat:@"<%@: { saved: \"%@\", savedValue: %@, value: %@, predicates: %@ } >", [self class], [NSNumber numberWithBool:saved], savedValue, value, predicates];
+
+}
 
 - (id) get
 {
@@ -57,8 +74,15 @@
 - (BOOL) set:(id)theValue
 {
     // Validate
-    if (true) { // TODO: Perform actual validation with predicates in SLValue.
+    BOOL isValid = true;
+    if (self->value != nil && ! [theValue isKindOfClass:self->type])
+    {
+        isValid = false;
+    }
+    // TODO: Perform actual validation with predicates in SLValue.
+    if (isValid) {
         // Passed validation.
+        NSLog(@"Set: %@", theValue);
         self->value = theValue;
         return true;
     } else {

@@ -18,6 +18,7 @@
  */
 typedef NS_ENUM(NSUInteger, SLRelationshipDirection)
 {
+    SLRelationshipNotFound,
     SLRelationshipIncoming,
     SLRelationshipOutgoing
 };
@@ -32,7 +33,9 @@ typedef NS_ENUM(NSUInteger, SLRelationshipDirection)
 /**
  
  */
-typedef unsigned long int SLNid;
+// typedef unsigned long int SLNid;
+typedef NSNumber *SLNid;
+#define SLNidNodeNotCreated nil
 
 typedef NSMutableArray SLRelationshipArray;
 typedef NSMutableArray SLNodeArray;
@@ -43,14 +46,24 @@ typedef NSMutableArray SLNodeArray;
 typedef void(^SLSuccessCallback)(BOOL successful);
 
 /**
+ Typedef for Request Callback
+ */
+typedef void(^SLRequestCallback)(NSError *error, id operation, id responseObject);
+
+/**
  
  */
 #define SLExceptionImplementationNotFound [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Not yet implemented." userInfo:nil]
 
 /**
+ Source: http://stackoverflow.com/a/12137979/2578205 
+ */
+#define NSNullIfNil(v) (v ? v : [NSNull null])
+
+/**
  // Circular dependencies
  */
-@class SLAPI;
+@class SLAPIManager;
 @class SLNode;
 @class SLValue;
 @class SLRelationship;

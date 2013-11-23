@@ -17,21 +17,21 @@
      ex ) NSString, int, Boolean
      */
 @private
-    id type;
+    Class type;
     
     /**
      Stores the current value of the SLValue. The value should be
      type unspecific.
      */
 @private
-    id value;
+    id<NSObject> value;
     
     /**
      Stores the last saved value of the SLValue. The value should be
      type unspecific.
      */
 @private
-    id savedValue;
+    id<NSObject> savedValue;
     
     /**
      A list of unary functions that values must "pass" to set.
@@ -53,7 +53,7 @@
  @param theType     The type.
  @return
  */
-- (id) initWithType:(id)theType;
+- (instancetype) initWithType:(Class)theType;
 
 
 /**
@@ -62,7 +62,7 @@
  @param theValue    The value.
  @return
  */
-- (id) initWithType:(id)theType withValue:(id)theValue;
+- (instancetype) initWithType:(Class)theType withValue:(id)theValue;
 
 /**
  Initializes `SLValue` with type and value and predicates.
@@ -71,7 +71,7 @@
  @param thePredicates   The predicates.
  @return
  */
-- (id) initWithType:(id)theType withValue:(id)theValue withPredicates:(NSArray *)thePredicates;
+- (instancetype) initWithType:(Class)theType withValue:(id)theValue withPredicates:(NSArray *)thePredicates;
 
 /**
  Returns the current {value}.

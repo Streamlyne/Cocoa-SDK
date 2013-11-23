@@ -5,7 +5,6 @@ docs/
 
 # CocoaPods
 Streamlyne-iOS-SDK/Pods/
-Podfile.lock
 
 #########################
 # .gitignore file for Xcode 4 & 5 / OS X Source projects

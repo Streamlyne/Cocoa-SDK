@@ -31,7 +31,12 @@
         baseURL = nil;
         httpManager = [AFHTTPRequestOperationManager manager];
         httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        httpManager.requestSerializer = [AFJSONRequestSerializer serializer];
         [httpManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        // Accept HTTP Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
+        [httpManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [httpManager.requestSerializer setValue:@"utf-8" forHTTPHeaderField:@"Accept-Charset"];
+        
     }
     return self;
 }
@@ -65,12 +70,7 @@
     [self->httpManager.requestSerializer setValue:self->userToken forHTTPHeaderField:@"X-SL-Token"];
 }
 
-- (void) performPostRequestWithPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLSuccessCallback)theCallback
-{
-    [self performRequestWithMethod:SLHTTPMethodPOST withPath:thePath withParameters:theParams withCallback:theCallback];
-}
-
-- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLSuccessCallback)theCallback
+- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLRequestCallback)theCallback
 {
 
     if (self->baseURL == nil)
@@ -93,15 +93,15 @@
             NSLog(@"encodedJson: %@", encodedJson);
             //encodedJson = @"{\"filter\":{\"fields\":true,\"rels\":true}}";
             [self->httpManager GET:[fullPath absoluteString] parameters:@{@"p":encodedJson} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"JSON: %@", responseObject);
+                NSLog(@"Success, JSON: %@", responseObject);
                 if (theCallback != nil) {
-                    theCallback(true);
+                    theCallback(nil, operation, responseObject);
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
                 NSLog(@"Response: %@", operation.responseString);
                 if (theCallback != nil) {
-                    theCallback(true);
+                    theCallback(error, operation, nil);
                 }
             }];
         }
@@ -109,9 +109,37 @@
         case SLHTTPMethodPOST:
         {
             [self->httpManager POST:[fullPath absoluteString] parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"JSON: %@", responseObject);
+                NSLog(@"Success, JSON: %@", responseObject);
+                if (theCallback != nil) {
+                    theCallback(nil, operation, responseObject);
+                }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
+                NSLog(@"Response: %@", operation.responseString);
+                if (theCallback != nil) {
+                    theCallback(error, operation, nil);
+                }
+            }];
+        }
+            break;
+        case SLHTTPMethodPUT:
+        {
+            [self performRequestWithMethod:SLHTTPMethodPUT withPath:thePath withParameters:theParams withCallback:theCallback];
+        }
+            break;
+        case SLHTTPMethodDELETE:
+        {
+            [self->httpManager DELETE:[fullPath absoluteString] parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"Success, JSON: %@", responseObject);
+                if (theCallback != nil) {
+                    theCallback(nil, operation, responseObject);
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                NSLog(@"Response: %@", operation.responseString);
+                if (theCallback != nil) {
+                    theCallback(error, operation, nil);
+                }
             }];
         }
             break;
@@ -124,7 +152,7 @@
 
 - (void) authenticateWithUserEmail:(NSString *)theEmail withPassword:(NSString *)thePassword
 {
-    [self performPostRequestWithPath:@"authenticate" withParameters:@{@"email":theEmail, @"password":thePassword} withCallback:nil];
+    [self performRequestWithMethod:SLHTTPMethodPOST withPath:@"authenticate" withParameters:@{@"email":theEmail, @"password":thePassword} withCallback:nil];
 }
 
 @end

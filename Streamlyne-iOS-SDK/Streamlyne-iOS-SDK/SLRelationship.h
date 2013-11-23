@@ -16,7 +16,7 @@
     /**
      Name of the relationship type.
      */
-@private
+@public
     NSString *name;
     
     /**
@@ -26,21 +26,27 @@
     NSDictionary *data;
     
 @public
-    SLNode *startNode;
+    id<SLNodeProtocol> startNode;
     
 @public
-    SLNode *endNode;
+    id<SLNodeProtocol> endNode;
     
 @protected
     Boolean *isSaved;
+
+@protected
+    Boolean *required;
+    
 }
+
+//@property (setter = setName) NSString *name;
 
 /**
  The direction
  */
-- (id) initWithName:(NSString *)theName withStartNode:(SLNode *)startNode withEndNode:(SLNode *)endNode;
+- (id) initWithName:(NSString *)theName withStartNode:(id)startNode withEndNode:(id)endNode;
 
-- (SLRelationshipDirection) directionWithNode:(SLNode *)theNode;
+- (SLRelationshipDirection) directionWithNode:(id)theNode;
 
 @end
 

@@ -13,8 +13,10 @@
 #import "SLRelationship.h"
 #import "SLValue.h"
 // Custom Nodes
+#import "SLOrganization.h"
 #import "SLUser.h"
 #import "SLWorkOrder.h"
+
 
 /**
 Main file to include to start using Streamlyne's iOS SDK.

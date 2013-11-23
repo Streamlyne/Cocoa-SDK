@@ -9,8 +9,15 @@
 #import "SLNode.h"
 
 /**
- Custom Node, SLUser.
+ Custom `SLNode`, `SLUser`.
  */
-@interface SLUser : SLNode
+@interface SLUser : SLNode {
+    
+}
+
+/**
+ 
+ */
++ (void) registerUser:(SLUser *)theUser withCallback:(SLSuccessCallback)theCallback;
 
 @end

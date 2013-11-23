@@ -66,12 +66,6 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
  */
 - (void) setToken:(NSString *)theToken;
 
-/**
- Perform an API POST request against the server.
- @param thePath
- @param theCallback
- */
-- (void) performPostRequestWithPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLSuccessCallback)theCallback;
 
 /**
  Perform an API request against the server.
@@ -79,7 +73,7 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
  @param thePath
  @param theCallback
  */
-- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLSuccessCallback)theCallback;
+- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLRequestCallback)theCallback;
 
 /**
  Authenticate with user credentials.
