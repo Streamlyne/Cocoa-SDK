@@ -18,10 +18,10 @@ command -v appledoc >/dev/null 2>&1 || {
 # === Install
 echo "===== Cocoa/Objective-C SDK ====="
 echo "Installing CocoaPods"
-cd Streamlyne-iOS-SDK/ 
+cd Streamlyne-Cocoa-SDK/
 pod install
 cd ../
-echo "Open in Xcode the Streamlyne-iOS-SDK/Streamlyne-iOS-SDK.xcworkspace"
+echo "Open in Xcode the Streamlyne-Cocoa-SDK/Streamlyne-Cocoa-SDK.xcworkspace"
 echo
 
 # === Update
