@@ -10,6 +10,7 @@
 
 @implementation SLValue
 
+@synthesize clientVisible;
 
 - (id) init
 {
@@ -20,6 +21,7 @@
         saved = NO;
         savedValue = nil;
         value = nil;
+        clientVisible = true; // Default is true
     }
     return self;
 }
@@ -82,7 +84,7 @@
     // TODO: Perform actual validation with predicates in SLValue.
     if (isValid) {
         // Passed validation.
-        NSLog(@"Set: %@", theValue);
+        //NSLog(@"Set: %@", theValue);
         self->value = theValue;
         return true;
     } else {

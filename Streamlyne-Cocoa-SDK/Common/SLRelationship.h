@@ -32,10 +32,15 @@
     id<SLNodeProtocol> endNode;
     
 @protected
-    Boolean *isSaved;
-
-@protected
     Boolean *required;
+    
+    /**
+     Tracks wether `setSaved` has been called since the last
+     successful call of `set`.
+     */
+@private
+    BOOL saved;
+
     
 }
 
@@ -46,7 +51,23 @@
  */
 - (id) initWithName:(NSString *)theName withStartNode:(id)startNode withEndNode:(id)endNode;
 
+/**
+ 
+ */
 - (SLRelationshipDirection) directionWithNode:(id)theNode;
+
+
+/**
+ Returns the value of saved.
+ */
+- (BOOL) isSaved;
+
+
+/**
+ Set saved equal to true. This does not garuantee that the value
+ has been persisted.
+ */
+- (void) setSaved;
 
 @end
 

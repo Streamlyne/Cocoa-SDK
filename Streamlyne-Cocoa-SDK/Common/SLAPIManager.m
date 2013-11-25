@@ -178,7 +178,7 @@
 - (void) authenticateWithUser:(SLUser *)theUser
                  withCallback:(SLSuccessCallback)theCallback
 {
-    [self authenticateWithUserEmail:[[theUser get:@"email"] get] withPassword:[[theUser get:@"password"] get] withCallback:theCallback];
+    [self authenticateWithUserEmail:[theUser get:@"email"] withPassword:[theUser get:@"password"] withCallback:theCallback];
 }
 
 

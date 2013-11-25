@@ -27,8 +27,8 @@
         [tempData setValue:description forKey:@"description"];
         [tempData setValue:status forKey:@"status"];
         [tempData setValue:notes_completion forKey:@"notes_completion"];
-        [tempData setValue:date_due forKey:@"date_due"];
-        [tempData setValue:date_completed forKey:@"date_completed"];
+        //[tempData setValue:date_due forKey:@"date_due"];
+        //[tempData setValue:date_completed forKey:@"date_completed"];
         
         self->data = tempData;
     }

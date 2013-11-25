@@ -16,6 +16,7 @@
     self = [super init];
     if (self) {
         // Initialize variables
+        self->saved = NO;
         self->name = theName;
         self->startNode = startNode;
         self->endNode = endNode;
@@ -61,6 +62,16 @@
         NSLog(@"SLRelationshipNotFound");
         return SLRelationshipNotFound;
     }
+}
+
+- (BOOL) isSaved
+{
+    return saved;
+}
+
+- (void) setSaved
+{
+    saved = YES;
 }
 
 

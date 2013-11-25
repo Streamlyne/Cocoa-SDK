@@ -19,6 +19,7 @@
         // Initialize variables
         SLValue *email = [[SLValue alloc]initWithType:[NSString class]];
         SLValue *password = [[SLValue alloc]initWithType:[NSString class]];
+        [password setClientVisible:FALSE]; // Will not be visible to client when reading `SLUser` nodes.
         SLValue *jobTitle = [[SLValue alloc]initWithType:[NSString class]];
         SLValue *firstName = [[SLValue alloc]initWithType:[NSString class]];
         SLValue *lastName = [[SLValue alloc]initWithType:[NSString class]];

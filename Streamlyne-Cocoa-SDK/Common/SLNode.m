@@ -53,6 +53,14 @@
         NSLog(@"Node Id: %@", responseObject[@"id"]);
         [((SLNode *)node) setNid: (SLNid) responseObject[@"id"] ];
 
+        // Mark all data as saved.
+        NSString *key;
+        for (key in node.data)
+        {
+            SLValue *val = [node.data objectForKey:key];
+            [val setSaved]; // Mark as saved.
+        }
+        
         // Return
         callback(node);
     };
@@ -76,6 +84,16 @@
             NSLog(@"Node Id: %@", curr[@"id"]);
             [((SLNode *)node) setNid: (SLNid) curr[@"id"] ];
             [nodes addObject:node];
+            
+            // Mark all data as saved.
+            NSString *key;
+            for (key in node.data)
+            {
+                SLValue *val = [node.data objectForKey:key];
+                [val setSaved]; // Mark as saved.
+            }
+            
+
         }
         callback(nodes);
     };
@@ -259,15 +277,15 @@
     }
 }
 
-- (SLValue *) get:(NSString *)attr
+- (id) get:(NSString *)attr
 {
-    return [self->data objectForKey:attr];
+    return [(SLValue *)[self->data objectForKey:attr] get];
 }
-
 
 - (void) update:(NSString *)attr value:(id)value
 {
     [((SLValue *)[data objectForKey:attr]) set:value];
+    self->_saved = NO;
 }
 
 - (void) save
@@ -283,6 +301,7 @@
     for (key in data)
     {
         SLValue *val = [self->data objectForKey:key];
+        // Check if already saved
         if (![val isSaved])
         {
             // Value is not already saved
@@ -293,30 +312,35 @@
     SLRelationship* rel;
     for (rel in self->rels)
     {
-        SLRelationshipDirection dir = [rel directionWithNode:self];
-        
-        if (dir == SLRelationshipIncoming) {
-            SLNode *node = rel->startNode;
-            [notSavedRels addObject:@{
-                                      @"id":node->nid,
-                                      @"dir":@"in",
-                                      @"nodeType": [rel->startNode type],
-                                      @"relsType": rel->name
-                                      }];
-        } else if (dir == SLRelationshipOutgoing) {
-            SLNode *node = rel->endNode;
-            [notSavedRels addObject:@{
-                                      @"id":node->nid,
-                                      @"dir":@"out",
-                                      @"nodeType": [rel->endNode type],
-                                      @"relsType": rel->name
-                                      }];
-        } else {
-            // SLRelationshipNotFound
-            NSLog(@"SLRelationshipNotFound");
-            //[notSavedRels addObject:rel];
-            @throw SLExceptionImplementationNotFound;
+        // Check if already saved
+        if (![rel isSaved])
+        {
+            SLRelationshipDirection dir = [rel directionWithNode:self];
+            
+            if (dir == SLRelationshipIncoming) {
+                SLNode *node = rel->startNode;
+                [notSavedRels addObject:@{
+                                          @"id":node->nid,
+                                          @"dir":@"in",
+                                          @"nodeType": [rel->startNode type],
+                                          @"relsType": rel->name
+                                          }];
+            } else if (dir == SLRelationshipOutgoing) {
+                SLNode *node = rel->endNode;
+                [notSavedRels addObject:@{
+                                          @"id":node->nid,
+                                          @"dir":@"out",
+                                          @"nodeType": [rel->endNode type],
+                                          @"relsType": rel->name
+                                          }];
+            } else {
+                // SLRelationshipNotFound
+                NSLog(@"SLRelationshipNotFound");
+                //[notSavedRels addObject:rel];
+                @throw SLExceptionImplementationNotFound;
+            }
         }
+        
     }
     
     NSDictionary *delta = @{@"data": notSavedData, @"rels": notSavedRels};
@@ -335,13 +359,22 @@
             // Update the Node Id.
             [self setNid:responseData[@"id"]];
             
-            // Mark all data as saved.
+            // Mark all `SLValue`s as saved.
             NSString *key;
             for (key in self->data)
             {
                 SLValue *val = [self->data objectForKey:key];
                 [val setSaved]; // Mark as saved.
             }
+            
+            // Mark all `SLRelationship`s as saved.
+            SLRelationship* rel;
+            for (rel in self->rels)
+            {
+                [rel setSaved];
+            }
+            // Mark Node as saved.
+            self->_saved = YES;
             
             // Return
             callback(true);
@@ -382,6 +415,16 @@
             break; // Stop iterating, since it is already proven to not all be saved.
         }
     }
+    SLRelationship* rel;
+    for (rel in self->rels)
+    {
+        if ( ! [rel isSaved] ) {
+            // Not saved
+            _saved = false;
+            break; // Stop iterating, since it is already proven to not all be saved.
+        }
+    }
+    
 }
 
 - (void) discardChanges

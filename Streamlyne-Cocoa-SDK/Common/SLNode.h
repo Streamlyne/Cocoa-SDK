@@ -176,9 +176,9 @@
 - (BOOL) addRelationship:(SLRelationship *)theRel;
 
 /**
- Returns the `SLValue` of the node's data with the key `attr`.
+ Returns the value of the `SLValue` of the node's data with the key `attr`.
  */
-- (SLValue *) get:(NSString *)attr;
+- (id) get:(NSString *)attr;
 
 /**
  Update a single attribute. Updating a node sets it's internal boolean,

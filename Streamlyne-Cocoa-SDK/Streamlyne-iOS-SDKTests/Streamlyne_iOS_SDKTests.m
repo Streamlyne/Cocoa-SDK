@@ -345,16 +345,40 @@
     
     // Create
     pendingCallbacks++;
-    SLWorkOrder *workOrder = [SLWorkOrder createWithData:@{
-                                                           @"name": @"Sample Work Order",
-                                                           @"description": @"This is a sample work order!",
-                                                           @"status": @"some status",
-                                                           @"notes_completion": @"After I created it made this note.",
-                                                           @"date_due": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterFullStyle],
-                                                           @"date_completed": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterFullStyle]
-                                                           } withRels:@[]];
-    [workOrder saveWithCallback:completionBlock];
-    
+    [SLUser readAllWithCallback:^(SLNodeArray *nodes) {
+        SLUser *user1 = nodes[0];
+        
+        NSDictionary *newWorkOrderData = @{
+                                           @"name": @"Sample Work Order",
+                                           @"description": @"This is a sample work order!"
+                                           ,@"status": @"some status"
+                                           ,@"notes_completion": @"After I created it made this note."
+                                           //,@"date_due": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterFullStyle]
+                                           //,@"date_completed": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterFullStyle]
+                                           };
+        SLWorkOrder *workOrder = [SLWorkOrder createWithData:newWorkOrderData withRels:(SLRelationshipArray *)@[]];
+
+        SLRelationship *rel = [[SLRelationship alloc] initWithName:@"created" withStartNode:user1 withEndNode:workOrder];
+        
+        pendingCallbacks++;
+        [workOrder saveWithCallback:completionBlock];
+        
+        /*
+        pendingCallbacks++;
+        [SLOrganization readAllWithCallback:^(SLNodeArray * nodes) {
+            SLOrganization *org1 = (SLOrganization *) nodes[0];
+            SLRelationship *rel2 = [[SLRelationship alloc] initWithName:@"member" withStartNode:user1 withEndNode:org1];
+            
+            pendingCallbacks++;
+            [user1 saveWithCallback:completionBlock];
+            
+            completionBlock(true);
+        }];
+         */
+        
+        completionBlock(true);
+    }];
+     
     //
     NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:10];
     while ( (pendingCallbacks > 0) && [loopUntil timeIntervalSinceNow] > 0) {

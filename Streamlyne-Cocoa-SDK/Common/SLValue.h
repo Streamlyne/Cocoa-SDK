@@ -14,20 +14,20 @@
     
     /**
      Stores the type of the encapsulated value.
-     ex ) NSString, int, Boolean
+     Ex) `NSString`, `NSInteger`, `Boolean`
      */
 @private
     Class type;
     
     /**
-     Stores the current value of the SLValue. The value should be
+     Stores the current value of the `SLValue`. The value should be
      type unspecific.
      */
 @private
     id<NSObject> value;
     
     /**
-     Stores the last saved value of the SLValue. The value should be
+     Stores the last saved value of the `SLValue`. The value should be
      type unspecific.
      */
 @private
@@ -40,13 +40,22 @@
     NSMutableArray *predicates;
     
     /**
-     Tracks wether {setSaved} has been called since the last
-     successful call of {set}.
+     Tracks wether `setSaved` has been called since the last
+     successful call of `set`.
      */
 @private
     BOOL saved;
+    
 }
 
+/**
+ Boolean stating whether the `SLValue` is visible to a client when reading the node from the Streamlyne API.
+ 
+ Default is `true`.
+ 
+ For example, the `password` field for the `SLUser` node is not client visible, and when reading the `SLUser` node the Streamlyne API will not return the `password` value.
+ */
+@property (getter=isClientVisible, setter=setClientVisible: ) BOOL clientVisible;
 
 /**
  Initializes `SLValue` with type.
