@@ -172,6 +172,7 @@
 
 /**
  Pushes a relationship into {rels}, verify if start or end node is this node.
+ @return Returns `true` or `false` if the relationship was successfully added the the node.
  */
 - (BOOL) addRelationship:(SLRelationship *)theRel;
 

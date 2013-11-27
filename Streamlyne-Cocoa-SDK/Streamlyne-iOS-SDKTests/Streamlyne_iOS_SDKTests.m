@@ -319,6 +319,83 @@
 }
 
 
+
+- (void) testAsset
+{
+    
+    __block int pendingCallbacks = 0;
+    //
+    SLSuccessCallback completionBlock = ^(BOOL success){
+        NSLog(@"Completion Block: '%d'", pendingCallbacks);
+        pendingCallbacks = pendingCallbacks - 1; // Decrement
+    };
+    
+    
+    // Read All Work Orders
+    NSLog(@"Read All Assets");
+    pendingCallbacks++;
+    [SLAsset readAllWithCallback:^(SLNodeArray * nodes){
+        NSLog(@"# of Asset: %lu", (unsigned long)[nodes count]);
+        for (NSUInteger i = 0, len = [nodes count]; i < len; i++)
+        {
+            SLAsset *asset = (SLAsset *) nodes[i];
+            NSLog(@"Asset: %@", asset);
+        }
+        completionBlock(true);
+    }];
+    
+    // Create
+    pendingCallbacks++;
+    [SLUser readAllWithCallback:^(SLNodeArray *nodes) {
+        SLUser *user1 = nodes[0];
+        
+        NSDictionary *newAssetData = @{
+                                           @"number_asset": @"ACSEM6001",
+                                           @"number_serial": @"96-900-8414-1"
+                                           ,@"description": @"ANALYZER, M609 Sulphur Stack"
+                                           ,@"mfg": @"BOVAR"
+                                           ,@"location": @"NEV600"
+                                           ,@"cost_center": @"210PNV0064"
+                                           };
+        SLAsset *asset = [SLAsset createWithData:newAssetData withRels:(SLRelationshipArray *)@[]];
+        
+        SLRelationship *rel = [[SLRelationship alloc] initWithName:@"created" withStartNode:user1 withEndNode:asset];
+        
+        pendingCallbacks++;
+        [asset saveWithCallback:completionBlock];
+        
+        /*
+         pendingCallbacks++;
+         [SLOrganization readAllWithCallback:^(SLNodeArray * nodes) {
+         SLOrganization *org1 = (SLOrganization *) nodes[0];
+         SLRelationship *rel2 = [[SLRelationship alloc] initWithName:@"member" withStartNode:user1 withEndNode:org1];
+         
+         pendingCallbacks++;
+         [user1 saveWithCallback:completionBlock];
+         
+         completionBlock(true);
+         }];
+         */
+        
+        completionBlock(true);
+    }];
+    
+    //
+    NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:10];
+    while ( (pendingCallbacks > 0) && [loopUntil timeIntervalSinceNow] > 0) {
+        //NSLog(@"%d", pendingCallbacks);
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:loopUntil];
+    }
+    if (pendingCallbacks > 0)
+    {
+        NSLog(@"Pending Callbacks: %d", pendingCallbacks);
+        //STFail(@"I know this will fail, thanks");
+    }
+    
+}
+
+
 - (void) testWorkOrder
 {
     
@@ -393,5 +470,6 @@
     }
     
 }
+
 
 @end

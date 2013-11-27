@@ -20,16 +20,20 @@
         SLValue *email = [[SLValue alloc]initWithType:[NSString class]];
         SLValue *password = [[SLValue alloc]initWithType:[NSString class]];
         [password setClientVisible:FALSE]; // Will not be visible to client when reading `SLUser` nodes.
+        SLValue *phoneNumber = [[SLValue alloc]initWithType:[NSString class]];
         SLValue *jobTitle = [[SLValue alloc]initWithType:[NSString class]];
         SLValue *firstName = [[SLValue alloc]initWithType:[NSString class]];
         SLValue *lastName = [[SLValue alloc]initWithType:[NSString class]];
+        SLValue *avatar = [[SLValue alloc]initWithType:[NSURL class]];
         // Edit data schema
         NSMutableDictionary *tempData = [self->data mutableCopy];
         [tempData setValue:email forKey:@"email"];
         [tempData setValue:password forKey:@"password"];
+        //[tempData setValue:phoneNumber forKey:@"phone_number"];
         [tempData setValue:jobTitle forKey:@"job_title"];
         [tempData setValue:firstName forKey:@"name_first"];
         [tempData setValue:lastName forKey:@"name_last"];
+        //[tempData setValue:avatar forKey:@"avatar"];
         self->data = tempData;
     }
     return self;

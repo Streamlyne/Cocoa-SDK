@@ -18,8 +18,8 @@
         SLValue *description = [[SLValue alloc]initWithType:[NSString class]];
         SLValue *status = [[SLValue alloc]initWithType:[NSString class]];
         SLValue *notes_completion = [[SLValue alloc]initWithType:[NSString class]];
-        SLValue *date_due = [[SLValue alloc]initWithType:[NSString class]];
-        SLValue *date_completed = [[SLValue alloc]initWithType:[NSString class]];
+        SLValue *date_due = [[SLValue alloc]initWithType:[NSDate class]];
+        SLValue *date_completed = [[SLValue alloc]initWithType:[NSDate class]];
 
         // Edit data schema
         NSMutableDictionary *tempData = [self->data mutableCopy];
