@@ -65,8 +65,8 @@ Pod::Spec.new do |s|
   # s.platform     = :ios, '5.0'
 
   #  When using multiple platforms
-  # s.ios.deployment_target = '5.0'
-  # s.osx.deployment_target = '10.7'
+  s.ios.deployment_target = '6.0'
+  s.osx.deployment_target = '10.8'
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -86,7 +86,8 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = 'Streamlyne-Cocoa-SDK/**.{h,m}', 'Classes', 'Classes/**/*.{h,m}'
+  s.public_header_files = 'Streamlyne-Cocoa-SDK/Common/SLSDK.h'
+  s.source_files  = 'Streamlyne-Cocoa-SDK', 'Streamlyne-Cocoa-SDK/Common', 'Streamlyne-Cocoa-SDK/Common/*.{h,m}', 'Streamlyne-Cocoa-SDK/Common/*/*.{h,m}'
   s.exclude_files = 'Classes/Exclude'
 
   # s.public_header_files = 'Classes/**/*.h'
@@ -129,5 +130,6 @@ Pod::Spec.new do |s|
 
   # s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
   # s.dependency 'JSONKit', '~> 1.4'
+  s.dependency 'AFNetworking', '~> 2.0'
 
 end
