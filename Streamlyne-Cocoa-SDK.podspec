@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "Streamlyne-Cocoa-SDK"
-  s.version      = "0.0.2"
+  s.version      = "0.0.5"
   s.summary      = "A short description of Streamlyne-Cocoa-SDK."
 
   s.description  = <<-DESC
@@ -75,7 +75,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, svn and HTTP.
   #
 
-  s.source       = { :git => "sl-mgmt:/vol/git/sl-ios-sdk.git", :tag => "0.0.2" }
+  s.source       = { :git => "sl-mgmt:/vol/git/sl-ios-sdk.git", :tag => "0.0.5" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
