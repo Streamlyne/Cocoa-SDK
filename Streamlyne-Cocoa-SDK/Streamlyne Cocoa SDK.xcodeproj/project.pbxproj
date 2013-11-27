@@ -28,8 +28,6 @@
 		7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
 		7720FC2C18369CA20092D39B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2B18369CA20092D39B /* UIKit.framework */; };
 		7720FC3518369CA20092D39B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7720FC3318369CA20092D39B /* InfoPlist.strings */; };
-		772634511842E35600CEEF8E /* libPods-Streamlyne-iOS-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 772634501842E35600CEEF8E /* libPods-Streamlyne-iOS-SDK.a */; };
-		772634531842E5FD00CEEF8E /* libStreamlyne-iOS-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */; };
 		7787C60A1845075D00D91E20 /* SLSDK.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DF31842F6DC0053C02C /* SLSDK.h */; };
 		7787C6231845173C00D91E20 /* SLAsset.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE11842F6DC0053C02C /* SLAsset.h */; };
 		7787C6241845173C00D91E20 /* SLAsset.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE21842F6DC0053C02C /* SLAsset.m */; };
@@ -66,6 +64,8 @@
 		7787C6A01845217400D91E20 /* SLObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEF1842F6DC0053C02C /* SLObject.h */; };
 		7787C6A21845217400D91E20 /* SLRelationship.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DF11842F6DC0053C02C /* SLRelationship.h */; };
 		7787C6A41845217400D91E20 /* SLValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DF41842F6DC0053C02C /* SLValue.h */; };
+		77915283184671D5007951F1 /* libPods-Streamlyne-iOS-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77915282184671D5007951F1 /* libPods-Streamlyne-iOS-SDK.a */; };
+		77915284184672B7007951F1 /* libStreamlyne-iOS-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */; };
 		77AD7DF61842F6DC0053C02C /* SLAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE11842F6DC0053C02C /* SLAsset.h */; };
 		77AD7DF71842F6DC0053C02C /* SLAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE21842F6DC0053C02C /* SLAsset.m */; };
 		77AD7DF91842F6DC0053C02C /* SLAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE21842F6DC0053C02C /* SLAsset.m */; };
@@ -194,6 +194,7 @@
 		7772FEF8183EB6A500FA8B0E /* Readme.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.markdown; sourceTree = "<group>"; };
 		7772FEFA183ECB0A00FA8B0E /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		7772FEFC183ECB2C00FA8B0E /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
+		77915282184671D5007951F1 /* libPods-Streamlyne-iOS-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-Streamlyne-iOS-SDK.a"; path = "Pods/build/Debug-iphoneos/libPods-Streamlyne-iOS-SDK.a"; sourceTree = "<group>"; };
 		77AD7DD11842F2E60053C02C /* libPods-Streamlyne-Mac-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Streamlyne-Mac-SDK.a"; path = "../../../../Library/Developer/Xcode/DerivedData/Streamlyne_Cocoa_SDK-fjqjkmnrhloggrcbsegetsdkwdqw/Build/Products/Release/libPods-Streamlyne-Mac-SDK.a"; sourceTree = "<group>"; };
 		77AD7DD31842F2FC0053C02C /* libPods-Streamlyne-iOS-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Streamlyne-iOS-SDK.a"; path = "Pods/build/Debug-iphoneos/libPods-Streamlyne-iOS-SDK.a"; sourceTree = "<group>"; };
 		77AD7DE11842F6DC0053C02C /* SLAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAsset.h; sourceTree = "<group>"; };
@@ -242,7 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				772634511842E35600CEEF8E /* libPods-Streamlyne-iOS-SDK.a in Frameworks */,
+				77915283184671D5007951F1 /* libPods-Streamlyne-iOS-SDK.a in Frameworks */,
 				7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,7 +252,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				772634531842E5FD00CEEF8E /* libStreamlyne-iOS-SDK.a in Frameworks */,
+				77915284184672B7007951F1 /* libStreamlyne-iOS-SDK.a in Frameworks */,
 				7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */,
 				7720FC2C18369CA20092D39B /* UIKit.framework in Frameworks */,
 				7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */,
@@ -312,6 +313,7 @@
 		7720FC1918369CA10092D39B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				77915282184671D5007951F1 /* libPods-Streamlyne-iOS-SDK.a */,
 				77AD7DD31842F2FC0053C02C /* libPods-Streamlyne-iOS-SDK.a */,
 				77AD7DD11842F2E60053C02C /* libPods-Streamlyne-Mac-SDK.a */,
 				772634501842E35600CEEF8E /* libPods-Streamlyne-iOS-SDK.a */,
