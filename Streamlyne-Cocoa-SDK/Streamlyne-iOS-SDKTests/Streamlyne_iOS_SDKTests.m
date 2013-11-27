@@ -347,6 +347,12 @@
     // Create
     pendingCallbacks++;
     [SLUser readAllWithCallback:^(SLNodeArray *nodes) {
+        NSLog(@"nodes: %@", nodes);
+        if ([nodes count] < 1) {
+            NSLog(@"No users....");
+        } else
+        {
+            
         SLUser *user1 = nodes[0];
         
         NSDictionary *newAssetData = @{
@@ -376,6 +382,7 @@
          completionBlock(true);
          }];
          */
+        }
         
         completionBlock(true);
     }];
@@ -423,6 +430,12 @@
     // Create
     pendingCallbacks++;
     [SLUser readAllWithCallback:^(SLNodeArray *nodes) {
+        NSLog(@"# of Users: %lu", (unsigned long)[nodes count]);
+        if ([nodes count] < 1) {
+            NSLog(@"No users....");
+        } else
+        {
+        
         SLUser *user1 = nodes[0];
         
         NSDictionary *newWorkOrderData = @{
@@ -452,6 +465,7 @@
             completionBlock(true);
         }];
          */
+        }
         
         completionBlock(true);
     }];
