@@ -194,7 +194,7 @@
 		7772FEF8183EB6A500FA8B0E /* Readme.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.markdown; sourceTree = "<group>"; };
 		7772FEFA183ECB0A00FA8B0E /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		7772FEFC183ECB2C00FA8B0E /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
-		77915282184671D5007951F1 /* libPods-Streamlyne-iOS-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-Streamlyne-iOS-SDK.a"; path = "Pods/build/Debug-iphoneos/libPods-Streamlyne-iOS-SDK.a"; sourceTree = "<group>"; };
+		77915282184671D5007951F1 /* libPods-Streamlyne-iOS-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Streamlyne-iOS-SDK.a"; path = "Pods/build/Debug-iphoneos/libPods-Streamlyne-iOS-SDK.a"; sourceTree = "<group>"; };
 		77AD7DD11842F2E60053C02C /* libPods-Streamlyne-Mac-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Streamlyne-Mac-SDK.a"; path = "../../../../Library/Developer/Xcode/DerivedData/Streamlyne_Cocoa_SDK-fjqjkmnrhloggrcbsegetsdkwdqw/Build/Products/Release/libPods-Streamlyne-Mac-SDK.a"; sourceTree = "<group>"; };
 		77AD7DD31842F2FC0053C02C /* libPods-Streamlyne-iOS-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Streamlyne-iOS-SDK.a"; path = "Pods/build/Debug-iphoneos/libPods-Streamlyne-iOS-SDK.a"; sourceTree = "<group>"; };
 		77AD7DE11842F6DC0053C02C /* SLAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAsset.h; sourceTree = "<group>"; };
@@ -583,9 +583,6 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Streamlyne;
 				TargetAttributes = {
-					7720FC2618369CA20092D39B = {
-						TestTargetID = 77B4EA0C184094D400435B97;
-					};
 					77B4EA21184094D400435B97 = {
 						TestTargetID = 77B4EA0C184094D400435B97;
 					};
@@ -967,9 +964,7 @@
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Streamlyne_Cocoa_SDK-fjqjkmnrhloggrcbsegetsdkwdqw/Build/Products/Release",
 				);
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "Streamlyne-iOS-SDKTests";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -991,7 +986,6 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Streamlyne_Cocoa_SDK-fjqjkmnrhloggrcbsegetsdkwdqw/Build/Products/Release",
 				);
 				PRODUCT_NAME = "Streamlyne-iOS-SDKTests";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

@@ -39,13 +39,15 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
     /**
      
      */
-    NSURL *baseURL;
+    //NSURL *baseURL;
     
     @protected
     
     @public
     
 }
+
+@property (strong, nonatomic, setter = setBaseURL: , getter = baseURL) NSURL *baseURL;
 
 /**
  Returns the Shared Manager instance of `SLAPIManager`.
