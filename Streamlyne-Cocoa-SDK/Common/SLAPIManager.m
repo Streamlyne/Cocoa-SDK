@@ -19,6 +19,7 @@
 @end
 
 @implementation SLAPIManager
+@synthesize baseURL;
 
 - (instancetype) init
 {
