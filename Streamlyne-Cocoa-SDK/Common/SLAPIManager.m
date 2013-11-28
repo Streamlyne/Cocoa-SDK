@@ -10,16 +10,15 @@
 #import <AFNetworking.h>
 
 @interface SLAPIManager () {
-    /**
-     
-     */
-    AFHTTPRequestOperationManager *httpManager;
+
 }
+
+@property (strong, nonatomic) AFHTTPRequestOperationManager* httpManager;
 
 @end
 
 @implementation SLAPIManager
-@synthesize baseURL;
+@synthesize userEmail, userToken, baseURL, httpManager;
 
 - (instancetype) init
 {
@@ -30,7 +29,8 @@
         userEmail = nil;
         userToken = nil;
         baseURL = nil;
-        httpManager = [AFHTTPRequestOperationManager manager];
+        //httpManager = [AFHTTPRequestOperationManager manager];
+        httpManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:nil];
         httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         httpManager.requestSerializer = [AFJSONRequestSerializer serializer];
         [httpManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -54,35 +54,40 @@
     }
 }
 
-- (void) setBaseURL:(NSURL *)theBaseURL
-{
-    self->baseURL = theBaseURL;
-}
+/*
+ - (void) setBaseURL:(NSURL *)theBaseURL
+ {
+ baseURL = theBaseURL;
+ }
+ */
 
 - (void) setEmail:(NSString *)theEmail
 {
-    self->userEmail = theEmail;
-    [self->httpManager.requestSerializer setValue:self->userEmail forHTTPHeaderField:@"X-SL-Email"];
+    userEmail = theEmail;
+    [httpManager.requestSerializer setValue:self.userEmail forHTTPHeaderField:@"X-SL-Email"];
 }
 
 - (void) setToken:(NSString *)theToken
 {
-    self->userToken = theToken;
-    [self->httpManager.requestSerializer setValue:self->userToken forHTTPHeaderField:@"X-SL-Token"];
+    self.userToken = theToken;
+    [self.httpManager.requestSerializer setValue:self.userToken forHTTPHeaderField:@"X-SL-Token"];
 }
 
 - (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLRequestCallback)theCallback
 {
-
-    if (self->baseURL == nil)
+    AFHTTPRequestOperationManager *requestManager = self.httpManager;
+    NSLog(@"requestManager: %@", requestManager);
+    
+    if (self.baseURL == nil)
     {
         @throw SLExceptionMissingBaseUrl;
     }
     
-    
-    //NSLog(@"thePath: %@", thePath);
+    NSLog(@"baseURl: %@", self.baseURL);
+    NSLog(@"thePath: %@", thePath);
     NSURL *fullPath = [NSURL URLWithString:thePath relativeToURL:baseURL];
-    //NSLog(@"Full path: %@", [fullPath absoluteString]);
+    NSString *fullPathStr = [fullPath absoluteString];
+    NSLog(@"Full path: %@", fullPathStr);
     
     switch (theMethod) {
         case SLHTTPMethodGET:
@@ -94,7 +99,7 @@
             NSString *encodedJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
             NSLog(@"encodedJson: %@", encodedJson);
             //encodedJson = @"{\"filter\":{\"fields\":true,\"rels\":true}}";
-            [self->httpManager GET:[fullPath absoluteString] parameters:@{@"p":encodedJson} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [requestManager GET:fullPathStr parameters:@{@"p":encodedJson} success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"Success, JSON: %@", responseObject);
                 if (theCallback != nil) {
                     theCallback(nil, operation, responseObject);
@@ -110,7 +115,7 @@
             break;
         case SLHTTPMethodPOST:
         {
-            [self->httpManager POST:[fullPath absoluteString] parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [requestManager POST:fullPathStr parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"Success, JSON: %@", responseObject);
                 if (theCallback != nil) {
                     theCallback(nil, operation, responseObject);
@@ -131,7 +136,7 @@
             break;
         case SLHTTPMethodDELETE:
         {
-            [self->httpManager DELETE:[fullPath absoluteString] parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.httpManager DELETE:[fullPath absoluteString] parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"Success, JSON: %@", responseObject);
                 if (theCallback != nil) {
                     theCallback(nil, operation, responseObject);

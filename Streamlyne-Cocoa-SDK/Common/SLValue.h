@@ -11,41 +11,6 @@
 /** --------------------------------------------------------------------------------
  */
 @interface SLValue : SLObject {
-    
-    /**
-     Stores the type of the encapsulated value.
-     Ex) `NSString`, `NSInteger`, `Boolean`
-     */
-@private
-    Class type;
-    
-    /**
-     Stores the current value of the `SLValue`. The value should be
-     type unspecific.
-     */
-@private
-    id<NSObject> value;
-    
-    /**
-     Stores the last saved value of the `SLValue`. The value should be
-     type unspecific.
-     */
-@private
-    id<NSObject> savedValue;
-    
-    /**
-     A list of unary functions that values must "pass" to set.
-     */
-@private
-    NSMutableArray *predicates;
-    
-    /**
-     Tracks wether `setSaved` has been called since the last
-     successful call of `set`.
-     */
-@private
-    BOOL saved;
-    
 }
 
 /**

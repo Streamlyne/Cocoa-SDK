@@ -15,21 +15,22 @@
 
 @synthesize saved = _saved;
 @synthesize nid;
+@synthesize data, rels;
 
 - (id) init
 {
     self = [super init];
     if (self) {
         // Initialize variables
-        self->_saved = false;
-        self->nid = SLNidNodeNotCreated;
-        self->data = [NSDictionary dictionary];
-        self->rels = [SLRelationshipArray array];
+        _saved = false;
+        self.nid = SLNidNodeNotCreated;
+        self.data = [NSDictionary dictionary];
+        self.rels = [SLRelationshipArray array];
         // Edit data schema
-        NSMutableDictionary *tempData = [self->data mutableCopy];
+        NSMutableDictionary *tempData = [self.data mutableCopy];
         //SLValue *idVal = [[SLValue alloc]initWithType:[NSString class]];
         //[tempData setValue:idVal forKey:@"id"];
-        self->data = tempData;
+        self.data = tempData;
     }
     return self;
 }
@@ -52,7 +53,7 @@
         id<SLNodeProtocol> node = [[self class] createWithData:responseObject[@"data"] withRels:nil];
         NSLog(@"Node Id: %@", responseObject[@"id"]);
         [((SLNode *)node) setNid: (SLNid) responseObject[@"id"] ];
-
+        
         // Mark all data as saved.
         NSString *key;
         for (key in node.data)
@@ -93,14 +94,14 @@
                 [val setSaved]; // Mark as saved.
             }
             
-
+            
         }
         callback(nodes);
     };
-
+    
     NSDictionary *jsonQuery = @{@"filter":@{@"fields":[NSNumber numberWithBool:TRUE], @"rels":[NSNumber numberWithBool:TRUE]}};
     [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:jsonQuery withCallback:completionBlock];
-
+    
 }
 
 + (instancetype) createWithData:(NSDictionary *)theData withRels:(SLRelationshipArray *)theRels
@@ -158,7 +159,7 @@
     NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
     NSLog(@"theDeletePath: %@", thePath);
     [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodDELETE withPath:thePath withParameters:nil withCallback:completionBlock];
-
+    
 }
 
 + (void) deleteWithNode:(SLNode *)node
@@ -168,10 +169,10 @@
 
 + (void) deleteWithNode:(SLNode *)node withCallback:(SLSuccessCallback)callback
 {
-    [[self class] deleteWithId:node->nid withCallback:^(BOOL success) {
+    [[self class] deleteWithId:node.nid withCallback:^(BOOL success) {
         if (success)
         {
-            node->nid = SLNidNodeNotCreated; // Remove
+            node.nid = SLNidNodeNotCreated; // Remove
             callback(true);
         } else
         {
@@ -210,32 +211,33 @@
     for (node in nodes)
     {
         [node removeWithCallback:^(BOOL success)
-        {
-            if (!success) {
-                successful = false;
-            }
-            if (progress != nil) {
-                progress(completed);
-            }
-            completed++;
-            completionCallback();
-        }];
+         {
+             if (!success) {
+                 successful = false;
+             }
+             if (progress != nil) {
+                 progress(completed);
+             }
+             completed++;
+             completionCallback();
+         }];
     }
 }
 
 - (NSString *) description
 {
+    //return [NSString stringWithFormat:@"<%@>", [self class]];
     
-     return [NSString stringWithFormat:@"<%@ %p: %@>", [self class], self,
+    return [NSString stringWithFormat:@"<%@ %p: %@>", [self class], self,
             [NSDictionary dictionaryWithObjectsAndKeys:
              NSNullIfNil([self nid]), @"id",
              NSNullIfNil([self type]), @"type",
-             NSNullIfNil([self->data description]), @"data",
-             NSNullIfNil([self->rels description]), @"relationships",
+             NSNullIfNil([self.data description]), @"data",
+             NSNullIfNil([self.rels description]), @"relationships",
              nil
              ] ];
-     
-    //return [NSString stringWithFormat:@"<%@: { type: \"%@\", data: %@, relationships: %@ } >", [self class], [self type], [self->data description], [self->rels description]];
+    
+    //return [NSString stringWithFormat:@"<%@: { type: \"%@\", data: %@, relationships: %@ } >", [self class], [self type], [self.data description], [self.rels description]];
 }
 
 - (NSString *) type
@@ -245,20 +247,20 @@
 
 - (SLRelationshipArray *) relationships
 {
-    return self->rels;
+    return self.rels;
 }
 
 - (BOOL) addRelationship:(SLRelationship *)theRel
 {
     // Validate relationship
-    if ( (theRel->startNode == self) || (theRel->endNode == self) ) {
+    if ( (theRel.startNode == self) || (theRel.endNode == self) ) {
         
         // Check if already exists
         // This will eventually contain the index of the object.
         // Initialize it to NSNotFound so you can check the results after the block has run.
         __block NSInteger foundIndex = NSNotFound;
         
-        [self->rels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [self.rels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if ([obj isKindOfClass:[SLRelationship class]]) {
                 foundIndex = idx;
                 // stop the enumeration
@@ -269,7 +271,7 @@
         if (foundIndex != NSNotFound) {
             // You've found the first object of that class in the array
         } else {
-            [self->rels addObject:theRel];
+            [self.rels addObject:theRel];
         }
         return true;
     } else {
@@ -279,13 +281,13 @@
 
 - (id) get:(NSString *)attr
 {
-    return [(SLValue *)[self->data objectForKey:attr] get];
+    return [(SLValue *)[self.data objectForKey:attr] get];
 }
 
 - (void) update:(NSString *)attr value:(id)value
 {
     [((SLValue *)[data objectForKey:attr]) set:value];
-    self->_saved = NO;
+    _saved = NO;
 }
 
 - (void) save
@@ -300,7 +302,7 @@
     NSString *key;
     for (key in data)
     {
-        SLValue *val = [self->data objectForKey:key];
+        SLValue *val = [self.data objectForKey:key];
         // Check if already saved
         if (![val isSaved])
         {
@@ -310,7 +312,7 @@
     }
     NSMutableArray *notSavedRels = [NSMutableArray array];
     SLRelationship* rel;
-    for (rel in self->rels)
+    for (rel in self.rels)
     {
         // Check if already saved
         if (![rel isSaved])
@@ -318,20 +320,20 @@
             SLRelationshipDirection dir = [rel directionWithNode:self];
             
             if (dir == SLRelationshipIncoming) {
-                SLNode *node = rel->startNode;
+                SLNode *node = rel.startNode;
                 [notSavedRels addObject:@{
-                                          @"id":node->nid,
+                                          @"id":node.nid,
                                           @"dir":@"in",
-                                          @"nodeType": [rel->startNode type],
-                                          @"relsType": rel->name
+                                          @"nodeType": [rel.startNode type],
+                                          @"relsType": rel.name
                                           }];
             } else if (dir == SLRelationshipOutgoing) {
-                SLNode *node = rel->endNode;
+                SLNode *node = rel.endNode;
                 [notSavedRels addObject:@{
-                                          @"id":node->nid,
+                                          @"id":node.nid,
                                           @"dir":@"out",
-                                          @"nodeType": [rel->endNode type],
-                                          @"relsType": rel->name
+                                          @"nodeType": [rel.endNode type],
+                                          @"relsType": rel.name
                                           }];
             } else {
                 // SLRelationshipNotFound
@@ -361,24 +363,24 @@
             
             // Mark all `SLValue`s as saved.
             NSString *key;
-            for (key in self->data)
+            for (key in self.data)
             {
-                SLValue *val = [self->data objectForKey:key];
+                SLValue *val = [self.data objectForKey:key];
                 [val setSaved]; // Mark as saved.
             }
             
             // Mark all `SLRelationship`s as saved.
             SLRelationship* rel;
-            for (rel in self->rels)
+            for (rel in self.rels)
             {
                 [rel setSaved];
             }
             // Mark Node as saved.
-            self->_saved = YES;
+            _saved = YES;
             
             // Return
             callback(true);
-                
+            
         } else {
             callback(false);
         }
@@ -416,7 +418,7 @@
         }
     }
     SLRelationship* rel;
-    for (rel in self->rels)
+    for (rel in self.rels)
     {
         if ( ! [rel isSaved] ) {
             // Not saved

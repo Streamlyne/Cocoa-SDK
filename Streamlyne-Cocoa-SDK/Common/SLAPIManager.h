@@ -27,27 +27,12 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
 
 
 @interface SLAPIManager : SLObject {
-    @private
-    /**
-     
-     */
-    NSString *userEmail;
-    /**
-     
-     */
-    NSString *userToken;
-    /**
-     
-     */
-    //NSURL *baseURL;
-    
-    @protected
-    
-    @public
     
 }
 
-@property (strong, nonatomic, setter = setBaseURL: , getter = baseURL) NSURL *baseURL;
+@property (strong, nonatomic) NSString *userEmail;
+@property (strong, nonatomic) NSString *userToken;
+@property (strong, nonatomic) NSURL *baseURL;
 
 /**
  Returns the Shared Manager instance of `SLAPIManager`.

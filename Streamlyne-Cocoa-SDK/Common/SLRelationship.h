@@ -13,36 +13,16 @@
  */
 @interface SLRelationship : NSObject {
     
-    /**
-     Name of the relationship type.
-     */
-@public
-    NSString *name;
-    
-    /**
-     A dictionary of {SLValue}s
-     */
-@private
-    NSDictionary *data;
-    
-@public
-    id<SLNodeProtocol> startNode;
-    
-@public
-    id<SLNodeProtocol> endNode;
-    
-@protected
-    Boolean *required;
-    
-    /**
-     Tracks wether `setSaved` has been called since the last
-     successful call of `set`.
-     */
-@private
-    BOOL saved;
-
-    
 }
+
+/**
+ Name of the relationship type.
+ */
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) id<SLNodeProtocol> startNode;
+@property (strong, nonatomic) id<SLNodeProtocol> endNode;
+@property (nonatomic) BOOL required;
+
 
 //@property (setter = setName) NSString *name;
 

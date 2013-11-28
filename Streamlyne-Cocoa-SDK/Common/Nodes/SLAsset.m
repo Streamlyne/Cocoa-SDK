@@ -23,7 +23,7 @@
         SLValue *costCenter = [[SLValue alloc]initWithType:[NSString class]];
 
         // Edit data schema
-        NSMutableDictionary *tempData = [self->data mutableCopy];
+        NSMutableDictionary *tempData = [self.data mutableCopy];
         [tempData setValue:assetNumber forKey:@"number_asset"];
         [tempData setValue:serialNumber forKey:@"number_serial"];
         [tempData setValue:description forKey:@"description"];
@@ -31,7 +31,7 @@
         [tempData setValue:location forKey:@"location"];
         [tempData setValue:costCenter forKey:@"cost_center"];
         
-        self->data = tempData;
+        self.data = tempData;
     }
     return self;
 }
