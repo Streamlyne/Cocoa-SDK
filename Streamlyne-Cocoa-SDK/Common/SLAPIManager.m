@@ -19,6 +19,7 @@
 @end
 
 @implementation SLAPIManager
+@synthesize baseURL;
 
 - (instancetype) init
 {
@@ -78,9 +79,10 @@
         @throw SLExceptionMissingBaseUrl;
     }
     
-    NSLog(@"thePath: %@", thePath);
+    
+    //NSLog(@"thePath: %@", thePath);
     NSURL *fullPath = [NSURL URLWithString:thePath relativeToURL:baseURL];
-    NSLog(@"Full path: %@", [fullPath absoluteString]);
+    //NSLog(@"Full path: %@", [fullPath absoluteString]);
     
     switch (theMethod) {
         case SLHTTPMethodGET:
