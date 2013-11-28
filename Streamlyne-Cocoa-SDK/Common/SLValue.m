@@ -8,8 +8,43 @@
 
 #import "SLValue.h"
 
-@implementation SLValue
+@interface SLValue ()
+{
+}
 
+/**
+ Stores the type of the encapsulated value.
+ Ex) `NSString`, `NSInteger`, `Boolean`
+ */
+@property (strong, nonatomic) Class type;
+
+/**
+ Stores the current value of the `SLValue`. The value should be
+ type unspecific.
+ */
+@property (strong, nonatomic) id<NSObject> value;
+
+/**
+ Stores the last saved value of the `SLValue`. The value should be
+ type unspecific.
+ */
+@property (strong, nonatomic) id<NSObject> savedValue;
+
+/**
+ A list of unary functions that values must "pass" to set.
+ */
+@property (strong, nonatomic) NSMutableArray *predicates;
+
+/**
+ Tracks wether `setSaved` has been called since the last
+ successful call of `set`.
+ */
+@property (nonatomic) BOOL saved;
+
+@end
+
+@implementation SLValue
+@synthesize type, value, savedValue, predicates, saved;
 @synthesize clientVisible;
 
 - (id) init

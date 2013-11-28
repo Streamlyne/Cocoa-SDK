@@ -15,6 +15,7 @@
 
 @synthesize saved = _saved;
 @synthesize nid;
+@synthesize data, rels;
 
 - (id) init
 {
@@ -251,7 +252,7 @@
 - (BOOL) addRelationship:(SLRelationship *)theRel
 {
     // Validate relationship
-    if ( (theRel->startNode == self) || (theRel->endNode == self) ) {
+    if ( (theRel.startNode == self) || (theRel.endNode == self) ) {
         
         // Check if already exists
         // This will eventually contain the index of the object.
@@ -318,20 +319,20 @@
             SLRelationshipDirection dir = [rel directionWithNode:self];
             
             if (dir == SLRelationshipIncoming) {
-                SLNode *node = rel->startNode;
+                SLNode *node = rel.startNode;
                 [notSavedRels addObject:@{
                                           @"id":node->nid,
                                           @"dir":@"in",
-                                          @"nodeType": [rel->startNode type],
-                                          @"relsType": rel->name
+                                          @"nodeType": [rel.startNode type],
+                                          @"relsType": rel.name
                                           }];
             } else if (dir == SLRelationshipOutgoing) {
-                SLNode *node = rel->endNode;
+                SLNode *node = rel.endNode;
                 [notSavedRels addObject:@{
                                           @"id":node->nid,
                                           @"dir":@"out",
-                                          @"nodeType": [rel->endNode type],
-                                          @"relsType": rel->name
+                                          @"nodeType": [rel.endNode type],
+                                          @"relsType": rel.name
                                           }];
             } else {
                 // SLRelationshipNotFound

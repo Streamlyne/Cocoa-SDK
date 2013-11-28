@@ -17,9 +17,9 @@
         // Initialize variables
         SLValue *name = [[SLValue alloc]initWithType:[NSString class]];
         // Edit data schema
-        NSMutableDictionary *tempData = [self->data mutableCopy];
+        NSMutableDictionary *tempData = [self.data mutableCopy];
         [tempData setValue:name forKey:@"name"];
-        self->data = tempData;
+        self.data = tempData;
     }
     return self;
 }

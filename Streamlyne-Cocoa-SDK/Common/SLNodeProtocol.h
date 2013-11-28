@@ -15,16 +15,16 @@
  String s -> SLValue s
  */
 @required
-@property NSDictionary *data;
+@property (strong, nonatomic) NSDictionary *data;
 
 /**
  A list of relationships to this node.
  */
 @required
-@property SLRelationshipArray *rels;
+@property (strong, nonatomic) SLRelationshipArray *rels;
 
 @required
-@property SLNid nid;
+@property (strong, nonatomic) SLNid nid;
 
 @required
 - (NSString *) type;

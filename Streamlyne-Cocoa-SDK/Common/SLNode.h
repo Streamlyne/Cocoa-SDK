@@ -25,26 +25,19 @@
  
  */
 @interface SLNode : SLObject <SLNodeProtocol> {
-    
-    /**
-     String s -> SLValue s
-     */
-@protected
-    NSDictionary *data;
-    
-    /**
-     A list of relationships to this node.
-     */
-@protected
-    SLRelationshipArray *rels;
-    
-@public
-    SLNid nid;
 }
 // Properties
-@property NSDictionary *data;
-@property SLRelationshipArray *rels;
-@property SLNid nid;
+/**
+ String s -> SLValue s
+ */
+@property (strong, nonatomic) NSDictionary *data;
+/**
+ A list of relationships to this node.
+ */
+@property (strong, nonatomic) SLRelationshipArray *rels;
+/**
+ */
+@property (strong, nonatomic) SLNid nid;
 
 
 /**

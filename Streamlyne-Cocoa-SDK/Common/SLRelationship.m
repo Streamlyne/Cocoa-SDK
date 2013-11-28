@@ -8,18 +8,34 @@
 
 #import "SLRelationship.h"
 
+@interface SLRelationship () {
+    
+}
+/**
+ Tracks wether `setSaved` has been called since the last
+ successful call of `set`.
+ */
+@property (nonatomic) BOOL saved;
+/**
+ A dictionary of {SLValue}s
+ */
+@property (strong, nonatomic) NSDictionary *data;
+
+@end
+
 
 @implementation SLRelationship
+@synthesize name, startNode, endNode, required, data, saved;
 
 - (id) initWithName:(NSString *)theName withStartNode:(id)startNode withEndNode:(id)endNode;
 {
     self = [super init];
     if (self) {
         // Initialize variables
-        self->saved = NO;
-        self->name = theName;
-        self->startNode = startNode;
-        self->endNode = endNode;
+        self.saved = NO;
+        self.name = theName;
+        self.startNode = startNode;
+        self.endNode = endNode;
         // Add relation to these nodes
         [startNode addRelationship:self];
         [endNode addRelationship:self];

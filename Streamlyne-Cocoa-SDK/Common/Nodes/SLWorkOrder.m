@@ -22,7 +22,7 @@
         SLValue *date_completed = [[SLValue alloc]initWithType:[NSDate class]];
 
         // Edit data schema
-        NSMutableDictionary *tempData = [self->data mutableCopy];
+        NSMutableDictionary *tempData = [self.data mutableCopy];
         [tempData setValue:name forKey:@"name"];
         [tempData setValue:description forKey:@"description"];
         [tempData setValue:status forKey:@"status"];
@@ -30,7 +30,7 @@
         //[tempData setValue:date_due forKey:@"date_due"];
         //[tempData setValue:date_completed forKey:@"date_completed"];
         
-        self->data = tempData;
+        self.data = tempData;
     }
     return self;
 }

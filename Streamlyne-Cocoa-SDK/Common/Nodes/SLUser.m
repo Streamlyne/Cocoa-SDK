@@ -26,7 +26,7 @@
         SLValue *lastName = [[SLValue alloc]initWithType:[NSString class]];
         SLValue *avatar = [[SLValue alloc]initWithType:[NSURL class]];
         // Edit data schema
-        NSMutableDictionary *tempData = [self->data mutableCopy];
+        NSMutableDictionary *tempData = [self.data mutableCopy];
         [tempData setValue:email forKey:@"email"];
         [tempData setValue:password forKey:@"password"];
         //[tempData setValue:phoneNumber forKey:@"phone_number"];
@@ -34,7 +34,7 @@
         [tempData setValue:firstName forKey:@"name_first"];
         [tempData setValue:lastName forKey:@"name_last"];
         //[tempData setValue:avatar forKey:@"avatar"];
-        self->data = tempData;
+        self.data = tempData;
     }
     return self;
 }
