@@ -47,12 +47,12 @@
  Sample code to put in your init method.
  
     // Create a Mutable copy of the data
-    NSMutableDictionary *tempData = [self->data mutableCopy];
+    NSMutableDictionary *tempData = [self.data mutableCopy];
     // Make changes, by adding `SLValue`s
     SLValue *idVal = [[SLValue alloc]initWithType:[NSString class]];
     [tempData setValue:idVal forKey:@"id"];
     // Change the base data schema to the new data schema.
-    self->data = tempData;
+    self.data = tempData;
  
  */
 - (instancetype) init;

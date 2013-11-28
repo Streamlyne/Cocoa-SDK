@@ -406,7 +406,6 @@
         pendingCallbacks = pendingCallbacks - 1; // Decrement
     };
     
-    
     // Read All Work Orders
     NSLog(@"Read All Work Orders");
     pendingCallbacks++;
@@ -427,7 +426,7 @@
         
         NSDictionary *newWorkOrderData = @{
                                            @"name": @"Sample Work Order",
-                                           @"description": @"This is a sample work order!"
+                                           @"description": @"This is a sample work order from SDK tests!"
                                            ,@"status": @"some status"
                                            ,@"notes_completion": @"After I created it made this note."
                                            //,@"date_due": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterFullStyle]

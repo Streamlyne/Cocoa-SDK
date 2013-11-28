@@ -46,30 +46,30 @@
 
 - (NSString *) description
 {
-    return [NSString stringWithFormat:@"<%@ %p: { name = %@, startNode = <%@: %p>, endNode = <%@: %p> }>", [self class], self, self->name, [self->startNode class], self->startNode, [self->endNode class], self->endNode];
+    return [NSString stringWithFormat:@"<%@ %p: { name = %@, startNode = <%@: %p>, endNode = <%@: %p> }>", [self class], self, self.name, [self.startNode class], self.startNode, [self.endNode class], self.endNode];
 
     /*
     return [NSString stringWithFormat:@"<%@ %p: %@>", [self class], self,
             [NSDictionary dictionaryWithObjectsAndKeys:
-             NSNullIfNil(self->name), @"name",
-             (self->startNode->nid||[NSNull null]), @"startNode",
-             (self->endNode->nid||[NSNull null]), @"endNode",
+             NSNullIfNil(self.name), @"name",
+             (self.startNode.nid||[NSNull null]), @"startNode",
+             (self.endNode.nid||[NSNull null]), @"endNode",
              nil
              ] ];
     */
     
-    //return [NSString stringWithFormat:@"<%@: { type: \"%@\", data: %@, relationships: %@ } >", [self class], [self type], [self->data description], [self->rels description]];
+    //return [NSString stringWithFormat:@"<%@: { type: \"%@\", data: %@, relationships: %@ } >", [self class], [self type], [self.data description], [self.rels description]];
 }
 
 - (SLRelationshipDirection) directionWithNode:(id)theNode
 {
-    //NSLog(@"Node: %@, start: %@, end:%@", theNode, self->startNode, self->endNode);
+    //NSLog(@"Node: %@, start: %@, end:%@", theNode, self.startNode, self.endNode);
     
-    if (self->endNode == theNode)
+    if (self.endNode == theNode)
     {
         NSLog(@"SLRelationshipIncoming");
         return SLRelationshipIncoming;
-    } else if (self->startNode == theNode)
+    } else if (self.startNode == theNode)
     {
         NSLog(@"SLRelationshipOutgoing");
         return SLRelationshipOutgoing;

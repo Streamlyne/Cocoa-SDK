@@ -57,20 +57,20 @@
 /*
  - (void) setBaseURL:(NSURL *)theBaseURL
  {
- self->baseURL = theBaseURL;
+ baseURL = theBaseURL;
  }
  */
 
 - (void) setEmail:(NSString *)theEmail
 {
-    self->userEmail = theEmail;
-    [self->httpManager.requestSerializer setValue:self->userEmail forHTTPHeaderField:@"X-SL-Email"];
+    userEmail = theEmail;
+    [httpManager.requestSerializer setValue:self.userEmail forHTTPHeaderField:@"X-SL-Email"];
 }
 
 - (void) setToken:(NSString *)theToken
 {
-    self->userToken = theToken;
-    [self->httpManager.requestSerializer setValue:self->userToken forHTTPHeaderField:@"X-SL-Token"];
+    self.userToken = theToken;
+    [self.httpManager.requestSerializer setValue:self.userToken forHTTPHeaderField:@"X-SL-Token"];
 }
 
 - (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLRequestCallback)theCallback
@@ -78,7 +78,7 @@
     AFHTTPRequestOperationManager *requestManager = self.httpManager;
     NSLog(@"requestManager: %@", requestManager);
     
-    if (self->baseURL == nil)
+    if (self.baseURL == nil)
     {
         @throw SLExceptionMissingBaseUrl;
     }
@@ -136,7 +136,7 @@
             break;
         case SLHTTPMethodDELETE:
         {
-            [self->httpManager DELETE:[fullPath absoluteString] parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.httpManager DELETE:[fullPath absoluteString] parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"Success, JSON: %@", responseObject);
                 if (theCallback != nil) {
                     theCallback(nil, operation, responseObject);
