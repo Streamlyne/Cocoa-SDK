@@ -284,6 +284,19 @@
     return [(SLValue *)[self.data objectForKey:attr] get];
 }
 
+- (void) get:(NSString *)attr withCallback:(void (^)(id value))callback
+{
+    //
+    id value = [(SLValue *)[self.data objectForKey:attr] get];
+    // Get value
+    
+    if (callback != nil)
+    {
+        callback(value);
+    }
+    
+}
+
 - (void) update:(NSString *)attr value:(id)value
 {
     [((SLValue *)[data objectForKey:attr]) set:value];

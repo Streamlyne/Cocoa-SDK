@@ -170,9 +170,18 @@
 - (BOOL) addRelationship:(SLRelationship *)theRel;
 
 /**
- Returns the value of the `SLValue` of the node's data with the key `attr`.
+ Returns the current value of the `SLValue` of the node's data with the key `attr`.
+ 
+ @deprecated Use `get:withCallback:`
  */
-- (id) get:(NSString *)attr;
+- (id) get:(NSString *)attr __attribute__ ((deprecated));
+
+/**
+ Returns the value of the `SLValue` of the node's data with the key `attr` in the `callback`.
+ 
+ */
+- (void) get:(NSString *)attr withCallback:(void (^)(id value))callback;
+
 
 /**
  Update a single attribute. Updating a node sets it's internal boolean,
