@@ -76,18 +76,18 @@
 - (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLRequestCallback)theCallback
 {
     AFHTTPRequestOperationManager *requestManager = self.httpManager;
-    NSLog(@"requestManager: %@", requestManager);
+    //NSLog(@"requestManager: %@", requestManager);
     
     if (self.baseURL == nil)
     {
         @throw SLExceptionMissingBaseUrl;
     }
     
-    NSLog(@"baseURl: %@", self.baseURL);
-    NSLog(@"thePath: %@", thePath);
+    //NSLog(@"baseURl: %@", self.baseURL);
+    //NSLog(@"thePath: %@", thePath);
     NSURL *fullPath = [NSURL URLWithString:thePath relativeToURL:baseURL];
     NSString *fullPathStr = [fullPath absoluteString];
-    NSLog(@"Full path: %@", fullPathStr);
+    //NSLog(@"Full path: %@", fullPathStr);
     
     switch (theMethod) {
         case SLHTTPMethodGET:
@@ -97,7 +97,7 @@
                                                                options:NSJSONWritingPrettyPrinted
                                                                  error:&error];
             NSString *encodedJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            NSLog(@"encodedJson: %@", encodedJson);
+            //NSLog(@"encodedJson: %@", encodedJson);
             //encodedJson = @"{\"filter\":{\"fields\":true,\"rels\":true}}";
             [requestManager GET:fullPathStr parameters:@{@"p":encodedJson} success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"Success, JSON: %@", responseObject);

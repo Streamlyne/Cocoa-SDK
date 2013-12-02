@@ -43,6 +43,8 @@
 /**
  Returns an object initialized.
  
+ Use for initializing new nodes that do not have existing an `SLNid` nid.
+ 
  ## Manipulating the Schema
  Sample code to put in your init method.
  
@@ -56,6 +58,18 @@
  
  */
 - (instancetype) init;
+
+
+/**
+ Returns an object initialized with the specific `SLNid` nid.
+ 
+ Used for initializing nodes given a known nid. 
+ If the node has already been initialized, that same node in memory will be returned.
+ 
+ @param nid
+ @return    Initialized object.
+ */
++ (instancetype) initWithId:(SLNid)nid;
 
 /**
  Return the node type name. This is used in the requests to the `SLAPIManager`.
@@ -72,27 +86,50 @@
 
 /**
  Returns the node with id corresponding to `SLNid`.
- @param nid     A valid `SLNid` for a node that will be retrieved from the database.
+ @param nid         A valid `SLNid` for a node that will be retrieved from the database.
  @param callback    A callback for when the asycronous request has returned with the node.
  */
 + (void) readById:(SLNid)nid withCallback:(void (^)(SLNode *))callback;
 
+/**
+ Returns the node with id corresponding to `SLNid`.
+ @param nid         A valid `SLNid` for a node that will be retrieved from the database.
+ @param filters     `NSDictionary` representing the desired fields and relationships to be requested.
+ @param callback    A callback for when the asycronous request has returned with the node.
+ */
++ (void) readById:(SLNid)nid withFilters:(NSDictionary *)filters withCallback:(void (^)(SLNode *))callback;
+
 
 /**
- Returns all nodes of the type subclassed by SLNode.
+ Returns all nodes of the type subclassed by `SLNode`.
+ 
+ Filter is set to not request any fields (`SLValue`) or relationships (`SLRelationship`).
+ 
+ If you wish to request specific fields or relationships use `readAllWithFilters:withCallback:`.
+ 
+ @param callback  The C-block style callback.
+ @return void
  */
 + (void) readAllWithCallback:(void (^)(SLNodeArray *))callback;
 
+/**
+ Returns all nodes of the type subclassed by `SLNode`.
+ 
+ @param callback    The C-block style callback.
+ @param filters     `NSDictionary` representing the desired fields and relationships to be requested.
+ @return void
+ */
++ (void) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(SLNodeArray *))callback;
 
 /**
- Creates a node client side (not persisted). This node needs to be
- be saved to be persisted in any manner.
+ Creates a node client side (not persisted). 
+ This node needs to be be saved to be persisted in any manner.
  */
 + (instancetype) createWithData:(NSDictionary *)theData withRels:(SLRelationshipArray *)theRels;
 
 /**
- Creates a node client side (not persisted). This node needs to be
- be saved to be persisted in any manner.
+ Creates a node client side (not persisted). 
+ This node needs to be be saved to be persisted in any manner.
  */
 + (instancetype) createWithData:(NSDictionary *)data;
 
@@ -171,17 +208,8 @@
 
 /**
  Returns the current value of the `SLValue` of the node's data with the key `attr`.
- 
- @deprecated Use `get:withCallback:`
  */
-- (id) get:(NSString *)attr __attribute__ ((deprecated));
-
-/**
- Returns the value of the `SLValue` of the node's data with the key `attr` in the `callback`.
- 
- */
-- (void) get:(NSString *)attr withCallback:(void (^)(id value))callback;
-
+- (id) get:(NSString *)attr;
 
 /**
  Update a single attribute. Updating a node sets it's internal boolean,

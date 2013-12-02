@@ -35,6 +35,72 @@
     return self;
 }
 
++ (instancetype) initWithId:(SLNid)nid
+{
+    static NSMutableDictionary *openNodes;
+    @synchronized(self)
+    {
+        // Init the openNodes dictionary
+        if (!openNodes)
+        {
+            openNodes = [NSMutableDictionary dictionary];
+        }
+        // Look up node with `SLNid` nid
+        id<SLNodeProtocol> node = [openNodes objectForKey:nid];
+        if (node == nil)
+        {
+            // Did not find node
+            // Create a new one
+            id<SLNodeProtocol> newNode = [[[self class] alloc] init];
+            [newNode setNid:nid];
+            // Add it to openNodes
+            [openNodes setObject:newNode forKey:nid];
+            // Return new node
+            node = [openNodes objectForKey:nid];
+            return node;
+        } else
+        {
+            NSLog(@"Found node: %@", node);
+            // Found node
+            return node;
+        }
+    }
+}
+
+- (void) loadDataFromDictionary:(NSDictionary *)theData
+{
+    // Load Data from NSDictionary
+    NSString *key = nil;
+    for (key in theData)
+    {
+        // NSLog(@"Update %@: %@", key, [theData objectForKey:key]);
+        [self update:key value:[theData objectForKey:key]];
+        // Mark data as saved.
+        SLValue *val = [self.data objectForKey:key];
+        [val setSaved]; // Mark as saved.
+    }
+}
+
+- (void) loadRelsFromArray:(NSArray *)theRels
+{
+    // Load Relationships from NSArray
+    //NSLog(@"Rels: %@", theRels);
+    for (NSDictionary *curr in theRels)
+    {
+        SLRelationship *rel;
+        id otherNode = [[self class] initWithId:(SLNid) curr[@"id"]];
+        if ([curr[@"dir"] isEqual: @"in"])
+        {
+            rel = [[SLRelationship alloc] initWithName: curr[@"relsType"] withStartNode:otherNode withEndNode:self];
+        } else //
+        {
+            rel = [[SLRelationship alloc] initWithName: curr[@"relsType"] withStartNode:self withEndNode:otherNode];
+        }
+        [rel setSaved];
+        [self addRelationship:rel];
+    }
+}
+
 + (NSString *) type
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
@@ -44,35 +110,47 @@
 
 + (void) readById:(SLNid)nid withCallback:(void (^)(SLNode *))callback
 {
-    
+    NSDictionary *filters = @{
+                              @"filter":@{
+                                      @"fields": [NSNumber numberWithBool: FALSE],
+                                      @"rels": [NSNumber numberWithBool: FALSE]
+                                      }
+                              };
+    [self readById:nid withFilters:filters withCallback:callback];
+}
+
++ (void) readById:(SLNid)nid withFilters:(NSDictionary *)filters withCallback:(void (^)(SLNode *))callback
+{
     SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
         //NSLog(@"SLRequestCallback completionBlock!");
         //NSLog(@"<%@>: %@", [responseObject class], responseObject);
         
-        // Process
-        id<SLNodeProtocol> node = [[self class] createWithData:responseObject[@"data"] withRels:nil];
-        NSLog(@"Node Id: %@", responseObject[@"id"]);
-        [((SLNode *)node) setNid: (SLNid) responseObject[@"id"] ];
-        
-        // Mark all data as saved.
-        NSString *key;
-        for (key in node.data)
-        {
-            SLValue *val = [node.data objectForKey:key];
-            [val setSaved]; // Mark as saved.
-        }
+        // Process & Read Node
+        id<SLNodeProtocol> node = [[self class] initWithId:(SLNid) responseObject[@"id"]];
+        [((SLNode *)node) loadDataFromDictionary: responseObject[@"data"]];
+        [((SLNode *)node) loadRelsFromArray: responseObject[@"rels"]];
         
         // Return
         callback(node);
     };
     
-    NSDictionary *jsonQuery = @{@"filter":@{@"fields":[NSNumber numberWithBool:TRUE], @"rels":[NSNumber numberWithBool:TRUE]}};
     NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
-    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodGET withPath:thePath withParameters:jsonQuery withCallback:completionBlock];
+    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodGET withPath:thePath withParameters:filters withCallback:completionBlock];
     
 }
 
 + (void) readAllWithCallback:(void (^)(SLNodeArray *))callback
+{
+    NSDictionary *filters = @{
+                              @"filter":@{
+                                      @"fields": [NSNumber numberWithBool: FALSE],
+                                      @"rels": [NSNumber numberWithBool: FALSE]
+                                      }
+                              };
+    [self readAllWithFilters:filters withCallback:callback];
+}
+
++ (void) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(SLNodeArray *))callback
 {
     SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
         //NSLog(@"SLRequestCallback completionBlock!");
@@ -81,26 +159,18 @@
         NSArray *arr = ((NSDictionary *)responseObject)[@"nodes"];
         for (NSDictionary* curr in arr)
         {
-            id<SLNodeProtocol> node = [[self class] createWithData:curr[@"data"] withRels:nil];
-            NSLog(@"Node Id: %@", curr[@"id"]);
-            [((SLNode *)node) setNid: (SLNid) curr[@"id"] ];
-            [nodes addObject:node];
             
-            // Mark all data as saved.
-            NSString *key;
-            for (key in node.data)
-            {
-                SLValue *val = [node.data objectForKey:key];
-                [val setSaved]; // Mark as saved.
-            }
+            id<SLNodeProtocol> node = [[self class] initWithId:(SLNid) curr[@"id"]];
+            [((SLNode *)node) loadDataFromDictionary: curr[@"data"]];
+            [((SLNode *)node) loadRelsFromArray: curr[@"rels"]];
             
+            [nodes addObject: node];
             
         }
         callback(nodes);
     };
     
-    NSDictionary *jsonQuery = @{@"filter":@{@"fields":[NSNumber numberWithBool:TRUE], @"rels":[NSNumber numberWithBool:TRUE]}};
-    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:jsonQuery withCallback:completionBlock];
+    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters withCallback:completionBlock];
     
 }
 
@@ -282,19 +352,6 @@
 - (id) get:(NSString *)attr
 {
     return [(SLValue *)[self.data objectForKey:attr] get];
-}
-
-- (void) get:(NSString *)attr withCallback:(void (^)(id value))callback
-{
-    //
-    id value = [(SLValue *)[self.data objectForKey:attr] get];
-    // Get value
-    
-    if (callback != nil)
-    {
-        callback(value);
-    }
-    
 }
 
 - (void) update:(NSString *)attr value:(id)value

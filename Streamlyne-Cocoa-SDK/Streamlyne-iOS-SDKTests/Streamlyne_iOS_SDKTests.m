@@ -52,7 +52,7 @@
     //[manager performRequestWithMethod:SLHTTPMethodGET withPath:@"user/" withParameters:nil withCallback:completionBlock];
     
     /*
-    [SLUser readAllWithCallback:^(SLNodeArray *nodes){
+    [SLUser readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray *nodes){
         completionBlock(true);
     }];
     */
@@ -112,7 +112,7 @@
     
     // Read All
     pendingCallbacks++;
-    [SLOrganization readAllWithCallback:^(SLNodeArray *nodes) {
+    [SLOrganization readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray *nodes) {
         NSLog(@"Organizations: %@", nodes);
         
         completionBlock(true);
@@ -172,7 +172,7 @@
     
     SLUser *user1 = [SLUser createWithData:data withRels:(SLRelationshipArray *)@[]];
     pendingCallbacks++;
-    [SLOrganization readAllWithCallback:^(SLNodeArray *orgs) {
+    [SLOrganization readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray *orgs) {
         SLOrganization *org1 = (SLOrganization *) orgs[0];
         NSLog(@"%lu number of Organizations", (unsigned long)[orgs count]);
 
@@ -196,7 +196,7 @@
             
             // Read All
             pendingCallbacks++;
-            [SLUser readAllWithCallback:^(SLNodeArray *users){
+            [SLUser readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray *users){
                 //NSLog(@"Users: %@", users);
                 NSLog(@"%lu number of Users", (unsigned long)[users count]);
                 completionBlock(true);
@@ -284,7 +284,7 @@
     // Read All Group
     NSLog(@"Read All Group");
     pendingCallbacks++;
-    [SLGroup readAllWithCallback:^(SLNodeArray * nodes){
+    [SLGroup readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray * nodes){
         NSLog(@"# of Group: %lu", (unsigned long)[nodes count]);
         for (NSUInteger i = 0, len = [nodes count]; i < len; i++)
         {
@@ -334,7 +334,7 @@
     // Read All Work Orders
     NSLog(@"Read All Assets");
     pendingCallbacks++;
-    [SLAsset readAllWithCallback:^(SLNodeArray * nodes){
+    [SLAsset readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray * nodes){
         NSLog(@"# of Asset: %lu", (unsigned long)[nodes count]);
         for (NSUInteger i = 0, len = [nodes count]; i < len; i++)
         {
@@ -346,7 +346,7 @@
     
     // Create
     pendingCallbacks++;
-    [SLUser readAllWithCallback:^(SLNodeArray *nodes) {
+    [SLUser readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray *nodes) {
         NSLog(@"nodes: %@", nodes);
         if ([nodes count] < 1) {
             NSLog(@"No users....");
@@ -372,7 +372,7 @@
         
         /*
          pendingCallbacks++;
-         [SLOrganization readAllWithCallback:^(SLNodeArray * nodes) {
+         [SLOrganization readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray * nodes) {
          SLOrganization *org1 = (SLOrganization *) nodes[0];
          SLRelationship *rel2 = [[SLRelationship alloc] initWithName:@"member" withStartNode:user1 withEndNode:org1];
          
@@ -416,7 +416,7 @@
     // Read All Work Orders
     NSLog(@"Read All Work Orders");
     pendingCallbacks++;
-    [SLWorkOrder readAllWithCallback:^(SLNodeArray * nodes){
+    [SLWorkOrder readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray * nodes){
         NSLog(@"# of Work Orders: %lu", (unsigned long)[nodes count]);
         for (NSUInteger i = 0, len = [nodes count]; i < len; i++)
         {
@@ -428,7 +428,7 @@
     
     // Create
     pendingCallbacks++;
-    [SLUser readAllWithCallback:^(SLNodeArray *nodes) {
+    [SLUser readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray *nodes) {
         NSLog(@"# of Users: %lu", (unsigned long)[nodes count]);
         if ([nodes count] < 1) {
             NSLog(@"No users....");
@@ -454,7 +454,7 @@
         
         /*
         pendingCallbacks++;
-        [SLOrganization readAllWithCallback:^(SLNodeArray * nodes) {
+        [SLOrganization readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray * nodes) {
             SLOrganization *org1 = (SLOrganization *) nodes[0];
             SLRelationship *rel2 = [[SLRelationship alloc] initWithName:@"member" withStartNode:user1 withEndNode:org1];
             
@@ -470,7 +470,7 @@
     }];
      
     //
-    NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:10];
+    NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:60];
     while ( (pendingCallbacks > 0) && [loopUntil timeIntervalSinceNow] > 0) {
         //NSLog(@"%d", pendingCallbacks);
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode

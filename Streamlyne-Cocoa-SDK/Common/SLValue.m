@@ -41,16 +41,10 @@
  */
 @property (nonatomic) BOOL saved;
 
-/** 
- Default value of the `SLValue`.
- */
-@property (strong, nonatomic) id<NSObject> defaultValue;
-
 @end
 
 @implementation SLValue
-
-@synthesize type, value, savedValue, predicates, saved, defaultValue;
+@synthesize type, value, savedValue, predicates, saved;
 @synthesize clientVisible;
 
 - (id) init
@@ -62,7 +56,6 @@
         saved = NO;
         savedValue = nil;
         value = nil;
-        defaultValue = nil;
         clientVisible = true; // Default is true
     }
     return self;

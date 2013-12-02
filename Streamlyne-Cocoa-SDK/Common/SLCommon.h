@@ -12,10 +12,6 @@
 /**
  
  */
-
-/**
- 
- */
 typedef NS_ENUM(NSUInteger, SLRelationshipDirection)
 {
     SLRelationshipNotFound,
@@ -56,7 +52,27 @@ typedef void(^SLRequestCallback)(NSError *error, id operation, id responseObject
 #define SLExceptionImplementationNotFound [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Not yet implemented." userInfo:nil]
 
 /**
- Source: http://stackoverflow.com/a/12137979/2578205 
+ 
+ */
+#define SLFiltersAllFalse @{ \
+                          @"filter":@{ \
+                                  @"fields": [NSNumber numberWithBool: FALSE], \
+                                  @"rels": [NSNumber numberWithBool: FALSE] \
+                                  } \
+                          }
+/**
+ 
+ */
+#define SLFiltersAllTrue @{ \
+    @"filter":@{ \
+        @"fields": [NSNumber numberWithBool: TRUE], \
+        @"rels": [NSNumber numberWithBool: TRUE] \
+    } \
+}
+
+
+/**
+ Source: http://stackoverflow.com/a/12137979/2578205
  */
 #define NSNullIfNil(v) (v ? v : [NSNull null])
 
