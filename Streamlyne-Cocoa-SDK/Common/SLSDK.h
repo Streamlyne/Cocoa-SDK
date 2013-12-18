@@ -1,5 +1,5 @@
 //
-//  SLNode.h
+//  SLSDK.h
 //  Streamlyne-iOS-SDK
 //
 //  Created by Dawson Reid and Glavin Wiechert on 11/19/2013.
@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#import "CoreData+MagicalRecord.h"
+
 #import "SLObject.h"
 #import "SLAPIManager.h"
 #import "SLNode.h"

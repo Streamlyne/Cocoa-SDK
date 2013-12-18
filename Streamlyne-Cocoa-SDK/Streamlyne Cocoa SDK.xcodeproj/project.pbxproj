@@ -23,6 +23,8 @@
 
 /* Begin PBXBuildFile section */
 		2CF22DE4A52D49D9B026EEE8 /* libPods-Streamlyne-Mac-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDDA0B1D0BC4C718A2D447B /* libPods-Streamlyne-Mac-SDK.a */; };
+		771F4B97186029D90093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
+		771F4B98186029D90093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
 		7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
 		7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2818369CA20092D39B /* XCTest.framework */; };
 		7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
@@ -181,6 +183,7 @@
 		25782151EF674419BBE18C81 /* libPods-Streamlyne-iOS-SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Streamlyne-iOS-SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43ADE2598F854DF2A91C9E5B /* Pods-Streamlyne-Mac-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streamlyne-Mac-SDK.xcconfig"; path = "Pods/Pods-Streamlyne-Mac-SDK.xcconfig"; sourceTree = "<group>"; };
 		45DAA84BB6D34E9E8B7AE079 /* Pods-Streamlyne-iOS-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streamlyne-iOS-SDK.xcconfig"; path = "Pods/Pods-Streamlyne-iOS-SDK.xcconfig"; sourceTree = "<group>"; };
+		771F4B96186029D90093674F /* Streamlyne.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Streamlyne.xcdatamodel; sourceTree = "<group>"; };
 		7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libStreamlyne-iOS-SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7720FC1A18369CA10092D39B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7720FC1E18369CA20092D39B /* Streamlyne-iOS-SDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Streamlyne-iOS-SDK-Prefix.pch"; sourceTree = "<group>"; };
@@ -382,6 +385,7 @@
 				77AD7DF21842F6DC0053C02C /* SLRelationship.m */,
 				77AD7DF41842F6DC0053C02C /* SLValue.h */,
 				77AD7DF51842F6DC0053C02C /* SLValue.m */,
+				771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -750,6 +754,7 @@
 				77AD7E061842F6DC0053C02C /* SLWorkOrder.m in Sources */,
 				77AD7E1C1842F6DC0053C02C /* SLRelationship.m in Sources */,
 				77AD7DFC1842F6DC0053C02C /* SLOrganization.m in Sources */,
+				771F4B97186029D90093674F /* Streamlyne.xcdatamodeld in Sources */,
 				77AD7E221842F6DC0053C02C /* SLValue.m in Sources */,
 				77AD7E111842F6DC0053C02C /* SLNode.m in Sources */,
 				77AD7E2918430F1A0053C02C /* SLGroup.m in Sources */,
@@ -780,6 +785,7 @@
 				77AD7E2B18430F1A0053C02C /* SLGroup.m in Sources */,
 				77AD7DF91842F6DC0053C02C /* SLAsset.m in Sources */,
 				77AD7DFE1842F6DC0053C02C /* SLOrganization.m in Sources */,
+				771F4B98186029D90093674F /* Streamlyne.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1162,6 +1168,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				771F4B96186029D90093674F /* Streamlyne.xcdatamodel */,
+			);
+			currentVersion = 771F4B96186029D90093674F /* Streamlyne.xcdatamodel */;
+			path = Streamlyne.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7720FC0F18369CA10092D39B /* Project object */;
 }

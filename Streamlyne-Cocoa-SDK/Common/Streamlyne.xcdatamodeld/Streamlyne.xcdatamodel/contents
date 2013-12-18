@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Asset" representedClassName="SLAsset" parentEntity="Node" syncable="YES">
+        <attribute name="number_asset" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number_serial" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Group" representedClassName="SLGroup" parentEntity="Node" syncable="YES"/>
+    <entity name="Node" representedClassName="SLNode" isAbstract="YES" syncable="YES"/>
+    <entity name="User" representedClassName="SLUser" parentEntity="Node" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="job_title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_first" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_last" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Asset" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Node" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Group" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

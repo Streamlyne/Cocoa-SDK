@@ -7,9 +7,9 @@
 //
 
 #import "SLNodeProtocol.h"
+#import "CoreData+MagicalRecord.h"
 #import "SLObject.h"
 #import "SLValue.h"
-
 
 /**
  `SLNode` is intended to be implemented and then subclassed.
@@ -24,7 +24,7 @@
  - `type`
  
  */
-@interface SLNode : SLObject <SLNodeProtocol> {
+@interface SLNode : NSManagedObject <SLNodeProtocol> {
 }
 // Properties
 /**

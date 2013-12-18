@@ -4,7 +4,7 @@
 docs/
 
 # CocoaPods
-Streamlyne-iOS-SDK/Pods/
+Streamlyne-Cocoa-SDK/Pods/*
 
 #########################
 # .gitignore file for Xcode 4 & 5 / OS X Source projects

@@ -27,8 +27,9 @@
     
     [manager setEmail:@"testing@streamlyne.co"];
     [manager setToken:@"sl-dev"];
-
-
+    
+    // [MagicalRecord setupCoreDataStack];
+    
 }
 
 - (void)tearDown
@@ -365,7 +366,7 @@
                                            };
         SLAsset *asset = [SLAsset createWithData:newAssetData withRels:(SLRelationshipArray *)@[]];
         
-        SLRelationship *rel = [[SLRelationship alloc] initWithName:@"created" withStartNode:user1 withEndNode:asset];
+        SLRelationship *rel = [[SLRelationship alloc] initWithName:@"creator" withStartNode:asset withEndNode:user1];
         
         pendingCallbacks++;
         [asset saveWithCallback:completionBlock];
