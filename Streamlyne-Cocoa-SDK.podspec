@@ -50,8 +50,8 @@ Pod::Spec.new do |s|
   #  found CocoaPods accept just the names.
   #
 
-  s.author       = { "Glavin Wiechert" => "Glavin.Wiechert@gmail.com" }
-  # s.authors      = { "Glavin Wiechert" => "Glavin.Wiechert@gmail.com", "other author" => "email@address.com" }
+  #s.author       = { "Glavin Wiechert" => "Glavin.Wiechert@gmail.com" }
+  s.authors      = { "Glavin Wiechert" => "glavin@streamlyne.co", "Dawson Reid" => "dawson@streamlyne.co" }
   # s.author       = 'Glavin Wiechert', 'other author'
 
 
@@ -75,7 +75,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, svn and HTTP.
   #
 
-  s.source       = { :git => "sl-mgmt:/vol/git/sl-ios-sdk.git", :tag => "0.0.5" }
+  s.source       = { :git => "http://git.streamlyne.co/streamlyne/sl-cocoa-sdk.git", :tag => "0.0.5" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -103,7 +103,7 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
-
+  s.resources = "Streamlyne-Cocoa-SDK/Common/Streamlyne.xcdatamodeld"
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
 
