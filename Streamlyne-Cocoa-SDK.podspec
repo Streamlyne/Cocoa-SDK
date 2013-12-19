@@ -103,7 +103,7 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
-  #s.resources = [ 'Streamlyne-Cocoa-SDK/Common/Streamlyne.{xcdatamodel,xcdatamodeld}' ]
+  s.resources = [ 'Streamlyne-Cocoa-SDK/Common/Streamlyne.{xcdatamodel,xcdatamodeld}' ]
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
 
