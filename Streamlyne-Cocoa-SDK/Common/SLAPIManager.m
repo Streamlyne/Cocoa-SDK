@@ -42,24 +42,30 @@
     return self;
 }
 
+static SLAPIManager *sharedSingleton = nil;
 + (instancetype) sharedManager
 {
-    static SLAPIManager *sharedSingleton;
-    @synchronized(self)
+    @synchronized([self class])
     {
-        if (!sharedSingleton) {
-            sharedSingleton = [[SLAPIManager alloc] init];
+        if (sharedSingleton == nil) {
+            sharedSingleton = [[self alloc] init];
         }
         return sharedSingleton;
     }
 }
 
 /*
- - (void) setBaseURL:(NSURL *)theBaseURL
- {
- baseURL = theBaseURL;
- }
- */
+- (NSURL *)baseURL {
+    NSLog(@"Return Base Url: %@", baseURL);
+    return baseURL;
+}
+
+- (void) setBaseURL:(NSURL *)theBaseURL
+{
+    baseURL = theBaseURL;
+    NSLog(@"Base URL: %@", baseURL);
+}
+*/
 
 - (void) setEmail:(NSString *)theEmail
 {
@@ -77,6 +83,8 @@
 {
     AFHTTPRequestOperationManager *requestManager = self.httpManager;
     //NSLog(@"requestManager: %@", requestManager);
+    
+    NSLog(@"%@ %@", self.baseURL, self.httpManager);
     
     if (self.baseURL == nil)
     {

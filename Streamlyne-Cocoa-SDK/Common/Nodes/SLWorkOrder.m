@@ -9,6 +9,9 @@
 #import "SLWorkOrder.h"
 
 @implementation SLWorkOrder
+
+@dynamic name, desc, notesCompletion, status, dateDue, dateCompleted;
+
 - (id) init
 {
     self = [super init];

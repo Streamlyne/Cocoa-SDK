@@ -29,6 +29,13 @@
 
 - (id) initWithName:(NSString *)theName withStartNode:(id)startNode withEndNode:(id)endNode;
 {
+    if (startNode == nil || endNode == nil) {
+        self = nil;
+        return self;
+    }
+    
+    NSLog(@"init relationship, %@, %@", startNode, endNode);
+    
     self = [super init];
     if (self) {
         // Initialize variables

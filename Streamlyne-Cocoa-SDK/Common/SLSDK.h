@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "CoreData+MagicalRecord.h"
-
 #import "SLObject.h"
 #import "SLAPIManager.h"
 #import "SLNode.h"

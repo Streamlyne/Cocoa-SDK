@@ -37,7 +37,8 @@
 @property (strong, nonatomic) SLRelationshipArray *rels;
 /**
  */
-@property (strong, nonatomic) SLNid nid;
+//@property (strong, nonatomic) SLNid nid;
+@property (nonatomic, retain) SLNid nid;
 
 
 /**
@@ -56,8 +57,9 @@
     // Change the base data schema to the new data schema.
     self.data = tempData;
  
+ @deprecated Use `MR_createEntity`.
  */
-- (instancetype) init;
+- (instancetype) init DEPRECATED_ATTRIBUTE;
 
 
 /**
@@ -68,8 +70,10 @@
  
  @param nid
  @return    Initialized object.
+ 
+ @deprecated Use `MR_createEntity`.
  */
-+ (instancetype) initWithId:(SLNid)nid;
++ (instancetype) initWithId:(SLNid)nid DEPRECATED_ATTRIBUTE;
 
 /**
  Return the node type name. This is used in the requests to the `SLAPIManager`.
@@ -224,8 +228,21 @@
  This done by iterating through {data} and compiling a list of node SLValues
  that haven't been saved. From the set of unsaved properties a update request to
  SLAPI may be formulated.
+
+ @deprecated Use `pushWithAPIManager:withCallback` instead.
  */
-- (void) save;
+- (void) save DEPRECATED_ATTRIBUTE;
+
+/**
+ Persists the node to the database, with callback on completion.
+ 
+ This done by iterating through {data} and compiling a list of node SLValues
+ that haven't been saved. From the set of unsaved properties a update request to
+ SLAPI may be formulated.
+ 
+ @deprecated Use `pushWithAPIManager:withCallback` instead.
+ */
+- (void) saveWithCallback:(SLSuccessCallback)callback DEPRECATED_ATTRIBUTE;
 
 /**
  Persists the node to the database, with callback on completion.
@@ -234,8 +251,7 @@
  that haven't been saved. From the set of unsaved properties a update request to
  SLAPI may be formulated.
  */
-- (void) saveWithCallback:(void (^)(BOOL successful))callback;
-
+- (void) pushWithAPIManager:(SLAPIManager *)manager withCallback:(SLSuccessCallback)callback;
 
 /**
  Returns the value of the internal boolean {isSaved}.

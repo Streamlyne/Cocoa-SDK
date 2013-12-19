@@ -25,6 +25,8 @@
 		2CF22DE4A52D49D9B026EEE8 /* libPods-Streamlyne-Mac-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDDA0B1D0BC4C718A2D447B /* libPods-Streamlyne-Mac-SDK.a */; };
 		771F4B97186029D90093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
 		771F4B98186029D90093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
+		771F4BA318628AAA0093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
+		771F4BA418628CFC0093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
 		7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
 		7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2818369CA20092D39B /* XCTest.framework */; };
 		7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
@@ -767,6 +769,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77ED5DB0183FE91500905A3D /* Streamlyne_iOS_SDKTests.m in Sources */,
+				771F4BA418628CFC0093674F /* Streamlyne.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,6 +807,7 @@
 				77AD7DFF1842F6DC0053C02C /* SLOrganization.m in Sources */,
 				77AD7E091842F6DC0053C02C /* SLWorkOrder.m in Sources */,
 				77AD7E041842F6DC0053C02C /* SLUser.m in Sources */,
+				771F4BA318628AAA0093674F /* Streamlyne.xcdatamodeld in Sources */,
 				77AD7E0E1842F6DC0053C02C /* SLAPIManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1058,6 +1062,7 @@
 					"$(inherited)",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Streamlyne-Mac-SDK/Streamlyne-Mac-SDK-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1085,6 +1090,7 @@
 					"$(inherited)",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Streamlyne-Mac-SDK/Streamlyne-Mac-SDK-Prefix.pch";
 				INFOPLIST_FILE = "Streamlyne-Mac-SDKTests/Streamlyne-Mac-SDKTests-Info.plist";

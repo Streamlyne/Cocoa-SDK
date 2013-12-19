@@ -9,8 +9,17 @@
 #import "SLUser.h"
 #import "SLValue.h"
 #import "SLRelationship.h"
+#import "SLAPIManager.h"
 
 @implementation SLUser
+
+
+@dynamic email;
+@dynamic job_title;
+@dynamic name_first;
+@dynamic name_last;
+@dynamic password;
+
 
 - (id) init
 {
@@ -54,7 +63,7 @@
     };
      */
     SLRelationship *rel = [[SLRelationship alloc] initWithName:@"member" withStartNode:theUser withEndNode:theOrg];
-    [theUser saveWithCallback:theCallback];
+    [theUser pushWithAPIManager:[SLAPIManager sharedManager] withCallback:theCallback];
 }
 
 

@@ -10,4 +10,11 @@
 
 @interface SLWorkOrder : SLNode
 
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString *desc;
+@property (nonatomic, retain) NSString *notesCompletion;
+@property (nonatomic, retain) NSString *status;
+@property (nonatomic, retain) NSDate *dateCompleted;
+@property (nonatomic, retain) NSDate *dateDue;
+
 @end

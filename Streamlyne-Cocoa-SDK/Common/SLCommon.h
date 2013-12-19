@@ -58,17 +58,28 @@ typedef void(^SLRequestCallback)(NSError *error, id operation, id responseObject
                           @"filter":@{ \
                                   @"fields": [NSNumber numberWithBool: FALSE], \
                                   @"rels": [NSNumber numberWithBool: FALSE] \
-                                  } \
-                          }
+                            }, \
+                            @"page": @{ \
+                                @"count": [NSNumber numberWithInt:10], \
+                            } \
+                        }
 /**
  
  */
 #define SLFiltersAllTrue @{ \
-    @"filter":@{ \
+    @"filter": @{ \
         @"fields": [NSNumber numberWithBool: TRUE], \
         @"rels": [NSNumber numberWithBool: TRUE] \
+    }, \
+    @"page": @{ \
+        @"count": [NSNumber numberWithInt:10], \
     } \
 }
+
+/**
+ 
+ */
+#define SLSharedAPIManager [SLAPIManager sharedManager]
 
 
 /**

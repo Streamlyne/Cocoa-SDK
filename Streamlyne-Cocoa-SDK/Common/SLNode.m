@@ -14,12 +14,22 @@
 @implementation SLNode
 
 @synthesize saved = _saved;
-@synthesize nid;
+@dynamic nid;
 @synthesize data, rels;
+
++ (SLAPIManager *) sharedAPIManager
+{
+    @synchronized([self class]) {
+        return [SLAPIManager sharedManager];
+    }
+}
 
 - (id) init
 {
-    self = [super init];
+    NSLog(@"init %@", [self class]);
+    
+    //self = [super init];
+    self = [[self class] MR_createEntity];
     if (self) {
         // Initialize variables
         _saved = false;
@@ -32,38 +42,21 @@
         //[tempData setValue:idVal forKey:@"id"];
         self.data = tempData;
     }
+
     return self;
 }
 
 + (instancetype) initWithId:(SLNid)nid
 {
-    static NSMutableDictionary *openNodes;
-    @synchronized(self)
+    @synchronized([self class])
     {
-        // Init the openNodes dictionary
-        if (!openNodes)
-        {
-            openNodes = [NSMutableDictionary dictionary];
+        SLNode *node = [[self class] MR_findFirstByAttribute:@"nid" withValue:nid];
+        NSLog(@"initWithId: %@, node: %@", nid, node);
+        if (node == nil) {
+            node = [[[self class] alloc] init];
+            node.nid = nid;
         }
-        // Look up node with `SLNid` nid
-        id<SLNodeProtocol> node = [openNodes objectForKey:nid];
-        if (node == nil)
-        {
-            // Did not find node
-            // Create a new one
-            id<SLNodeProtocol> newNode = [[[self class] alloc] init];
-            [newNode setNid:nid];
-            // Add it to openNodes
-            [openNodes setObject:newNode forKey:nid];
-            // Return new node
-            node = [openNodes objectForKey:nid];
-            return node;
-        } else
-        {
-            NSLog(@"Found node: %@", node);
-            // Found node
-            return node;
-        }
+        return node;
     }
 }
 
@@ -135,7 +128,7 @@
     };
     
     NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
-    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodGET withPath:thePath withParameters:filters withCallback:completionBlock];
+    [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodGET withPath:thePath withParameters:filters withCallback:completionBlock];
     
 }
 
@@ -170,13 +163,16 @@
         callback(nodes);
     };
     
-    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters withCallback:completionBlock];
+    [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters withCallback:completionBlock];
     
 }
 
 + (instancetype) createWithData:(NSDictionary *)theData withRels:(SLRelationshipArray *)theRels
 {
+    NSLog(@"this is a test");
+    
     SLNode *node = [[[self class] alloc] init];
+    
     // TODO: Fix this so it validates data and rels first
     // Data
     NSString *key = nil;
@@ -191,6 +187,7 @@
     {
         [node addRelationship:currRel];
     }
+    
     return node;
 }
 
@@ -228,7 +225,7 @@
     
     NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
     NSLog(@"theDeletePath: %@", thePath);
-    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodDELETE withPath:thePath withParameters:nil withCallback:completionBlock];
+    [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodDELETE withPath:thePath withParameters:nil withCallback:completionBlock];
     
 }
 
@@ -294,6 +291,7 @@
     }
 }
 
+/*
 - (NSString *) description
 {
     //return [NSString stringWithFormat:@"<%@>", [self class]];
@@ -309,6 +307,7 @@
     
     //return [NSString stringWithFormat:@"<%@: { type: \"%@\", data: %@, relationships: %@ } >", [self class], [self type], [self.data description], [self.rels description]];
 }
+*/
 
 - (NSString *) type
 {
@@ -367,6 +366,14 @@
 
 - (void) saveWithCallback:(SLSuccessCallback)callback
 {
+    NSLog(@"saveWithCallback DEPRECATED. Use pushWithAPIManager:withCallback: instead.");
+    callback(false);
+}
+
+- (void) pushWithAPIManager:(SLAPIManager *)manager withCallback:(SLSuccessCallback)callback
+{
+    //NSLog(@"pushWithAPIManager:withCallback:");
+    
     // Create serialized delta
     NSMutableDictionary *notSavedData = [NSMutableDictionary dictionary];
     NSString *key;
@@ -388,23 +395,33 @@
         if (![rel isSaved])
         {
             SLRelationshipDirection dir = [rel directionWithNode:self];
-            
+            NSLog(@"%@", rel);
             if (dir == SLRelationshipIncoming) {
                 SLNode *node = rel.startNode;
-                [notSavedRels addObject:@{
+                NSLog(@"%@", node);
+                if (node != nil && node.nid != nil) {
+                    NSLog(@"%@, %@, %@, %@", node, node.nid, [rel.startNode type], rel.name);
+                    [notSavedRels addObject:@{
                                           @"id":node.nid,
                                           @"dir":@"in",
                                           @"nodeType": [rel.startNode type],
                                           @"relsType": rel.name
                                           }];
+                } else {
+                    NSLog(@"Other node, %@, not yet pushed to server.", node);                    
+                }
             } else if (dir == SLRelationshipOutgoing) {
                 SLNode *node = rel.endNode;
-                [notSavedRels addObject:@{
+                if (node != nil && node.nid != nil) {
+                    [notSavedRels addObject:@{
                                           @"id":node.nid,
                                           @"dir":@"out",
                                           @"nodeType": [rel.endNode type],
                                           @"relsType": rel.name
                                           }];
+                } else {
+                    NSLog(@"Other node, %@, not yet pushed to server.", node);
+                }
             } else {
                 // SLRelationshipNotFound
                 NSLog(@"SLRelationshipNotFound");
@@ -415,6 +432,7 @@
         
     }
     
+    NSLog(@"delta: %@, %@", notSavedData, notSavedRels);
     NSDictionary *delta = @{@"data": notSavedData, @"rels": notSavedRels};
     NSLog(@"Save data: %@", delta);
     
@@ -457,18 +475,18 @@
     };
     //
     NSString *thePath;
-    if (nid == SLNidNodeNotCreated)
+    if (self.nid == SLNidNodeNotCreated)
     {
         // New
         thePath = [NSString stringWithFormat:@"%@", [[self class] type]];
     } else
     {
         // Update
-        thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
+        thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],self.nid];
     }
     NSLog(@"Save Path: %@", thePath);
-    [[SLAPIManager sharedManager] performRequestWithMethod:SLHTTPMethodPOST withPath:thePath withParameters:delta withCallback:completionBlock];
     
+    [manager performRequestWithMethod:SLHTTPMethodPOST withPath:thePath withParameters:delta withCallback:completionBlock];
     
 }
 
