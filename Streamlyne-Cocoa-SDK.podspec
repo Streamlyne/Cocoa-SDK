@@ -87,7 +87,7 @@ Pod::Spec.new do |s|
   #
 
   s.public_header_files = 'Streamlyne-Cocoa-SDK/Common/SLSDK.h'
-  s.source_files  = 'Streamlyne-Cocoa-SDK', 'Streamlyne-Cocoa-SDK/Common', 'Streamlyne-Cocoa-SDK/Common/*.{h,m}', 'Streamlyne-Cocoa-SDK/Common/*/*.{h,m}'
+  s.source_files  = 'Streamlyne-Cocoa-SDK', 'Streamlyne-Cocoa-SDK/Common', 'Streamlyne-Cocoa-SDK/Common/*.{h,m}', 'Streamlyne-Cocoa-SDK/Common/*/*.{h,m}', 'Streamlyne-Cocoa-SDK/Common/Streamlyne.{xcdatamodel,xcdatamodeld}'
   s.exclude_files = 'Classes/Exclude'
 
   # s.public_header_files = 'Classes/**/*.h'
@@ -103,7 +103,7 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
-  s.resources = [ 'Streamlyne-Cocoa-SDK/Common/Streamlyne.{xcdatamodel,xcdatamodeld}' ]
+  #s.resources = [ 'Streamlyne-Cocoa-SDK/Common/Streamlyne.{xcdatamodel,xcdatamodeld}' ]
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
 
@@ -126,7 +126,7 @@ Pod::Spec.new do |s|
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  s.requires_arc = true
+  #s.requires_arc = true
 
   # s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
   # s.dependency 'JSONKit', '~> 1.4'
