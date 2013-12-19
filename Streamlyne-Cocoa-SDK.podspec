@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                    * Finally, don't worry about the indent, CocoaPods strips it!
                    DESC
 
-  s.homepage     = "http://trac.streamlyne.co/SL-SDK/"
+  s.homepage     = "http://git.streamlyne.co/streamlyne/sl-cocoa-sdk"
   # s.screenshots  = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
 
 
@@ -103,7 +103,7 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
-  s.resources = "Streamlyne-Cocoa-SDK/Common/Streamlyne.xcdatamodeld"
+  s.resources = [ 'Streamlyne-Cocoa-SDK/Common/Streamlyne.{xcdatamodel,xcdatamodeld}' ]
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
 
@@ -114,7 +114,7 @@ Pod::Spec.new do |s|
   #
 
   # s.framework  = 'SomeFramework'
-  # s.frameworks = 'SomeFramework', 'AnotherFramework'
+  s.frameworks = 'CoreData'
 
   # s.library   = 'iconv'
   # s.libraries = 'iconv', 'xml2'
@@ -126,7 +126,7 @@ Pod::Spec.new do |s|
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  # s.requires_arc = true
+  s.requires_arc = true
 
   # s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
   # s.dependency 'JSONKit', '~> 1.4'
