@@ -15,7 +15,7 @@
 
 @synthesize saved = _saved;
 @dynamic nid;
-@synthesize data, rels;
+@synthesize data, rels, dataMapping;
 
 + (SLAPIManager *) sharedAPIManager
 {
@@ -35,12 +35,20 @@
         _saved = false;
         self.nid = SLNidNodeNotCreated;
         self.data = [NSDictionary dictionary];
+        self.dataMapping = [NSDictionary dictionary];
         self.rels = [SLRelationshipArray array];
+        
         // Edit data schema
         NSMutableDictionary *tempData = [self.data mutableCopy];
         //SLValue *idVal = [[SLValue alloc]initWithType:[NSString class]];
         //[tempData setValue:idVal forKey:@"id"];
         self.data = tempData;
+        
+        // Edit data mapping
+        NSMutableDictionary *tempDataMapping = [self.dataMapping mutableCopy];
+        [tempDataMapping setObject:@{ @"class": @"NSNumber", @"key": @"nid" } forKey:@"nid"];
+        self.dataMapping = tempDataMapping;
+
     }
 
     return self;
@@ -62,15 +70,51 @@
 
 - (void) loadDataFromDictionary:(NSDictionary *)theData
 {
+    // For date conversion
+    NSDateFormatter *iso8601Formatter = [[NSDateFormatter alloc] init];
+    //[iso8601Formatter setDateStyle:NSDateFormatterLongStyle];
+    //[iso8601Formatter setTimeStyle:NSDateFormatterShortStyle];
+    NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    [iso8601Formatter setLocale:enUSPOSIXLocale];
+    [iso8601Formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
+
     // Load Data from NSDictionary
+    NSLog(@"%@", theData);
     NSString *key = nil;
     for (key in theData)
     {
+        //
+        NSDictionary *m = (NSDictionary *)[self.dataMapping objectForKey:key];
+        NSString *mKey = (NSString *)[m objectForKey:@"key"];
+        NSString *c = (NSString *)[m objectForKey:@"class"];
+        if (mKey == nil) {
+            mKey = key;
+        }
+        id d = [theData objectForKey:key];
+        if (d != [NSNull null]) {
+            // Parse
+            NSLog(@"%@: %@", mKey, c);
+            if ([c  isEqualToString: @"NSString"]) {
+                d = d;//[NSString stringWithString:d];
+            } else if ([c isEqualToString: @"NSNumber"]) {
+                d = d;
+            } else if ([c isEqualToString: @"NSDate"]) {
+                NSLog(@"date before: %@, %@", [d class], d);
+                d = [iso8601Formatter dateFromString: d];
+                NSLog(@"date after: %@", d);
+            } else {
+                NSLog(@"Unknown type.");
+            }
+            NSLog(@"%@", d);
+            [self setValue:d forKey:mKey];
+        }
+        
         // NSLog(@"Update %@: %@", key, [theData objectForKey:key]);
         [self update:key value:[theData objectForKey:key]];
         // Mark data as saved.
         SLValue *val = [self.data objectForKey:key];
         [val setSaved]; // Mark as saved.
+        
     }
 }
 

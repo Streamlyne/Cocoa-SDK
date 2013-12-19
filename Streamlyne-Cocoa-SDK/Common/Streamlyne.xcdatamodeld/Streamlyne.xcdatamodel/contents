@@ -24,6 +24,7 @@
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="SLWorkOrder" representedClassName="SLWorkOrder" parentEntity="SLNode" syncable="YES">
+        <attribute name="costCenter" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateCompleted" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dateDue" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>

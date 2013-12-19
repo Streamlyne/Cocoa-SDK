@@ -14,6 +14,7 @@
 @property (nonatomic, retain) NSString *desc;
 @property (nonatomic, retain) NSString *notesCompletion;
 @property (nonatomic, retain) NSString *status;
+@property (nonatomic, retain) NSString *costCenter;
 @property (nonatomic, retain) NSDate *dateCompleted;
 @property (nonatomic, retain) NSDate *dateDue;
 

@@ -32,6 +32,10 @@
  */
 @property (strong, nonatomic) NSDictionary *data;
 /**
+Data Mappings.
+ */
+@property (strong, nonatomic) NSDictionary *dataMapping;
+/**
  A list of relationships to this node.
  */
 @property (strong, nonatomic) SLRelationshipArray *rels;

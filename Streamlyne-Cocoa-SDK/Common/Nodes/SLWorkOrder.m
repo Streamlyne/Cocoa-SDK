@@ -10,7 +10,7 @@
 
 @implementation SLWorkOrder
 
-@dynamic name, desc, notesCompletion, status, dateDue, dateCompleted;
+@dynamic name, desc, notesCompletion, status, dateDue, dateCompleted, costCenter;
 
 - (id) init
 {
@@ -32,8 +32,19 @@
         [tempData setValue:notes_completion forKey:@"notes_completion"];
         //[tempData setValue:date_due forKey:@"date_due"];
         //[tempData setValue:date_completed forKey:@"date_completed"];
-        
         self.data = tempData;
+        
+        // Edit Data Mapping
+        NSMutableDictionary *tempDataMapping = [self.dataMapping mutableCopy];
+        [tempDataMapping setObject:@{ @"class": @"NSString", @"key": @"name" } forKey:@"name"];
+        [tempDataMapping setObject:@{ @"class": @"NSString", @"key": @"status" } forKey:@"status"];
+        [tempDataMapping setObject:@{ @"class": @"NSString", @"key": @"notesCompletion" } forKey:@"notes_completion"];
+        [tempDataMapping setObject:@{ @"class": @"NSDate", @"key": @"dateCompleted" } forKey:@"date_completed"];
+        [tempDataMapping setObject:@{ @"class": @"NSDate", @"key": @"dateDue" } forKey:@"date_due"];
+        [tempDataMapping setObject:@{ @"class": @"NSString", @"key": @"desc" } forKey:@"description"];
+        [tempDataMapping setObject:@{ @"class": @"NSString", @"key": @"costCenter" } forKey:@"cost_center"];
+        self.dataMapping = tempDataMapping;
+        
     }
     return self;
 }

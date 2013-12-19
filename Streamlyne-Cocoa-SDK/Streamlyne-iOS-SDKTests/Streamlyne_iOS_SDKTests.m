@@ -437,7 +437,7 @@
     // Read All Work Orders
     NSLog(@"Read All Work Orders");
     pendingCallbacks++;
-    [SLWorkOrder readAllWithFilters:SLFiltersAllFalse withCallback:^(SLNodeArray * nodes) {
+    [SLWorkOrder readAllWithFilters:SLFiltersAllTrue withCallback:^(SLNodeArray * nodes) {
         NSLog(@"# of Work Orders: %lu", (unsigned long)[nodes count]);
         NSLog(@"There are %lu Work Orders saved for Offline", (unsigned long)[SLWorkOrder MR_countOfEntities]);
         
