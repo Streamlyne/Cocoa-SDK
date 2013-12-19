@@ -149,8 +149,8 @@
 {
     NSDictionary *filters = @{
                               @"filter":@{
-                                      @"fields": [NSNumber numberWithBool: FALSE],
-                                      @"rels": [NSNumber numberWithBool: FALSE]
+                                      @"fields": [NSNumber numberWithBool: TRUE],
+                                      @"rels": [NSNumber numberWithBool: TRUE]
                                       }
                               };
     [self readById:nid withFilters:filters withCallback:callback];
@@ -180,8 +180,8 @@
 {
     NSDictionary *filters = @{
                               @"filter":@{
-                                      @"fields": [NSNumber numberWithBool: FALSE],
-                                      @"rels": [NSNumber numberWithBool: FALSE]
+                                      @"fields": [NSNumber numberWithBool: TRUE],
+                                      @"rels": [NSNumber numberWithBool: TRUE]
                                       }
                               };
     [self readAllWithFilters:filters withCallback:callback];
