@@ -87,7 +87,7 @@ Pod::Spec.new do |s|
   #
 
   s.public_header_files = 'Streamlyne-Cocoa-SDK/Common/SLSDK.h'
-  s.source_files  = 'Streamlyne-Cocoa-SDK', 'Streamlyne-Cocoa-SDK/Common', 'Streamlyne-Cocoa-SDK/Common/*.{h,m}', 'Streamlyne-Cocoa-SDK/Common/*/*.{h,m}', 'Streamlyne-Cocoa-SDK/Common/Streamlyne.{xcdatamodel,xcdatamodeld}'
+  s.source_files  = 'Streamlyne-Cocoa-SDK', 'Streamlyne-Cocoa-SDK/Common', 'Streamlyne-Cocoa-SDK/Common/*.{h,m,xcdatamodeld,xcdatamodel}', 'Streamlyne-Cocoa-SDK/Common/*/*.{h,m,xcdatamodeld,xcdatamodel}', 'Streamlyne-Cocoa-SDK/Common/Streamlyne.{xcdatamodel,xcdatamodeld}'
   s.exclude_files = 'Classes/Exclude'
 
   # s.public_header_files = 'Classes/**/*.h'
