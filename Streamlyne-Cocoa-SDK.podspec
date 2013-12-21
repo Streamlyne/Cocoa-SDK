@@ -88,7 +88,7 @@ Pod::Spec.new do |s|
 
   s.public_header_files = 'Streamlyne-Cocoa-SDK/Common/SLSDK.h'
   #s.source_files  = 'Streamlyne-Cocoa-SDK', 'Streamlyne-Cocoa-SDK/Common', 'Streamlyne-Cocoa-SDK/Common/*.{h,m,xcdatamodeld,xcdatamodel}', 'Streamlyne-Cocoa-SDK/Common/*/*.{h,m,xcdatamodeld,xcdatamodel}', 'Streamlyne-Cocoa-SDK/Common/Streamlyne.{xcdatamodel,xcdatamodeld}/*.{xcdatamodel}'
-  s.source_files  = 'Streamlyne-Cocoa-SDK', 'Streamlyne-Cocoa-SDK/Common', 'Streamlyne-Cocoa-SDK/Common/*.{h,m,xcdatamodel,xcdatamodeld}', 'Streamlyne-Cocoa-SDK/Common/*/*.{h,m,xcdatamodel,xcdatamodeld}'
+  s.source_files  = 'Streamlyne-Cocoa-SDK', 'Streamlyne-Cocoa-SDK/Common', 'Streamlyne-Cocoa-SDK/Common/*.{h,m}', 'Streamlyne-Cocoa-SDK/Common/*/*.{h,m}'
   s.exclude_files = 'Classes/Exclude'
 
   # s.public_header_files = 'Classes/**/*.h'
@@ -104,7 +104,7 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
-  #s.resources = [ 'Streamlyne-Cocoa-SDK/Common/**/*.{xcdatamodel,xcdatamodeld}' ]
+  s.resources = [ 'Streamlyne-Cocoa-SDK/Common/**/*.{xcdatamodeld}' ]
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
 
