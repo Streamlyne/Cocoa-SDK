@@ -24,19 +24,25 @@
     }
 }
 
-- (id) init
+- (instancetype) init {
+    self = [self initInContext:[NSManagedObjectContext MR_defaultContext]];
+    return self;
+}
+
+- (instancetype) initInContext:(NSManagedObjectContext *)context
 {
     NSLog(@"init %@", [self class]);
     
     //self = [super init];
-    self = [[self class] MR_createEntity];
+    //self = [[self class] MR_createEntity];
+    self = [[self class] MR_createInContext:context];
     if (self) {
         // Initialize variables
         _saved = false;
         self.nid = SLNidNodeNotCreated;
         self.data = [NSDictionary dictionary];
         self.dataMapping = [NSDictionary dictionary];
-        self.rels = [SLRelationshipArray array];
+        self.rels = [NSMutableArray array];
         
         // Edit data schema
         NSMutableDictionary *tempData = [self.data mutableCopy];
@@ -48,20 +54,22 @@
         NSMutableDictionary *tempDataMapping = [self.dataMapping mutableCopy];
         [tempDataMapping setObject:@{ @"class": @"NSNumber", @"key": @"nid" } forKey:@"nid"];
         self.dataMapping = tempDataMapping;
-
     }
-
     return self;
 }
 
-+ (instancetype) initWithId:(SLNid)nid
++ (instancetype) initWithId:(SLNid)nid {
+    return [self initWithId:nid inContext:[NSManagedObjectContext MR_defaultContext]];
+}
+
++ (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context
 {
     @synchronized([self class])
     {
-        SLNode *node = [[self class] MR_findFirstByAttribute:@"nid" withValue:nid];
+        SLNode *node = [[self class] MR_findFirstByAttribute:@"nid" withValue:nid inContext:context];
         NSLog(@"initWithId: %@, node: %@", nid, node);
         if (node == nil) {
-            node = [[[self class] alloc] init];
+            node = [[[self class] alloc] initInContext:context];
             node.nid = nid;
         }
         return node;
@@ -118,14 +126,14 @@
     }
 }
 
-- (void) loadRelsFromArray:(NSArray *)theRels
+- (void) loadRelsFromArray:(NSArray *)theRels inContext:(NSManagedObjectContext *)context
 {
     // Load Relationships from NSArray
     //NSLog(@"Rels: %@", theRels);
     for (NSDictionary *curr in theRels)
     {
         SLRelationship *rel;
-        id otherNode = [[self class] initWithId:(SLNid) curr[@"id"]];
+        id otherNode = [[self class] initWithId:(SLNid) curr[@"id"] inContext:context];
         if ([curr[@"dir"] isEqual: @"in"])
         {
             rel = [[SLRelationship alloc] initWithName: curr[@"relsType"] withStartNode:otherNode withEndNode:self];
@@ -158,25 +166,31 @@
 
 + (void) readById:(SLNid)nid withFilters:(NSDictionary *)filters withCallback:(void (^)(SLNode *))callback
 {
-    SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
-        //NSLog(@"SLRequestCallback completionBlock!");
-        //NSLog(@"<%@>: %@", [responseObject class], responseObject);
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
         
-        // Process & Read Node
-        id<SLNodeProtocol> node = [[self class] initWithId:(SLNid) responseObject[@"id"]];
-        [((SLNode *)node) loadDataFromDictionary: responseObject[@"data"]];
-        [((SLNode *)node) loadRelsFromArray: responseObject[@"rels"]];
+        SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
+            //NSLog(@"SLRequestCallback completionBlock!");
+            //NSLog(@"<%@>: %@", [responseObject class], responseObject);
+            
+            // Process & Read Node
+            id<SLNodeProtocol> node = [[self class] initWithId:(SLNid) responseObject[@"id"] inContext:context];
+            [((SLNode *)node) loadDataFromDictionary: responseObject[@"data"]];
+            [((SLNode *)node) loadRelsFromArray: responseObject[@"rels"] inContext:context];
+            
+            // Return
+            // callback(node); // Returning in completion block now.
+        };
         
+        NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
+        [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodGET withPath:thePath withParameters:filters withCallback:completionBlock];
+            
+    } completion:^(BOOL success, NSError *error) {
         // Return
-        callback(node);
-    };
-    
-    NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
-    [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodGET withPath:thePath withParameters:filters withCallback:completionBlock];
-    
+        callback( [[self class] MR_findFirstByAttribute:@"nid" withValue:nid] );
+    }];
 }
 
-+ (void) readAllWithCallback:(void (^)(SLNodeArray *))callback
++ (void) readAllWithCallback:(void (^)(NSArray *))callback
 {
     NSDictionary *filters = @{
                               @"filter":@{
@@ -187,31 +201,37 @@
     [self readAllWithFilters:filters withCallback:callback];
 }
 
-+ (void) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(SLNodeArray *))callback
++ (void) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(NSArray *))callback
 {
-    SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
-        //NSLog(@"SLRequestCallback completionBlock!");
-        //NSLog(@"<%@>: %@", [responseObject class], responseObject);
-        SLNodeArray *nodes = [SLNodeArray array];
-        NSArray *arr = ((NSDictionary *)responseObject)[@"nodes"];
-        for (NSDictionary* curr in arr)
-        {
-            
-            id<SLNodeProtocol> node = [[self class] initWithId:(SLNid) curr[@"id"]];
-            [((SLNode *)node) loadDataFromDictionary: curr[@"data"]];
-            [((SLNode *)node) loadRelsFromArray: curr[@"rels"]];
-            
-            [nodes addObject: node];
-            
-        }
-        callback(nodes);
-    };
-    
-    [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters withCallback:completionBlock];
-    
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+
+        SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
+            //NSLog(@"SLRequestCallback completionBlock!");
+            //NSLog(@"<%@>: %@", [responseObject class], responseObject);
+            NSMutableArray *nodes = [NSMutableArray array];
+            NSArray *arr = ((NSDictionary *)responseObject)[@"nodes"];
+            for (NSDictionary* curr in arr)
+            {
+                
+                id<SLNodeProtocol> node = [[self class] initWithId:(SLNid) curr[@"id"]];
+                [((SLNode *)node) loadDataFromDictionary: curr[@"data"]];
+                [((SLNode *)node) loadRelsFromArray: curr[@"rels"] inContext:context];
+                
+                [nodes addObject: node];
+                
+            }
+            // callback(nodes); // returning in the completion block
+        };
+        
+        [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters withCallback:completionBlock];
+        
+    } completion:^(BOOL success, NSError *error) {
+        // Return
+        callback( [[self class] MR_findAll] );
+    }];
 }
 
-+ (instancetype) createWithData:(NSDictionary *)theData withRels:(SLRelationshipArray *)theRels
++ (instancetype) createWithData:(NSDictionary *)theData withRels:(NSArray *)theRels
 {
     NSLog(@"this is a test");
     
@@ -240,7 +260,7 @@
     return [[self class] createWithData:data withRels:nil];
 }
 
-+ (instancetype) createWithRels:(SLRelationshipArray *)rels
++ (instancetype) createWithRels:(NSArray *)rels
 {
     return [[self class] createWithData:nil withRels:rels];
 }
@@ -292,17 +312,17 @@
     }];
 }
 
-+ (void) deleteWithNodeArray:(SLNodeArray *)nodes
++ (void) deleteWithNodeArray:(NSArray *)nodes
 {
     [[self class] deleteWithNodeArray:nodes withProgressCallback:nil withCallback:nil];
 }
 
-+ (void) deleteWithNodeArray:(SLNodeArray *)nodes withCallback:(SLSuccessCallback)callback
++ (void) deleteWithNodeArray:(NSArray *)nodes withCallback:(SLSuccessCallback)callback
 {
     [[self class] deleteWithNodeArray:nodes withProgressCallback:nil withCallback:callback];
 }
 
-+ (void) deleteWithNodeArray:(SLNodeArray *)nodes withProgressCallback:(void (^)(NSUInteger idx))progress withCallback:(SLSuccessCallback)callback {
++ (void) deleteWithNodeArray:(NSArray *)nodes withProgressCallback:(void (^)(NSUInteger idx))progress withCallback:(SLSuccessCallback)callback {
     
     __block BOOL successful = true;
     __block NSUInteger completed = 0;
@@ -358,7 +378,7 @@
     return [[self class] type];
 }
 
-- (SLRelationshipArray *) relationships
+- (NSArray *) relationships
 {
     return self.rels;
 }

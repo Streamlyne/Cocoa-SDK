@@ -37,8 +37,10 @@ Data Mappings.
 @property (strong, nonatomic) NSDictionary *dataMapping;
 /**
  A list of relationships to this node.
+ 
+ @deprecated Use Core Data relationships now.
  */
-@property (strong, nonatomic) SLRelationshipArray *rels;
+@property (strong, nonatomic) NSMutableArray *rels DEPRECATED_ATTRIBUTE;
 /**
  */
 //@property (strong, nonatomic) SLNid nid;
@@ -64,7 +66,10 @@ Data Mappings.
  @deprecated Use `MR_createEntity`.
  */
 - (instancetype) init DEPRECATED_ATTRIBUTE;
-
+/**
+ 
+ */
+- (instancetype) initInContext:(NSManagedObjectContext *)context;
 
 /**
  Returns an object initialized with the specific `SLNid` nid.
@@ -78,6 +83,10 @@ Data Mappings.
  @deprecated Use `MR_createEntity`.
  */
 + (instancetype) initWithId:(SLNid)nid DEPRECATED_ATTRIBUTE;
+/**
+ 
+ */
++ (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context;
 
 /**
  Return the node type name. This is used in the requests to the `SLAPIManager`.
@@ -118,7 +127,7 @@ Data Mappings.
  @param callback  The C-block style callback.
  @return void
  */
-+ (void) readAllWithCallback:(void (^)(SLNodeArray *))callback;
++ (void) readAllWithCallback:(void (^)(NSArray *))callback;
 
 /**
  Returns all nodes of the type subclassed by `SLNode`.
@@ -127,13 +136,13 @@ Data Mappings.
  @param filters     `NSDictionary` representing the desired fields and relationships to be requested.
  @return void
  */
-+ (void) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(SLNodeArray *))callback;
++ (void) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(NSArray *))callback;
 
 /**
  Creates a node client side (not persisted). 
  This node needs to be be saved to be persisted in any manner.
  */
-+ (instancetype) createWithData:(NSDictionary *)theData withRels:(SLRelationshipArray *)theRels;
++ (instancetype) createWithData:(NSDictionary *)theData withRels:(NSArray *)theRels;
 
 /**
  Creates a node client side (not persisted). 
@@ -146,7 +155,7 @@ Data Mappings.
  Creates a node client side (not persisted). This node needs to be
  be saved to be persisted in any manner.
  */
-+ (instancetype) createWithRels:(SLRelationshipArray *)rels;
++ (instancetype) createWithRels:(NSArray *)rels;
 
 /**
  Creates a node client side (not persisted). This node needs to be
@@ -182,21 +191,21 @@ Data Mappings.
  {deleteWithId} to all nodes contained in the set {nodes} using their node
  id's.
  */
-+ (void) deleteWithNodeArray:(SLNodeArray *)nodes;
++ (void) deleteWithNodeArray:(NSArray *)nodes;
 
 /**
  Deletes a set of nodes, {nodes}. This is done by applying the function
  {deleteWithId} to all nodes contained in the set {nodes} using their node
  id's.
  */
-+ (void) deleteWithNodeArray:(SLNodeArray *)nodes withCallback:(SLSuccessCallback)callback;
++ (void) deleteWithNodeArray:(NSArray *)nodes withCallback:(SLSuccessCallback)callback;
 
 /**
  Deletes a set of nodes, {nodes}. This is done by applying the function
  {deleteWithId} to all nodes contained in the set {nodes} using their node
  id's.
  */
-+ (void) deleteWithNodeArray:(SLNodeArray *)nodes withProgressCallback:(void (^)(NSUInteger idx))progress withCallback:(SLSuccessCallback)callback;
++ (void) deleteWithNodeArray:(NSArray *)nodes withProgressCallback:(void (^)(NSUInteger idx))progress withCallback:(SLSuccessCallback)callback;
 
 /**
  Return the {type} of this node.
@@ -206,7 +215,7 @@ Data Mappings.
 /**
  Returns the {rels}, relationships, of this node.
  */
-- (SLRelationshipArray *) relationships;
+- (NSArray *) relationships;
 
 /**
  Pushes a relationship into {rels}, verify if start or end node is this node.

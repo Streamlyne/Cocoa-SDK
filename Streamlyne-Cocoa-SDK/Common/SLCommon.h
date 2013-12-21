@@ -33,9 +33,6 @@ typedef NS_ENUM(NSUInteger, SLRelationshipDirection)
 typedef NSNumber *SLNid;
 #define SLNidNodeNotCreated nil
 
-typedef NSMutableArray SLRelationshipArray;
-typedef NSMutableArray SLNodeArray;
-
 /**
  Typedef for Successful Callback
  */
@@ -94,7 +91,5 @@ typedef void(^SLRequestCallback)(NSError *error, id operation, id responseObject
 @class SLNode;
 @class SLValue;
 @class SLRelationship;
-@class SLRelationshipArray;
-@class SLNodeArray;
 
 #endif

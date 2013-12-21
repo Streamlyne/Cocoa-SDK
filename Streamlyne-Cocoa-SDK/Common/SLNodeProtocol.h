@@ -19,9 +19,11 @@
 
 /**
  A list of relationships to this node.
+ 
+ @deprecated Use Core Data relationships instead.
  */
 @required
-@property (strong, nonatomic) SLRelationshipArray *rels;
+@property (strong, nonatomic) NSMutableArray *rels DEPRECATED_ATTRIBUTE;
 
 @required
 @property (strong, nonatomic) SLNid nid;

@@ -83,7 +83,7 @@
                            @"name_last": lastName
                        };
     SLUser *newUser = [SLUser createWithData:data
-                                    withRels:(SLRelationshipArray *)@[]];
+                                    withRels:(NSArray *)@[]];
     [[self class] registerUser:newUser withOrganization:theOrg withCallback:theCallback];
 }
 
