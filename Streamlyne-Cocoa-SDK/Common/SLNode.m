@@ -216,12 +216,12 @@
             for (NSDictionary* curr in arr)
             {
                 
-                id<SLNodeProtocol> node = [[self class] initWithId:(SLNid) curr[@"id"]];
+                id<SLNodeProtocol> node = [[self class] initWithId:(SLNid) curr[@"id"] inContext:context];
                 [((SLNode *)node) loadDataFromDictionary: curr[@"data"]];
                 [((SLNode *)node) loadRelsFromArray: curr[@"rels"] inContext:context];
                 
                 [nodes addObject: node];
-                NSLog(@"%@",node);
+                //NSLog(@"%@",node);
                 
             }
             // callback(nodes); // returning in the completion block
@@ -230,7 +230,7 @@
         [manager performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters withCallback:completionBlock];
         
     } completion:^(BOOL success, NSError *error) {
-        NSLog(@"Saving Error: %@", error);
+        //NSLog(@"Saving Error: %@", error);
         if (success) {
             // Return
             callback( [[self class] MR_findAll] );
