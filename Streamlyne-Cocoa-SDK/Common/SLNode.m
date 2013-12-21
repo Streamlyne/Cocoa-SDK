@@ -15,7 +15,7 @@
 
 @synthesize saved = _saved;
 @dynamic nid;
-@synthesize data, rels, dataMapping;
+@synthesize data, rels;
 
 + (SLAPIManager *) sharedAPIManager
 {
@@ -41,7 +41,6 @@
         _saved = false;
         self.nid = SLNidNodeNotCreated;
         self.data = [NSDictionary dictionary];
-        self.dataMapping = [NSDictionary dictionary];
         self.rels = [NSMutableArray array];
         
         // Edit data schema
@@ -50,10 +49,12 @@
         //[tempData setValue:idVal forKey:@"id"];
         self.data = tempData;
         
+        /*
         // Edit data mapping
         NSMutableDictionary *tempDataMapping = [self.dataMapping mutableCopy];
         [tempDataMapping setObject:@{ @"class": @"NSNumber", @"key": @"nid" } forKey:@"nid"];
         self.dataMapping = tempDataMapping;
+         */
     }
     return self;
 }
@@ -76,6 +77,10 @@
     }
 }
 
++ (NSString *) keyForKey:(NSString *)key {
+    return key;
+}
+
 - (void) loadDataFromDictionary:(NSDictionary *)theData
 {
     // For date conversion
@@ -91,38 +96,32 @@
     NSString *key = nil;
     for (key in theData)
     {
-        //
-        NSDictionary *m = (NSDictionary *)[self.dataMapping objectForKey:key];
-        NSString *mKey = (NSString *)[m objectForKey:@"key"];
-        NSString *c = (NSString *)[m objectForKey:@"class"];
-        if (mKey == nil) {
-            mKey = key;
-        }
         id d = [theData objectForKey:key];
         if (d != [NSNull null]) {
+            NSString *mKey = [[self class] keyForKey:key];
+            NSDictionary *attributes = [[self entity] attributesByName];
+            NSAttributeDescription *descriptionWithKey = [attributes objectForKey:mKey];
             // Parse
-            NSLog(@"%@: %@", mKey, c);
-            if ([c  isEqualToString: @"NSString"]) {
+            if ([descriptionWithKey attributeType] == NSStringAttributeType) {
                 d = d;//[NSString stringWithString:d];
-            } else if ([c isEqualToString: @"NSNumber"]) {
+            } else if ([descriptionWithKey attributeType] == NSInteger64AttributeType) {
                 d = d;
-            } else if ([c isEqualToString: @"NSDate"]) {
+            } else if ([descriptionWithKey attributeType] == NSDateAttributeType) {
                 NSLog(@"date before: %@, %@", [d class], d);
                 d = [iso8601Formatter dateFromString: d];
                 NSLog(@"date after: %@", d);
             } else {
                 NSLog(@"Unknown type.");
             }
-            NSLog(@"%@", d);
             [self setValue:d forKey:mKey];
         }
-        
+        /*
         // NSLog(@"Update %@: %@", key, [theData objectForKey:key]);
-        [self update:key value:[theData objectForKey:key]];
+        [self update:mKey value:[theData objectForKey:key]];
         // Mark data as saved.
         SLValue *val = [self.data objectForKey:key];
         [val setSaved]; // Mark as saved.
-        
+        */
     }
 }
 
@@ -166,6 +165,8 @@
 
 + (void) readById:(SLNid)nid withFilters:(NSDictionary *)filters withCallback:(void (^)(SLNode *))callback
 {
+    SLAPIManager *manager = [[self class] sharedAPIManager];
+
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
         
         SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
@@ -182,7 +183,7 @@
         };
         
         NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
-        [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodGET withPath:thePath withParameters:filters withCallback:completionBlock];
+        [manager performRequestWithMethod:SLHTTPMethodGET withPath:thePath withParameters:filters withCallback:completionBlock];
             
     } completion:^(BOOL success, NSError *error) {
         // Return
@@ -203,6 +204,8 @@
 
 + (void) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(NSArray *))callback
 {
+    SLAPIManager *manager = [[self class] sharedAPIManager];
+    
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
 
         SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
@@ -218,16 +221,20 @@
                 [((SLNode *)node) loadRelsFromArray: curr[@"rels"] inContext:context];
                 
                 [nodes addObject: node];
+                NSLog(@"%@",node);
                 
             }
             // callback(nodes); // returning in the completion block
         };
         
-        [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters withCallback:completionBlock];
+        [manager performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters withCallback:completionBlock];
         
     } completion:^(BOOL success, NSError *error) {
-        // Return
-        callback( [[self class] MR_findAll] );
+        NSLog(@"Saving Error: %@", error);
+        if (success) {
+            // Return
+            callback( [[self class] MR_findAll] );
+        }
     }];
 }
 

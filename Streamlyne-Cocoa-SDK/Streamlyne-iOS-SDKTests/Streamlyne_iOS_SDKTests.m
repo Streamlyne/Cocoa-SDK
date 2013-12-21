@@ -65,8 +65,14 @@
     }];
     */
     
-    SLUser *user1 = [SLUser createWithData:@{@"email":@"glavin.wiechert@gmail.com", @"password":@"test"} withRels:nil];
-    NSLog(@"%@", user1);
+    // SLUser *user1 = [SLUser createWithData:@{@"email":@"glavin.wiechert@gmail.com", @"password":@"test"} withRels:nil];
+    // NSLog(@"%@", user1);
+    
+    pendingCallbacks++;
+    [SLWorkOrder readAllWithFilters:SLFiltersAllTrue withCallback:^(NSArray *workOrders) {
+        NSLog(@"Work Orders: %@", workOrders);
+        completionBlock(true);
+    }];
     
     // Repeatedly process events in the run loop until we see the callback run.
     

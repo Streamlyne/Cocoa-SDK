@@ -34,6 +34,7 @@
         //[tempData setValue:date_completed forKey:@"date_completed"];
         self.data = tempData;
         
+        /*
         // Edit Data Mapping
         NSMutableDictionary *tempDataMapping = [self.dataMapping mutableCopy];
         [tempDataMapping setObject:@{ @"class": @"NSString", @"key": @"name" } forKey:@"name"];
@@ -43,8 +44,8 @@
         [tempDataMapping setObject:@{ @"class": @"NSDate", @"key": @"dateDue" } forKey:@"date_due"];
         [tempDataMapping setObject:@{ @"class": @"NSString", @"key": @"desc" } forKey:@"description"];
         [tempDataMapping setObject:@{ @"class": @"NSString", @"key": @"costCenter" } forKey:@"cost_center"];
-        self.dataMapping = tempDataMapping;
-        
+        self.dataMapping = [NSDictionary dictionaryWithDictionary:tempDataMapping];
+        */
     }
     return self;
 }
@@ -53,4 +54,22 @@
 {
     return @"workOrder";
 }
+
++ (NSString *) keyForKey:(NSString *)key {
+    if ([key isEqualToString: @"notes_completion"]) {
+        return @"notesCompletion";
+    } else if ([key isEqualToString:@"date_due"]) {
+        return @"dateDue";
+    } else if ([key isEqualToString:@"date_completed"]) {
+        return @"dateDue";
+    } else if ([key isEqualToString:@"description"]) {
+        return @"desc";
+    } else if ([key isEqualToString:@"cost_center"]) {
+        return @"costCenter";
+    } else {
+        // return [[super class] keyForKey:key];
+        return key;
+    }
+}
+
 @end

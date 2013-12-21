@@ -32,10 +32,6 @@
  */
 @property (strong, nonatomic) NSDictionary *data;
 /**
-Data Mappings.
- */
-@property (strong, nonatomic) NSDictionary *dataMapping;
-/**
  A list of relationships to this node.
  
  @deprecated Use Core Data relationships now.
