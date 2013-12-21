@@ -180,6 +180,7 @@
             
             // Return
             // callback(node); // Returning in completion block now.
+            [context MR_saveToPersistentStoreAndWait];
         };
         
         NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
@@ -225,6 +226,7 @@
                 
             }
             // callback(nodes); // returning in the completion block
+            [context MR_saveToPersistentStoreAndWait];
         };
         
         [manager performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters withCallback:completionBlock];
@@ -252,6 +254,7 @@
         NSLog(@"Update %@: %@", key, [theData objectForKey:key]);
         [node update:key value:[theData objectForKey:key]];
     }
+    // FIXME: This is deprecated. Switch to Core Data
     // Rels
     SLRelationship *currRel;
     for (currRel in theRels)
