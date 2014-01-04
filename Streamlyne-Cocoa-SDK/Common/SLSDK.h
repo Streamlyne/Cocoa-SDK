@@ -19,6 +19,7 @@
 #import "SLGroup.h"
 #import "SLWorkOrder.h"
 #import "SLAsset.h"
+#import "SLSite.h"
 
 /**
 Main file to include to start using Streamlyne's iOS SDK.

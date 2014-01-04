@@ -57,7 +57,7 @@ typedef void(^SLRequestCallback)(NSError *error, id operation, id responseObject
                                   @"rels": [NSNumber numberWithBool: FALSE] \
                             }, \
                             @"page": @{ \
-                                @"count": [NSNumber numberWithInt:10], \
+                                @"count": [NSNumber numberWithInt:10] \
                             } \
                         }
 /**
@@ -69,7 +69,7 @@ typedef void(^SLRequestCallback)(NSError *error, id operation, id responseObject
         @"rels": [NSNumber numberWithBool: TRUE] \
     }, \
     @"page": @{ \
-        @"count": [NSNumber numberWithInt:10], \
+        @"count": [NSNumber numberWithInt:10] \
     } \
 }
 

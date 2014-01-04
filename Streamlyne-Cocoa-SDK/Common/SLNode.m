@@ -17,7 +17,7 @@
 @dynamic nid;
 @synthesize data, rels;
 
-+ (SLAPIManager *) sharedAPIManager
++ (SLAPIManager *) sharedAPIManager DEPRECATED_ATTRIBUTE
 {
     @synchronized([self class]) {
         return [SLAPIManager sharedManager];
@@ -67,12 +67,16 @@
 {
     @synchronized([self class])
     {
-        SLNode *node = [[self class] MR_findFirstByAttribute:@"nid" withValue:nid inContext:context];
-        NSLog(@"initWithId: %@, node: %@", nid, node);
-        if (node == nil) {
-            node = [[[self class] alloc] initInContext:context];
-            node.nid = nid;
-        }
+        __block SLNode *node;
+        //[context performBlockAndWait:^(void){
+            NSLog(@"initWithId, before find node");
+            node = [[self class] MR_findFirstByAttribute:@"nid" withValue:nid inContext:context];
+            NSLog(@"initWithId: %@, node: %@", nid, node);
+            if (node == nil) {
+                node = [[[self class] alloc] initInContext:context];
+                node.nid = nid;
+            }
+        //}];
         return node;
     }
 }
@@ -206,37 +210,60 @@
 + (void) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(NSArray *))callback
 {
     SLAPIManager *manager = [[self class] sharedAPIManager];
-    
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    NSLog(@"Manager: %@", manager);
+    [self readAllWithAPIManager:manager withFilters:filters withCallback:callback];
+}
 
++ (void) readAllWithAPIManager:(SLAPIManager *)manager withFilters:(NSDictionary *)filters withCallback:(void (^)(NSArray *))callback
+{
+    
+    __block NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
+    
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        __block BOOL waiting = TRUE;
+        
         SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
-            //NSLog(@"SLRequestCallback completionBlock!");
-            //NSLog(@"<%@>: %@", [responseObject class], responseObject);
+            NSLog(@"SLRequestCallback completionBlock.");
+            NSLog(@"<%@>: %@", [responseObject class], responseObject);
             NSMutableArray *nodes = [NSMutableArray array];
             NSArray *arr = ((NSDictionary *)responseObject)[@"nodes"];
             for (NSDictionary* curr in arr)
             {
-                
+                NSLog(@"curr: %@", curr);
                 id<SLNodeProtocol> node = [[self class] initWithId:(SLNid) curr[@"id"] inContext:context];
+                NSLog(@"Node: %@",node);
                 [((SLNode *)node) loadDataFromDictionary: curr[@"data"]];
                 [((SLNode *)node) loadRelsFromArray: curr[@"rels"] inContext:context];
                 
                 [nodes addObject: node];
-                //NSLog(@"%@",node);
+                NSLog(@"Node: %@",node);
                 
             }
             // callback(nodes); // returning in the completion block
             [context MR_saveToPersistentStoreAndWait];
+            [localContext save:nil];
+            
+            //
+            waiting = FALSE;
+            NSLog(@"Done!!!");
+            
+            NSLog(@"%@ %@", context, localContext);
         };
         
+        waiting = TRUE;
         [manager performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters withCallback:completionBlock];
         
-    } completion:^(BOOL success, NSError *error) {
-        //NSLog(@"Saving Error: %@", error);
-        if (success) {
-            // Return
-            callback( [[self class] MR_findAll] );
+        // Wait
+        NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:0.1];
+        while (waiting && [[NSRunLoop currentRunLoop] runMode: NSDefaultRunLoopMode beforeDate:loopUntil]) {
+            loopUntil = [NSDate dateWithTimeIntervalSinceNow:0.1];
         }
+        
+        NSLog(@"Completed, pending: %d", waiting);
+        
+        // Return all nodes!
+        callback( [[self class] MR_findAll] );
+        
     }];
 }
 
@@ -559,7 +586,7 @@
         thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],self.nid];
     }
     NSLog(@"Save Path: %@", thePath);
-    
+    NSLog(@"Manager: %@", manager);
     [manager performRequestWithMethod:SLHTTPMethodPOST withPath:thePath withParameters:delta withCallback:completionBlock];
     
 }

@@ -84,7 +84,7 @@ static SLAPIManager *sharedSingleton = nil;
     AFHTTPRequestOperationManager *requestManager = self.httpManager;
     //NSLog(@"requestManager: %@", requestManager);
     
-    NSLog(@"%@ %@", self.baseURL, self.httpManager);
+    NSLog(@"baseURL: %@ , httpManager: %@", self.baseURL, self.httpManager);
     
     if (self.baseURL == nil)
     {

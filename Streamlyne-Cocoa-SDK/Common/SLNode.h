@@ -122,8 +122,10 @@
  
  @param callback  The C-block style callback.
  @return void
+
+ @deprecate Use `readAllWithAPIManager` instead.
  */
-+ (void) readAllWithCallback:(void (^)(NSArray *))callback;
++ (void) readAllWithCallback:(void (^)(NSArray *))callback DEPRECATED_ATTRIBUTE;
 
 /**
  Returns all nodes of the type subclassed by `SLNode`.
@@ -131,8 +133,21 @@
  @param callback    The C-block style callback.
  @param filters     `NSDictionary` representing the desired fields and relationships to be requested.
  @return void
+ 
+ @deprecate Use `readAllWithAPIManager` instead.
  */
-+ (void) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(NSArray *))callback;
++ (void) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(NSArray *))callback DEPRECATED_ATTRIBUTE;
+
+/**
+ Returns all nodes of the type subclassed by `SLNode`.
+ 
+ @param manager     SLAPIManager instance.
+ @param callback    The C-block style callback.
+ @param filters     `NSDictionary` representing the desired fields and relationships to be requested.
+ @return void
+ */
++ (void) readAllWithAPIManager:(SLAPIManager *)manager withFilters:(NSDictionary *)filters withCallback:(void (^)(NSArray *))callback;
+
 
 /**
  Creates a node client side (not persisted). 
@@ -303,5 +318,9 @@
  */
 - (void) removeWithCallback:(SLSuccessCallback)callback;
 
+/**
+ 
+ */
+- (NSDictionary *) serialize;
 
 @end

@@ -26,7 +26,6 @@
 		771F4B97186029D90093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
 		771F4B98186029D90093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
 		771F4BA318628AAA0093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
-		771F4BA418628CFC0093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
 		7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
 		7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2818369CA20092D39B /* XCTest.framework */; };
 		7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
@@ -123,6 +122,11 @@
 		77B4EA371840960B00435B97 /* Guide in Resources */ = {isa = PBXBuildFile; fileRef = 77B4EA361840960B00435B97 /* Guide */; };
 		77B4EA4F18409D0A00435B97 /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
 		77B4EA5018409D3200435B97 /* Streamlyne_Mac_SDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4EA1C184094D400435B97 /* Streamlyne_Mac_SDK.m */; };
+		77BE8F2518773B600098C907 /* SLSite.h in Headers */ = {isa = PBXBuildFile; fileRef = 77BE8F2318773B600098C907 /* SLSite.h */; };
+		77BE8F2618773B600098C907 /* SLSite.h in Headers */ = {isa = PBXBuildFile; fileRef = 77BE8F2318773B600098C907 /* SLSite.h */; };
+		77BE8F2718773B600098C907 /* SLSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE8F2418773B600098C907 /* SLSite.m */; };
+		77BE8F2818773B600098C907 /* SLSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE8F2418773B600098C907 /* SLSite.m */; };
+		77BE8F291877B8AF0098C907 /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
 		77ED5DB0183FE91500905A3D /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
 /* End PBXBuildFile section */
 
@@ -240,6 +244,8 @@
 		77B4EA2C184094D400435B97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		77B4EA2E184094D400435B97 /* Streamlyne_Mac_SDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Streamlyne_Mac_SDKTests.m; sourceTree = "<group>"; };
 		77B4EA361840960B00435B97 /* Guide */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Guide; sourceTree = "<group>"; };
+		77BE8F2318773B600098C907 /* SLSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSite.h; sourceTree = "<group>"; };
+		77BE8F2418773B600098C907 /* SLSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSite.m; sourceTree = "<group>"; };
 		7D2A9B6E54234EDCAD80864F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -405,6 +411,8 @@
 				77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */,
 				77AD7E2618430F1A0053C02C /* SLGroup.h */,
 				77AD7E2718430F1A0053C02C /* SLGroup.m */,
+				77BE8F2318773B600098C907 /* SLSite.h */,
+				77BE8F2418773B600098C907 /* SLSite.m */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -466,6 +474,7 @@
 			files = (
 				7787C68F1845217400D91E20 /* SLSDK.h in Headers */,
 				7787C6901845217400D91E20 /* SLAsset.h in Headers */,
+				77BE8F2518773B600098C907 /* SLSite.h in Headers */,
 				7787C6921845217400D91E20 /* SLOrganization.h in Headers */,
 				7787C6941845217400D91E20 /* SLUser.h in Headers */,
 				7787C6961845217400D91E20 /* SLWorkOrder.h in Headers */,
@@ -486,6 +495,7 @@
 			files = (
 				77AD7E161842F6DC0053C02C /* SLObject.h in Headers */,
 				77AD7E2818430F1A0053C02C /* SLGroup.h in Headers */,
+				77BE8F2618773B600098C907 /* SLSite.h in Headers */,
 				77AD7E001842F6DC0053C02C /* SLUser.h in Headers */,
 				77AD7E051842F6DC0053C02C /* SLWorkOrder.h in Headers */,
 				77AD7E211842F6DC0053C02C /* SLValue.h in Headers */,
@@ -761,6 +771,7 @@
 				77AD7E111842F6DC0053C02C /* SLNode.m in Sources */,
 				77AD7E2918430F1A0053C02C /* SLGroup.m in Sources */,
 				77AD7E0B1842F6DC0053C02C /* SLAPIManager.m in Sources */,
+				77BE8F2718773B600098C907 /* SLSite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,7 +780,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77ED5DB0183FE91500905A3D /* Streamlyne_iOS_SDKTests.m in Sources */,
-				771F4BA418628CFC0093674F /* Streamlyne.xcdatamodeld in Sources */,
+				77BE8F291877B8AF0098C907 /* Streamlyne.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -787,6 +798,7 @@
 				77AD7E0D1842F6DC0053C02C /* SLAPIManager.m in Sources */,
 				77AD7E2B18430F1A0053C02C /* SLGroup.m in Sources */,
 				77AD7DF91842F6DC0053C02C /* SLAsset.m in Sources */,
+				77BE8F2818773B600098C907 /* SLSite.m in Sources */,
 				77AD7DFE1842F6DC0053C02C /* SLOrganization.m in Sources */,
 				771F4B98186029D90093674F /* Streamlyne.xcdatamodeld in Sources */,
 			);

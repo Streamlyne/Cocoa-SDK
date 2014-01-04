@@ -16,6 +16,17 @@
 
 @implementation Streamlyne_iOS_SDKTests
 
+// Helper methods
+- (void) waitUntilFinishedPending:(int*) pendingCallbacks {
+    NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:0.1];
+    while ((*pendingCallbacks > 0) && [[NSRunLoop currentRunLoop] runMode: NSDefaultRunLoopMode beforeDate:loopUntil]) {
+        //NSLog(@"%d", pendingCallbacks);
+        loopUntil = [NSDate dateWithTimeIntervalSinceNow:0.1];
+    }
+}
+
+
+//
 - (void)setUp
 {
     [super setUp];
@@ -34,6 +45,7 @@
     [MagicalRecord setDefaultModelFromClass:[self class]];
     [MagicalRecord setupCoreDataStackWithInMemoryStore];
     
+    NSLog(@"Manager: %@", manager);
 }
 
 - (void)tearDown
@@ -74,26 +86,54 @@
         completionBlock(true);
     }];
     
-    // Repeatedly process events in the run loop until we see the callback run.
-    
-    // This code will wait for up to 10 seconds for something to come through
-    // on the main queue before it times out. If your tests need longer than
-    // that, bump up the time limit. Giving it a timeout like this means your
-    // tests won't hang indefinitely.
-    
-    // -[NSRunLoop runMode:beforeDate:] always processes exactly one event or
-    // returns after timing out.
-    
-    NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:10];
-    while ( (pendingCallbacks > 0) && [loopUntil timeIntervalSinceNow] > 0) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                                 beforeDate:loopUntil];
-    }
+    // Wait
+    [self waitUntilFinishedPending:&pendingCallbacks];
     
     if (pendingCallbacks > 0)
     {
         //STFail(@"I know this will fail, thanks");
     }
+    
+}
+
+- (void) testSite
+{
+    SLAPIManager *manager = [SLAPIManager sharedManager];
+    
+    __block int pendingCallbacks = 0;
+    
+    void (^completionBlock)(BOOL) = ^(BOOL success){
+        NSLog(@"Completion Block: '%d'", pendingCallbacks);
+        pendingCallbacks = pendingCallbacks - 1; // Decrement
+    };
+        
+    // Create Site node
+    //pendingCallbacks++;
+    //SLSite *site1 = [SLSite createWithData:@{@"name":@"test name", @"location":@"test location"} withRels:nil];
+    //[site1 pushWithAPIManager:manager withCallback:completionBlock];
+    //NSLog(@"%@", [site1 entity]);
+    
+    
+    // Read All Sites
+    pendingCallbacks++;
+    [SLSite readAllWithAPIManager:manager withFilters:SLFiltersAllTrue withCallback:^(NSArray *sites) {
+        NSLog(@"Sites: %@", sites);
+        
+        /*
+        // Iterate and display all
+        for (SLSite *site in sites) {
+            NSLog(@"%@", site);
+        }
+        */
+        
+        completionBlock(true);
+    }];
+    
+    // Wait
+    [self waitUntilFinishedPending:&pendingCallbacks];
+
+    NSLog(@"Pending Callbacks: %d", pendingCallbacks);
+    //STFail(@"I know this will fail, thanks");
     
 }
 
@@ -128,7 +168,7 @@
     
     // Read All
     pendingCallbacks++;
-    [SLOrganization readAllWithFilters:SLFiltersAllFalse withCallback:^(NSArray *nodes) {
+    [SLOrganization readAllWithFilters:SLFiltersAllTrue withCallback:^(NSArray *nodes) {
         NSLog(@"Organizations: %@", nodes);
         
         // Read All, again
@@ -142,6 +182,9 @@
         completionBlock(true);
     }];
     
+    // Wait
+    [self waitUntilFinishedPending:&pendingCallbacks];
+
     /*
     // Read with Id
     pendingCallbacks++;
@@ -157,12 +200,6 @@
     [SLOrganization deleteWithId:1 withCallback:completionBlock];
     */
     
-    NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:10];
-    while ( (pendingCallbacks > 0) && [loopUntil timeIntervalSinceNow] > 0) {
-        //NSLog(@"%d", pendingCallbacks);
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                                 beforeDate:loopUntil];
-    }
     if (pendingCallbacks > 0)
     {
         NSLog(@"Pending Callbacks: %d", pendingCallbacks);
@@ -255,12 +292,10 @@
     //NSLog(@"%@", [user type]);
     //[SLNode deleteWithNode:user];
     
-    NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:10];
-    while ( (pendingCallbacks > 0) && [loopUntil timeIntervalSinceNow] > 0) {
-        //NSLog(@"%d", pendingCallbacks);
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                                 beforeDate:loopUntil];
-    }
+    // Wait
+    [self waitUntilFinishedPending:&pendingCallbacks];
+
+    
     if (pendingCallbacks > 0)
     {
         NSLog(@"Pending Callbacks: %d", pendingCallbacks);
@@ -329,14 +364,9 @@
                                                            } withRels:(NSArray *)@[]];
     [group pushWithAPIManager:SLSharedAPIManager withCallback:completionBlock];
     
-    //
-    NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:10];
-    while ( (pendingCallbacks > 0) && [loopUntil timeIntervalSinceNow] > 0)
-    {
-        //NSLog(@"%d", pendingCallbacks);
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                                 beforeDate:loopUntil];
-    }
+    // Wait
+    [self waitUntilFinishedPending:&pendingCallbacks];
+
     if (pendingCallbacks > 0)
     {
         NSLog(@"Pending Callbacks: %d", pendingCallbacks);
@@ -414,13 +444,9 @@
         completionBlock(true);
     }];
     
-    //
-    NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:10];
-    while ( (pendingCallbacks > 0) && [loopUntil timeIntervalSinceNow] > 0) {
-        //NSLog(@"%d", pendingCallbacks);
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                                 beforeDate:loopUntil];
-    }
+    // Wait
+    [self waitUntilFinishedPending:&pendingCallbacks];
+    
     if (pendingCallbacks > 0)
     {
         NSLog(@"Pending Callbacks: %d", pendingCallbacks);
@@ -442,13 +468,13 @@
     
     // Read All Work Orders
     NSLog(@"Read All Work Orders");
-    pendingCallbacks++;
-    [SLWorkOrder readAllWithFilters:SLFiltersAllTrue withCallback:^(NSArray * nodes) {
-        NSLog(@"# of Work Orders: %lu", (unsigned long)[nodes count]);
-        NSLog(@"There are %lu Work Orders saved for Offline", (unsigned long)[SLWorkOrder MR_countOfEntities]);
+    //pendingCallbacks++;
+    //[SLWorkOrder readAllWithFilters:SLFiltersAllTrue withCallback:^(NSArray * nodes) {
+    //    NSLog(@"# of Work Orders: %lu", (unsigned long)[nodes count]);
+    //    NSLog(@"There are %lu Work Orders saved for Offline", (unsigned long)[SLWorkOrder MR_countOfEntities]);
         
         pendingCallbacks++;
-        [SLWorkOrder readAllWithFilters:SLFiltersAllFalse withCallback:^(NSArray * nodes) {
+        [SLWorkOrder readAllWithFilters:SLFiltersAllTrue withCallback:^(NSArray * nodes) {
             
             NSArray *cNodes = [SLWorkOrder MR_findAll];
             NSLog(@"Nodes: %@", cNodes);
@@ -513,8 +539,12 @@
             completionBlock(true);
         }];
         
-        completionBlock(true);
-    }];
+    //    completionBlock(true);
+    //}];
+    
+    // Wait
+    [self waitUntilFinishedPending:&pendingCallbacks];
+
     
     // Create
     pendingCallbacks++;
@@ -565,13 +595,9 @@
         completionBlock(true);
     }];
      
-    //
-    NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:60];
-    while ( (pendingCallbacks > 0) && [loopUntil timeIntervalSinceNow] > 0) {
-        //NSLog(@"%d", pendingCallbacks);
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                                 beforeDate:loopUntil];
-    }
+    // Wait
+    [self waitUntilFinishedPending:&pendingCallbacks];
+
     if (pendingCallbacks > 0)
     {
         NSLog(@"Pending Callbacks: %d", pendingCallbacks);
