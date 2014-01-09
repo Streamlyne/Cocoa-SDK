@@ -30,7 +30,7 @@
 /**
  String s -> SLValue s
  */
-@property (strong, nonatomic) NSDictionary *data;
+@property (strong, nonatomic) NSDictionary *data DEPRECATED_ATTRIBUTE;
 /**
  A list of relationships to this node.
  
@@ -41,7 +41,8 @@
  */
 //@property (strong, nonatomic) SLNid nid;
 @property (nonatomic, retain) SLNid nid;
-
+@property (nonatomic, retain) NSDate *dateCreated;
+@property (nonatomic, retain) NSDate *dateUpdated;
 
 /**
  Returns an object initialized.

@@ -9,5 +9,6 @@
 #import "SLNode.h"
 
 @interface SLOrganization : SLNode
+@property (nonatomic, retain) NSString *name;
 
 @end

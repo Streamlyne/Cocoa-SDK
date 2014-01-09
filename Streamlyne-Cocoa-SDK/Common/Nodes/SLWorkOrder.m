@@ -67,8 +67,8 @@
     } else if ([key isEqualToString:@"cost_center"]) {
         return @"costCenter";
     } else {
-        // return [[super class] keyForKey:key];
-        return key;
+        return [[[self superclass] class] keyForKey:key];
+        //return key;
     }
 }
 

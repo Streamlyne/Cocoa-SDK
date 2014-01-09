@@ -10,6 +10,8 @@
 
 @implementation SLOrganization
 
+@dynamic name;
+
 - (id) init
 {
     self = [super init];

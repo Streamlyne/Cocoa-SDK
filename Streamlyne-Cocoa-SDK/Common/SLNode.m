@@ -13,8 +13,11 @@
 
 @implementation SLNode
 
-@synthesize saved = _saved;
 @dynamic nid;
+@dynamic dateCreated;
+@dynamic dateUpdated;
+
+@synthesize saved = _saved;
 @synthesize data, rels;
 
 + (SLAPIManager *) sharedAPIManager DEPRECATED_ATTRIBUTE
