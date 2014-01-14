@@ -283,6 +283,7 @@
     {
         NSLog(@"Update %@: %@", key, [theData objectForKey:key]);
         [node update:key value:[theData objectForKey:key]];
+        [node setValue:[theData objectForKey:key] forKey:key];
     }
     // FIXME: This is deprecated. Switch to Core Data
     // Rels
@@ -478,8 +479,11 @@
 {
     //NSLog(@"pushWithAPIManager:withCallback:");
     
+    NSLog(@"serializeData: %@", [self serializeData]);
+    
     // Create serialized delta
     NSMutableDictionary *notSavedData = [NSMutableDictionary dictionary];
+    /*
     NSString *key;
     for (key in data)
     {
@@ -491,6 +495,10 @@
             [notSavedData setObject:[val get] forKey:key];
         }
     }
+    */
+    notSavedData = [NSMutableDictionary dictionaryWithDictionary: [self serializeData]];
+    
+    //
     NSMutableArray *notSavedRels = [NSMutableArray array];
     SLRelationship* rel;
     for (rel in self.rels)
@@ -581,17 +589,33 @@
     NSString *thePath;
     if (self.nid == SLNidNodeNotCreated)
     {
-        // New
+        // New (CREATE)
+        NSLog(@"CREATE %@", self);
         thePath = [NSString stringWithFormat:@"%@", [[self class] type]];
     } else
     {
-        // Update
+        // Update (UPDATE)
+        NSLog(@"UPDATE %@", self);
         thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],self.nid];
     }
     NSLog(@"Save Path: %@", thePath);
     NSLog(@"Manager: %@", manager);
     [manager performRequestWithMethod:SLHTTPMethodPOST withPath:thePath withParameters:delta withCallback:completionBlock];
     
+}
+
+
+
+- (NSDictionary *) serializeData {
+    NSMutableDictionary *theData = [NSMutableDictionary dictionary];
+    NSEntityDescription *entityDescription = [self entity];
+    NSDictionary *attributes = [entityDescription attributesByName];
+    NSLog(@"%@", attributes);
+    for (NSAttributeDescription *attribute in attributes) {
+        NSLog(@"attribute: %@ = %@", attribute, [self valueForKey:(NSString *)attribute]);
+        [theData setValue:[self valueForKey:(NSString *)attribute] forKey:(NSString *)attribute];
+    }
+    return [NSDictionary dictionaryWithDictionary:theData];
 }
 
 - (BOOL) isSaved

@@ -108,11 +108,17 @@
     };
         
     // Create Site node
-    //pendingCallbacks++;
-    //SLSite *site1 = [SLSite createWithData:@{@"name":@"test name", @"location":@"test location"} withRels:nil];
-    //[site1 pushWithAPIManager:manager withCallback:completionBlock];
-    //NSLog(@"%@", [site1 entity]);
+    pendingCallbacks++;
+    SLSite *site1 = [SLSite createWithData:@{
+                                             @"name":@"test name",
+                                             @"location":@"test location"
+                                             } withRels:nil];
+    [site1 pushWithAPIManager:manager withCallback:completionBlock];
+    NSLog(@"%@", [site1 entity]);
     
+    // Wait
+    [self waitUntilFinishedPending:&pendingCallbacks];
+
     
     // Read All Sites
     pendingCallbacks++;
