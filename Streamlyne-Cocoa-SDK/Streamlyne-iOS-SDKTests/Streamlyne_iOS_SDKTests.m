@@ -106,7 +106,7 @@
         NSLog(@"Completion Block: '%d'", pendingCallbacks);
         pendingCallbacks = pendingCallbacks - 1; // Decrement
     };
-        
+    
     // Create Site node
     pendingCallbacks++;
     SLSite *site1 = [SLSite createWithData:@{
@@ -118,7 +118,7 @@
     
     // Wait
     [self waitUntilFinishedPending:&pendingCallbacks];
-
+    
     
     // Read All Sites
     pendingCallbacks++;

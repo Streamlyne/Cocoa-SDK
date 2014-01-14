@@ -93,7 +93,8 @@ static SLAPIManager *sharedSingleton = nil;
     
     //NSLog(@"baseURl: %@", self.baseURL);
     //NSLog(@"thePath: %@", thePath);
-    NSURL *fullPath = [NSURL URLWithString:thePath relativeToURL:baseURL];
+    NSURL *fullPath = [NSURL URLWithString:[NSString stringWithFormat:@"%@", thePath] relativeToURL:baseURL];
+    //NSLog(@"fullPath: %@", fullPath);
     NSString *fullPathStr = [fullPath absoluteString];
     //NSLog(@"Full path: %@", fullPathStr);
     
@@ -105,8 +106,9 @@ static SLAPIManager *sharedSingleton = nil;
                                                                options:NSJSONWritingPrettyPrinted
                                                                  error:&error];
             NSString *encodedJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            //NSLog(@"encodedJson: %@", encodedJson);
+            NSLog(@"encodedJson: %@", encodedJson);
             //encodedJson = @"{\"filter\":{\"fields\":true,\"rels\":true}}";
+            NSLog(@"GET %@", fullPathStr);
             [requestManager GET:fullPathStr parameters:@{@"p":encodedJson} success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"Success, JSON: %@", responseObject);
                 if (theCallback != nil) {
