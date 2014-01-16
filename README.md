@@ -1,4 +1,5 @@
 # Cocoa SDK
 
-Author: Glavin Wiechert <glavin@streamlyne.co>
+## Author
+- Glavin Wiechert <glavin@streamlyne.co>
 
