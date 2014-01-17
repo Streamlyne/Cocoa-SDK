@@ -568,7 +568,6 @@
         NSLog(@"user1: %@", user1);
         
         NSDictionary *newWorkOrderData = @{
-                                           @"name": @"Sample Work Order",
                                            @"description": @"This is a sample work order from SDK tests!"
                                            ,@"status": @"some status"
                                            ,@"notes_completion": @"After I created it made this note."

@@ -23,10 +23,9 @@
     NSMutableDictionary *attrMap = [NSMutableDictionary dictionaryWithDictionary:[[[self superclass] class] attributeMappings]];
     [attrMap setValue:@"notesCompletion" forKey:@"notes_completion"];
     [attrMap setValue:@"dateDue" forKey:@"date_due"];
-    [attrMap setValue:@"dateDue" forKey:@"date_completed"];
-    [attrMap setValue:@"dateCompleted" forKey:@"description"];
+    [attrMap setValue:@"dateCompleted" forKey:@"date_completed"];
+    [attrMap setValue:@"desc" forKey:@"description"];
     [attrMap setValue:@"costCenter" forKey:@"cost_center"];
-    [attrMap setValue:@"dateDue" forKey:@"date_due"];
     return [NSDictionary dictionaryWithDictionary: attrMap];
 }
 
