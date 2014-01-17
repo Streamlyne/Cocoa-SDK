@@ -26,14 +26,14 @@
     return @"site";
 }
 
-+ (NSString *) keyForKey:(NSString *)key {
-    if ([key isEqualToString: @"name"]) {
-        return @"name";
-    } else if ([key isEqualToString:@"location"]) {
-        return @"location";
-    } else {
-        return [[[self superclass] class] keyForKey:key];
-    }
+
++ (NSDictionary *) attributeMappings
+{
+    NSMutableDictionary *attrMap = [NSMutableDictionary dictionaryWithDictionary:[[[self superclass] class] attributeMappings]];
+    [attrMap setValue:@"name" forKey:@"name"];
+    [attrMap setValue:@"location" forKey:@"location"];
+    return [NSDictionary dictionaryWithDictionary: attrMap];
 }
+
 
 @end

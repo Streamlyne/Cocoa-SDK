@@ -23,23 +23,16 @@
 }
 
 
-
-+ (NSString *) keyForKey:(NSString *)key {
-    if ([key isEqualToString: @"number_asset"]) {
-        return @"assetNumber";
-    } else if ([key isEqualToString:@"number_serial"]) {
-        return @"serial";
-    } else if ([key isEqualToString:@"description"]) {
-        return @"desc";
-    } else if ([key isEqualToString:@"mfg"]) {
-        return @"mfg";
-    } else if ([key isEqualToString:@"location"]) {
-        return @"location";
-    } else if ([key isEqualToString:@"cost_center"]) {
-        return @"costCenter";
-    } else {
-        return [[[self superclass] class] keyForKey:key];
-    }
++ (NSDictionary *) attributeMappings
+{
+    NSMutableDictionary *attrMap = [NSMutableDictionary dictionaryWithDictionary:[[[self superclass] class] attributeMappings]];
+    [attrMap setValue:@"assetNumber" forKey:@"number_asset"];
+    [attrMap setValue:@"serial" forKey:@"number_serial"];
+    [attrMap setValue:@"desc" forKey:@"description"];
+    [attrMap setValue:@"mfg" forKey:@"mfg"];
+    [attrMap setValue:@"location" forKey:@"location"];
+    [attrMap setValue:@"costCenter" forKey:@"cost_center"];
+    return [NSDictionary dictionaryWithDictionary: attrMap];
 }
 
 @end

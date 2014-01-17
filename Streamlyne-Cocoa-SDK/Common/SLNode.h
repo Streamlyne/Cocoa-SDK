@@ -45,6 +45,12 @@
 @property (nonatomic, retain) NSDate *dateUpdated;
 
 /**
+ Boolean stating whether the `SLNode` has been persisted since the previous most
+ call to update.
+ */
+@property (getter=isSaved, readonly) BOOL saved;
+
+/**
  Returns an object initialized.
  
  Use for initializing new nodes that do not have existing an `SLNid` nid.
@@ -93,10 +99,32 @@
 + (NSString *) type;
 
 /**
- Boolean stating whether the `SLNode` has been persisted since the previous most
- call to update.
+ 
+ 
+ Edit when subclassing.
+ 
+ ```
+ + (NSDictionary *) attributeMappings
+ {
+ NSMutableDictionary *attrMap = [NSMutableDictionary dictionaryWithDictionary:[[[self superclass] class] attributeMappings]];
+ [attrMap setValue:@"name" forKey:@"name"];
+ [attrMap setValue:@"location" forKey:@"location"];
+ return [NSDictionary dictionaryWithDictionary: attrMap];
+ }
+ ```
+ 
  */
-@property (getter=isSaved, readonly) BOOL saved;
++ (NSDictionary *) attributeMappings;
+
+/**
+ 
+ */
+- (NSString *) attributeForKey:(NSString *)key;
+
+/**
+ 
+ */
+- (NSString *) keyForAttribute:(NSString *)attribute;
 
 /**
  Returns the node with id corresponding to `SLNid`.

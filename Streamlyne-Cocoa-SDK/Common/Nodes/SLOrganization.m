@@ -17,4 +17,11 @@
     return @"organization";
 }
 
++ (NSDictionary *) attributeMappings
+{
+    NSMutableDictionary *attrMap = [NSMutableDictionary dictionaryWithDictionary:[[[self superclass] class] attributeMappings]];
+    [attrMap setValue:@"name" forKey:@"name"];
+    return [NSDictionary dictionaryWithDictionary: attrMap];
+}
+
 @end

@@ -26,17 +26,16 @@
 }
 
 
-+ (NSString *) keyForKey:(NSString *)key {
-    NSLog(@"KeyforKey: %@", key);
-    if ([key isEqualToString: @"job_title"]) {
-        return @"jobTitle";
-    } else if ([key isEqualToString:@"name_first"]) {
-        return @"firstName";
-    } else if ([key isEqualToString:@"name_last"]) {
-        return @"lastName";
-    } else {
-        return [[[self superclass] class] keyForKey:key];
-    }
++ (NSDictionary *) attributeMappings
+{
+    NSMutableDictionary *attrMap = [NSMutableDictionary dictionaryWithDictionary:[[[self superclass] class] attributeMappings]];
+    [attrMap setValue:@"jobTitle" forKey:@"job_title"];
+    [attrMap setValue:@"firstName" forKey:@"name_first"];
+    [attrMap setValue:@"lastName" forKey:@"name_last"];
+    [attrMap setValue:@"dateCompleted" forKey:@"description"];
+    [attrMap setValue:@"costCenter" forKey:@"cost_center"];
+    [attrMap setValue:@"dateDue" forKey:@"date_due"];
+    return [NSDictionary dictionaryWithDictionary: attrMap];
 }
 
 + (void) registerUser:(SLUser *)theUser withOrganization:(SLOrganization *)theOrg withCallback:(SLSuccessCallback)theCallback

@@ -17,20 +17,17 @@
     return @"workOrder";
 }
 
-+ (NSString *) keyForKey:(NSString *)key {
-    if ([key isEqualToString: @"notes_completion"]) {
-        return @"notesCompletion";
-    } else if ([key isEqualToString:@"date_due"]) {
-        return @"dateDue";
-    } else if ([key isEqualToString:@"date_completed"]) {
-        return @"dateDue";
-    } else if ([key isEqualToString:@"description"]) {
-        return @"desc";
-    } else if ([key isEqualToString:@"cost_center"]) {
-        return @"costCenter";
-    } else {
-        return [[[self superclass] class] keyForKey:key];
-    }
+
++ (NSDictionary *) attributeMappings
+{
+    NSMutableDictionary *attrMap = [NSMutableDictionary dictionaryWithDictionary:[[[self superclass] class] attributeMappings]];
+    [attrMap setValue:@"notesCompletion" forKey:@"notes_completion"];
+    [attrMap setValue:@"dateDue" forKey:@"date_due"];
+    [attrMap setValue:@"dateDue" forKey:@"date_completed"];
+    [attrMap setValue:@"dateCompleted" forKey:@"description"];
+    [attrMap setValue:@"costCenter" forKey:@"cost_center"];
+    [attrMap setValue:@"dateDue" forKey:@"date_due"];
+    return [NSDictionary dictionaryWithDictionary: attrMap];
 }
 
 @end

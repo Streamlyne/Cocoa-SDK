@@ -84,11 +84,39 @@
     }
 }
 
-+ (NSString *) keyForKey:(NSString *)key {
-    if ([key isEqualToString: @"date_created"]) {
-        return @"dateCreated";
-    } else if ([key isEqualToString:@"date_updated"]) {
-        return @"dateUpdated";
++ (NSDictionary *) attributeMappings
+{
+    NSMutableDictionary *attrMap = [NSMutableDictionary dictionary];
+    [attrMap setValue:@"dateCreated" forKey:@"date_created"];
+    [attrMap setValue:@"dateUpdated" forKey:@"date_updated"];
+    return [NSDictionary dictionaryWithDictionary: attrMap];
+}
+
+- (NSString *) attributeForKey:(NSString *)key
+{
+    NSDictionary *attributeMappings = [[self class] attributeMappings];
+    NSString *attribute = nil;
+    attribute = [attributeMappings objectForKey:key];
+    if (attribute == nil) {
+        return key;
+    } else {
+        return attribute;
+    }
+}
+
+- (NSString *) keyForAttribute:(NSString *)attribute
+{
+    NSDictionary *attributeMappings = [[self class] attributeMappings];
+    NSString *key = nil;
+    for (NSString *k in attributeMappings)
+    {
+        if ([[attributeMappings objectForKey:k] isEqualToString:attribute]) {
+            key = k; //
+            break; // Stop looping
+        }
+    }
+    if (key == nil) {
+        return attribute;
     } else {
         return key;
     }
@@ -111,7 +139,7 @@
     {
         id d = [theData objectForKey:key];
         if (d != [NSNull null]) {
-            NSString *mKey = [[self class] keyForKey:key];
+            NSString *mKey = [self attributeForKey:key];
             NSDictionary *attributes = [[self entity] attributesByName];
             NSAttributeDescription *descriptionWithKey = [attributes objectForKey:mKey];
             // Parse
