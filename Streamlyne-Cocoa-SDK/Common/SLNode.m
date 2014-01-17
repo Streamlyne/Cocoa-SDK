@@ -650,7 +650,7 @@
     NSLog(@"%@", attributes);
     for (NSAttributeDescription *attribute in attributes) {
         NSLog(@"attribute: %@ = %@", attribute, [self valueForKey:(NSString *)attribute]);
-        [theData setValue:[self valueForKey:(NSString *)attribute] forKey:(NSString *)attribute];
+        [theData setValue:[self valueForKey:(NSString *)attribute] forKey:[self keyForAttribute:(NSString *)attribute]];
     }
     return [NSDictionary dictionaryWithDictionary:theData];
 }
