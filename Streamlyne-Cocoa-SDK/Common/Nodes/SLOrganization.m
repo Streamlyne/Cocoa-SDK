@@ -12,20 +12,6 @@
 
 @dynamic name;
 
-- (id) init
-{
-    self = [super init];
-    if (self) {
-        // Initialize variables
-        SLValue *name = [[SLValue alloc]initWithType:[NSString class]];
-        // Edit data schema
-        NSMutableDictionary *tempData = [self.data mutableCopy];
-        [tempData setValue:name forKey:@"name"];
-        self.data = tempData;
-    }
-    return self;
-}
-
 + (NSString *) type
 {
     return @"organization";

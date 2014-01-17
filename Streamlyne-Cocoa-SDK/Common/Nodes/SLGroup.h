@@ -10,4 +10,7 @@
 
 @interface SLGroup : SLNode
 
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * desc;
+
 @end

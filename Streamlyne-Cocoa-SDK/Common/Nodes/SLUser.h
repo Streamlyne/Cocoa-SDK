@@ -17,9 +17,9 @@
 }
 
 @property (nonatomic, retain) NSString * email;
-@property (nonatomic, retain) NSString * job_title;
-@property (nonatomic, retain) NSString * name_first;
-@property (nonatomic, retain) NSString * name_last;
+@property (nonatomic, retain) NSString * jobTitle;
+@property (nonatomic, retain) NSString * firstName;
+@property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * password;
 
 

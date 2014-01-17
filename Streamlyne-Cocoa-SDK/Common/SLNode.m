@@ -85,7 +85,13 @@
 }
 
 + (NSString *) keyForKey:(NSString *)key {
-    return key;
+    if ([key isEqualToString: @"date_created"]) {
+        return @"dateCreated";
+    } else if ([key isEqualToString:@"date_updated"]) {
+        return @"dateUpdated";
+    } else {
+        return key;
+    }
 }
 
 - (void) loadDataFromDictionary:(NSDictionary *)theData
@@ -278,6 +284,8 @@
     
     // TODO: Fix this so it validates data and rels first
     // Data
+    [node loadDataFromDictionary:theData];
+    /*
     NSString *key = nil;
     for (key in theData)
     {
@@ -285,6 +293,7 @@
         [node update:key value:[theData objectForKey:key]];
         [node setValue:[theData objectForKey:key] forKey:key];
     }
+    */
     // FIXME: This is deprecated. Switch to Core Data
     // Rels
     SLRelationship *currRel;

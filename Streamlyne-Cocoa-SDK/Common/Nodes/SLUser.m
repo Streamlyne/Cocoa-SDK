@@ -15,42 +15,28 @@
 
 
 @dynamic email;
-@dynamic job_title;
-@dynamic name_first;
-@dynamic name_last;
+@dynamic jobTitle;
+@dynamic firstName;
+@dynamic lastName;
 @dynamic password;
-
-
-- (id) init
-{
-    self = [super init];
-    if (self) {
-        // Initialize variables
-        SLValue *email = [[SLValue alloc]initWithType:[NSString class]];
-        SLValue *password = [[SLValue alloc]initWithType:[NSString class]];
-        [password setClientVisible:FALSE]; // Will not be visible to client when reading `SLUser` nodes.
-        SLValue *phoneNumber = [[SLValue alloc]initWithType:[NSString class]];
-        SLValue *jobTitle = [[SLValue alloc]initWithType:[NSString class]];
-        SLValue *firstName = [[SLValue alloc]initWithType:[NSString class]];
-        SLValue *lastName = [[SLValue alloc]initWithType:[NSString class]];
-        SLValue *avatar = [[SLValue alloc]initWithType:[NSURL class]];
-        // Edit data schema
-        NSMutableDictionary *tempData = [self.data mutableCopy];
-        [tempData setValue:email forKey:@"email"];
-        [tempData setValue:password forKey:@"password"];
-        //[tempData setValue:phoneNumber forKey:@"phone_number"];
-        [tempData setValue:jobTitle forKey:@"job_title"];
-        [tempData setValue:firstName forKey:@"name_first"];
-        [tempData setValue:lastName forKey:@"name_last"];
-        //[tempData setValue:avatar forKey:@"avatar"];
-        self.data = tempData;
-    }
-    return self;
-}
 
 + (NSString *) type
 {
     return @"user";
+}
+
+
++ (NSString *) keyForKey:(NSString *)key {
+    NSLog(@"KeyforKey: %@", key);
+    if ([key isEqualToString: @"job_title"]) {
+        return @"jobTitle";
+    } else if ([key isEqualToString:@"name_first"]) {
+        return @"firstName";
+    } else if ([key isEqualToString:@"name_last"]) {
+        return @"lastName";
+    } else {
+        return [[[self superclass] class] keyForKey:key];
+    }
 }
 
 + (void) registerUser:(SLUser *)theUser withOrganization:(SLOrganization *)theOrg withCallback:(SLSuccessCallback)theCallback

@@ -32,8 +32,7 @@
     } else if ([key isEqualToString:@"location"]) {
         return @"location";
     } else {
-        // return [[super class] keyForKey:key];
-        return key;
+        return [[[self superclass] class] keyForKey:key];
     }
 }
 

@@ -10,4 +10,11 @@
 
 @interface SLAsset : SLNode
 
+@property (nonatomic, retain) NSString * assetNumber;
+@property (nonatomic, retain) NSString * costCenter;
+@property (nonatomic, retain) NSString * desc;
+@property (nonatomic, retain) NSString * location;
+@property (nonatomic, retain) NSString * mfg;
+@property (nonatomic, retain) NSString * serial;
+
 @end

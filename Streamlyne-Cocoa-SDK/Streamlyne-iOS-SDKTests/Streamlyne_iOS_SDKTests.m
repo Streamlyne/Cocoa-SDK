@@ -107,6 +107,7 @@
         pendingCallbacks = pendingCallbacks - 1; // Decrement
     };
     
+    /*
     // Create Site node
     pendingCallbacks++;
     SLSite *site1 = [SLSite createWithData:@{
@@ -115,9 +116,10 @@
                                              } withRels:nil];
     [site1 pushWithAPIManager:manager withCallback:completionBlock];
     NSLog(@"%@", [site1 entity]);
+    */
     
     // Wait
-    [self waitUntilFinishedPending:&pendingCallbacks];
+    //[self waitUntilFinishedPending:&pendingCallbacks];
     
     
     // Read All Sites
