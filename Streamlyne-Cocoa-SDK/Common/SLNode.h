@@ -41,6 +41,7 @@
  */
 //@property (strong, nonatomic) SLNid nid;
 @property (nonatomic, retain) SLNid nid;
+@property (nonatomic, retain) NSNumber *syncState;
 @property (nonatomic, retain) NSDate *dateCreated;
 @property (nonatomic, retain) NSDate *dateUpdated;
 
@@ -122,9 +123,15 @@
 - (NSString *) attributeForKey:(NSString *)key;
 
 /**
- 
+ Key to Attribute mappings for the Node.
  */
 - (NSString *) keyForAttribute:(NSString *)attribute;
+
+
+/**
+ Returns an NSArray of pending Nodes.
+ */
++ (NSArray *) pending;
 
 /**
  Returns the node with id corresponding to `SLNid`.

@@ -16,6 +16,7 @@
         <attribute name="dateCreated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dateUpdated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="nid" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="syncState" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="SLOrganization" representedClassName="SLOrganization" parentEntity="SLNode" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -41,12 +42,12 @@
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SLAsset" positionX="0" positionY="0" width="128" height="135"/>
-        <element name="SLGroup" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="SLNode" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="SLOrganization" positionX="0" positionY="0" width="128" height="60"/>
-        <element name="SLSite" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="SLUser" positionX="0" positionY="0" width="128" height="118"/>
-        <element name="SLWorkOrder" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="SLAsset" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SLGroup" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SLNode" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SLOrganization" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SLSite" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SLUser" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SLWorkOrder" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

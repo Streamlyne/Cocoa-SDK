@@ -475,6 +475,33 @@
         pendingCallbacks = pendingCallbacks - 1; // Decrement
     };
     
+    
+    NSDictionary *newWorkOrderData = @{
+                                       @"description": @"This is a sample work order from SDK tests!"
+                                       ,@"status": @"some status"
+                                       ,@"notes_completion": @"After I created it made this note."
+                                       //,@"date_due": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterFullStyle]
+                                       //,@"date_completed": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterFullStyle]
+                                       };
+    SLWorkOrder *workOrder = [SLWorkOrder createWithData:newWorkOrderData withRels:(NSArray *)@[]];
+    //workOrder.dateDue = [NSDate date];
+    //workOrder.dateCompleted = [NSDate date];
+    NSLog(@"Pending Nodes: %@", [SLWorkOrder pending]);
+    
+    pendingCallbacks++;
+    [workOrder pushWithAPIManager:SLSharedAPIManager withCallback:^(BOOL success) {
+        
+        NSLog(@"There are now %lu Work Orders saved for Offline.", (unsigned long)[SLWorkOrder MR_countOfEntities]);
+        
+        completionBlock(success);
+    
+        NSLog(@"Pending Nodes: %@", [SLWorkOrder pending]);
+
+    }];
+    
+    // Wait
+    [self waitUntilFinishedPending:&pendingCallbacks];
+    
     // Read All Work Orders
     NSLog(@"Read All Work Orders");
     //pendingCallbacks++;
@@ -605,7 +632,7 @@
      
     // Wait
     [self waitUntilFinishedPending:&pendingCallbacks];
-
+    
     if (pendingCallbacks > 0)
     {
         NSLog(@"Pending Callbacks: %d", pendingCallbacks);

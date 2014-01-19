@@ -19,6 +19,18 @@ typedef NS_ENUM(NSUInteger, SLRelationshipDirection)
     SLRelationshipOutgoing
 };
 
+/**
+ 
+ */
+typedef NS_ENUM(NSUInteger, SLSyncState)
+{
+    SLSyncStateSynced,
+    SLSyncStatePendingCreation,
+    SLSyncStatePendingUpdate,
+    SLSyncStatePendingDeletion
+};
+
+
 /*
  typedef enum {
  INCOMING,

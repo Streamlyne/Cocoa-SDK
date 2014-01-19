@@ -122,6 +122,12 @@
     }
 }
 
++ (NSArray *) pending
+{
+    NSArray *pendingNodes = [[self class] MR_findAllWithPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"NOT syncState == %@", @(SLSyncStateSynced)]]];
+    return pendingNodes;
+}
+
 - (void) loadDataFromDictionary:(NSDictionary *)theData
 {
     // For date conversion
@@ -215,7 +221,8 @@
             //NSLog(@"<%@>: %@", [responseObject class], responseObject);
             
             // Process & Read Node
-            id<SLNodeProtocol> node = [[self class] initWithId:(SLNid) responseObject[@"id"] inContext:context];
+            SLNode *node = [[self class] initWithId:(SLNid) responseObject[@"id"] inContext:context];
+            node.syncState = @(SLSyncStateSynced);
             [((SLNode *)node) loadDataFromDictionary: responseObject[@"data"]];
             [((SLNode *)node) loadRelsFromArray: responseObject[@"rels"] inContext:context];
             
@@ -267,8 +274,8 @@
             for (NSDictionary* curr in arr)
             {
                 NSLog(@"curr: %@", curr);
-                id<SLNodeProtocol> node = [[self class] initWithId:(SLNid) curr[@"id"] inContext:context];
-                NSLog(@"Node: %@",node);
+                SLNode *node = [[self class] initWithId:(SLNid) curr[@"id"] inContext:context];
+                node.syncState = @(SLSyncStateSynced);
                 [((SLNode *)node) loadDataFromDictionary: curr[@"data"]];
                 [((SLNode *)node) loadRelsFromArray: curr[@"rels"] inContext:context];
                 
@@ -309,6 +316,7 @@
     NSLog(@"this is a test");
     
     SLNode *node = [[[self class] alloc] init];
+    node.syncState = @(SLSyncStatePendingCreation);
     
     // TODO: Fix this so it validates data and rels first
     // Data
@@ -597,6 +605,7 @@
             
             // Update the Node Id.
             [self setNid:responseData[@"id"]];
+            [self setSyncState:@(SLSyncStateSynced)];
             
             // Mark all `SLValue`s as saved.
             NSString *key;
@@ -647,10 +656,12 @@
     NSMutableDictionary *theData = [NSMutableDictionary dictionary];
     NSEntityDescription *entityDescription = [self entity];
     NSDictionary *attributes = [entityDescription attributesByName];
-    NSLog(@"%@", attributes);
+    //NSLog(@"%@", attributes);
     for (NSAttributeDescription *attribute in attributes) {
-        NSLog(@"attribute: %@ = %@", attribute, [self valueForKey:(NSString *)attribute]);
-        [theData setValue:[self valueForKey:(NSString *)attribute] forKey:[self keyForAttribute:(NSString *)attribute]];
+        //NSLog(@"attribute: %@ = %@", attribute, [self valueForKey:(NSString *)attribute]);
+        if ( ![attribute isEqual:@"syncState"] ) {
+            [theData setValue:[self valueForKey:(NSString *)attribute] forKey:[self keyForAttribute:(NSString *)attribute]];
+        }
     }
     return [NSDictionary dictionaryWithDictionary:theData];
 }
@@ -706,6 +717,16 @@
 - (void) removeWithCallback:(SLSuccessCallback)callback
 {
     [[self class] deleteWithNode:self withCallback:callback];
+}
+
+- (void) didChangeValueForKey:(NSString *)key {
+    NSLog(@"didChangeValueForKey %@", key);
+    if (
+        ( ![key isEqual: @"syncState"] ) &&
+        [[self syncState] isEqual: @(SLSyncStateSynced)]
+        ) {
+        [self setSyncState:@(SLSyncStatePendingUpdate)];
+    }
 }
 
 @end
