@@ -11,7 +11,6 @@ Streamlyne iOS SDK is used for developers who want to create applications that c
 
 ## Getting Started
 
-* Download [Streamlyne iOS SDK](http://trac.streamlyne.co/SL-SDK).
 * Read [Getting Started Guide](docs/Guide/Getting Started.html).
 
 ## For Developers
@@ -20,9 +19,10 @@ If you are a developer, then read below.
 ### Installation
 Use the following command in the installation directory of your choice.
 
-```bash
-# Clone Repository
-git clone git@github.com:Streamlyne/Cocoa-SDK.git
-# Install Dependencies
-./install.sh
-```
+    # Clone Repository
+    git clone git@github.com:Streamlyne/Cocoa-SDK.git
+    # Install Dependencies
+    ./install.sh
+
+### Documentation
+You can build the Documentation with Xcode, using the *Documentation* build target and selecting an iOS Simulator device.
