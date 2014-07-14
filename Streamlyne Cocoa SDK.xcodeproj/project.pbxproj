@@ -1,1188 +1,3195 @@
-// !$*UTF8*$!
-{
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>archiveVersion</key>
+	<string>1</string>
+	<key>classes</key>
+	<dict/>
+	<key>objectVersion</key>
+	<string>46</string>
+	<key>objects</key>
+	<dict>
+		<key>056F9EFECF344B11AE22854F</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Check Pods Manifest.lock</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
+if [[ $? != 0 ]] ; then
+    cat &lt;&lt; EOM
+error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+EOM
+    exit 1
+fi
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>18A4AB8E472B41DBB4ABEB40</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Pods.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>43ADE2598F854DF2A91C9E5B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-Streamlyne-Mac-SDK.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Pods-Streamlyne-Mac-SDK.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>43C9C0453FF246D08D7516AD</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-Streamlyne-iOS-SDK.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>44A148DA1235492BA004C5D2</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Copy Pods Resources</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Pods-Streamlyne-Mac-SDK-resources.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>45DAA84BB6D34E9E8B7AE079</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-Streamlyne-iOS-SDK.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Pods-Streamlyne-iOS-SDK.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>683FDCD756554860AE4117D7</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Copy Pods Resources</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Pods-Streamlyne-iOS-SDK-resources.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>755944FE925142BA87313066</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Check Pods Manifest.lock</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
+if [[ $? != 0 ]] ; then
+    cat &lt;&lt; EOM
+error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+EOM
+    exit 1
+fi
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>771F4B95186029D90093674F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>771F4B96186029D90093674F</string>
+			</array>
+			<key>currentVersion</key>
+			<string>771F4B96186029D90093674F</string>
+			<key>isa</key>
+			<string>XCVersionGroup</string>
+			<key>path</key>
+			<string>Streamlyne.xcdatamodeld</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>versionGroupType</key>
+			<string>wrapper.xcdatamodel</string>
+		</dict>
+		<key>771F4B96186029D90093674F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.xcdatamodel</string>
+			<key>path</key>
+			<string>Streamlyne.xcdatamodel</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>771F4B97186029D90093674F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>771F4B95186029D90093674F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>771F4B98186029D90093674F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>771F4B95186029D90093674F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>771F4BA318628AAA0093674F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>771F4B95186029D90093674F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7720FC0E18369CA10092D39B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7783AFF519744B25000CAB0A</string>
+				<string>7783AFF419744B19000CAB0A</string>
+				<string>77B4EA361840960B00435B97</string>
+				<string>77AD7DDF1842F6DC0053C02C</string>
+				<string>7720FC1C18369CA20092D39B</string>
+				<string>7720FC3018369CA20092D39B</string>
+				<string>77B4EA14184094D400435B97</string>
+				<string>77B4EA28184094D400435B97</string>
+				<string>7720FC1918369CA10092D39B</string>
+				<string>7720FC1818369CA10092D39B</string>
+				<string>18A4AB8E472B41DBB4ABEB40</string>
+				<string>43ADE2598F854DF2A91C9E5B</string>
+				<string>45DAA84BB6D34E9E8B7AE079</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC0F18369CA10092D39B</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastUpgradeCheck</key>
+				<string>0600</string>
+				<key>ORGANIZATIONNAME</key>
+				<string>Streamlyne</string>
+				<key>TargetAttributes</key>
+				<dict>
+					<key>77B4EA21184094D400435B97</key>
+					<dict>
+						<key>TestTargetID</key>
+						<string>77B4EA0C184094D400435B97</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>7720FC1218369CA10092D39B</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>7720FC0E18369CA10092D39B</string>
+			<key>productRefGroup</key>
+			<string>7720FC1818369CA10092D39B</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>7720FC1618369CA10092D39B</string>
+				<string>7720FC2618369CA20092D39B</string>
+				<string>77F3D52B183E79A8000E9F15</string>
+				<string>77B4EA0C184094D400435B97</string>
+				<string>77B4EA21184094D400435B97</string>
+			</array>
+		</dict>
+		<key>7720FC1218369CA10092D39B</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>7720FC3818369CA20092D39B</string>
+				<string>7720FC3918369CA20092D39B</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>7720FC1318369CA10092D39B</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>77AD7DF71842F6DC0053C02C</string>
+				<string>77AD7E171842F6DC0053C02C</string>
+				<string>77AD7E011842F6DC0053C02C</string>
+				<string>77AD7E061842F6DC0053C02C</string>
+				<string>77AD7E1C1842F6DC0053C02C</string>
+				<string>77AD7DFC1842F6DC0053C02C</string>
+				<string>771F4B97186029D90093674F</string>
+				<string>77AD7E221842F6DC0053C02C</string>
+				<string>77AD7E111842F6DC0053C02C</string>
+				<string>77AD7E2918430F1A0053C02C</string>
+				<string>7783AFFA1974535D000CAB0A</string>
+				<string>77AD7E0B1842F6DC0053C02C</string>
+				<string>77BE8F2718773B600098C907</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7720FC1418369CA10092D39B</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>7720FC1B18369CA10092D39B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7720FC1518369CA10092D39B</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>dstPath</key>
+			<string>include/$(PRODUCT_NAME)</string>
+			<key>dstSubfolderSpec</key>
+			<string>16</string>
+			<key>files</key>
+			<array>
+				<string>7787C6231845173C00D91E20</string>
+				<string>7787C6241845173C00D91E20</string>
+				<string>7787C6251845173C00D91E20</string>
+				<string>7787C6261845173C00D91E20</string>
+				<string>7787C6271845173C00D91E20</string>
+				<string>7787C6281845173C00D91E20</string>
+				<string>7787C6291845173C00D91E20</string>
+				<string>7787C62A1845173C00D91E20</string>
+				<string>7787C62B1845173C00D91E20</string>
+				<string>7787C62C1845173C00D91E20</string>
+				<string>7787C62D1845173C00D91E20</string>
+				<string>7787C62E1845173C00D91E20</string>
+				<string>7787C62F1845173C00D91E20</string>
+				<string>7787C6301845173C00D91E20</string>
+				<string>7787C6311845173C00D91E20</string>
+				<string>7787C6321845173C00D91E20</string>
+				<string>7787C6331845173C00D91E20</string>
+				<string>7787C6341845173C00D91E20</string>
+				<string>7787C6351845173C00D91E20</string>
+				<string>7787C6361845173C00D91E20</string>
+				<string>7787C6371845173C00D91E20</string>
+				<string>7787C6381845173C00D91E20</string>
+				<string>7787C60A1845075D00D91E20</string>
+			</array>
+			<key>isa</key>
+			<string>PBXCopyFilesBuildPhase</string>
+			<key>name</key>
+			<string>Copy Files</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7720FC1618369CA10092D39B</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>7720FC3A18369CA20092D39B</string>
+			<key>buildPhases</key>
+			<array>
+				<string>755944FE925142BA87313066</string>
+				<string>7720FC1318369CA10092D39B</string>
+				<string>7720FC1418369CA10092D39B</string>
+				<string>7720FC1518369CA10092D39B</string>
+				<string>683FDCD756554860AE4117D7</string>
+				<string>7787C60D1845117100D91E20</string>
+				<string>7787C68E1845213400D91E20</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Streamlyne-iOS-SDK</string>
+			<key>productName</key>
+			<string>Streamlyne-iOS-SDK</string>
+			<key>productReference</key>
+			<string>7720FC1718369CA10092D39B</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>7720FC1718369CA10092D39B</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libStreamlyne-iOS-SDK.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7720FC1818369CA10092D39B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7720FC1718369CA10092D39B</string>
+				<string>7720FC2718369CA20092D39B</string>
+				<string>77B4EA0D184094D400435B97</string>
+				<string>77B4EA22184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC1918369CA10092D39B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7720FC1A18369CA10092D39B</string>
+				<string>7720FC2818369CA20092D39B</string>
+				<string>7720FC2B18369CA20092D39B</string>
+				<string>77B4EA0E184094D400435B97</string>
+				<string>77B4EA10184094D400435B97</string>
+				<string>BD262B1AFB1147419CB78D50</string>
+				<string>43C9C0453FF246D08D7516AD</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC1A18369CA10092D39B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>7720FC1B18369CA10092D39B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7720FC1A18369CA10092D39B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7720FC1C18369CA20092D39B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7720FC1D18369CA20092D39B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Streamlyne-iOS-SDK</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC1D18369CA20092D39B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7720FC1E18369CA20092D39B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>path</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC1E18369CA20092D39B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Streamlyne-iOS-SDK-Prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC2318369CA20092D39B</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>77ED5DB0183FE91500905A3D</string>
+				<string>77BE8F291877B8AF0098C907</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7720FC2418369CA20092D39B</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>77915284184672B7007951F1</string>
+				<string>7720FC2918369CA20092D39B</string>
+				<string>7720FC2C18369CA20092D39B</string>
+				<string>7720FC2A18369CA20092D39B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7720FC2518369CA20092D39B</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>7720FC3518369CA20092D39B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7720FC2618369CA20092D39B</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>7720FC3D18369CA20092D39B</string>
+			<key>buildPhases</key>
+			<array>
+				<string>7720FC2318369CA20092D39B</string>
+				<string>7720FC2418369CA20092D39B</string>
+				<string>7720FC2518369CA20092D39B</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>7720FC2E18369CA20092D39B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Streamlyne-iOS-SDKTests</string>
+			<key>productName</key>
+			<string>Streamlyne-iOS-SDKTests</string>
+			<key>productReference</key>
+			<string>7720FC2718369CA20092D39B</string>
+			<key>productType</key>
+			<string>com.apple.product-type.bundle.unit-test</string>
+		</dict>
+		<key>7720FC2718369CA20092D39B</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.cfbundle</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Streamlyne-iOS-SDKTests.xctest</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7720FC2818369CA20092D39B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>XCTest.framework</string>
+			<key>path</key>
+			<string>Library/Frameworks/XCTest.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>7720FC2918369CA20092D39B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7720FC2818369CA20092D39B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7720FC2A18369CA20092D39B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7720FC1A18369CA10092D39B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7720FC2B18369CA20092D39B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>UIKit.framework</string>
+			<key>path</key>
+			<string>Library/Frameworks/UIKit.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>7720FC2C18369CA20092D39B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7720FC2B18369CA20092D39B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7720FC2D18369CA20092D39B</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7720FC0F18369CA10092D39B</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>7720FC1618369CA10092D39B</string>
+			<key>remoteInfo</key>
+			<string>Streamlyne-iOS-SDK</string>
+		</dict>
+		<key>7720FC2E18369CA20092D39B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>7720FC1618369CA10092D39B</string>
+			<key>targetProxy</key>
+			<string>7720FC2D18369CA20092D39B</string>
+		</dict>
+		<key>7720FC3018369CA20092D39B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7720FC3618369CA20092D39B</string>
+				<string>7720FC3118369CA20092D39B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Streamlyne-iOS-SDKTests</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC3118369CA20092D39B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7720FC3218369CA20092D39B</string>
+				<string>7720FC3318369CA20092D39B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>path</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC3218369CA20092D39B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Streamlyne-iOS-SDKTests-Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC3318369CA20092D39B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7720FC3418369CA20092D39B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC3418369CA20092D39B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.strings</string>
+			<key>name</key>
+			<string>en</string>
+			<key>path</key>
+			<string>en.lproj/InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC3518369CA20092D39B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7720FC3318369CA20092D39B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7720FC3618369CA20092D39B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Streamlyne_iOS_SDKTests.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7720FC3818369CA20092D39B</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>MACOSX_DEPLOYMENT_TARGET</key>
+				<string>10.9</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>7720FC3918369CA20092D39B</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>MACOSX_DEPLOYMENT_TARGET</key>
+				<string>10.9</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>7720FC3A18369CA20092D39B</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>7720FC3B18369CA20092D39B</string>
+				<string>7720FC3C18369CA20092D39B</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>7720FC3B18369CA20092D39B</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>45DAA84BB6D34E9E8B7AE079</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>DSTROOT</key>
+				<string>/tmp/Streamlyne_iOS_SDK.dst</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Streamlyne-iOS-SDK/Supporting Files/Streamlyne-iOS-SDK-Prefix.pch</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>OTHER_LDFLAGS</key>
+				<string>-ObjC</string>
+				<key>PRODUCT_NAME</key>
+				<string>Streamlyne-iOS-SDK</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>7720FC3C18369CA20092D39B</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>45DAA84BB6D34E9E8B7AE079</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>DSTROOT</key>
+				<string>/tmp/Streamlyne_iOS_SDK.dst</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Streamlyne-iOS-SDK/Supporting Files/Streamlyne-iOS-SDK-Prefix.pch</string>
+				<key>OTHER_LDFLAGS</key>
+				<string>-ObjC</string>
+				<key>PRODUCT_NAME</key>
+				<string>Streamlyne-iOS-SDK</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>7720FC3D18369CA20092D39B</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>7720FC3E18369CA20092D39B</string>
+				<string>7720FC3F18369CA20092D39B</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>7720FC3E18369CA20092D39B</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>45DAA84BB6D34E9E8B7AE079</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
+					<string>$(inherited)</string>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+				</array>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Streamlyne-iOS-SDK/Supporting Files/Streamlyne-iOS-SDK-Prefix.pch</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>Streamlyne-iOS-SDKTests/Supporting Files/Streamlyne-iOS-SDKTests-Info.plist</string>
+				<key>LIBRARY_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Streamlyne_Cocoa_SDK-fjqjkmnrhloggrcbsegetsdkwdqw/Build/Products/Release</string>
+				</array>
+				<key>PRODUCT_NAME</key>
+				<string>Streamlyne-iOS-SDKTests</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>xctest</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>7720FC3F18369CA20092D39B</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>45DAA84BB6D34E9E8B7AE079</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
+					<string>$(inherited)</string>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+				</array>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Streamlyne-iOS-SDK/Supporting Files/Streamlyne-iOS-SDK-Prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Streamlyne-iOS-SDKTests/Supporting Files/Streamlyne-iOS-SDKTests-Info.plist</string>
+				<key>LIBRARY_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Streamlyne_Cocoa_SDK-fjqjkmnrhloggrcbsegetsdkwdqw/Build/Products/Release</string>
+				</array>
+				<key>PRODUCT_NAME</key>
+				<string>Streamlyne-iOS-SDKTests</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>xctest</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>7783AFF419744B19000CAB0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>README.md</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7783AFF519744B25000CAB0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>install.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7783AFF61974535D000CAB0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLAsset.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7783AFF71974535D000CAB0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLAsset.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7783AFF81974535D000CAB0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7783AFF61974535D000CAB0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7783AFF91974535D000CAB0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7783AFF61974535D000CAB0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7783AFFA1974535D000CAB0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7783AFF71974535D000CAB0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7783AFFB1974535D000CAB0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7783AFF71974535D000CAB0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C60A1845075D00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF31842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C60C1845104800D91E20</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Run Script</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>echo ${BUILT_PRODUCTS_DIR}
+rm -rf ${BUILT_PRODUCTS_DIR}/libStreamlyne-iOS-SDK-universal.a
 
-/* Begin PBXAggregateTarget section */
-		77F3D52B183E79A8000E9F15 /* Documentation */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 77F3D52E183E79A8000E9F15 /* Build configuration list for PBXAggregateTarget "Documentation" */;
-			buildPhases = (
-				77F3D531183E7A37000E9F15 /* Generate Docs with AppleDoc */,
-				7787C60C1845104800D91E20 /* Run Script */,
-			);
-			dependencies = (
-			);
-			name = Documentation;
-			productName = Documentation;
-		};
-/* End PBXAggregateTarget section */
+#lipo -create "${BUILT_PRODUCTS_DIR}/../${CONFIGURATION}-iphonesimulator/libStreamlyne-iOS-SDK.a" \
+#"${BUILT_PRODUCTS_DIR}/libStreamlyne-iOS-SDK.a" -output \
+#"${BUILT_PRODUCTS_DIR}/libStreamlyne-iOS-SDK-universal.a"
+</string>
+		</dict>
+		<key>7787C60D1845117100D91E20</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>##########################################
+#
+# c.f. http://stackoverflow.com/questions/3520977/build-fat-static-library-device-simulator-using-xcode-and-sdk-4
+#
+# Version 2.7
+#
+# Latest Change:
+# - Supports iPhone 5 / iPod Touch 5 (uses Apple's workaround to lipo bug)
+#
+# Purpose:
+#   Automatically create a Universal static library for iPhone + iPad + iPhone Simulator from within XCode
+#
+# Author: Adam Martin - http://twitter.com/t_machine_org
+# Based on: original script from Eonil (main changes: Eonil's script WILL NOT WORK in Xcode GUI - it WILL CRASH YOUR COMPUTER)
+#
 
-/* Begin PBXBuildFile section */
-		771F4B97186029D90093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
-		771F4B98186029D90093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
-		771F4BA318628AAA0093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
-		7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
-		7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2818369CA20092D39B /* XCTest.framework */; };
-		7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
-		7720FC2C18369CA20092D39B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2B18369CA20092D39B /* UIKit.framework */; };
-		7720FC3518369CA20092D39B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7720FC3318369CA20092D39B /* InfoPlist.strings */; };
-		7787C60A1845075D00D91E20 /* SLSDK.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DF31842F6DC0053C02C /* SLSDK.h */; };
-		7787C6231845173C00D91E20 /* SLAsset.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE11842F6DC0053C02C /* SLAsset.h */; };
-		7787C6241845173C00D91E20 /* SLAsset.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE21842F6DC0053C02C /* SLAsset.m */; };
-		7787C6251845173C00D91E20 /* SLOrganization.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE31842F6DC0053C02C /* SLOrganization.h */; };
-		7787C6261845173C00D91E20 /* SLOrganization.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE41842F6DC0053C02C /* SLOrganization.m */; };
-		7787C6271845173C00D91E20 /* SLUser.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE51842F6DC0053C02C /* SLUser.h */; };
-		7787C6281845173C00D91E20 /* SLUser.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE61842F6DC0053C02C /* SLUser.m */; };
-		7787C6291845173C00D91E20 /* SLWorkOrder.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE71842F6DC0053C02C /* SLWorkOrder.h */; };
-		7787C62A1845173C00D91E20 /* SLWorkOrder.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */; };
-		7787C62B1845173C00D91E20 /* SLGroup.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7E2618430F1A0053C02C /* SLGroup.h */; };
-		7787C62C1845173C00D91E20 /* SLGroup.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7E2718430F1A0053C02C /* SLGroup.m */; };
-		7787C62D1845173C00D91E20 /* SLAPIManager.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE91842F6DC0053C02C /* SLAPIManager.h */; };
-		7787C62E1845173C00D91E20 /* SLAPIManager.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DEA1842F6DC0053C02C /* SLAPIManager.m */; };
-		7787C62F1845173C00D91E20 /* SLCommon.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DEB1842F6DC0053C02C /* SLCommon.h */; };
-		7787C6301845173C00D91E20 /* SLNode.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DEC1842F6DC0053C02C /* SLNode.h */; };
-		7787C6311845173C00D91E20 /* SLNode.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DED1842F6DC0053C02C /* SLNode.m */; };
-		7787C6321845173C00D91E20 /* SLNodeProtocol.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DEE1842F6DC0053C02C /* SLNodeProtocol.h */; };
-		7787C6331845173C00D91E20 /* SLObject.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DEF1842F6DC0053C02C /* SLObject.h */; };
-		7787C6341845173C00D91E20 /* SLObject.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DF01842F6DC0053C02C /* SLObject.m */; };
-		7787C6351845173C00D91E20 /* SLRelationship.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DF11842F6DC0053C02C /* SLRelationship.h */; };
-		7787C6361845173C00D91E20 /* SLRelationship.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DF21842F6DC0053C02C /* SLRelationship.m */; };
-		7787C6371845173C00D91E20 /* SLValue.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DF41842F6DC0053C02C /* SLValue.h */; };
-		7787C6381845173C00D91E20 /* SLValue.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DF51842F6DC0053C02C /* SLValue.m */; };
-		7787C68F1845217400D91E20 /* SLSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DF31842F6DC0053C02C /* SLSDK.h */; };
-		7787C6901845217400D91E20 /* SLAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE11842F6DC0053C02C /* SLAsset.h */; };
-		7787C6921845217400D91E20 /* SLOrganization.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE31842F6DC0053C02C /* SLOrganization.h */; };
-		7787C6941845217400D91E20 /* SLUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE51842F6DC0053C02C /* SLUser.h */; };
-		7787C6961845217400D91E20 /* SLWorkOrder.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE71842F6DC0053C02C /* SLWorkOrder.h */; };
-		7787C6981845217400D91E20 /* SLGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7E2618430F1A0053C02C /* SLGroup.h */; };
-		7787C69A1845217400D91E20 /* SLAPIManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE91842F6DC0053C02C /* SLAPIManager.h */; };
-		7787C69C1845217400D91E20 /* SLCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEB1842F6DC0053C02C /* SLCommon.h */; };
-		7787C69D1845217400D91E20 /* SLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEC1842F6DC0053C02C /* SLNode.h */; };
-		7787C69F1845217400D91E20 /* SLNodeProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEE1842F6DC0053C02C /* SLNodeProtocol.h */; };
-		7787C6A01845217400D91E20 /* SLObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEF1842F6DC0053C02C /* SLObject.h */; };
-		7787C6A21845217400D91E20 /* SLRelationship.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DF11842F6DC0053C02C /* SLRelationship.h */; };
-		7787C6A41845217400D91E20 /* SLValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DF41842F6DC0053C02C /* SLValue.h */; };
-		77915284184672B7007951F1 /* libStreamlyne-iOS-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */; };
-		77AD7DF61842F6DC0053C02C /* SLAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE11842F6DC0053C02C /* SLAsset.h */; };
-		77AD7DF71842F6DC0053C02C /* SLAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE21842F6DC0053C02C /* SLAsset.m */; };
-		77AD7DF91842F6DC0053C02C /* SLAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE21842F6DC0053C02C /* SLAsset.m */; };
-		77AD7DFA1842F6DC0053C02C /* SLAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE21842F6DC0053C02C /* SLAsset.m */; };
-		77AD7DFB1842F6DC0053C02C /* SLOrganization.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE31842F6DC0053C02C /* SLOrganization.h */; };
-		77AD7DFC1842F6DC0053C02C /* SLOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE41842F6DC0053C02C /* SLOrganization.m */; };
-		77AD7DFE1842F6DC0053C02C /* SLOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE41842F6DC0053C02C /* SLOrganization.m */; };
-		77AD7DFF1842F6DC0053C02C /* SLOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE41842F6DC0053C02C /* SLOrganization.m */; };
-		77AD7E001842F6DC0053C02C /* SLUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE51842F6DC0053C02C /* SLUser.h */; };
-		77AD7E011842F6DC0053C02C /* SLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE61842F6DC0053C02C /* SLUser.m */; };
-		77AD7E031842F6DC0053C02C /* SLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE61842F6DC0053C02C /* SLUser.m */; };
-		77AD7E041842F6DC0053C02C /* SLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE61842F6DC0053C02C /* SLUser.m */; };
-		77AD7E051842F6DC0053C02C /* SLWorkOrder.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE71842F6DC0053C02C /* SLWorkOrder.h */; };
-		77AD7E061842F6DC0053C02C /* SLWorkOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */; };
-		77AD7E081842F6DC0053C02C /* SLWorkOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */; };
-		77AD7E091842F6DC0053C02C /* SLWorkOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */; };
-		77AD7E0A1842F6DC0053C02C /* SLAPIManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE91842F6DC0053C02C /* SLAPIManager.h */; };
-		77AD7E0B1842F6DC0053C02C /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DEA1842F6DC0053C02C /* SLAPIManager.m */; };
-		77AD7E0D1842F6DC0053C02C /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DEA1842F6DC0053C02C /* SLAPIManager.m */; };
-		77AD7E0E1842F6DC0053C02C /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DEA1842F6DC0053C02C /* SLAPIManager.m */; };
-		77AD7E0F1842F6DC0053C02C /* SLCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEB1842F6DC0053C02C /* SLCommon.h */; };
-		77AD7E101842F6DC0053C02C /* SLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEC1842F6DC0053C02C /* SLNode.h */; };
-		77AD7E111842F6DC0053C02C /* SLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DED1842F6DC0053C02C /* SLNode.m */; };
-		77AD7E131842F6DC0053C02C /* SLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DED1842F6DC0053C02C /* SLNode.m */; };
-		77AD7E141842F6DC0053C02C /* SLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DED1842F6DC0053C02C /* SLNode.m */; };
-		77AD7E151842F6DC0053C02C /* SLNodeProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEE1842F6DC0053C02C /* SLNodeProtocol.h */; };
-		77AD7E161842F6DC0053C02C /* SLObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEF1842F6DC0053C02C /* SLObject.h */; };
-		77AD7E171842F6DC0053C02C /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF01842F6DC0053C02C /* SLObject.m */; };
-		77AD7E191842F6DC0053C02C /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF01842F6DC0053C02C /* SLObject.m */; };
-		77AD7E1A1842F6DC0053C02C /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF01842F6DC0053C02C /* SLObject.m */; };
-		77AD7E1B1842F6DC0053C02C /* SLRelationship.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DF11842F6DC0053C02C /* SLRelationship.h */; };
-		77AD7E1C1842F6DC0053C02C /* SLRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF21842F6DC0053C02C /* SLRelationship.m */; };
-		77AD7E1E1842F6DC0053C02C /* SLRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF21842F6DC0053C02C /* SLRelationship.m */; };
-		77AD7E1F1842F6DC0053C02C /* SLRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF21842F6DC0053C02C /* SLRelationship.m */; };
-		77AD7E201842F6DC0053C02C /* SLSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DF31842F6DC0053C02C /* SLSDK.h */; };
-		77AD7E211842F6DC0053C02C /* SLValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DF41842F6DC0053C02C /* SLValue.h */; };
-		77AD7E221842F6DC0053C02C /* SLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF51842F6DC0053C02C /* SLValue.m */; };
-		77AD7E241842F6DC0053C02C /* SLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF51842F6DC0053C02C /* SLValue.m */; };
-		77AD7E251842F6DC0053C02C /* SLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF51842F6DC0053C02C /* SLValue.m */; };
-		77AD7E2818430F1A0053C02C /* SLGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7E2618430F1A0053C02C /* SLGroup.h */; };
-		77AD7E2918430F1A0053C02C /* SLGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7E2718430F1A0053C02C /* SLGroup.m */; };
-		77AD7E2B18430F1A0053C02C /* SLGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7E2718430F1A0053C02C /* SLGroup.m */; };
-		77AD7E2C18430F1A0053C02C /* SLGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7E2718430F1A0053C02C /* SLGroup.m */; };
-		77B4EA0F184094D400435B97 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77B4EA0E184094D400435B97 /* Cocoa.framework */; };
-		77B4EA19184094D400435B97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77B4EA17184094D400435B97 /* InfoPlist.strings */; };
-		77B4EA1D184094D400435B97 /* Streamlyne_Mac_SDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4EA1C184094D400435B97 /* Streamlyne_Mac_SDK.m */; };
-		77B4EA23184094D400435B97 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2818369CA20092D39B /* XCTest.framework */; };
-		77B4EA24184094D400435B97 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77B4EA0E184094D400435B97 /* Cocoa.framework */; };
-		77B4EA27184094D400435B97 /* Streamlyne-Mac-SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77B4EA0D184094D400435B97 /* Streamlyne-Mac-SDK.framework */; };
-		77B4EA2D184094D400435B97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77B4EA2B184094D400435B97 /* InfoPlist.strings */; };
-		77B4EA371840960B00435B97 /* Guide in Resources */ = {isa = PBXBuildFile; fileRef = 77B4EA361840960B00435B97 /* Guide */; };
-		77B4EA4F18409D0A00435B97 /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
-		77B4EA5018409D3200435B97 /* Streamlyne_Mac_SDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4EA1C184094D400435B97 /* Streamlyne_Mac_SDK.m */; };
-		77BE8F2518773B600098C907 /* SLSite.h in Headers */ = {isa = PBXBuildFile; fileRef = 77BE8F2318773B600098C907 /* SLSite.h */; };
-		77BE8F2618773B600098C907 /* SLSite.h in Headers */ = {isa = PBXBuildFile; fileRef = 77BE8F2318773B600098C907 /* SLSite.h */; };
-		77BE8F2718773B600098C907 /* SLSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE8F2418773B600098C907 /* SLSite.m */; };
-		77BE8F2818773B600098C907 /* SLSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE8F2418773B600098C907 /* SLSite.m */; };
-		77BE8F291877B8AF0098C907 /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
-		77ED5DB0183FE91500905A3D /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
-/* End PBXBuildFile section */
+set -e
+set -o pipefail
 
-/* Begin PBXContainerItemProxy section */
-		7720FC2D18369CA20092D39B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7720FC0F18369CA10092D39B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7720FC1618369CA10092D39B;
-			remoteInfo = "Streamlyne-iOS-SDK";
-		};
-		77B4EA25184094D400435B97 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7720FC0F18369CA10092D39B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 77B4EA0C184094D400435B97;
-			remoteInfo = "Streamlyne-Mac-SDK";
-		};
-/* End PBXContainerItemProxy section */
+#################[ Tests: helps workaround any future bugs in Xcode ]########
+#
+DEBUG_THIS_SCRIPT="false"
 
-/* Begin PBXCopyFilesBuildPhase section */
-		7720FC1518369CA10092D39B /* Copy Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-				7787C6231845173C00D91E20 /* SLAsset.h in Copy Files */,
-				7787C6241845173C00D91E20 /* SLAsset.m in Copy Files */,
-				7787C6251845173C00D91E20 /* SLOrganization.h in Copy Files */,
-				7787C6261845173C00D91E20 /* SLOrganization.m in Copy Files */,
-				7787C6271845173C00D91E20 /* SLUser.h in Copy Files */,
-				7787C6281845173C00D91E20 /* SLUser.m in Copy Files */,
-				7787C6291845173C00D91E20 /* SLWorkOrder.h in Copy Files */,
-				7787C62A1845173C00D91E20 /* SLWorkOrder.m in Copy Files */,
-				7787C62B1845173C00D91E20 /* SLGroup.h in Copy Files */,
-				7787C62C1845173C00D91E20 /* SLGroup.m in Copy Files */,
-				7787C62D1845173C00D91E20 /* SLAPIManager.h in Copy Files */,
-				7787C62E1845173C00D91E20 /* SLAPIManager.m in Copy Files */,
-				7787C62F1845173C00D91E20 /* SLCommon.h in Copy Files */,
-				7787C6301845173C00D91E20 /* SLNode.h in Copy Files */,
-				7787C6311845173C00D91E20 /* SLNode.m in Copy Files */,
-				7787C6321845173C00D91E20 /* SLNodeProtocol.h in Copy Files */,
-				7787C6331845173C00D91E20 /* SLObject.h in Copy Files */,
-				7787C6341845173C00D91E20 /* SLObject.m in Copy Files */,
-				7787C6351845173C00D91E20 /* SLRelationship.h in Copy Files */,
-				7787C6361845173C00D91E20 /* SLRelationship.m in Copy Files */,
-				7787C6371845173C00D91E20 /* SLValue.h in Copy Files */,
-				7787C6381845173C00D91E20 /* SLValue.m in Copy Files */,
-				7787C60A1845075D00D91E20 /* SLSDK.h in Copy Files */,
-			);
-			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
+if [ $DEBUG_THIS_SCRIPT = "true" ]
+then
+echo "########### TESTS #############"
+echo "Use the following variables when debugging this script; note that they may change on recursions"
+echo "BUILD_DIR = $BUILD_DIR"
+echo "BUILD_ROOT = $BUILD_ROOT"
+echo "CONFIGURATION_BUILD_DIR = $CONFIGURATION_BUILD_DIR"
+echo "BUILT_PRODUCTS_DIR = $BUILT_PRODUCTS_DIR"
+echo "CONFIGURATION_TEMP_DIR = $CONFIGURATION_TEMP_DIR"
+echo "TARGET_BUILD_DIR = $TARGET_BUILD_DIR"
+fi
 
-/* Begin PBXFileReference section */
-		18A4AB8E472B41DBB4ABEB40 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		43ADE2598F854DF2A91C9E5B /* Pods-Streamlyne-Mac-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streamlyne-Mac-SDK.xcconfig"; path = "Pods/Pods-Streamlyne-Mac-SDK.xcconfig"; sourceTree = "<group>"; };
-		43C9C0453FF246D08D7516AD /* libPods-Streamlyne-iOS-SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Streamlyne-iOS-SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		45DAA84BB6D34E9E8B7AE079 /* Pods-Streamlyne-iOS-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streamlyne-iOS-SDK.xcconfig"; path = "Pods/Pods-Streamlyne-iOS-SDK.xcconfig"; sourceTree = "<group>"; };
-		771F4B96186029D90093674F /* Streamlyne.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Streamlyne.xcdatamodel; sourceTree = "<group>"; };
-		7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libStreamlyne-iOS-SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7720FC1A18369CA10092D39B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		7720FC1E18369CA20092D39B /* Streamlyne-iOS-SDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Streamlyne-iOS-SDK-Prefix.pch"; sourceTree = "<group>"; };
-		7720FC2718369CA20092D39B /* Streamlyne-iOS-SDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Streamlyne-iOS-SDKTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7720FC2818369CA20092D39B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		7720FC2B18369CA20092D39B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		7720FC3218369CA20092D39B /* Streamlyne-iOS-SDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Streamlyne-iOS-SDKTests-Info.plist"; sourceTree = "<group>"; };
-		7720FC3418369CA20092D39B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Streamlyne_iOS_SDKTests.m; sourceTree = "<group>"; };
-		7783AFF419744B19000CAB0A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		7783AFF519744B25000CAB0A /* install.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install.sh; sourceTree = "<group>"; };
-		77AD7DE11842F6DC0053C02C /* SLAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAsset.h; sourceTree = "<group>"; };
-		77AD7DE21842F6DC0053C02C /* SLAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAsset.m; sourceTree = "<group>"; };
-		77AD7DE31842F6DC0053C02C /* SLOrganization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLOrganization.h; sourceTree = "<group>"; };
-		77AD7DE41842F6DC0053C02C /* SLOrganization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLOrganization.m; sourceTree = "<group>"; };
-		77AD7DE51842F6DC0053C02C /* SLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLUser.h; sourceTree = "<group>"; };
-		77AD7DE61842F6DC0053C02C /* SLUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLUser.m; sourceTree = "<group>"; };
-		77AD7DE71842F6DC0053C02C /* SLWorkOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLWorkOrder.h; sourceTree = "<group>"; };
-		77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLWorkOrder.m; sourceTree = "<group>"; };
-		77AD7DE91842F6DC0053C02C /* SLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAPIManager.h; sourceTree = "<group>"; };
-		77AD7DEA1842F6DC0053C02C /* SLAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAPIManager.m; sourceTree = "<group>"; };
-		77AD7DEB1842F6DC0053C02C /* SLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCommon.h; sourceTree = "<group>"; };
-		77AD7DEC1842F6DC0053C02C /* SLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLNode.h; sourceTree = "<group>"; };
-		77AD7DED1842F6DC0053C02C /* SLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLNode.m; sourceTree = "<group>"; };
-		77AD7DEE1842F6DC0053C02C /* SLNodeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLNodeProtocol.h; sourceTree = "<group>"; };
-		77AD7DEF1842F6DC0053C02C /* SLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLObject.h; sourceTree = "<group>"; };
-		77AD7DF01842F6DC0053C02C /* SLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLObject.m; sourceTree = "<group>"; };
-		77AD7DF11842F6DC0053C02C /* SLRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLRelationship.h; sourceTree = "<group>"; };
-		77AD7DF21842F6DC0053C02C /* SLRelationship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLRelationship.m; sourceTree = "<group>"; };
-		77AD7DF31842F6DC0053C02C /* SLSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSDK.h; sourceTree = "<group>"; };
-		77AD7DF41842F6DC0053C02C /* SLValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLValue.h; sourceTree = "<group>"; };
-		77AD7DF51842F6DC0053C02C /* SLValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLValue.m; sourceTree = "<group>"; };
-		77AD7E2618430F1A0053C02C /* SLGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGroup.h; sourceTree = "<group>"; };
-		77AD7E2718430F1A0053C02C /* SLGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLGroup.m; sourceTree = "<group>"; };
-		77B4EA0D184094D400435B97 /* Streamlyne-Mac-SDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Streamlyne-Mac-SDK.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		77B4EA0E184094D400435B97 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		77B4EA11184094D400435B97 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		77B4EA12184094D400435B97 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		77B4EA13184094D400435B97 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		77B4EA16184094D400435B97 /* Streamlyne-Mac-SDK-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Streamlyne-Mac-SDK-Info.plist"; sourceTree = "<group>"; };
-		77B4EA18184094D400435B97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		77B4EA1A184094D400435B97 /* Streamlyne-Mac-SDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Streamlyne-Mac-SDK-Prefix.pch"; sourceTree = "<group>"; };
-		77B4EA1B184094D400435B97 /* Streamlyne_Mac_SDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Streamlyne_Mac_SDK.h; sourceTree = "<group>"; };
-		77B4EA1C184094D400435B97 /* Streamlyne_Mac_SDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Streamlyne_Mac_SDK.m; sourceTree = "<group>"; };
-		77B4EA22184094D400435B97 /* Streamlyne-Mac-SDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Streamlyne-Mac-SDKTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		77B4EA2A184094D400435B97 /* Streamlyne-Mac-SDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Streamlyne-Mac-SDKTests-Info.plist"; sourceTree = "<group>"; };
-		77B4EA2C184094D400435B97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		77B4EA2E184094D400435B97 /* Streamlyne_Mac_SDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Streamlyne_Mac_SDKTests.m; sourceTree = "<group>"; };
-		77B4EA361840960B00435B97 /* Guide */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Guide; sourceTree = "<group>"; };
-		77BE8F2318773B600098C907 /* SLSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSite.h; sourceTree = "<group>"; };
-		77BE8F2418773B600098C907 /* SLSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSite.m; sourceTree = "<group>"; };
-		BD262B1AFB1147419CB78D50 /* libPods-Streamlyne-Mac-SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Streamlyne-Mac-SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-/* End PBXFileReference section */
+#####################[ part 1 ]##################
+# First, work out the BASESDK version number (NB: Apple ought to report this, but they hide it)
+#    (incidental: searching for substrings in sh is a nightmare! Sob)
 
-/* Begin PBXFrameworksBuildPhase section */
-		7720FC1418369CA10092D39B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7720FC2418369CA20092D39B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77915284184672B7007951F1 /* libStreamlyne-iOS-SDK.a in Frameworks */,
-				7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */,
-				7720FC2C18369CA20092D39B /* UIKit.framework in Frameworks */,
-				7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		77B4EA09184094D400435B97 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77B4EA0F184094D400435B97 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		77B4EA1F184094D400435B97 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77B4EA27184094D400435B97 /* Streamlyne-Mac-SDK.framework in Frameworks */,
-				77B4EA24184094D400435B97 /* Cocoa.framework in Frameworks */,
-				77B4EA23184094D400435B97 /* XCTest.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
+SDK_VERSION=$(echo ${SDK_NAME} | grep -o '.\{3\}$')
 
-/* Begin PBXGroup section */
-		7720FC0E18369CA10092D39B = {
-			isa = PBXGroup;
-			children = (
-				7783AFF519744B25000CAB0A /* install.sh */,
-				7783AFF419744B19000CAB0A /* README.md */,
-				77B4EA361840960B00435B97 /* Guide */,
-				77AD7DDF1842F6DC0053C02C /* Common */,
-				7720FC1C18369CA20092D39B /* Streamlyne-iOS-SDK */,
-				7720FC3018369CA20092D39B /* Streamlyne-iOS-SDKTests */,
-				77B4EA14184094D400435B97 /* Streamlyne-Mac-SDK */,
-				77B4EA28184094D400435B97 /* Streamlyne-Mac-SDKTests */,
-				7720FC1918369CA10092D39B /* Frameworks */,
-				7720FC1818369CA10092D39B /* Products */,
-				18A4AB8E472B41DBB4ABEB40 /* Pods.xcconfig */,
-				43ADE2598F854DF2A91C9E5B /* Pods-Streamlyne-Mac-SDK.xcconfig */,
-				45DAA84BB6D34E9E8B7AE079 /* Pods-Streamlyne-iOS-SDK.xcconfig */,
-			);
-			sourceTree = "<group>";
-		};
-		7720FC1818369CA10092D39B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */,
-				7720FC2718369CA20092D39B /* Streamlyne-iOS-SDKTests.xctest */,
-				77B4EA0D184094D400435B97 /* Streamlyne-Mac-SDK.framework */,
-				77B4EA22184094D400435B97 /* Streamlyne-Mac-SDKTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7720FC1918369CA10092D39B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7720FC1A18369CA10092D39B /* Foundation.framework */,
-				7720FC2818369CA20092D39B /* XCTest.framework */,
-				7720FC2B18369CA20092D39B /* UIKit.framework */,
-				77B4EA0E184094D400435B97 /* Cocoa.framework */,
-				77B4EA10184094D400435B97 /* Other Frameworks */,
-				BD262B1AFB1147419CB78D50 /* libPods-Streamlyne-Mac-SDK.a */,
-				43C9C0453FF246D08D7516AD /* libPods-Streamlyne-iOS-SDK.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7720FC1C18369CA20092D39B /* Streamlyne-iOS-SDK */ = {
-			isa = PBXGroup;
-			children = (
-				7720FC1D18369CA20092D39B /* Supporting Files */,
-			);
-			path = "Streamlyne-iOS-SDK";
-			sourceTree = "<group>";
-		};
-		7720FC1D18369CA20092D39B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7720FC1E18369CA20092D39B /* Streamlyne-iOS-SDK-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7720FC3018369CA20092D39B /* Streamlyne-iOS-SDKTests */ = {
-			isa = PBXGroup;
-			children = (
-				7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */,
-				7720FC3118369CA20092D39B /* Supporting Files */,
-			);
-			path = "Streamlyne-iOS-SDKTests";
-			sourceTree = "<group>";
-		};
-		7720FC3118369CA20092D39B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7720FC3218369CA20092D39B /* Streamlyne-iOS-SDKTests-Info.plist */,
-				7720FC3318369CA20092D39B /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		77AD7DDF1842F6DC0053C02C /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				77AD7DF31842F6DC0053C02C /* SLSDK.h */,
-				77AD7DE01842F6DC0053C02C /* Nodes */,
-				77AD7DE91842F6DC0053C02C /* SLAPIManager.h */,
-				77AD7DEA1842F6DC0053C02C /* SLAPIManager.m */,
-				77AD7DEB1842F6DC0053C02C /* SLCommon.h */,
-				77AD7DEC1842F6DC0053C02C /* SLNode.h */,
-				77AD7DED1842F6DC0053C02C /* SLNode.m */,
-				77AD7DEE1842F6DC0053C02C /* SLNodeProtocol.h */,
-				77AD7DEF1842F6DC0053C02C /* SLObject.h */,
-				77AD7DF01842F6DC0053C02C /* SLObject.m */,
-				77AD7DF11842F6DC0053C02C /* SLRelationship.h */,
-				77AD7DF21842F6DC0053C02C /* SLRelationship.m */,
-				77AD7DF41842F6DC0053C02C /* SLValue.h */,
-				77AD7DF51842F6DC0053C02C /* SLValue.m */,
-				771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		77AD7DE01842F6DC0053C02C /* Nodes */ = {
-			isa = PBXGroup;
-			children = (
-				77AD7DE11842F6DC0053C02C /* SLAsset.h */,
-				77AD7DE21842F6DC0053C02C /* SLAsset.m */,
-				77AD7DE31842F6DC0053C02C /* SLOrganization.h */,
-				77AD7DE41842F6DC0053C02C /* SLOrganization.m */,
-				77AD7DE51842F6DC0053C02C /* SLUser.h */,
-				77AD7DE61842F6DC0053C02C /* SLUser.m */,
-				77AD7DE71842F6DC0053C02C /* SLWorkOrder.h */,
-				77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */,
-				77AD7E2618430F1A0053C02C /* SLGroup.h */,
-				77AD7E2718430F1A0053C02C /* SLGroup.m */,
-				77BE8F2318773B600098C907 /* SLSite.h */,
-				77BE8F2418773B600098C907 /* SLSite.m */,
-			);
-			path = Nodes;
-			sourceTree = "<group>";
-		};
-		77B4EA10184094D400435B97 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				77B4EA11184094D400435B97 /* Foundation.framework */,
-				77B4EA12184094D400435B97 /* CoreData.framework */,
-				77B4EA13184094D400435B97 /* AppKit.framework */,
-			);
-			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
-		77B4EA14184094D400435B97 /* Streamlyne-Mac-SDK */ = {
-			isa = PBXGroup;
-			children = (
-				77B4EA1B184094D400435B97 /* Streamlyne_Mac_SDK.h */,
-				77B4EA1C184094D400435B97 /* Streamlyne_Mac_SDK.m */,
-				77B4EA15184094D400435B97 /* Supporting Files */,
-			);
-			path = "Streamlyne-Mac-SDK";
-			sourceTree = "<group>";
-		};
-		77B4EA15184094D400435B97 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				77B4EA16184094D400435B97 /* Streamlyne-Mac-SDK-Info.plist */,
-				77B4EA17184094D400435B97 /* InfoPlist.strings */,
-				77B4EA1A184094D400435B97 /* Streamlyne-Mac-SDK-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		77B4EA28184094D400435B97 /* Streamlyne-Mac-SDKTests */ = {
-			isa = PBXGroup;
-			children = (
-				77B4EA2E184094D400435B97 /* Streamlyne_Mac_SDKTests.m */,
-				77B4EA29184094D400435B97 /* Supporting Files */,
-			);
-			path = "Streamlyne-Mac-SDKTests";
-			sourceTree = "<group>";
-		};
-		77B4EA29184094D400435B97 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				77B4EA2A184094D400435B97 /* Streamlyne-Mac-SDKTests-Info.plist */,
-				77B4EA2B184094D400435B97 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
+# Next, work out if we're in SIM or DEVICE
 
-/* Begin PBXHeadersBuildPhase section */
-		7787C68E1845213400D91E20 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7787C68F1845217400D91E20 /* SLSDK.h in Headers */,
-				7787C6901845217400D91E20 /* SLAsset.h in Headers */,
-				77BE8F2518773B600098C907 /* SLSite.h in Headers */,
-				7787C6921845217400D91E20 /* SLOrganization.h in Headers */,
-				7787C6941845217400D91E20 /* SLUser.h in Headers */,
-				7787C6961845217400D91E20 /* SLWorkOrder.h in Headers */,
-				7787C6981845217400D91E20 /* SLGroup.h in Headers */,
-				7787C69A1845217400D91E20 /* SLAPIManager.h in Headers */,
-				7787C69C1845217400D91E20 /* SLCommon.h in Headers */,
-				7787C69D1845217400D91E20 /* SLNode.h in Headers */,
-				7787C69F1845217400D91E20 /* SLNodeProtocol.h in Headers */,
-				7787C6A01845217400D91E20 /* SLObject.h in Headers */,
-				7787C6A21845217400D91E20 /* SLRelationship.h in Headers */,
-				7787C6A41845217400D91E20 /* SLValue.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		77B4EA0A184094D400435B97 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77AD7E161842F6DC0053C02C /* SLObject.h in Headers */,
-				77AD7E2818430F1A0053C02C /* SLGroup.h in Headers */,
-				77BE8F2618773B600098C907 /* SLSite.h in Headers */,
-				77AD7E001842F6DC0053C02C /* SLUser.h in Headers */,
-				77AD7E051842F6DC0053C02C /* SLWorkOrder.h in Headers */,
-				77AD7E211842F6DC0053C02C /* SLValue.h in Headers */,
-				77AD7E201842F6DC0053C02C /* SLSDK.h in Headers */,
-				77AD7E0F1842F6DC0053C02C /* SLCommon.h in Headers */,
-				77AD7DFB1842F6DC0053C02C /* SLOrganization.h in Headers */,
-				77AD7DF61842F6DC0053C02C /* SLAsset.h in Headers */,
-				77AD7E151842F6DC0053C02C /* SLNodeProtocol.h in Headers */,
-				77AD7E0A1842F6DC0053C02C /* SLAPIManager.h in Headers */,
-				77AD7E101842F6DC0053C02C /* SLNode.h in Headers */,
-				77AD7E1B1842F6DC0053C02C /* SLRelationship.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
+if [ ${PLATFORM_NAME} = "iphonesimulator" ]
+then
+OTHER_SDK_TO_BUILD=iphoneos${SDK_VERSION}
+else
+OTHER_SDK_TO_BUILD=iphonesimulator${SDK_VERSION}
+fi
 
-/* Begin PBXNativeTarget section */
-		7720FC1618369CA10092D39B /* Streamlyne-iOS-SDK */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7720FC3A18369CA20092D39B /* Build configuration list for PBXNativeTarget "Streamlyne-iOS-SDK" */;
-			buildPhases = (
-				755944FE925142BA87313066 /* Check Pods Manifest.lock */,
-				7720FC1318369CA10092D39B /* Sources */,
-				7720FC1418369CA10092D39B /* Frameworks */,
-				7720FC1518369CA10092D39B /* Copy Files */,
-				683FDCD756554860AE4117D7 /* Copy Pods Resources */,
-				7787C60D1845117100D91E20 /* ShellScript */,
-				7787C68E1845213400D91E20 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Streamlyne-iOS-SDK";
-			productName = "Streamlyne-iOS-SDK";
-			productReference = 7720FC1718369CA10092D39B /* libStreamlyne-iOS-SDK.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		7720FC2618369CA20092D39B /* Streamlyne-iOS-SDKTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7720FC3D18369CA20092D39B /* Build configuration list for PBXNativeTarget "Streamlyne-iOS-SDKTests" */;
-			buildPhases = (
-				7720FC2318369CA20092D39B /* Sources */,
-				7720FC2418369CA20092D39B /* Frameworks */,
-				7720FC2518369CA20092D39B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7720FC2E18369CA20092D39B /* PBXTargetDependency */,
-			);
-			name = "Streamlyne-iOS-SDKTests";
-			productName = "Streamlyne-iOS-SDKTests";
-			productReference = 7720FC2718369CA20092D39B /* Streamlyne-iOS-SDKTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		77B4EA0C184094D400435B97 /* Streamlyne-Mac-SDK */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 77B4EA30184094D400435B97 /* Build configuration list for PBXNativeTarget "Streamlyne-Mac-SDK" */;
-			buildPhases = (
-				056F9EFECF344B11AE22854F /* Check Pods Manifest.lock */,
-				77B4EA08184094D400435B97 /* Sources */,
-				77B4EA09184094D400435B97 /* Frameworks */,
-				77B4EA0A184094D400435B97 /* Headers */,
-				77B4EA0B184094D400435B97 /* Resources */,
-				44A148DA1235492BA004C5D2 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Streamlyne-Mac-SDK";
-			productName = "Streamlyne-Mac-SDK";
-			productReference = 77B4EA0D184094D400435B97 /* Streamlyne-Mac-SDK.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		77B4EA21184094D400435B97 /* Streamlyne-Mac-SDKTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 77B4EA33184094D400435B97 /* Build configuration list for PBXNativeTarget "Streamlyne-Mac-SDKTests" */;
-			buildPhases = (
-				77B4EA1E184094D400435B97 /* Sources */,
-				77B4EA1F184094D400435B97 /* Frameworks */,
-				77B4EA20184094D400435B97 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				77B4EA26184094D400435B97 /* PBXTargetDependency */,
-			);
-			name = "Streamlyne-Mac-SDKTests";
-			productName = "Streamlyne-Mac-SDKTests";
-			productReference = 77B4EA22184094D400435B97 /* Streamlyne-Mac-SDKTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-/* End PBXNativeTarget section */
+echo "XCode has selected SDK: ${PLATFORM_NAME} with version: ${SDK_VERSION} (although back-targetting: ${IPHONEOS_DEPLOYMENT_TARGET})"
+echo "...therefore, OTHER_SDK_TO_BUILD = ${OTHER_SDK_TO_BUILD}"
+#
+#####################[ end of part 1 ]##################
 
-/* Begin PBXProject section */
-		7720FC0F18369CA10092D39B /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 0600;
-				ORGANIZATIONNAME = Streamlyne;
-				TargetAttributes = {
-					77B4EA21184094D400435B97 = {
-						TestTargetID = 77B4EA0C184094D400435B97;
-					};
-				};
-			};
-			buildConfigurationList = 7720FC1218369CA10092D39B /* Build configuration list for PBXProject "Streamlyne Cocoa SDK" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-			);
-			mainGroup = 7720FC0E18369CA10092D39B;
-			productRefGroup = 7720FC1818369CA10092D39B /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				7720FC1618369CA10092D39B /* Streamlyne-iOS-SDK */,
-				7720FC2618369CA20092D39B /* Streamlyne-iOS-SDKTests */,
-				77F3D52B183E79A8000E9F15 /* Documentation */,
-				77B4EA0C184094D400435B97 /* Streamlyne-Mac-SDK */,
-				77B4EA21184094D400435B97 /* Streamlyne-Mac-SDKTests */,
-			);
-		};
-/* End PBXProject section */
+#####################[ part 2 ]##################
+#
+# IF this is the original invocation, invoke WHATEVER other builds are required
+#
+# Xcode is already building ONE target...
+#
+# ...but this is a LIBRARY, so Apple is wrong to set it to build just one.
+# ...we need to build ALL targets
+# ...we MUST NOT re-build the target that is ALREADY being built: Xcode WILL CRASH YOUR COMPUTER if you try this (infinite recursion!)
+#
+#
+# So: build ONLY the missing platforms/configurations.
 
-/* Begin PBXResourcesBuildPhase section */
-		7720FC2518369CA20092D39B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7720FC3518369CA20092D39B /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		77B4EA0B184094D400435B97 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77B4EA19184094D400435B97 /* InfoPlist.strings in Resources */,
-				77B4EA371840960B00435B97 /* Guide in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		77B4EA20184094D400435B97 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77B4EA2D184094D400435B97 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
+if [ "true" == ${ALREADYINVOKED:-false} ]
+then
+echo "RECURSION: I am NOT the root invocation, so I'm NOT going to recurse"
+else
+# CRITICAL:
+# Prevent infinite recursion (Xcode sucks)
+export ALREADYINVOKED="true"
 
-/* Begin PBXShellScriptBuildPhase section */
-		056F9EFECF344B11AE22854F /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		44A148DA1235492BA004C5D2 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-Streamlyne-Mac-SDK-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		683FDCD756554860AE4117D7 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-Streamlyne-iOS-SDK-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		755944FE925142BA87313066 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7787C60C1845104800D91E20 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo ${BUILT_PRODUCTS_DIR}\nrm -rf ${BUILT_PRODUCTS_DIR}/libStreamlyne-iOS-SDK-universal.a\n\n#lipo -create \"${BUILT_PRODUCTS_DIR}/../${CONFIGURATION}-iphonesimulator/libStreamlyne-iOS-SDK.a\" \\\n#\"${BUILT_PRODUCTS_DIR}/libStreamlyne-iOS-SDK.a\" -output \\\n#\"${BUILT_PRODUCTS_DIR}/libStreamlyne-iOS-SDK-universal.a\"\n";
-		};
-		7787C60D1845117100D91E20 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "##########################################\n#\n# c.f. http://stackoverflow.com/questions/3520977/build-fat-static-library-device-simulator-using-xcode-and-sdk-4\n#\n# Version 2.7\n#\n# Latest Change:\n# - Supports iPhone 5 / iPod Touch 5 (uses Apple's workaround to lipo bug)\n#\n# Purpose:\n#   Automatically create a Universal static library for iPhone + iPad + iPhone Simulator from within XCode\n#\n# Author: Adam Martin - http://twitter.com/t_machine_org\n# Based on: original script from Eonil (main changes: Eonil's script WILL NOT WORK in Xcode GUI - it WILL CRASH YOUR COMPUTER)\n#\n\nset -e\nset -o pipefail\n\n#################[ Tests: helps workaround any future bugs in Xcode ]########\n#\nDEBUG_THIS_SCRIPT=\"false\"\n\nif [ $DEBUG_THIS_SCRIPT = \"true\" ]\nthen\necho \"########### TESTS #############\"\necho \"Use the following variables when debugging this script; note that they may change on recursions\"\necho \"BUILD_DIR = $BUILD_DIR\"\necho \"BUILD_ROOT = $BUILD_ROOT\"\necho \"CONFIGURATION_BUILD_DIR = $CONFIGURATION_BUILD_DIR\"\necho \"BUILT_PRODUCTS_DIR = $BUILT_PRODUCTS_DIR\"\necho \"CONFIGURATION_TEMP_DIR = $CONFIGURATION_TEMP_DIR\"\necho \"TARGET_BUILD_DIR = $TARGET_BUILD_DIR\"\nfi\n\n#####################[ part 1 ]##################\n# First, work out the BASESDK version number (NB: Apple ought to report this, but they hide it)\n#    (incidental: searching for substrings in sh is a nightmare! Sob)\n\nSDK_VERSION=$(echo ${SDK_NAME} | grep -o '.\\{3\\}$')\n\n# Next, work out if we're in SIM or DEVICE\n\nif [ ${PLATFORM_NAME} = \"iphonesimulator\" ]\nthen\nOTHER_SDK_TO_BUILD=iphoneos${SDK_VERSION}\nelse\nOTHER_SDK_TO_BUILD=iphonesimulator${SDK_VERSION}\nfi\n\necho \"XCode has selected SDK: ${PLATFORM_NAME} with version: ${SDK_VERSION} (although back-targetting: ${IPHONEOS_DEPLOYMENT_TARGET})\"\necho \"...therefore, OTHER_SDK_TO_BUILD = ${OTHER_SDK_TO_BUILD}\"\n#\n#####################[ end of part 1 ]##################\n\n#####################[ part 2 ]##################\n#\n# IF this is the original invocation, invoke WHATEVER other builds are required\n#\n# Xcode is already building ONE target...\n#\n# ...but this is a LIBRARY, so Apple is wrong to set it to build just one.\n# ...we need to build ALL targets\n# ...we MUST NOT re-build the target that is ALREADY being built: Xcode WILL CRASH YOUR COMPUTER if you try this (infinite recursion!)\n#\n#\n# So: build ONLY the missing platforms/configurations.\n\nif [ \"true\" == ${ALREADYINVOKED:-false} ]\nthen\necho \"RECURSION: I am NOT the root invocation, so I'm NOT going to recurse\"\nelse\n# CRITICAL:\n# Prevent infinite recursion (Xcode sucks)\nexport ALREADYINVOKED=\"true\"\n\necho \"RECURSION: I am the root ... recursing all missing build targets NOW...\"\necho \"RECURSION: ...about to invoke: xcodebuild -configuration \\\"${CONFIGURATION}\\\" -project \\\"${PROJECT_NAME}.xcodeproj\\\" -target \\\"${TARGET_NAME}\\\" -sdk \\\"${OTHER_SDK_TO_BUILD}\\\" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO\" BUILD_DIR=\\\"${BUILD_DIR}\\\" BUILD_ROOT=\\\"${BUILD_ROOT}\\\" SYMROOT=\\\"${SYMROOT}\\\"\n\nxcodebuild -configuration \"${CONFIGURATION}\" -project \"${PROJECT_NAME}.xcodeproj\" -target \"${TARGET_NAME}\" -sdk \"${OTHER_SDK_TO_BUILD}\" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\"\n\nACTION=\"build\"\n\n#Merge all platform binaries as a fat binary for each configurations.\n\n# Calculate where the (multiple) built files are coming from:\nCURRENTCONFIG_DEVICE_DIR=${SYMROOT}/${CONFIGURATION}-iphoneos\nCURRENTCONFIG_SIMULATOR_DIR=${SYMROOT}/${CONFIGURATION}-iphonesimulator\n\necho \"Taking device build from: ${CURRENTCONFIG_DEVICE_DIR}\"\necho \"Taking simulator build from: ${CURRENTCONFIG_SIMULATOR_DIR}\"\n\nCREATING_UNIVERSAL_DIR=${SYMROOT}/${CONFIGURATION}-universal\necho \"...I will output a universal build to: ${CREATING_UNIVERSAL_DIR}\"\n\n# ... remove the products of previous runs of this script\n#      NB: this directory is ONLY created by this script - it should be safe to delete!\n\nrm -rf \"${CREATING_UNIVERSAL_DIR}\"\nmkdir \"${CREATING_UNIVERSAL_DIR}\"\n\n#\necho \"lipo: for current configuration (${CONFIGURATION}) creating output file: ${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}\"\nxcrun -sdk iphoneos lipo -create -output \"${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}\" \"${CURRENTCONFIG_DEVICE_DIR}/${EXECUTABLE_NAME}\" \"${CURRENTCONFIG_SIMULATOR_DIR}/${EXECUTABLE_NAME}\"\n\n#########\n#\n# Added: StackOverflow suggestion to also copy \"include\" files\n#    (untested, but should work OK)\n#\necho \"Fetching headers from ${PUBLIC_HEADERS_FOLDER_PATH}\"\necho \"  (if you embed your library project in another project, you will need to add\"\necho \"   a \"User Search Headers\" build setting of: (NB INCLUDE THE DOUBLE QUOTES BELOW!)\"\necho '        \"$(TARGET_BUILD_DIR)/usr/local/include/\"'\nif [ -d \"${CURRENTCONFIG_DEVICE_DIR}${PUBLIC_HEADERS_FOLDER_PATH}\" ]\nthen\nmkdir -p \"${CREATING_UNIVERSAL_DIR}${PUBLIC_HEADERS_FOLDER_PATH}\"\n# * needs to be outside the double quotes?\ncp -r \"${CURRENTCONFIG_DEVICE_DIR}${PUBLIC_HEADERS_FOLDER_PATH}\"* \"${CREATING_UNIVERSAL_DIR}${PUBLIC_HEADERS_FOLDER_PATH}\"\nfi\nfi";
-		};
-		77F3D531183E7A37000E9F15 /* Generate Docs with AppleDoc */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Generate Docs with AppleDoc";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Streamlyne\";\ncompanyID=\"com.Streamlyne\";\ncompanyURL=\"http://streamlyne.co\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"${PROJECT_DIR}/docs\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n--include \"${PROJECT_DIR}/Guide/Images\" \\\n--include \"${PROJECT_DIR}/Guide\" \\\n--ignore \"${PROJECT_DIR}/Pods\" \\\n--index-desc \"${PROJECT_DIR}/README.md\" \\\n\"${PROJECT_DIR}\"";
-		};
-/* End PBXShellScriptBuildPhase section */
+echo "RECURSION: I am the root ... recursing all missing build targets NOW..."
+echo "RECURSION: ...about to invoke: xcodebuild -configuration \"${CONFIGURATION}\" -project \"${PROJECT_NAME}.xcodeproj\" -target \"${TARGET_NAME}\" -sdk \"${OTHER_SDK_TO_BUILD}\" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO" BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\"
 
-/* Begin PBXSourcesBuildPhase section */
-		7720FC1318369CA10092D39B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77AD7DF71842F6DC0053C02C /* SLAsset.m in Sources */,
-				77AD7E171842F6DC0053C02C /* SLObject.m in Sources */,
-				77AD7E011842F6DC0053C02C /* SLUser.m in Sources */,
-				77AD7E061842F6DC0053C02C /* SLWorkOrder.m in Sources */,
-				77AD7E1C1842F6DC0053C02C /* SLRelationship.m in Sources */,
-				77AD7DFC1842F6DC0053C02C /* SLOrganization.m in Sources */,
-				771F4B97186029D90093674F /* Streamlyne.xcdatamodeld in Sources */,
-				77AD7E221842F6DC0053C02C /* SLValue.m in Sources */,
-				77AD7E111842F6DC0053C02C /* SLNode.m in Sources */,
-				77AD7E2918430F1A0053C02C /* SLGroup.m in Sources */,
-				77AD7E0B1842F6DC0053C02C /* SLAPIManager.m in Sources */,
-				77BE8F2718773B600098C907 /* SLSite.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7720FC2318369CA20092D39B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77ED5DB0183FE91500905A3D /* Streamlyne_iOS_SDKTests.m in Sources */,
-				77BE8F291877B8AF0098C907 /* Streamlyne.xcdatamodeld in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		77B4EA08184094D400435B97 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77AD7E081842F6DC0053C02C /* SLWorkOrder.m in Sources */,
-				77B4EA1D184094D400435B97 /* Streamlyne_Mac_SDK.m in Sources */,
-				77AD7E241842F6DC0053C02C /* SLValue.m in Sources */,
-				77AD7E031842F6DC0053C02C /* SLUser.m in Sources */,
-				77AD7E191842F6DC0053C02C /* SLObject.m in Sources */,
-				77AD7E1E1842F6DC0053C02C /* SLRelationship.m in Sources */,
-				77AD7E131842F6DC0053C02C /* SLNode.m in Sources */,
-				77AD7E0D1842F6DC0053C02C /* SLAPIManager.m in Sources */,
-				77AD7E2B18430F1A0053C02C /* SLGroup.m in Sources */,
-				77AD7DF91842F6DC0053C02C /* SLAsset.m in Sources */,
-				77BE8F2818773B600098C907 /* SLSite.m in Sources */,
-				77AD7DFE1842F6DC0053C02C /* SLOrganization.m in Sources */,
-				771F4B98186029D90093674F /* Streamlyne.xcdatamodeld in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		77B4EA1E184094D400435B97 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77AD7E2C18430F1A0053C02C /* SLGroup.m in Sources */,
-				77AD7E141842F6DC0053C02C /* SLNode.m in Sources */,
-				77AD7DFA1842F6DC0053C02C /* SLAsset.m in Sources */,
-				77B4EA5018409D3200435B97 /* Streamlyne_Mac_SDK.m in Sources */,
-				77B4EA4F18409D0A00435B97 /* Streamlyne_iOS_SDKTests.m in Sources */,
-				77AD7E1F1842F6DC0053C02C /* SLRelationship.m in Sources */,
-				77AD7E1A1842F6DC0053C02C /* SLObject.m in Sources */,
-				77AD7E251842F6DC0053C02C /* SLValue.m in Sources */,
-				77AD7DFF1842F6DC0053C02C /* SLOrganization.m in Sources */,
-				77AD7E091842F6DC0053C02C /* SLWorkOrder.m in Sources */,
-				77AD7E041842F6DC0053C02C /* SLUser.m in Sources */,
-				771F4BA318628AAA0093674F /* Streamlyne.xcdatamodeld in Sources */,
-				77AD7E0E1842F6DC0053C02C /* SLAPIManager.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
+xcodebuild -configuration "${CONFIGURATION}" -project "${PROJECT_NAME}.xcodeproj" -target "${TARGET_NAME}" -sdk "${OTHER_SDK_TO_BUILD}" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}" SYMROOT="${SYMROOT}"
 
-/* Begin PBXTargetDependency section */
-		7720FC2E18369CA20092D39B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7720FC1618369CA10092D39B /* Streamlyne-iOS-SDK */;
-			targetProxy = 7720FC2D18369CA20092D39B /* PBXContainerItemProxy */;
-		};
-		77B4EA26184094D400435B97 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 77B4EA0C184094D400435B97 /* Streamlyne-Mac-SDK */;
-			targetProxy = 77B4EA25184094D400435B97 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
+ACTION="build"
 
-/* Begin PBXVariantGroup section */
-		7720FC3318369CA20092D39B /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7720FC3418369CA20092D39B /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		77B4EA17184094D400435B97 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				77B4EA18184094D400435B97 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		77B4EA2B184094D400435B97 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				77B4EA2C184094D400435B97 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
+#Merge all platform binaries as a fat binary for each configurations.
 
-/* Begin XCBuildConfiguration section */
-		7720FC3818369CA20092D39B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-			};
-			name = Debug;
-		};
-		7720FC3918369CA20092D39B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7720FC3B18369CA20092D39B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45DAA84BB6D34E9E8B7AE079 /* Pods-Streamlyne-iOS-SDK.xcconfig */;
-			buildSettings = {
-				DSTROOT = /tmp/Streamlyne_iOS_SDK.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Streamlyne-iOS-SDK/Streamlyne-iOS-SDK-Prefix.pch";
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "Streamlyne-iOS-SDK";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7720FC3C18369CA20092D39B /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45DAA84BB6D34E9E8B7AE079 /* Pods-Streamlyne-iOS-SDK.xcconfig */;
-			buildSettings = {
-				DSTROOT = /tmp/Streamlyne_iOS_SDK.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Streamlyne-iOS-SDK/Streamlyne-iOS-SDK-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "Streamlyne-iOS-SDK";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		7720FC3E18369CA20092D39B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45DAA84BB6D34E9E8B7AE079 /* Pods-Streamlyne-iOS-SDK.xcconfig */;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Streamlyne-iOS-SDK/Streamlyne-iOS-SDK-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Streamlyne-iOS-SDKTests/Streamlyne-iOS-SDKTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Streamlyne_Cocoa_SDK-fjqjkmnrhloggrcbsegetsdkwdqw/Build/Products/Release",
-				);
-				PRODUCT_NAME = "Streamlyne-iOS-SDKTests";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		7720FC3F18369CA20092D39B /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45DAA84BB6D34E9E8B7AE079 /* Pods-Streamlyne-iOS-SDK.xcconfig */;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Streamlyne-iOS-SDK/Streamlyne-iOS-SDK-Prefix.pch";
-				INFOPLIST_FILE = "Streamlyne-iOS-SDKTests/Streamlyne-iOS-SDKTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Streamlyne_Cocoa_SDK-fjqjkmnrhloggrcbsegetsdkwdqw/Build/Products/Release",
-				);
-				PRODUCT_NAME = "Streamlyne-iOS-SDKTests";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
-		77B4EA31184094D400435B97 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43ADE2598F854DF2A91C9E5B /* Pods-Streamlyne-Mac-SDK.xcconfig */;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Streamlyne-Mac-SDK/Streamlyne-Mac-SDK-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Streamlyne-Mac-SDK/Streamlyne-Mac-SDK-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Debug;
-		};
-		77B4EA32184094D400435B97 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43ADE2598F854DF2A91C9E5B /* Pods-Streamlyne-Mac-SDK.xcconfig */;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Streamlyne-Mac-SDK/Streamlyne-Mac-SDK-Prefix.pch";
-				INFOPLIST_FILE = "Streamlyne-Mac-SDK/Streamlyne-Mac-SDK-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Release;
-		};
-		77B4EA34184094D400435B97 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43ADE2598F854DF2A91C9E5B /* Pods-Streamlyne-Mac-SDK.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Streamlyne-Mac-SDK.framework/Versions/A/Streamlyne-Mac-SDK";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Streamlyne-Mac-SDK/Streamlyne-Mac-SDK-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Streamlyne-Mac-SDKTests/Streamlyne-Mac-SDKTests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		77B4EA35184094D400435B97 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43ADE2598F854DF2A91C9E5B /* Pods-Streamlyne-Mac-SDK.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Streamlyne-Mac-SDK.framework/Versions/A/Streamlyne-Mac-SDK";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Streamlyne-Mac-SDK/Streamlyne-Mac-SDK-Prefix.pch";
-				INFOPLIST_FILE = "Streamlyne-Mac-SDKTests/Streamlyne-Mac-SDKTests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
-		77F3D52C183E79A8000E9F15 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		77F3D52D183E79A8000E9F15 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
+# Calculate where the (multiple) built files are coming from:
+CURRENTCONFIG_DEVICE_DIR=${SYMROOT}/${CONFIGURATION}-iphoneos
+CURRENTCONFIG_SIMULATOR_DIR=${SYMROOT}/${CONFIGURATION}-iphonesimulator
 
-/* Begin XCConfigurationList section */
-		7720FC1218369CA10092D39B /* Build configuration list for PBXProject "Streamlyne Cocoa SDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7720FC3818369CA20092D39B /* Debug */,
-				7720FC3918369CA20092D39B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7720FC3A18369CA20092D39B /* Build configuration list for PBXNativeTarget "Streamlyne-iOS-SDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7720FC3B18369CA20092D39B /* Debug */,
-				7720FC3C18369CA20092D39B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7720FC3D18369CA20092D39B /* Build configuration list for PBXNativeTarget "Streamlyne-iOS-SDKTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7720FC3E18369CA20092D39B /* Debug */,
-				7720FC3F18369CA20092D39B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		77B4EA30184094D400435B97 /* Build configuration list for PBXNativeTarget "Streamlyne-Mac-SDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				77B4EA31184094D400435B97 /* Debug */,
-				77B4EA32184094D400435B97 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		77B4EA33184094D400435B97 /* Build configuration list for PBXNativeTarget "Streamlyne-Mac-SDKTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				77B4EA34184094D400435B97 /* Debug */,
-				77B4EA35184094D400435B97 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		77F3D52E183E79A8000E9F15 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				77F3D52C183E79A8000E9F15 /* Debug */,
-				77F3D52D183E79A8000E9F15 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
+echo "Taking device build from: ${CURRENTCONFIG_DEVICE_DIR}"
+echo "Taking simulator build from: ${CURRENTCONFIG_SIMULATOR_DIR}"
 
-/* Begin XCVersionGroup section */
-		771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				771F4B96186029D90093674F /* Streamlyne.xcdatamodel */,
-			);
-			currentVersion = 771F4B96186029D90093674F /* Streamlyne.xcdatamodel */;
-			path = Streamlyne.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
-	};
-	rootObject = 7720FC0F18369CA10092D39B /* Project object */;
-}
+CREATING_UNIVERSAL_DIR=${SYMROOT}/${CONFIGURATION}-universal
+echo "...I will output a universal build to: ${CREATING_UNIVERSAL_DIR}"
+
+# ... remove the products of previous runs of this script
+#      NB: this directory is ONLY created by this script - it should be safe to delete!
+
+rm -rf "${CREATING_UNIVERSAL_DIR}"
+mkdir "${CREATING_UNIVERSAL_DIR}"
+
+#
+echo "lipo: for current configuration (${CONFIGURATION}) creating output file: ${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}"
+xcrun -sdk iphoneos lipo -create -output "${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}" "${CURRENTCONFIG_DEVICE_DIR}/${EXECUTABLE_NAME}" "${CURRENTCONFIG_SIMULATOR_DIR}/${EXECUTABLE_NAME}"
+
+#########
+#
+# Added: StackOverflow suggestion to also copy "include" files
+#    (untested, but should work OK)
+#
+echo "Fetching headers from ${PUBLIC_HEADERS_FOLDER_PATH}"
+echo "  (if you embed your library project in another project, you will need to add"
+echo "   a "User Search Headers" build setting of: (NB INCLUDE THE DOUBLE QUOTES BELOW!)"
+echo '        "$(TARGET_BUILD_DIR)/usr/local/include/"'
+if [ -d "${CURRENTCONFIG_DEVICE_DIR}${PUBLIC_HEADERS_FOLDER_PATH}" ]
+then
+mkdir -p "${CREATING_UNIVERSAL_DIR}${PUBLIC_HEADERS_FOLDER_PATH}"
+# * needs to be outside the double quotes?
+cp -r "${CURRENTCONFIG_DEVICE_DIR}${PUBLIC_HEADERS_FOLDER_PATH}"* "${CREATING_UNIVERSAL_DIR}${PUBLIC_HEADERS_FOLDER_PATH}"
+fi
+fi</string>
+		</dict>
+		<key>7787C6231845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE11842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6241845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE21842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6251845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE31842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6261845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE41842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6271845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE51842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6281845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE61842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6291845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE71842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C62A1845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE81842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C62B1845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7E2618430F1A0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C62C1845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7E2718430F1A0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C62D1845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE91842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C62E1845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEA1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C62F1845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEB1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6301845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEC1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6311845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DED1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6321845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEE1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6331845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEF1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6341845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF01842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6351845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF11842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6361845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF21842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6371845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF41842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6381845173C00D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF51842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C68E1845213400D91E20</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>7787C68F1845217400D91E20</string>
+				<string>7787C6901845217400D91E20</string>
+				<string>77BE8F2518773B600098C907</string>
+				<string>7787C6921845217400D91E20</string>
+				<string>7787C6941845217400D91E20</string>
+				<string>7787C6961845217400D91E20</string>
+				<string>7787C6981845217400D91E20</string>
+				<string>7787C69A1845217400D91E20</string>
+				<string>7787C69C1845217400D91E20</string>
+				<string>7783AFF81974535D000CAB0A</string>
+				<string>7787C69D1845217400D91E20</string>
+				<string>7787C69F1845217400D91E20</string>
+				<string>7787C6A01845217400D91E20</string>
+				<string>7787C6A21845217400D91E20</string>
+				<string>7787C6A41845217400D91E20</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7787C68F1845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF31842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6901845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE11842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6921845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE31842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6941845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE51842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6961845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE71842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6981845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7E2618430F1A0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C69A1845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE91842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C69C1845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEB1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C69D1845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEC1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C69F1845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEE1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6A01845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEF1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6A21845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF11842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7787C6A41845217400D91E20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF41842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77915284184672B7007951F1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7720FC1718369CA10092D39B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7DDF1842F6DC0053C02C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>77AD7DF31842F6DC0053C02C</string>
+				<string>77AD7DE01842F6DC0053C02C</string>
+				<string>77AD7DE91842F6DC0053C02C</string>
+				<string>77AD7DEA1842F6DC0053C02C</string>
+				<string>77AD7DEB1842F6DC0053C02C</string>
+				<string>77AD7DEC1842F6DC0053C02C</string>
+				<string>77AD7DED1842F6DC0053C02C</string>
+				<string>77AD7DEE1842F6DC0053C02C</string>
+				<string>77AD7DEF1842F6DC0053C02C</string>
+				<string>77AD7DF01842F6DC0053C02C</string>
+				<string>77AD7DF11842F6DC0053C02C</string>
+				<string>77AD7DF21842F6DC0053C02C</string>
+				<string>77AD7DF41842F6DC0053C02C</string>
+				<string>77AD7DF51842F6DC0053C02C</string>
+				<string>771F4B95186029D90093674F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Common</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DE01842F6DC0053C02C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7783AFF61974535D000CAB0A</string>
+				<string>7783AFF71974535D000CAB0A</string>
+				<string>77AD7DE11842F6DC0053C02C</string>
+				<string>77AD7DE21842F6DC0053C02C</string>
+				<string>77AD7DE31842F6DC0053C02C</string>
+				<string>77AD7DE41842F6DC0053C02C</string>
+				<string>77AD7DE51842F6DC0053C02C</string>
+				<string>77AD7DE61842F6DC0053C02C</string>
+				<string>77AD7DE71842F6DC0053C02C</string>
+				<string>77AD7DE81842F6DC0053C02C</string>
+				<string>77AD7E2618430F1A0053C02C</string>
+				<string>77AD7E2718430F1A0053C02C</string>
+				<string>77BE8F2318773B600098C907</string>
+				<string>77BE8F2418773B600098C907</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Nodes</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DE11842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLAsset2.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DE21842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLAsset2.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DE31842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLOrganization.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DE41842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLOrganization.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DE51842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLUser.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DE61842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLUser.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DE71842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLWorkOrder.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DE81842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLWorkOrder.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DE91842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLAPIManager.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DEA1842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLAPIManager.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DEB1842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLCommon.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DEC1842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLNode.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DED1842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLNode.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DEE1842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLNodeProtocol.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DEF1842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLObject.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DF01842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLObject.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DF11842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLRelationship.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DF21842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLRelationship.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DF31842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLSDK.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DF41842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLValue.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DF51842F6DC0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLValue.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7DF61842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE11842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7DF71842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE21842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7DF91842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE21842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7DFA1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE21842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7DFB1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE31842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7DFC1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE41842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7DFE1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE41842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7DFF1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE41842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E001842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE51842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E011842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE61842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E031842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE61842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E041842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE61842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E051842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE71842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E061842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE81842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E081842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE81842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E091842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE81842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E0A1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DE91842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E0B1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEA1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E0D1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEA1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E0E1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEA1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E0F1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEB1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E101842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEC1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E111842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DED1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E131842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DED1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E141842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DED1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E151842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEE1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E161842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DEF1842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E171842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF01842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E191842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF01842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E1A1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF01842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E1B1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF11842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E1C1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF21842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E1E1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF21842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E1F1842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF21842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E201842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF31842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E211842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF41842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E221842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF51842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E241842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF51842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E251842F6DC0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7DF51842F6DC0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E2618430F1A0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLGroup.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7E2718430F1A0053C02C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLGroup.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77AD7E2818430F1A0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7E2618430F1A0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E2918430F1A0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7E2718430F1A0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E2B18430F1A0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7E2718430F1A0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77AD7E2C18430F1A0053C02C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77AD7E2718430F1A0053C02C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77B4EA08184094D400435B97</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>77AD7E081842F6DC0053C02C</string>
+				<string>77B4EA1D184094D400435B97</string>
+				<string>77AD7E241842F6DC0053C02C</string>
+				<string>77AD7E031842F6DC0053C02C</string>
+				<string>77AD7E191842F6DC0053C02C</string>
+				<string>77AD7E1E1842F6DC0053C02C</string>
+				<string>77AD7E131842F6DC0053C02C</string>
+				<string>77AD7E0D1842F6DC0053C02C</string>
+				<string>77AD7E2B18430F1A0053C02C</string>
+				<string>77AD7DF91842F6DC0053C02C</string>
+				<string>77BE8F2818773B600098C907</string>
+				<string>7783AFFB1974535D000CAB0A</string>
+				<string>77AD7DFE1842F6DC0053C02C</string>
+				<string>771F4B98186029D90093674F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>77B4EA09184094D400435B97</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>77B4EA0F184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>77B4EA0A184094D400435B97</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>77AD7E161842F6DC0053C02C</string>
+				<string>77AD7E2818430F1A0053C02C</string>
+				<string>77BE8F2618773B600098C907</string>
+				<string>77AD7E001842F6DC0053C02C</string>
+				<string>77AD7E051842F6DC0053C02C</string>
+				<string>77AD7E211842F6DC0053C02C</string>
+				<string>77AD7E201842F6DC0053C02C</string>
+				<string>77AD7E0F1842F6DC0053C02C</string>
+				<string>77AD7DFB1842F6DC0053C02C</string>
+				<string>7783AFF91974535D000CAB0A</string>
+				<string>77AD7DF61842F6DC0053C02C</string>
+				<string>77AD7E151842F6DC0053C02C</string>
+				<string>77AD7E0A1842F6DC0053C02C</string>
+				<string>77AD7E101842F6DC0053C02C</string>
+				<string>77AD7E1B1842F6DC0053C02C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>77B4EA0B184094D400435B97</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>77B4EA19184094D400435B97</string>
+				<string>77B4EA371840960B00435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>77B4EA0C184094D400435B97</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>77B4EA30184094D400435B97</string>
+			<key>buildPhases</key>
+			<array>
+				<string>056F9EFECF344B11AE22854F</string>
+				<string>77B4EA08184094D400435B97</string>
+				<string>77B4EA09184094D400435B97</string>
+				<string>77B4EA0A184094D400435B97</string>
+				<string>77B4EA0B184094D400435B97</string>
+				<string>44A148DA1235492BA004C5D2</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Streamlyne-Mac-SDK</string>
+			<key>productName</key>
+			<string>Streamlyne-Mac-SDK</string>
+			<key>productReference</key>
+			<string>77B4EA0D184094D400435B97</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>77B4EA0D184094D400435B97</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Streamlyne-Mac-SDK.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>77B4EA0E184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Cocoa.framework</string>
+			<key>path</key>
+			<string>Library/Frameworks/Cocoa.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>77B4EA0F184094D400435B97</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77B4EA0E184094D400435B97</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77B4EA10184094D400435B97</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>77B4EA11184094D400435B97</string>
+				<string>77B4EA12184094D400435B97</string>
+				<string>77B4EA13184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Other Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA11184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>77B4EA12184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>CoreData.framework</string>
+			<key>path</key>
+			<string>Library/Frameworks/CoreData.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>77B4EA13184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>AppKit.framework</string>
+			<key>path</key>
+			<string>Library/Frameworks/AppKit.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>77B4EA14184094D400435B97</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>77B4EA1B184094D400435B97</string>
+				<string>77B4EA1C184094D400435B97</string>
+				<string>77B4EA15184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Streamlyne-Mac-SDK</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA15184094D400435B97</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>77B4EA16184094D400435B97</string>
+				<string>77B4EA17184094D400435B97</string>
+				<string>77B4EA1A184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>path</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA16184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Streamlyne-Mac-SDK-Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA17184094D400435B97</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>77B4EA18184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA18184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.strings</string>
+			<key>name</key>
+			<string>en</string>
+			<key>path</key>
+			<string>en.lproj/InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA19184094D400435B97</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77B4EA17184094D400435B97</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77B4EA1A184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Streamlyne-Mac-SDK-Prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA1B184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Streamlyne_Mac_SDK.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA1C184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Streamlyne_Mac_SDK.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA1D184094D400435B97</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77B4EA1C184094D400435B97</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77B4EA1E184094D400435B97</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>77AD7E2C18430F1A0053C02C</string>
+				<string>77AD7E141842F6DC0053C02C</string>
+				<string>77AD7DFA1842F6DC0053C02C</string>
+				<string>77B4EA5018409D3200435B97</string>
+				<string>77B4EA4F18409D0A00435B97</string>
+				<string>77AD7E1F1842F6DC0053C02C</string>
+				<string>77AD7E1A1842F6DC0053C02C</string>
+				<string>77AD7E251842F6DC0053C02C</string>
+				<string>77AD7DFF1842F6DC0053C02C</string>
+				<string>77AD7E091842F6DC0053C02C</string>
+				<string>77AD7E041842F6DC0053C02C</string>
+				<string>771F4BA318628AAA0093674F</string>
+				<string>77AD7E0E1842F6DC0053C02C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>77B4EA1F184094D400435B97</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>77B4EA27184094D400435B97</string>
+				<string>77B4EA24184094D400435B97</string>
+				<string>77B4EA23184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>77B4EA20184094D400435B97</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>77B4EA2D184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>77B4EA21184094D400435B97</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>77B4EA33184094D400435B97</string>
+			<key>buildPhases</key>
+			<array>
+				<string>77B4EA1E184094D400435B97</string>
+				<string>77B4EA1F184094D400435B97</string>
+				<string>77B4EA20184094D400435B97</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>77B4EA26184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Streamlyne-Mac-SDKTests</string>
+			<key>productName</key>
+			<string>Streamlyne-Mac-SDKTests</string>
+			<key>productReference</key>
+			<string>77B4EA22184094D400435B97</string>
+			<key>productType</key>
+			<string>com.apple.product-type.bundle.unit-test</string>
+		</dict>
+		<key>77B4EA22184094D400435B97</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.cfbundle</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Streamlyne-Mac-SDKTests.xctest</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>77B4EA23184094D400435B97</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7720FC2818369CA20092D39B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77B4EA24184094D400435B97</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77B4EA0E184094D400435B97</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77B4EA25184094D400435B97</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7720FC0F18369CA10092D39B</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>77B4EA0C184094D400435B97</string>
+			<key>remoteInfo</key>
+			<string>Streamlyne-Mac-SDK</string>
+		</dict>
+		<key>77B4EA26184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>77B4EA0C184094D400435B97</string>
+			<key>targetProxy</key>
+			<string>77B4EA25184094D400435B97</string>
+		</dict>
+		<key>77B4EA27184094D400435B97</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77B4EA0D184094D400435B97</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77B4EA28184094D400435B97</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>77B4EA2E184094D400435B97</string>
+				<string>77B4EA29184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Streamlyne-Mac-SDKTests</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA29184094D400435B97</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>77B4EA2A184094D400435B97</string>
+				<string>77B4EA2B184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>path</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA2A184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Streamlyne-Mac-SDKTests-Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA2B184094D400435B97</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>77B4EA2C184094D400435B97</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA2C184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.strings</string>
+			<key>name</key>
+			<string>en</string>
+			<key>path</key>
+			<string>en.lproj/InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA2D184094D400435B97</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77B4EA2B184094D400435B97</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77B4EA2E184094D400435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Streamlyne_Mac_SDKTests.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA30184094D400435B97</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>77B4EA31184094D400435B97</string>
+				<string>77B4EA32184094D400435B97</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>77B4EA31184094D400435B97</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>43ADE2598F854DF2A91C9E5B</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>COMBINE_HIDPI_IMAGES</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+				</array>
+				<key>FRAMEWORK_VERSION</key>
+				<string>A</string>
+				<key>GCC_ENABLE_OBJC_EXCEPTIONS</key>
+				<string>YES</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Streamlyne-Mac-SDK/Supporting Files/Streamlyne-Mac-SDK-Prefix.pch</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>Streamlyne-Mac-SDK/Supporting Files/Streamlyne-Mac-SDK-Info.plist</string>
+				<key>MACOSX_DEPLOYMENT_TARGET</key>
+				<string>10.9</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>macosx</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>framework</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>77B4EA32184094D400435B97</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>43ADE2598F854DF2A91C9E5B</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>COMBINE_HIDPI_IMAGES</key>
+				<string>YES</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+				</array>
+				<key>FRAMEWORK_VERSION</key>
+				<string>A</string>
+				<key>GCC_ENABLE_OBJC_EXCEPTIONS</key>
+				<string>YES</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Streamlyne-Mac-SDK/Supporting Files/Streamlyne-Mac-SDK-Prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Streamlyne-Mac-SDK/Supporting Files/Streamlyne-Mac-SDK-Info.plist</string>
+				<key>MACOSX_DEPLOYMENT_TARGET</key>
+				<string>10.9</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>macosx</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>framework</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>77B4EA33184094D400435B97</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>77B4EA34184094D400435B97</string>
+				<string>77B4EA35184094D400435B97</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>77B4EA34184094D400435B97</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>43ADE2598F854DF2A91C9E5B</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>BUNDLE_LOADER</key>
+				<string>$(BUILT_PRODUCTS_DIR)/Streamlyne-Mac-SDK.framework/Versions/A/Streamlyne-Mac-SDK</string>
+				<key>COMBINE_HIDPI_IMAGES</key>
+				<string>YES</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_ENABLE_OBJC_EXCEPTIONS</key>
+				<string>YES</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>s</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Streamlyne-Mac-SDK/Supporting Files/Streamlyne-Mac-SDK-Prefix.pch</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>Streamlyne-Mac-SDKTests/Supporting Files/Streamlyne-Mac-SDKTests-Info.plist</string>
+				<key>MACOSX_DEPLOYMENT_TARGET</key>
+				<string>10.9</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>macosx</string>
+				<key>TEST_HOST</key>
+				<string>$(BUNDLE_LOADER)</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>xctest</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>77B4EA35184094D400435B97</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>43ADE2598F854DF2A91C9E5B</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>BUNDLE_LOADER</key>
+				<string>$(BUILT_PRODUCTS_DIR)/Streamlyne-Mac-SDK.framework/Versions/A/Streamlyne-Mac-SDK</string>
+				<key>COMBINE_HIDPI_IMAGES</key>
+				<string>YES</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_ENABLE_OBJC_EXCEPTIONS</key>
+				<string>YES</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>s</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Streamlyne-Mac-SDK/Supporting Files/Streamlyne-Mac-SDK-Prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Streamlyne-Mac-SDKTests/Supporting Files/Streamlyne-Mac-SDKTests-Info.plist</string>
+				<key>MACOSX_DEPLOYMENT_TARGET</key>
+				<string>10.9</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>macosx</string>
+				<key>TEST_HOST</key>
+				<string>$(BUNDLE_LOADER)</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>xctest</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>77B4EA361840960B00435B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>folder</string>
+			<key>path</key>
+			<string>Guide</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77B4EA371840960B00435B97</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77B4EA361840960B00435B97</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77B4EA4F18409D0A00435B97</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7720FC3618369CA20092D39B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77B4EA5018409D3200435B97</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77B4EA1C184094D400435B97</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77BE8F2318773B600098C907</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SLSite.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77BE8F2418773B600098C907</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SLSite.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>77BE8F2518773B600098C907</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77BE8F2318773B600098C907</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77BE8F2618773B600098C907</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77BE8F2318773B600098C907</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77BE8F2718773B600098C907</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77BE8F2418773B600098C907</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77BE8F2818773B600098C907</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77BE8F2418773B600098C907</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77BE8F291877B8AF0098C907</key>
+		<dict>
+			<key>fileRef</key>
+			<string>771F4B95186029D90093674F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77ED5DB0183FE91500905A3D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7720FC3618369CA20092D39B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>77F3D52B183E79A8000E9F15</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>77F3D52E183E79A8000E9F15</string>
+			<key>buildPhases</key>
+			<array>
+				<string>77F3D531183E7A37000E9F15</string>
+				<string>7787C60C1845104800D91E20</string>
+			</array>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXAggregateTarget</string>
+			<key>name</key>
+			<string>Documentation</string>
+			<key>productName</key>
+			<string>Documentation</string>
+		</dict>
+		<key>77F3D52C183E79A8000E9F15</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>77F3D52D183E79A8000E9F15</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>77F3D52E183E79A8000E9F15</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>77F3D52C183E79A8000E9F15</string>
+				<string>77F3D52D183E79A8000E9F15</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>77F3D531183E7A37000E9F15</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Generate Docs with AppleDoc</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>#appledoc Xcode script
+# Start constants
+company="Streamlyne";
+companyID="com.Streamlyne";
+companyURL="http://streamlyne.co";
+target="iphoneos";
+#target="macosx";
+outputPath="${PROJECT_DIR}/docs";
+# End constants
+/usr/local/bin/appledoc \
+--project-name "${PROJECT_NAME}" \
+--project-company "${company}" \
+--company-id "${companyID}" \
+--docset-atom-filename "${company}.atom" \
+--docset-feed-url "${companyURL}/${company}/%DOCSETATOMFILENAME" \
+--docset-package-url "${companyURL}/${company}/%DOCSETPACKAGEFILENAME" \
+--docset-fallback-url "${companyURL}/${company}" \
+--output "${outputPath}" \
+--publish-docset \
+--docset-platform-family "${target}" \
+--logformat xcode \
+--keep-intermediate-files \
+--no-repeat-first-par \
+--no-warn-invalid-crossref \
+--exit-threshold 2 \
+--include "${PROJECT_DIR}/Guide/Images" \
+--include "${PROJECT_DIR}/Guide" \
+--ignore "${PROJECT_DIR}/Pods" \
+--index-desc "${PROJECT_DIR}/README.md" \
+"${PROJECT_DIR}"</string>
+		</dict>
+		<key>BD262B1AFB1147419CB78D50</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-Streamlyne-Mac-SDK.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+	</dict>
+	<key>rootObject</key>
+	<string>7720FC0F18369CA10092D39B</string>
+</dict>
+</plist>

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="SLAsset" representedClassName="SLAsset" parentEntity="SLNode" syncable="YES">
-        <attribute name="assetNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="costCenter" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mfg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="serial" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SLAttribute" syncable="YES"/>
     </entity>
+    <entity name="SLAttribute" syncable="YES"/>
     <entity name="SLGroup" representedClassName="SLGroup" parentEntity="SLNode" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -42,12 +44,13 @@
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SLAsset" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLGroup" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLNode" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLOrganization" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLSite" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLUser" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLWorkOrder" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SLAsset" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="SLGroup" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="SLNode" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="SLOrganization" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="SLSite" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="SLUser" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="SLWorkOrder" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="SLAttribute" positionX="0" positionY="54" width="128" height="45"/>
     </elements>
 </model>
