@@ -2,14 +2,14 @@
 
 # === Dependencies
 # CocoaPods
-command -v pod >/dev/null 2>&1 || { 
+command -v pod >/dev/null 2>&1 || {
     echo "Installing CocoaPods"
     sudo gem install cocoapods
     pod setup
     echo
 }
 # Appledoc
-command -v appledoc >/dev/null 2>&1 || { 
+command -v appledoc >/dev/null 2>&1 || {
     echo "Installing Appledoc"
     brew install appledoc
     echo
@@ -18,10 +18,8 @@ command -v appledoc >/dev/null 2>&1 || {
 # === Install
 echo "===== Cocoa/Objective-C SDK ====="
 echo "Installing CocoaPods"
-cd Streamlyne-Cocoa-SDK/
 pod install
-cd ../
-echo "Open in Xcode the Streamlyne-Cocoa-SDK/Streamlyne-Cocoa-SDK.xcworkspace"
+echo "Open in Xcode the Streamlyne-Cocoa-SDK.xcworkspace"
 echo
 
 # === Update

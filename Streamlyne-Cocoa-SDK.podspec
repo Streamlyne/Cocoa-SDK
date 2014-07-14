@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                    * Finally, don't worry about the indent, CocoaPods strips it!
                    DESC
 
-  s.homepage     = "http://git.streamlyne.co/streamlyne/sl-cocoa-sdk"
+  s.homepage     = "https://github.com/Streamlyne/Cocoa-SDK"
   # s.screenshots  = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
 
 
@@ -65,7 +65,7 @@ Pod::Spec.new do |s|
   # s.platform     = :ios, '5.0'
 
   #  When using multiple platforms
-  s.ios.deployment_target = '6.0'
+  s.ios.deployment_target = '7.0'
   s.osx.deployment_target = '10.8'
 
 
@@ -75,7 +75,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, svn and HTTP.
   #
 
-  s.source       = { :git => "http://git.streamlyne.co/streamlyne/sl-cocoa-sdk.git", :tag => "0.0.5" }
+  s.source       = { :git => "git@github.com:Streamlyne/Cocoa-SDK.git", :tag => "0.0.5" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -86,9 +86,9 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.public_header_files = 'Streamlyne-Cocoa-SDK/Common/SLSDK.h'
-  #s.source_files  = 'Streamlyne-Cocoa-SDK', 'Streamlyne-Cocoa-SDK/Common', 'Streamlyne-Cocoa-SDK/Common/*.{h,m,xcdatamodeld,xcdatamodel}', 'Streamlyne-Cocoa-SDK/Common/*/*.{h,m,xcdatamodeld,xcdatamodel}', 'Streamlyne-Cocoa-SDK/Common/Streamlyne.{xcdatamodel,xcdatamodeld}/*.{xcdatamodel}'
-  s.source_files  = 'Streamlyne-Cocoa-SDK', 'Streamlyne-Cocoa-SDK/Common', 'Streamlyne-Cocoa-SDK/Common/*.{h,m}', 'Streamlyne-Cocoa-SDK/Common/*/*.{h,m}'
+  s.public_header_files = 'Common/SLSDK.h'
+  #s.source_files  = 'Common', 'Common/*.{h,m,xcdatamodeld,xcdatamodel}', 'Common/*/*.{h,m,xcdatamodeld,xcdatamodel}', 'Common/Streamlyne.{xcdatamodel,xcdatamodeld}/*.{xcdatamodel}'
+  s.source_files  = 'Common', 'Common/*.{h,m}', 'Common/*/*.{h,m}'
   s.exclude_files = 'Classes/Exclude'
 
   # s.public_header_files = 'Classes/**/*.h'
@@ -104,7 +104,7 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
-  s.resources = [ 'Streamlyne-Cocoa-SDK/Common/**/*.{xcdatamodeld}' ]
+  s.resources = [ 'Common/**/*.{xcdatamodeld}' ]
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
 
@@ -133,5 +133,5 @@ Pod::Spec.new do |s|
   # s.dependency 'JSONKit', '~> 1.4'
   s.dependency 'AFNetworking', '~> 2.0'
   s.dependency 'MagicalRecord', '~> 2.2'
-  
+
 end
