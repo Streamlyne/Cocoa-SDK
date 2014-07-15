@@ -8,9 +8,12 @@
 
 #import "SLAPIManager.h"
 #import <AFNetworking.h>
+#import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonHMAC.h>
 
 @interface SLAPIManager () {
-
+    
 }
 
 @property (strong, nonatomic) AFHTTPRequestOperationManager* httpManager;
@@ -18,7 +21,7 @@
 @end
 
 @implementation SLAPIManager
-@synthesize userEmail, userToken, baseURL, httpManager;
+@synthesize userEmail = _userEmail, userPassword = _userPassword, userOrganization = _userOrganization, host, httpManager;
 
 - (instancetype) init
 {
@@ -26,9 +29,10 @@
     if (self)
     {
         // Initialize variables
-        userEmail = nil;
-        userToken = nil;
-        baseURL = nil;
+        _userEmail = nil;
+        _userPassword = nil;
+        _userOrganization = nil;
+        host = nil;
         //httpManager = [AFHTTPRequestOperationManager manager];
         httpManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:nil];
         httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
@@ -54,29 +58,47 @@ static SLAPIManager *sharedSingleton = nil;
     }
 }
 
-/*
-- (NSURL *)baseURL {
-    NSLog(@"Return Base Url: %@", baseURL);
-    return baseURL;
+- (void) setPassword:(NSString *)thePassword {
+    _userPassword = [SLAPIManager sha1:thePassword];
 }
 
-- (void) setBaseURL:(NSURL *)theBaseURL
-{
-    baseURL = theBaseURL;
-    NSLog(@"Base URL: %@", baseURL);
-}
-*/
 
-- (void) setEmail:(NSString *)theEmail
++(NSString *) sha1:(NSString *)plainText
 {
-    userEmail = theEmail;
-    [httpManager.requestSerializer setValue:self.userEmail forHTTPHeaderField:@"X-SL-Email"];
+    unsigned char digest[CC_SHA1_DIGEST_LENGTH];
+    NSData *stringBytes = [plainText dataUsingEncoding: NSUTF8StringEncoding]; /* or some other encoding */
+    if (CC_SHA1([stringBytes bytes], [stringBytes length], digest)) {
+        /* SHA-1 hash has been calculated and stored in 'digest'. */
+        NSMutableString* sha1 = [[NSMutableString alloc] init];
+        for (int i = 0 ; i < CC_SHA1_DIGEST_LENGTH ; ++i)
+        {
+            [sha1 appendFormat: @"%02x", digest[i]];
+        }
+        return sha1;
+    }
+    else {
+        return nil;
+    }
 }
 
-- (void) setToken:(NSString *)theToken
++(NSString *)hmac:(NSString *)plainText withSecret:(NSString *)key
 {
-    self.userToken = theToken;
-    [self.httpManager.requestSerializer setValue:self.userToken forHTTPHeaderField:@"X-SL-Token"];
+    const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];
+    const char *cData = [plainText cStringUsingEncoding:NSASCIIStringEncoding];
+    
+    unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
+    
+    CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+    
+    NSData *HMACData = [[NSData alloc] initWithBytes:cHMAC length:sizeof(cHMAC)];
+    
+    const unsigned char *buffer = (const unsigned char *)[HMACData bytes];
+    NSString *HMAC = [NSMutableString stringWithCapacity:HMACData.length * 2];
+    
+    for (int i = 0; i < HMACData.length; ++i)
+        HMAC = [HMAC stringByAppendingFormat:@"%02lx", (unsigned long)buffer[i]];
+    
+    return HMAC;
 }
 
 - (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLRequestCallback)theCallback
@@ -84,19 +106,36 @@ static SLAPIManager *sharedSingleton = nil;
     AFHTTPRequestOperationManager *requestManager = self.httpManager;
     //NSLog(@"requestManager: %@", requestManager);
     
-    NSLog(@"baseURL: %@ , httpManager: %@", self.baseURL, self.httpManager);
+    NSLog(@"baseURL: %@ , httpManager: %@", self.host, self.httpManager);
     
-    if (self.baseURL == nil)
+    if (self.host == nil)
     {
-        @throw SLExceptionMissingBaseUrl;
+        @throw SLExceptionMissingHost;
     }
     
     //NSLog(@"baseURl: %@", self.baseURL);
     //NSLog(@"thePath: %@", thePath);
-    NSURL *fullPath = [NSURL URLWithString:[NSString stringWithFormat:@"%@", thePath] relativeToURL:baseURL];
+    NSURL *fullPath = [[NSURL alloc] initWithScheme:@"http" host:self.host path:thePath];
+    //    NSURL *fullPath = [NSURL URLWithString:[NSString stringWithFormat:@"%@", thePath] relativeToURL:self.host];
     //NSLog(@"fullPath: %@", fullPath);
     NSString *fullPathStr = [fullPath absoluteString];
     //NSLog(@"Full path: %@", fullPathStr);
+    
+    // Prepare headers used for authentication
+    // Expiry
+    NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
+    NSString *expiry = [NSString stringWithFormat:@"%f", timeInMiliseconds];
+    [requestManager setValue:expiry forKey:@"X-SL-Expires"];
+    // Organization
+    [requestManager setValue:self.userOrganization forKey:@"X-SL-Organization"];
+    // Username
+    [requestManager setValue:self.userEmail forKey:@"X-SL-Username"];
+    // HMAC
+    NSString *secret = _userPassword;
+    NSString *msg = @"";
+    NSString *hmac = [SLAPIManager hmac:msg withSecret:secret];
+    [requestManager setValue:hmac forKey:@"hmac"];
+    
     
     switch (theMethod) {
         case SLHTTPMethodGET:
@@ -167,36 +206,43 @@ static SLAPIManager *sharedSingleton = nil;
 }
 
 
-- (void) authenticateWithUserEmail:(NSString *)theEmail withPassword:(NSString *)thePassword withCallback:(SLSuccessCallback)theCallback;
+- (PMKPromise *) authenticateWithUserEmail:(NSString *)theEmail
+                              withPassword:(NSString *)thePassword
+                          withOrganization:(NSString *)theOrganization
 {
-    if (theEmail != nil && thePassword != nil )
-    {
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         
-        [self performRequestWithMethod:SLHTTPMethodPOST withPath:@"authenticate" withParameters:@{@"email":theEmail, @"password":thePassword} withCallback:^(NSError *error, id operation, id responseObject) {
-            if (error == nil )
-            {
-                // Store the token
-                NSDictionary *response = (NSDictionary *)responseObject;
-                [self setEmail:response[@"email"]];
-                [self setToken:response[@"token"]];
-                
-                theCallback(true);
-            } else
-            {
-                theCallback(false);
-            }
-        }];
-    } else
-    {
-        theCallback(false);
-    }
+        //    [self setEmail:response[@"email"]];
+        //    [self setToken:response[@"token"]];
+        
+        if (theEmail != nil && thePassword != nil && theOrganization != nil )
+        {
+            
+            [self performRequestWithMethod:SLHTTPMethodPOST withPath:@"authenticate" withParameters:@{@"email":theEmail, @"password":thePassword} withCallback:^(NSError *error, id operation, id responseObject) {
+                if (error == nil )
+                {
+                    // Store the token
+                    NSDictionary *response = (NSDictionary *)responseObject;
+                    
+                    fulfiller(PMKManifold(response, operation));
+                } else
+                {
+                    rejecter(PMKManifold(error, responseObject, operation));
+                }
+            }];
+        } else
+        {
+            rejecter([NSException exceptionWithName:NSInternalInconsistencyException reason:@"Authenticating requires user's email, password, and organization." userInfo:nil]);
+        }
+        
+    }];
 }
 
-- (void) authenticateWithUser:(SLUser *)theUser
-                 withCallback:(SLSuccessCallback)theCallback
-{
-    [self authenticateWithUserEmail:[theUser get:@"email"] withPassword:[theUser get:@"password"] withCallback:theCallback];
-}
+//- (void) authenticateWithUser:(SLUser *)theUser
+//                 withCallback:(SLSuccessCallback)theCallback
+//{
+//    [self authenticateWithUserEmail:[theUser get:@"email"] withPassword:[theUser get:@"password"] withCallback:theCallback];
+//}
 
 
 @end

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SLObject.h"
 
-@protocol SLNodeProtocol <NSObject>
+@protocol SLModelProtocol <NSObject>
 
 /**
  String s -> SLValue s

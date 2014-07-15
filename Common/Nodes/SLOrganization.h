@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Streamlyne. All rights reserved.
 //
 
-#import "SLNode.h"
+#import "SLModel.h"
 
-@interface SLOrganization : SLNode
+@interface SLOrganization : SLModel
 @property (nonatomic, retain) NSString *name;
 
 @end

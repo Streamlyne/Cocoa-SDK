@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Streamlyne. All rights reserved.
 //
 
-#import "SLNode.h"
+#import "SLModel.h"
 #import "SLValue.h"
 #import "SLRelationship.h"
 #import "SLAPIManager.h"
 
-@implementation SLNode
+@implementation SLModel
 
 @dynamic nid;
 @dynamic dateCreated;
@@ -70,7 +70,7 @@
 {
     @synchronized([self class])
     {
-        __block SLNode *node;
+        __block SLModel *node;
         //[context performBlockAndWait:^(void){
             NSLog(@"initWithId, before find node");
             node = [[self class] MR_findFirstByAttribute:@"nid" withValue:nid inContext:context];
@@ -199,7 +199,7 @@
                                  userInfo:nil];
 }
 
-+ (void) readById:(SLNid)nid withCallback:(void (^)(SLNode *))callback
++ (void) readById:(SLNid)nid withCallback:(void (^)(SLModel *))callback
 {
     NSDictionary *filters = @{
                               @"filter":@{
@@ -210,7 +210,7 @@
     [self readById:nid withFilters:filters withCallback:callback];
 }
 
-+ (void) readById:(SLNid)nid withFilters:(NSDictionary *)filters withCallback:(void (^)(SLNode *))callback
++ (void) readById:(SLNid)nid withFilters:(NSDictionary *)filters withCallback:(void (^)(SLModel *))callback
 {
     SLAPIManager *manager = [[self class] sharedAPIManager];
 
@@ -221,10 +221,10 @@
             //NSLog(@"<%@>: %@", [responseObject class], responseObject);
             
             // Process & Read Node
-            SLNode *node = [[self class] initWithId:(SLNid) responseObject[@"id"] inContext:context];
+            SLModel *node = [[self class] initWithId:(SLNid) responseObject[@"id"] inContext:context];
             node.syncState = @(SLSyncStateSynced);
-            [((SLNode *)node) loadDataFromDictionary: responseObject[@"data"]];
-            [((SLNode *)node) loadRelsFromArray: responseObject[@"rels"] inContext:context];
+            [((SLModel *)node) loadDataFromDictionary: responseObject[@"data"]];
+            [((SLModel *)node) loadRelsFromArray: responseObject[@"rels"] inContext:context];
             
             // Return
             // callback(node); // Returning in completion block now.
@@ -274,10 +274,10 @@
             for (NSDictionary* curr in arr)
             {
                 NSLog(@"curr: %@", curr);
-                SLNode *node = [[self class] initWithId:(SLNid) curr[@"id"] inContext:context];
+                SLModel *node = [[self class] initWithId:(SLNid) curr[@"id"] inContext:context];
                 node.syncState = @(SLSyncStateSynced);
-                [((SLNode *)node) loadDataFromDictionary: curr[@"data"]];
-                [((SLNode *)node) loadRelsFromArray: curr[@"rels"] inContext:context];
+                [((SLModel *)node) loadDataFromDictionary: curr[@"data"]];
+                [((SLModel *)node) loadRelsFromArray: curr[@"rels"] inContext:context];
                 
                 [nodes addObject: node];
                 NSLog(@"Node: %@",node);
@@ -315,7 +315,7 @@
 {
     NSLog(@"this is a test");
     
-    SLNode *node = [[[self class] alloc] init];
+    SLModel *node = [[[self class] alloc] init];
     node.syncState = @(SLSyncStatePendingCreation);
     
     // TODO: Fix this so it validates data and rels first
@@ -379,12 +379,12 @@
     
 }
 
-+ (void) deleteWithNode:(SLNode *)node
++ (void) deleteWithNode:(SLModel *)node
 {
     [[self class] deleteWithNode:node withCallback:nil];
 }
 
-+ (void) deleteWithNode:(SLNode *)node withCallback:(SLSuccessCallback)callback
++ (void) deleteWithNode:(SLModel *)node withCallback:(SLSuccessCallback)callback
 {
     [[self class] deleteWithId:node.nid withCallback:^(BOOL success) {
         if (success)
@@ -424,7 +424,7 @@
             }
         }
     };
-    SLNode *node;
+    SLModel *node;
     for (node in nodes)
     {
         [node removeWithCallback:^(BOOL success)
@@ -554,7 +554,7 @@
             SLRelationshipDirection dir = [rel directionWithNode:self];
             NSLog(@"%@", rel);
             if (dir == SLRelationshipIncoming) {
-                SLNode *node = rel.startNode;
+                SLModel *node = rel.startNode;
                 NSLog(@"%@", node);
                 if (node != nil && node.nid != nil) {
                     NSLog(@"%@, %@, %@, %@", node, node.nid, [rel.startNode type], rel.name);
@@ -568,7 +568,7 @@
                     NSLog(@"Other node, %@, not yet pushed to server.", node);                    
                 }
             } else if (dir == SLRelationshipOutgoing) {
-                SLNode *node = rel.endNode;
+                SLModel *node = rel.endNode;
                 if (node != nil && node.nid != nil) {
                     [notSavedRels addObject:@{
                                           @"id":node.nid,

@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Streamlyne. All rights reserved.
 //
 
+#import <PromiseKit.h>
 #import "SLObject.h"
 #import "SLUser.h"
 
@@ -23,16 +24,22 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
 /**
  
  */
-#define SLExceptionMissingBaseUrl [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Must specify base URL." userInfo:nil]
+#define SLExceptionMissingHost [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Must specify Streamlyne API Server Host." userInfo:nil]
 
 
 @interface SLAPIManager : SLObject {
     
 }
 
-@property (strong, nonatomic) NSString *userEmail;
-@property (strong, nonatomic) NSString *userToken;
-@property (strong, nonatomic) NSURL *baseURL;
+@property (strong, nonatomic, setter=setEmail:) NSString *userEmail;
+@property (strong, nonatomic, setter=setPassword:) NSString *userPassword;
+@property (strong, nonatomic, setter=setOrganization:) NSString *userOrganization;
+
+/**
+ Host for creating URL.
+ See https://developer.apple.com/library/Mac/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/Reference/Reference.html#jumpTo_31 for more details.
+ */
+@property (strong, nonatomic) NSString *host;
 
 /**
  Returns the Shared Manager instance of `SLAPIManager`.
@@ -45,43 +52,47 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
 - (void) setBaseURL:(NSURL *)theBaseURL;
 
 /**
- 
+ Set the Email.
  */
 - (void) setEmail:(NSString *)theEmail;
 
 /**
- 
+ Set the password. Automatically saves as SHA1.
  */
-- (void) setToken:(NSString *)theToken;
+- (void) setPassword:(NSString *)thePassword;
 
+/**
+ Set the Organization.
+ */
+- (void) setOrganization:(NSString *)theOrganization;
 
 /**
  Perform an API request against the server.
  @param theMethod
  @param thePath
- @param theCallback
  */
-- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod
-                         withPath:(NSString *)thePath
-                   withParameters:(NSDictionary *)theParams
-                     withCallback:(SLRequestCallback)theCallback;
+- (PMKPromise *) performRequestWithMethod:(SLHTTPMethodType)theMethod
+                                 withPath:(NSString *)thePath
+                           withParameters:(NSDictionary *)theParams;
 
 /**
  Authenticate with user credentials.
  @param theEmail    The user's email.
- @param thePassword The passsword.
+ @param thePassword The user's passsword.
+ @param theOrganization The user's organization.
  */
-- (void) authenticateWithUserEmail:(NSString *)theEmail
+- (PMKPromise *) authenticateWithUserEmail:(NSString *)theEmail
                       withPassword:(NSString *)thePassword
-                      withCallback:(SLSuccessCallback)theCallback;
+                  withOrganization:(NSString *)theOrganization;
 
-/**
- Authenticate with user credentials.
- @param theEmail    The user's email.
- @param thePassword The passsword.
- */
-- (void) authenticateWithUser:(SLUser *)theUser
-                 withCallback:(SLSuccessCallback)theCallback;
+
+///**
+// Authenticate with user credentials.
+// @param theEmail    The user's email.
+// @param thePassword The passsword.
+// */
+//- (void) authenticateWithUser:(SLUser *)theUser
+//                 withCallback:(SLSuccessCallback)theCallback DEPRECATED_ATTRIBUTE;
 
 
 @end

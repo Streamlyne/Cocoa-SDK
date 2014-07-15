@@ -100,7 +100,7 @@ typedef void(^SLRequestCallback)(NSError *error, id operation, id responseObject
  // Circular dependencies
  */
 @class SLAPIManager;
-@class SLNode;
+@class SLModel;
 @class SLValue;
 @class SLRelationship;
 

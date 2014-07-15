@@ -24,7 +24,7 @@
  - `type`
  
  */
-@interface SLNode : NSManagedObject <SLNodeProtocol> {
+@interface SLModel : NSManagedObject <SLModelProtocol> {
 }
 // Properties
 /**
@@ -115,15 +115,15 @@
  ```
  
  */
-+ (NSDictionary *) attributeMappings;
++ (NSDictionary *) attributeMappings DEPRECATED_ATTRIBUTE;
 
 /**
  
  */
-- (NSString *) attributeForKey:(NSString *)key;
+- (NSString *) attributeForKey:(NSString *)key DEPRECATED_ATTRIBUTE;
 
 /**
- Key to Attribute mappings for the Node.
+ Key to Attribute mappings for the Model.
  */
 - (NSString *) keyForAttribute:(NSString *)attribute;
 
@@ -138,7 +138,7 @@
  @param nid         A valid `SLNid` for a node that will be retrieved from the database.
  @param callback    A callback for when the asycronous request has returned with the node.
  */
-+ (void) readById:(SLNid)nid withCallback:(void (^)(SLNode *))callback;
++ (void) readById:(SLNid)nid withCallback:(void (^)(SLModel *))callback;
 
 /**
  Returns the node with id corresponding to `SLNid`.
@@ -146,7 +146,7 @@
  @param filters     `NSDictionary` representing the desired fields and relationships to be requested.
  @param callback    A callback for when the asycronous request has returned with the node.
  */
-+ (void) readById:(SLNid)nid withFilters:(NSDictionary *)filters withCallback:(void (^)(SLNode *))callback;
++ (void) readById:(SLNid)nid withFilters:(NSDictionary *)filters withCallback:(void (^)(SLModel *))callback;
 
 
 /**
@@ -225,12 +225,12 @@
 /**
  Deletes {node}. This is done by calling {deleteWithId} with the id of {node}.
  */
-+ (void) deleteWithNode:(SLNode *)node;
++ (void) deleteWithNode:(SLModel *)node;
 
 /**
  Deletes {node}. This is done by calling {deleteWithId} with the id of {node}.
  */
-+ (void) deleteWithNode:(SLNode *)node withCallback:(SLSuccessCallback)callback;
++ (void) deleteWithNode:(SLModel *)node withCallback:(SLSuccessCallback)callback;
 
 
 /**

@@ -7,7 +7,7 @@
 //
 
 #import "SLObject.h"
-#import "SLNode.h"
+#import "SLModel.h"
 
 /** --------------------------------------------------------------------------------
  */
@@ -19,8 +19,8 @@
  Name of the relationship type.
  */
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) id<SLNodeProtocol> startNode;
-@property (strong, nonatomic) id<SLNodeProtocol> endNode;
+@property (strong, nonatomic) id<SLModelProtocol> startNode;
+@property (strong, nonatomic) id<SLModelProtocol> endNode;
 @property (nonatomic) BOOL required;
 
 

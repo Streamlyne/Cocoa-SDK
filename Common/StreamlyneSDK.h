@@ -10,7 +10,7 @@
 
 #import "SLObject.h"
 #import "SLAPIManager.h"
-#import "SLNode.h"
+#import "SLModel.h"
 #import "SLRelationship.h"
 #import "SLValue.h"
 // Custom Nodes

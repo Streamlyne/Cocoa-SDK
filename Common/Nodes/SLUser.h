@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Streamlyne. All rights reserved.
 //
 
-#import "SLNode.h"
+#import "SLModel.h"
 #import "SLOrganization.h"
 
 /**
  Custom `SLNode`, `SLUser`.
  */
-@interface SLUser : SLNode {
+@interface SLUser : SLModel {
     
 }
 

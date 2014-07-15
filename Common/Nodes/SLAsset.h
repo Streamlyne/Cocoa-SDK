@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "SLNode.h"
+#import "SLModel.h"
 
 
-@interface SLAsset : SLNode
+@interface SLAsset : SLModel
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * costCenter;
