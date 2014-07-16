@@ -194,8 +194,9 @@
 
 + (NSString *) type
 {
+    // return NSStringFromClass([instance class]);
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"You must override %@ in the subclass %@.", NSStringFromSelector(_cmd), [self class]]
+                                   reason:[NSString stringWithFormat:@"You must override method '%@' in the subclass '%@'.", NSStringFromSelector(_cmd), [self class]]
                                  userInfo:nil];
 }
 
@@ -257,7 +258,7 @@
     return [self readAllWithFilters:filters];
 }
 
-+ (PMKPromise *) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(NSArray *))callback
++ (PMKPromise *) readAllWithFilters:(NSDictionary *)filters
 {
     SLAPIManager *manager = [[self class] sharedAPIManager];
     NSLog(@"Manager: %@", manager);
@@ -272,7 +273,10 @@
         
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             
-            SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
+            NSLog(@"Inside saving block");
+            
+            [manager performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters]
+            .then(^(id responseObject, id operation) {
                 NSLog(@"SLRequestCallback completionBlock.");
                 NSLog(@"<%@>: %@", [responseObject class], responseObject);
                 NSMutableArray *nodes = [NSMutableArray array];
@@ -300,10 +304,8 @@
                 // Return all nodes!
                 fulfiller( [[self class] MR_findAll] );
                 
-            };
-            
-            [manager performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters]
-            .then(completionBlock);
+            })
+            .catch(rejecter);
             
         }];
         
@@ -358,80 +360,75 @@
 
 + (PMKPromise *) deleteWithId:(SLNid)nid
 {
-    SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
-        NSLog(@"SLRequestCallback completionBlock!");
-        NSLog(@"<%@>: %@", [responseObject class], responseObject);
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         
-        // TODO: Check if successful
         
-        fulfiller(true);
-    };
-    
-    NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
-    NSLog(@"theDeletePath: %@", thePath);
-    return [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodDELETE withPath:thePath withParameters:nil];
-}
-
-+ (void) deleteWithNode:(SLModel *)node
-{
-    [[self class] deleteWithNode:node withCallback:nil];
-}
-
-+ (void) deleteWithNode:(SLModel *)node withCallback:(SLSuccessCallback)callback
-{
-    [[self class] deleteWithId:node.nid withCallback:^(BOOL success) {
-        if (success)
-        {
-            node.nid = SLNidNodeNotCreated; // Remove
-            callback(true);
-        } else
-        {
-            callback(false);
-        }
+        SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
+            NSLog(@"SLRequestCallback completionBlock!");
+            NSLog(@"<%@>: %@", [responseObject class], responseObject);
+            
+            // TODO: Check if successful
+            if (error != nil) {
+                fulfiller(PMKManifold(responseObject, operation));
+            } else {
+                rejecter(error);
+            }
+        };
+        
+        NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
+        NSLog(@"theDeletePath: %@", thePath);
+        [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodDELETE withPath:thePath withParameters:nil].then(completionBlock);
+        
     }];
 }
 
-+ (void) deleteWithNodeArray:(NSArray *)nodes
++ (PMKPromise *) deleteWithNode:(SLModel *)node
 {
-    [[self class] deleteWithNodeArray:nodes withProgressCallback:nil withCallback:nil];
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        
+        [[self class] deleteWithId:node.nid].then(^() {
+            node.nid = SLNidNodeNotCreated; // Remove
+            fulfiller(node);
+        }).catch(rejecter);
+    }];
 }
 
-+ (void) deleteWithNodeArray:(NSArray *)nodes withCallback:(SLSuccessCallback)callback
++ (PMKPromise *) deleteWithNodeArray:(NSArray *)nodes
 {
-    [[self class] deleteWithNodeArray:nodes withProgressCallback:nil withCallback:callback];
+    return [[self class] deleteWithNodeArray:nodes withProgressCallback:nil];
 }
 
-+ (void) deleteWithNodeArray:(NSArray *)nodes withProgressCallback:(void (^)(NSUInteger idx))progress withCallback:(SLSuccessCallback)callback {
++ (PMKPromise *) deleteWithNodeArray:(NSArray *)nodes withProgressCallback:(void (^)(NSUInteger idx, id item)) progress {
     
-    __block BOOL successful = true;
-    __block NSUInteger completed = 0;
-    __block NSUInteger totalNodes = [nodes count];
-    __block void (^ completionCallback)() = ^{
-        // Check if all nodes have been processed (removed)
-        if (completed >= totalNodes)
-        {
-            // All nodes processed, check for completion callback
-            if (callback != nil)
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        
+        __block NSUInteger completed = 0;
+        __block NSUInteger totalNodes = [nodes count];
+        __block void (^ completionCallback)() = ^{
+            // Check if all nodes have been processed (removed)
+            if (completed >= totalNodes)
             {
-                callback(successful);
+                // All nodes processed, check for completion callback
+                fulfiller(nodes);
             }
+        };
+        SLModel *node;
+        for (node in nodes)
+        {
+            [node remove]
+            .then(^()
+             {
+                 if (progress != nil) {
+                     progress(completed, node);
+                 }
+                 completed++;
+                 completionCallback();
+             }).catch(^(NSError *error) {
+                 rejecter(error);
+             });
         }
-    };
-    SLModel *node;
-    for (node in nodes)
-    {
-        [node removeWithCallback:^(BOOL success)
-         {
-             if (!success) {
-                 successful = false;
-             }
-             if (progress != nil) {
-                 progress(completed);
-             }
-             completed++;
-             completionCallback();
-         }];
-    }
+        
+    }];
 }
 
 /*
@@ -706,14 +703,9 @@
     }
 }
 
-- (void) remove
+- (PMKPromise *) remove
 {
-    [self removeWithCallback:nil];
-}
-
-- (void) removeWithCallback:(SLSuccessCallback)callback
-{
-    [[self class] deleteWithNode:self withCallback:callback];
+    return [[self class] deleteWithNode:self];
 }
 
 - (void) didChangeValueForKey:(NSString *)key {

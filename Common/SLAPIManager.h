@@ -35,6 +35,18 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
 @property (strong, nonatomic, setter=setPassword:) NSString *userPassword;
 @property (strong, nonatomic, setter=setOrganization:) NSString *userOrganization;
 
+
+/**
+ 
+ */
++(NSString *) sha1:(NSString *)plainText;
+
+/**
+ 
+ */
++(NSString *)hmac:(NSString *)plainText withSecret:(NSString *)key;
+
+
 /**
  Host for creating URL.
  See https://developer.apple.com/library/Mac/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/Reference/Reference.html#jumpTo_31 for more details.
@@ -45,11 +57,6 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
  Returns the Shared Manager instance of `SLAPIManager`.
  */
 + (instancetype) sharedManager;
-
-/**
- 
- */
-- (void) setBaseURL:(NSURL *)theBaseURL;
 
 /**
  Set the Email.
@@ -84,15 +91,6 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
 - (PMKPromise *) authenticateWithUserEmail:(NSString *)theEmail
                       withPassword:(NSString *)thePassword
                   withOrganization:(NSString *)theOrganization;
-
-
-///**
-// Authenticate with user credentials.
-// @param theEmail    The user's email.
-// @param thePassword The passsword.
-// */
-//- (void) authenticateWithUser:(SLUser *)theUser
-//                 withCallback:(SLSuccessCallback)theCallback DEPRECATED_ATTRIBUTE;
 
 
 @end

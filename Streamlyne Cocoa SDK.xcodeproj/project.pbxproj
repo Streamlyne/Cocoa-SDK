@@ -24,7 +24,6 @@
 /* Begin PBXBuildFile section */
 		771F4B97186029D90093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
 		771F4B98186029D90093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
-		771F4BA318628AAA0093674F /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
 		7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
 		7720FC2918369CA20092D39B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2818369CA20092D39B /* XCTest.framework */; };
 		7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
@@ -71,42 +70,33 @@
 		77AD7DFB1842F6DC0053C02C /* SLOrganization.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE31842F6DC0053C02C /* SLOrganization.h */; };
 		77AD7DFC1842F6DC0053C02C /* SLOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE41842F6DC0053C02C /* SLOrganization.m */; };
 		77AD7DFE1842F6DC0053C02C /* SLOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE41842F6DC0053C02C /* SLOrganization.m */; };
-		77AD7DFF1842F6DC0053C02C /* SLOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE41842F6DC0053C02C /* SLOrganization.m */; };
 		77AD7E001842F6DC0053C02C /* SLUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE51842F6DC0053C02C /* SLUser.h */; };
 		77AD7E011842F6DC0053C02C /* SLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE61842F6DC0053C02C /* SLUser.m */; };
 		77AD7E031842F6DC0053C02C /* SLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE61842F6DC0053C02C /* SLUser.m */; };
-		77AD7E041842F6DC0053C02C /* SLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE61842F6DC0053C02C /* SLUser.m */; };
 		77AD7E051842F6DC0053C02C /* SLWorkOrder.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE71842F6DC0053C02C /* SLWorkOrder.h */; };
 		77AD7E061842F6DC0053C02C /* SLWorkOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */; };
 		77AD7E081842F6DC0053C02C /* SLWorkOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */; };
-		77AD7E091842F6DC0053C02C /* SLWorkOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */; };
 		77AD7E0A1842F6DC0053C02C /* SLAPIManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE91842F6DC0053C02C /* SLAPIManager.h */; };
 		77AD7E0B1842F6DC0053C02C /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DEA1842F6DC0053C02C /* SLAPIManager.m */; };
 		77AD7E0D1842F6DC0053C02C /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DEA1842F6DC0053C02C /* SLAPIManager.m */; };
-		77AD7E0E1842F6DC0053C02C /* SLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DEA1842F6DC0053C02C /* SLAPIManager.m */; };
 		77AD7E0F1842F6DC0053C02C /* SLCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEB1842F6DC0053C02C /* SLCommon.h */; };
 		77AD7E101842F6DC0053C02C /* SLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEC1842F6DC0053C02C /* SLModel.h */; };
 		77AD7E111842F6DC0053C02C /* SLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DED1842F6DC0053C02C /* SLModel.m */; };
 		77AD7E131842F6DC0053C02C /* SLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DED1842F6DC0053C02C /* SLModel.m */; };
-		77AD7E141842F6DC0053C02C /* SLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DED1842F6DC0053C02C /* SLModel.m */; };
 		77AD7E151842F6DC0053C02C /* SLNodeProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEE1842F6DC0053C02C /* SLNodeProtocol.h */; };
 		77AD7E161842F6DC0053C02C /* SLObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEF1842F6DC0053C02C /* SLObject.h */; };
 		77AD7E171842F6DC0053C02C /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF01842F6DC0053C02C /* SLObject.m */; };
 		77AD7E191842F6DC0053C02C /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF01842F6DC0053C02C /* SLObject.m */; };
-		77AD7E1A1842F6DC0053C02C /* SLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF01842F6DC0053C02C /* SLObject.m */; };
 		77AD7E1B1842F6DC0053C02C /* SLRelationship.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DF11842F6DC0053C02C /* SLRelationship.h */; };
 		77AD7E1C1842F6DC0053C02C /* SLRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF21842F6DC0053C02C /* SLRelationship.m */; };
 		77AD7E1E1842F6DC0053C02C /* SLRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF21842F6DC0053C02C /* SLRelationship.m */; };
-		77AD7E1F1842F6DC0053C02C /* SLRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF21842F6DC0053C02C /* SLRelationship.m */; };
 		77AD7E201842F6DC0053C02C /* StreamlyneSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DF31842F6DC0053C02C /* StreamlyneSDK.h */; };
 		77AD7E211842F6DC0053C02C /* SLValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DF41842F6DC0053C02C /* SLValue.h */; };
 		77AD7E221842F6DC0053C02C /* SLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF51842F6DC0053C02C /* SLValue.m */; };
 		77AD7E241842F6DC0053C02C /* SLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF51842F6DC0053C02C /* SLValue.m */; };
-		77AD7E251842F6DC0053C02C /* SLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DF51842F6DC0053C02C /* SLValue.m */; };
 		77AD7E2818430F1A0053C02C /* SLGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7E2618430F1A0053C02C /* SLGroup.h */; };
 		77AD7E2918430F1A0053C02C /* SLGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7E2718430F1A0053C02C /* SLGroup.m */; };
 		77AD7E2B18430F1A0053C02C /* SLGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7E2718430F1A0053C02C /* SLGroup.m */; };
-		77AD7E2C18430F1A0053C02C /* SLGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7E2718430F1A0053C02C /* SLGroup.m */; };
 		77B4EA0F184094D400435B97 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77B4EA0E184094D400435B97 /* Cocoa.framework */; };
 		77B4EA19184094D400435B97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77B4EA17184094D400435B97 /* InfoPlist.strings */; };
 		77B4EA1D184094D400435B97 /* Streamlyne_Mac_SDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4EA1C184094D400435B97 /* Streamlyne_Mac_SDK.m */; };
@@ -116,7 +106,6 @@
 		77B4EA2D184094D400435B97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77B4EA2B184094D400435B97 /* InfoPlist.strings */; };
 		77B4EA371840960B00435B97 /* Guide in Resources */ = {isa = PBXBuildFile; fileRef = 77B4EA361840960B00435B97 /* Guide */; };
 		77B4EA4F18409D0A00435B97 /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
-		77B4EA5018409D3200435B97 /* Streamlyne_Mac_SDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4EA1C184094D400435B97 /* Streamlyne_Mac_SDK.m */; };
 		77BE8F2518773B600098C907 /* SLSite.h in Headers */ = {isa = PBXBuildFile; fileRef = 77BE8F2318773B600098C907 /* SLSite.h */; };
 		77BE8F2618773B600098C907 /* SLSite.h in Headers */ = {isa = PBXBuildFile; fileRef = 77BE8F2318773B600098C907 /* SLSite.h */; };
 		77BE8F2718773B600098C907 /* SLSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE8F2418773B600098C907 /* SLSite.m */; };
@@ -580,6 +569,9 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = Streamlyne;
 				TargetAttributes = {
+					7720FC2618369CA20092D39B = {
+						TestTargetID = 7720FC1618369CA10092D39B;
+					};
 					77B4EA21184094D400435B97 = {
 						TestTargetID = 77B4EA0C184094D400435B97;
 					};
@@ -791,18 +783,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77AD7E2C18430F1A0053C02C /* SLGroup.m in Sources */,
-				77AD7E141842F6DC0053C02C /* SLModel.m in Sources */,
-				77B4EA5018409D3200435B97 /* Streamlyne_Mac_SDK.m in Sources */,
 				77B4EA4F18409D0A00435B97 /* Streamlyne_iOS_SDKTests.m in Sources */,
-				77AD7E1F1842F6DC0053C02C /* SLRelationship.m in Sources */,
-				77AD7E1A1842F6DC0053C02C /* SLObject.m in Sources */,
-				77AD7E251842F6DC0053C02C /* SLValue.m in Sources */,
-				77AD7DFF1842F6DC0053C02C /* SLOrganization.m in Sources */,
-				77AD7E091842F6DC0053C02C /* SLWorkOrder.m in Sources */,
-				77AD7E041842F6DC0053C02C /* SLUser.m in Sources */,
-				771F4BA318628AAA0093674F /* Streamlyne.xcdatamodeld in Sources */,
-				77AD7E0E1842F6DC0053C02C /* SLAPIManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -967,6 +948,7 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Streamlyne_Cocoa_SDK-fjqjkmnrhloggrcbsegetsdkwdqw/Build/Products/Release",
 				);
 				PRODUCT_NAME = "Streamlyne-iOS-SDKTests";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -988,6 +970,7 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Streamlyne_Cocoa_SDK-fjqjkmnrhloggrcbsegetsdkwdqw/Build/Products/Release",
 				);
 				PRODUCT_NAME = "Streamlyne-iOS-SDKTests";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

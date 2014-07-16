@@ -37,39 +37,39 @@
     [attrMap setValue:@"dateDue" forKey:@"date_due"];
     return [NSDictionary dictionaryWithDictionary: attrMap];
 }
-
-+ (void) registerUser:(SLUser *)theUser withOrganization:(SLOrganization *)theOrg withCallback:(SLSuccessCallback)theCallback
-{
-    /*
-    SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
-        //NSLog(@"SLRequestCallback completionBlock!");
-        //NSLog(@"<%@>: %@", [responseObject class], responseObject);
-        theCallback ? theCallback(true) : nil;
-    };
-     */
-    SLRelationship *rel = [[SLRelationship alloc] initWithName:@"member" withStartNode:theUser withEndNode:theOrg];
-    [theUser pushWithAPIManager:[SLAPIManager sharedManager] withCallback:theCallback];
-}
-
-
-+ (void) registerUserWithEmail:(NSString *)email
-                  withPassword:(NSString *)password
-                  withJobTitle:(NSString *)jobTitle
-                 withFirstName:(NSString *)firstName
-                  withLastName:(NSString *)lastName
-              withOrganization:(SLOrganization *)theOrg
-                  withCallback:(SLSuccessCallback)theCallback
-{
-    NSDictionary *data = @{
-                           @"email": email,
-                           @"password": password,
-                           @"job_title": jobTitle,
-                           @"name_first": firstName,
-                           @"name_last": lastName
-                       };
-    SLUser *newUser = [SLUser createWithData:data
-                                    withRels:(NSArray *)@[]];
-    [[self class] registerUser:newUser withOrganization:theOrg withCallback:theCallback];
-}
+//
+//+ (void) registerUser:(SLUser *)theUser withOrganization:(SLOrganization *)theOrg withCallback:(SLSuccessCallback)theCallback
+//{
+//    /*
+//    SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
+//        //NSLog(@"SLRequestCallback completionBlock!");
+//        //NSLog(@"<%@>: %@", [responseObject class], responseObject);
+//        theCallback ? theCallback(true) : nil;
+//    };
+//     */
+//    SLRelationship *rel = [[SLRelationship alloc] initWithName:@"member" withStartNode:theUser withEndNode:theOrg];
+//    [theUser pushWithAPIManager:[SLAPIManager sharedManager] withCallback:theCallback];
+//}
+//
+//
+//+ (void) registerUserWithEmail:(NSString *)email
+//                  withPassword:(NSString *)password
+//                  withJobTitle:(NSString *)jobTitle
+//                 withFirstName:(NSString *)firstName
+//                  withLastName:(NSString *)lastName
+//              withOrganization:(SLOrganization *)theOrg
+//                  withCallback:(SLSuccessCallback)theCallback
+//{
+//    NSDictionary *data = @{
+//                           @"email": email,
+//                           @"password": password,
+//                           @"job_title": jobTitle,
+//                           @"name_first": firstName,
+//                           @"name_last": lastName
+//                       };
+//    SLUser *newUser = [SLUser createWithData:data
+//                                    withRels:(NSArray *)@[]];
+//    [[self class] registerUser:newUser withOrganization:theOrg withCallback:theCallback];
+//}
 
 @end

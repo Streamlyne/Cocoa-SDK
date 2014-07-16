@@ -19,4 +19,9 @@
 @dynamic serial;
 @dynamic attributes;
 
++ (NSString *) type
+{
+    return @"asset";
+}
+
 @end

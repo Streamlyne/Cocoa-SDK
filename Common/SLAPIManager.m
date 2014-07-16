@@ -65,6 +65,8 @@ static SLAPIManager *sharedSingleton = nil;
 
 +(NSString *) sha1:(NSString *)plainText
 {
+    // TODO: Throw exception if plainText is nil
+    
     unsigned char digest[CC_SHA1_DIGEST_LENGTH];
     NSData *stringBytes = [plainText dataUsingEncoding: NSUTF8StringEncoding]; /* or some other encoding */
     if (CC_SHA1([stringBytes bytes], [stringBytes length], digest)) {
@@ -83,6 +85,9 @@ static SLAPIManager *sharedSingleton = nil;
 
 +(NSString *)hmac:(NSString *)plainText withSecret:(NSString *)key
 {
+    // TODO: Throw exception if either plaintText or key are nil
+    
+    
     const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];
     const char *cData = [plainText cStringUsingEncoding:NSASCIIStringEncoding];
     
@@ -101,108 +106,106 @@ static SLAPIManager *sharedSingleton = nil;
     return HMAC;
 }
 
-- (void) performRequestWithMethod:(SLHTTPMethodType)theMethod withPath:(NSString *)thePath withParameters:(NSDictionary *)theParams withCallback:(SLRequestCallback)theCallback
+- (PMKPromise *) performRequestWithMethod:(SLHTTPMethodType)theMethod
+                                 withPath:(NSString *)thePath
+                           withParameters:(NSDictionary *)theParams
 {
-    AFHTTPRequestOperationManager *requestManager = self.httpManager;
-    //NSLog(@"requestManager: %@", requestManager);
-    
-    NSLog(@"baseURL: %@ , httpManager: %@", self.host, self.httpManager);
-    
-    if (self.host == nil)
-    {
-        @throw SLExceptionMissingHost;
-    }
-    
-    //NSLog(@"baseURl: %@", self.baseURL);
-    //NSLog(@"thePath: %@", thePath);
-    NSURL *fullPath = [[NSURL alloc] initWithScheme:@"http" host:self.host path:thePath];
-    //    NSURL *fullPath = [NSURL URLWithString:[NSString stringWithFormat:@"%@", thePath] relativeToURL:self.host];
-    //NSLog(@"fullPath: %@", fullPath);
-    NSString *fullPathStr = [fullPath absoluteString];
-    //NSLog(@"Full path: %@", fullPathStr);
-    
-    // Prepare headers used for authentication
-    // Expiry
-    NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-    NSString *expiry = [NSString stringWithFormat:@"%f", timeInMiliseconds];
-    [requestManager setValue:expiry forKey:@"X-SL-Expires"];
-    // Organization
-    [requestManager setValue:self.userOrganization forKey:@"X-SL-Organization"];
-    // Username
-    [requestManager setValue:self.userEmail forKey:@"X-SL-Username"];
-    // HMAC
-    NSString *secret = _userPassword;
-    NSString *msg = @"";
-    NSString *hmac = [SLAPIManager hmac:msg withSecret:secret];
-    [requestManager setValue:hmac forKey:@"hmac"];
-    
-    
-    switch (theMethod) {
-        case SLHTTPMethodGET:
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        
+        AFHTTPRequestOperationManager *requestManager = self.httpManager;
+        //NSLog(@"requestManager: %@", requestManager);
+        
+        NSLog(@"baseURL: %@ , httpManager: %@", self.host, self.httpManager);
+        
+        if (self.host == nil)
         {
-            NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theParams
-                                                               options:NSJSONWritingPrettyPrinted
-                                                                 error:&error];
-            NSString *encodedJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            NSLog(@"encodedJson: %@", encodedJson);
-            //encodedJson = @"{\"filter\":{\"fields\":true,\"rels\":true}}";
-            NSLog(@"GET %@", fullPathStr);
-            [requestManager GET:fullPathStr parameters:@{@"p":encodedJson} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"Success, JSON: %@", responseObject);
-                if (theCallback != nil) {
-                    theCallback(nil, operation, responseObject);
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@", error);
-                NSLog(@"Response: %@", operation.responseString);
-                if (theCallback != nil) {
-                    theCallback(error, operation, nil);
-                }
-            }];
+            @throw SLExceptionMissingHost;
         }
-            break;
-        case SLHTTPMethodPOST:
-        {
-            [requestManager POST:fullPathStr parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"Success, JSON: %@", responseObject);
-                if (theCallback != nil) {
-                    theCallback(nil, operation, responseObject);
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@", error);
-                NSLog(@"Response: %@", operation.responseString);
-                if (theCallback != nil) {
-                    theCallback(error, operation, nil);
-                }
-            }];
+        
+        //NSLog(@"baseURl: %@", self.baseURL);
+        NSLog(@"thePath: %@", thePath);
+        NSString *absPath = [NSString stringWithFormat:@"/%@/%@", @"api/v1", thePath];
+        NSLog(@"absPath: %@", absPath);
+        NSURL *fullPath = [[NSURL alloc] initWithScheme:@"http" host:self.host path:absPath];
+        //    NSURL *fullPath = [NSURL URLWithString:[NSString stringWithFormat:@"%@", thePath] relativeToURL:self.host];
+        NSLog(@"fullPath: %@", fullPath);
+        NSString *fullPathStr = [fullPath absoluteString];
+        NSLog(@"Full path: %@", fullPathStr);
+        
+        // Prepare headers used for authentication
+        // Expiry
+        NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
+        NSInteger expiryDuration = 60; // in seconds
+        NSString *expiry = [NSString stringWithFormat:@"%ld", (long) timeInMiliseconds + expiryDuration];
+        [requestManager.requestSerializer setValue:expiry forHTTPHeaderField:@"X-SL-Expires"];
+        // Organization
+        [requestManager.requestSerializer setValue:self.userOrganization forHTTPHeaderField:@"X-SL-Organization"];
+        // Username
+        [requestManager.requestSerializer setValue:self.userEmail forHTTPHeaderField:@"X-SL-Username"];
+        // HMAC
+        NSString *secret = _userPassword;
+        NSLog(@"Secret: %@", secret);
+        NSString *msg = @"";
+        NSString *hmac = [SLAPIManager hmac:msg withSecret:secret];
+        [requestManager.requestSerializer setValue:hmac forHTTPHeaderField:@"hmac"];
+        
+        switch (theMethod) {
+            case SLHTTPMethodGET:
+            {
+                NSError *error;
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theParams
+                                                                   options:NSJSONWritingPrettyPrinted
+                                                                     error:&error];
+                NSString *encodedJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                NSLog(@"encodedJson: %@", encodedJson);
+                //encodedJson = @"{\"filter\":{\"fields\":true,\"rels\":true}}";
+                NSLog(@"GET %@", fullPathStr);
+                [requestManager GET:fullPathStr parameters:@{@"p":encodedJson} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSLog(@"Success, JSON: %@", responseObject);
+                    fulfiller(PMKManifold(responseObject, operation));
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    NSLog(@"Response: %@", operation.responseString);
+                    rejecter(error);
+                }];
+            }
+                break;
+            case SLHTTPMethodPOST:
+            {
+                [requestManager POST:fullPathStr parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSLog(@"Request: %@", operation.request);
+                    NSLog(@"Success, JSON: %@", responseObject);
+                    fulfiller(PMKManifold(responseObject, operation));
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Request: %@", operation.request);
+                    NSLog(@"Error: %@", error);
+                    NSLog(@"Response: %@", operation.responseString);
+                    rejecter(error);
+                }];
+            }
+                break;
+            case SLHTTPMethodPUT:
+            {
+                [self performRequestWithMethod:SLHTTPMethodPUT withPath:thePath withParameters:theParams].then(fulfiller).catch(rejecter);
+            }
+                break;
+            case SLHTTPMethodDELETE:
+            {
+                [self.httpManager DELETE:[fullPath absoluteString] parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSLog(@"Success, JSON: %@", responseObject);
+                    fulfiller(PMKManifold(responseObject, operation));
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    NSLog(@"Response: %@", operation.responseString);
+                    rejecter(error);
+                }];
+            }
+                break;
+            default:
+                @throw SLExceptionImplementationNotFound;
+                break;
         }
-            break;
-        case SLHTTPMethodPUT:
-        {
-            [self performRequestWithMethod:SLHTTPMethodPUT withPath:thePath withParameters:theParams withCallback:theCallback];
-        }
-            break;
-        case SLHTTPMethodDELETE:
-        {
-            [self.httpManager DELETE:[fullPath absoluteString] parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"Success, JSON: %@", responseObject);
-                if (theCallback != nil) {
-                    theCallback(nil, operation, responseObject);
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@", error);
-                NSLog(@"Response: %@", operation.responseString);
-                if (theCallback != nil) {
-                    theCallback(error, operation, nil);
-                }
-            }];
-        }
-            break;
-        default:
-            @throw SLExceptionImplementationNotFound;
-            break;
-    }
+    }];
 }
 
 
@@ -212,37 +215,35 @@ static SLAPIManager *sharedSingleton = nil;
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         
-        //    [self setEmail:response[@"email"]];
-        //    [self setToken:response[@"token"]];
+        //
+        [self setEmail:theEmail];
+        [self setPassword:thePassword];
+        [self setOrganization:theOrganization];
         
+        //
         if (theEmail != nil && thePassword != nil && theOrganization != nil )
         {
-            
-            [self performRequestWithMethod:SLHTTPMethodPOST withPath:@"authenticate" withParameters:@{@"email":theEmail, @"password":thePassword} withCallback:^(NSError *error, id operation, id responseObject) {
-                if (error == nil )
-                {
-                    // Store the token
-                    NSDictionary *response = (NSDictionary *)responseObject;
-                    
-                    fulfiller(PMKManifold(response, operation));
-                } else
-                {
-                    rejecter(PMKManifold(error, responseObject, operation));
-                }
-            }];
+            [self performRequestWithMethod:SLHTTPMethodPOST
+                                  withPath:@"me"
+                            withParameters:@{
+                                             @"email":theEmail,
+                                             @"password":thePassword
+                                             }]
+            .then(^(id operation, id responseObject) {
+                
+                // Store the token
+                NSDictionary *response = (NSDictionary *)responseObject;
+                
+                fulfiller(PMKManifold(response, operation));
+            }).catch(^(NSError *error, id operation, id responseObject) {
+                    rejecter(error);
+            });
         } else
         {
             rejecter([NSException exceptionWithName:NSInternalInconsistencyException reason:@"Authenticating requires user's email, password, and organization." userInfo:nil]);
         }
-        
     }];
 }
-
-//- (void) authenticateWithUser:(SLUser *)theUser
-//                 withCallback:(SLSuccessCallback)theCallback
-//{
-//    [self authenticateWithUserEmail:[theUser get:@"email"] withPassword:[theUser get:@"password"] withCallback:theCallback];
-//}
 
 
 @end

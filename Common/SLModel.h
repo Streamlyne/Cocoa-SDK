@@ -60,13 +60,13 @@
  ## Manipulating the Schema
  Sample code to put in your init method.
  
-    // Create a Mutable copy of the data
-    NSMutableDictionary *tempData = [self.data mutableCopy];
-    // Make changes, by adding `SLValue`s
-    SLValue *idVal = [[SLValue alloc]initWithType:[NSString class]];
-    [tempData setValue:idVal forKey:@"id"];
-    // Change the base data schema to the new data schema.
-    self.data = tempData;
+ // Create a Mutable copy of the data
+ NSMutableDictionary *tempData = [self.data mutableCopy];
+ // Make changes, by adding `SLValue`s
+ SLValue *idVal = [[SLValue alloc]initWithType:[NSString class]];
+ [tempData setValue:idVal forKey:@"id"];
+ // Change the base data schema to the new data schema.
+ self.data = tempData;
  
  @deprecated Use `MR_createEntity`.
  */
@@ -79,7 +79,7 @@
 /**
  Returns an object initialized with the specific `SLNid` nid.
  
- Used for initializing nodes given a known nid. 
+ Used for initializing nodes given a known nid.
  If the node has already been initialized, that same node in memory will be returned.
  
  @param nid
@@ -159,7 +159,7 @@
  
  @param callback  The C-block style callback.
  @return void
-
+ 
  @deprecate Use `readAllWithAPIManager` instead.
  */
 + (PMKPromise *) readAll;
@@ -187,13 +187,13 @@
 
 
 /**
- Creates a node client side (not persisted). 
+ Creates a node client side (not persisted).
  This node needs to be be saved to be persisted in any manner.
  */
 + (instancetype) createWithData:(NSDictionary *)theData withRels:(NSArray *)theRels;
 
 /**
- Creates a node client side (not persisted). 
+ Creates a node client side (not persisted).
  This node needs to be be saved to be persisted in any manner.
  */
 + (instancetype) createWithData:(NSDictionary *)data;
@@ -215,23 +215,13 @@
 /**
  Deletes the node with the corresponding `SLNid`.
  */
-+ (void) deleteWithId:(SLNid)nid;
-
-/**
- Deletes the node with the corresponding `SLNid`, with callback.
- */
-+ (void) deleteWithId:(SLNid)nid withCallback:(SLSuccessCallback)callback;
++ (PMKPromise *) deleteWithId:(SLNid)nid;
 
 
 /**
  Deletes {node}. This is done by calling {deleteWithId} with the id of {node}.
  */
-+ (void) deleteWithNode:(SLModel *)node;
-
-/**
- Deletes {node}. This is done by calling {deleteWithId} with the id of {node}.
- */
-+ (void) deleteWithNode:(SLModel *)node withCallback:(SLSuccessCallback)callback;
++ (PMKPromise *) deleteWithNode:(SLModel *)node;
 
 
 /**
@@ -239,22 +229,14 @@
  {deleteWithId} to all nodes contained in the set {nodes} using their node
  id's.
  */
-+ (void) deleteWithNodeArray:(NSArray *)nodes;
++ (PMKPromise *) deleteWithNodeArray:(NSArray *)nodes;
 
 /**
  Deletes a set of nodes, {nodes}. This is done by applying the function
  {deleteWithId} to all nodes contained in the set {nodes} using their node
  id's.
  */
-+ (void) deleteWithNodeArray:(NSArray *)nodes withCallback:(SLSuccessCallback)callback;
-
-/**
- Deletes a set of nodes, {nodes}. This is done by applying the function
- {deleteWithId} to all nodes contained in the set {nodes} using their node
- id's.
- */
-+ (void) deleteWithNodeArray:(NSArray *)nodes withProgressCallback:(void (^)(NSUInteger idx))progress withCallback:(SLSuccessCallback)callback;
-
++ (PMKPromise *) deleteWithNodeArray:(NSArray *)nodes withProgressCallback:(void (^)(NSUInteger idx, id item)) progress ;
 /**
  Return the {type} of this node.
  */
@@ -289,7 +271,7 @@
  This done by iterating through {data} and compiling a list of node SLValues
  that haven't been saved. From the set of unsaved properties a update request to
  SLAPI may be formulated.
-
+ 
  @deprecated Use `pushWithAPIManager:withCallback` instead.
  */
 - (void) save DEPRECATED_ATTRIBUTE;
@@ -312,7 +294,7 @@
  that haven't been saved. From the set of unsaved properties a update request to
  SLAPI may be formulated.
  */
-- (void) pushWithAPIManager:(SLAPIManager *)manager withCallback:(SLSuccessCallback)callback;
+- (PMKPromise *) pushWithAPIManager:(SLAPIManager *)manager;
 
 /**
  Returns the value of the internal boolean {isSaved}.
@@ -347,13 +329,8 @@
 /**
  Delete's this instance from the database.
  */
-- (void) remove;
+- (PMKPromise *) remove;
 
-
-/**
- Delete's this instance from the database, with callback on completion.
- */
-- (void) removeWithCallback:(SLSuccessCallback)callback;
 
 /**
  
