@@ -124,7 +124,6 @@
 		77BE8F291877B8AF0098C907 /* Streamlyne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */; };
 		77ED5DB0183FE91500905A3D /* Streamlyne_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */; };
 		92F7ADA5AAA84B5CB9EC0C92 /* libPods-Streamlyne-Mac-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD262B1AFB1147419CB78D50 /* libPods-Streamlyne-Mac-SDK.a */; };
-		9FAB3B915AEF4B3C91CD4925 /* libPods-Streamlyne-iOS-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C9C0453FF246D08D7516AD /* libPods-Streamlyne-iOS-SDK.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -244,7 +243,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7720FC1B18369CA10092D39B /* Foundation.framework in Frameworks */,
-				9FAB3B915AEF4B3C91CD4925 /* libPods-Streamlyne-iOS-SDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

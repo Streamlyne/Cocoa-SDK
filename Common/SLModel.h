@@ -10,6 +10,7 @@
 #import "CoreData+MagicalRecord.h"
 #import "SLObject.h"
 #import "SLValue.h"
+#import <PromiseKit.h>
 
 /**
  `SLNode` is intended to be implemented and then subclassed.
@@ -138,7 +139,7 @@
  @param nid         A valid `SLNid` for a node that will be retrieved from the database.
  @param callback    A callback for when the asycronous request has returned with the node.
  */
-+ (void) readById:(SLNid)nid withCallback:(void (^)(SLModel *))callback;
++ (PMKPromise *) readById:(SLNid)nid;
 
 /**
  Returns the node with id corresponding to `SLNid`.
@@ -146,7 +147,7 @@
  @param filters     `NSDictionary` representing the desired fields and relationships to be requested.
  @param callback    A callback for when the asycronous request has returned with the node.
  */
-+ (void) readById:(SLNid)nid withFilters:(NSDictionary *)filters withCallback:(void (^)(SLModel *))callback;
++ (PMKPromise *) readById:(SLNid)nid withFilters:(NSDictionary *)filters;
 
 
 /**
@@ -161,7 +162,7 @@
 
  @deprecate Use `readAllWithAPIManager` instead.
  */
-+ (void) readAllWithCallback:(void (^)(NSArray *))callback DEPRECATED_ATTRIBUTE;
++ (PMKPromise *) readAll;
 
 /**
  Returns all nodes of the type subclassed by `SLNode`.
@@ -172,7 +173,7 @@
  
  @deprecate Use `readAllWithAPIManager` instead.
  */
-+ (void) readAllWithFilters:(NSDictionary *)filters withCallback:(void (^)(NSArray *))callback DEPRECATED_ATTRIBUTE;
++ (PMKPromise *) readAllWithFilters:(NSDictionary *)filters;
 
 /**
  Returns all nodes of the type subclassed by `SLNode`.
@@ -182,7 +183,7 @@
  @param filters     `NSDictionary` representing the desired fields and relationships to be requested.
  @return void
  */
-+ (void) readAllWithAPIManager:(SLAPIManager *)manager withFilters:(NSDictionary *)filters withCallback:(void (^)(NSArray *))callback;
++ (PMKPromise *) readAllWithAPIManager:(SLAPIManager *)manager withFilters:(NSDictionary *)filters;
 
 
 /**
