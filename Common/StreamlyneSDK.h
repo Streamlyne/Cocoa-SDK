@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 
 #import "SLObject.h"
-#import "SLAPIManager.h"
+#import "SLClient.h"
+#import "SLAdapter.h"
 #import "SLModel.h"
-#import "SLRelationship.h"
-#import "SLValue.h"
 // Custom Nodes
 #import "SLOrganization.h"
 #import "SLUser.h"

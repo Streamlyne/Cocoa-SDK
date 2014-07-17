@@ -11,7 +11,7 @@
 #import "StreamlyneSDK.h"
 
 @interface Streamlyne_iOS_SDKTests : XCTestCase
-
+@property (nonatomic, strong) SLClient *client;
 @end
 
 @implementation Streamlyne_iOS_SDKTests
@@ -36,37 +36,30 @@ while(condition) { \
 (XCTAssertTrue([a isEqualToString:b], format) );
 
 
-//
+// Put setup code here. This method is called before the invocation of each test method in the class.
 - (void)setUp
 {
     [super setUp];
     
     NSLog(@"setUp");
     
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-    SLAPIManager *manager = [SLAPIManager sharedManager];
-    //[manager setBaseURL:[NSURL URLWithString:@"http://54.208.98.191:5000/api/"]];
-    //    [manager setBaseURL:[NSURL URLWithString:@"http://localhost:5000/api/"]];
-    [manager setHost:@"localhost:5000"];
-    
-//    [[SLAPIManager sharedManager]
-//        authenticateWithUserEmail:@"testing@streamlyne.co"
-//        withPassword:@"testing"
-//        withOrganization:@"test"];
+    self.client = [SLClient connectWithHost:@"localhost:5000"];
     
     [MagicalRecord setDefaultModelFromClass:[self class]];
     [MagicalRecord setupCoreDataStackWithInMemoryStore];
+    NSLog(@"default context: %@", [NSManagedObjectContext MR_defaultContext]);
+    NSLog(@"inManagedObjectContext: %@", [NSManagedObjectContext MR_defaultContext].persistentStoreCoordinator.managedObjectModel.entities);
     
-    NSLog(@"Manager: %@", manager);
+    
 }
 
+// Put teardown code here. This method is called after the invocation of each test method in the class.
 - (void)tearDown
 {
     NSLog(@"tearDown");
     
     [MagicalRecord cleanUp];
     
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
@@ -74,12 +67,12 @@ while(condition) { \
 {
     NSString *password = @"thisIsATest";
     NSString *encoded = @"99ca2860a3204a9f4e50d6940a67f5ed279f45a9";
-    NSLog(@"%@ == %@", encoded, [SLAPIManager sha1:password]);
-    XCTAssertStringEqual(encoded, [SLAPIManager sha1:password], @"Password should have been correctly encoded.");
+    NSLog(@"%@ == %@", encoded, [SLAdapter sha1:password]);
+    XCTAssertStringEqual(encoded, [SLAdapter sha1:password], @"Password should have been correctly encoded.");
     
-    NSLog(@"%@", [SLAPIManager sha1:@"password"]);
+    NSLog(@"%@", [SLAdapter sha1:@"password"]);
     
-    SLAPIManager *manager = [SLAPIManager sharedManager];
+    SLAdapter *manager = [SLAdapter sharedAdapter];
     [manager setPassword:@"thisIsATest"];
     XCTAssertStringEqual(encoded, manager.userPassword, @"Password should have been encoded when saved.");
     
@@ -91,7 +84,7 @@ while(condition) { \
     NSString *secret = @"Streamlyne";
     NSString *hmac = @"1c2c34e017a17a6ae42c0dbdf6a3586f6735de3b";
     
-    NSString *result = [SLAPIManager hmac:message withSecret:secret];
+    NSString *result = [SLAdapter hmac:message withSecret:secret];
     XCTAssertStringEqual(result, hmac, @"HMACs should be the same.");
 }
 
@@ -99,9 +92,9 @@ while(condition) { \
 {
     
     StartBlock();
-    SLAPIManager *manager = [SLAPIManager sharedManager];
+    SLAdapter *manager = [SLAdapter sharedAdapter];
     
-    [manager authenticateWithUserEmail:@"test@test.co"
+    [manager authenticateWithUserEmail:@"test@streamlyne.co"
                           withPassword:@"password"
                       withOrganization:@"test"]
     .then(^() {
@@ -117,18 +110,21 @@ while(condition) { \
     
 }
 
-- (void) testAssets
+
+
+- (void) testLogin
 {
     
     StartBlock();
     
-    [SLAsset readAll]
-    .then(^(NSArray *assets) {
-        NSLog(@"%@", assets);
-        
-    })
-    .catch(^(NSError *error) {
-        NSLog(@"%@", error);
+    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
+                              withPassword:@"password"
+                          withOrganization:@"test"]
+    .then(^(SLClient *client, SLUser *me) {
+        NSLog(@"%@", me);
+        XCTAssertTrue(me != nil, @"PARTY. IT WORKED.");
+        XCTAssert([me.email isEqualToString:@"test@streamlyne.co"], @"Email of user should be the same as the one used for logging in.");
+    }).catch(^(NSError *error) {
         XCTFail(@"%@", error);
     })
     .finally(^() {
@@ -138,6 +134,35 @@ while(condition) { \
     WaitUntilBlockCompletes();
     
 }
+//
+//- (void) testAssets
+//{
+//    
+//    StartBlock();
+//    
+//    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
+//                              withPassword:@"password"
+//                          withOrganization:@"test"]
+//    .then(^(SLClient *client, SLUser *me) {
+//        
+//        [SLAsset findAll]
+//        .then(^(NSArray *assets) {
+//            NSLog(@"%@", assets);
+//            
+//        })
+//        .catch(^(NSError *error) {
+//            NSLog(@"%@", error);
+//            XCTFail(@"%@", error);
+//        })
+//        .finally(^() {
+//            EndBlock();
+//        });
+//        
+//    });
+//    
+//    WaitUntilBlockCompletes();
+//    
+//}
 
 
 @end

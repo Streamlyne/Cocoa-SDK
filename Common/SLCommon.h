@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, SLSyncState)
  
  */
 // typedef unsigned long int SLNid;
-typedef NSNumber *SLNid;
+typedef NSString *SLNid;
 #define SLNidNodeNotCreated nil
 
 /**
@@ -99,9 +99,8 @@ typedef void(^SLRequestCallback)(NSError *error, id operation, id responseObject
 /**
  // Circular dependencies
  */
-@class SLAPIManager;
 @class SLModel;
-@class SLValue;
-@class SLRelationship;
+@class SLStore;
+@class SLAdapter;
 
 #endif

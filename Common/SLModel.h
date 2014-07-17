@@ -100,7 +100,7 @@
  
  @private
  */
-+ (instancetype) setupData:(NSDictionary *)data;
+- (instancetype) setupData:(NSDictionary *)data;
 
 /**
  Return the node type name. This is used in the requests to the `SLAPIManager`.
@@ -128,124 +128,12 @@
  */
 + (NSArray *) pending;
 
-/**
- Returns the node with id corresponding to `SLNid`.
- @param nid         A valid `SLNid` for a node that will be retrieved from the database.
- @param callback    A callback for when the asycronous request has returned with the node.
- */
-+ (PMKPromise *) readById:(SLNid)nid;
-
-/**
- Returns the node with id corresponding to `SLNid`.
- @param nid         A valid `SLNid` for a node that will be retrieved from the database.
- @param filters     `NSDictionary` representing the desired fields and relationships to be requested.
- @param callback    A callback for when the asycronous request has returned with the node.
- */
-+ (PMKPromise *) readById:(SLNid)nid withFilters:(NSDictionary *)filters;
 
 
-/**
- Returns all nodes of the type subclassed by `SLNode`.
- 
- Filter is set to not request any fields (`SLValue`) or relationships (`SLRelationship`).
- 
- If you wish to request specific fields or relationships use `readAllWithFilters:withCallback:`.
- 
- @param callback  The C-block style callback.
- @return void
- 
- @deprecate Use `readAllWithAPIManager` instead.
- */
-+ (PMKPromise *) readAll;
-
-/**
- Returns all nodes of the type subclassed by `SLNode`.
- 
- @param callback    The C-block style callback.
- @param filters     `NSDictionary` representing the desired fields and relationships to be requested.
- @return void
- 
- @deprecate Use `readAllWithAPIManager` instead.
- */
-+ (PMKPromise *) readAllWithFilters:(NSDictionary *)filters;
-
-/**
- Returns all nodes of the type subclassed by `SLNode`.
- 
- @param manager     SLAPIManager instance.
- @param callback    The C-block style callback.
- @param filters     `NSDictionary` representing the desired fields and relationships to be requested.
- @return void
- */
-+ (PMKPromise *) readAllWithAPIManager:(SLAPIManager *)manager withFilters:(NSDictionary *)filters;
-
-
-/**
- Creates a node client side (not persisted).
- This node needs to be be saved to be persisted in any manner.
- */
-+ (instancetype) createWithData:(NSDictionary *)theData withRels:(NSArray *)theRels;
-
-/**
- Creates a node client side (not persisted).
- This node needs to be be saved to be persisted in any manner.
- */
-+ (instancetype) createWithData:(NSDictionary *)data;
-
-
-/**
- Creates a node client side (not persisted). This node needs to be
- be saved to be persisted in any manner.
- */
-+ (instancetype) createWithRels:(NSArray *)rels;
-
-/**
- Creates a node client side (not persisted). This node needs to be
- be saved to be persisted in any manner.
- */
-+ (instancetype) create;
-
-
-/**
- Deletes the node with the corresponding `SLNid`.
- */
-+ (PMKPromise *) deleteWithId:(SLNid)nid;
-
-
-/**
- Deletes {node}. This is done by calling {deleteWithId} with the id of {node}.
- */
-+ (PMKPromise *) deleteWithNode:(SLModel *)node;
-
-
-/**
- Deletes a set of nodes, {nodes}. This is done by applying the function
- {deleteWithId} to all nodes contained in the set {nodes} using their node
- id's.
- */
-+ (PMKPromise *) deleteWithNodeArray:(NSArray *)nodes;
-
-/**
- Deletes a set of nodes, {nodes}. This is done by applying the function
- {deleteWithId} to all nodes contained in the set {nodes} using their node
- id's.
- */
-+ (PMKPromise *) deleteWithNodeArray:(NSArray *)nodes withProgressCallback:(void (^)(NSUInteger idx, id item)) progress ;
 /**
  Return the {type} of this node.
  */
 - (NSString *) type;
-
-/**
- Returns the {rels}, relationships, of this node.
- */
-- (NSArray *) relationships;
-
-/**
- Pushes a relationship into {rels}, verify if start or end node is this node.
- @return Returns `true` or `false` if the relationship was successfully added the the node.
- */
-- (BOOL) addRelationship:(SLRelationship *)theRel;
 
 /**
  Returns the current value of the `SLValue` of the node's data with the key `attr`.
@@ -262,27 +150,7 @@
 /**
  Save the record and persist any changes to the record to an extenal source via the adapter.
  */
-- (void) save;
-
-/**
- Persists the node to the database, with callback on completion.
- 
- This done by iterating through {data} and compiling a list of node SLValues
- that haven't been saved. From the set of unsaved properties a update request to
- SLAPI may be formulated.
- 
- @deprecated Use `pushWithAPIManager:withCallback` instead.
- */
-- (void) saveWithCallback:(SLSuccessCallback)callback DEPRECATED_ATTRIBUTE;
-
-/**
- Persists the node to the database, with callback on completion.
- 
- This done by iterating through {data} and compiling a list of node SLValues
- that haven't been saved. From the set of unsaved properties a update request to
- SLAPI may be formulated.
- */
-- (PMKPromise *) pushWithAPIManager:(SLAPIManager *)manager;
+- (PMKPromise *) save;
 
 /**
  Returns the value of the internal boolean {isSaved}.
@@ -315,19 +183,14 @@
 - (void) discardChangesTo:(NSString *)attr;
 
 /**
- Delete's this instance from the database.
- */
-- (PMKPromise *) remove;
-
-/**
  Create a new record in the current store. The properties passed to this method are set on the newly created record.
  */
-- (instancetype) createRecord:(NSDictionary *)properties;
++ (instancetype) createRecord:(NSDictionary *)properties;
 
 /**
  This method returns a record for a given type and id combination.
  */
-- (PMKPromise *) findById:(SLNid)nid;
++ (PMKPromise *) findById:(SLNid)nid;
 
 /**
  This method delegates a query to the adapter. This is the one place where adapter-level semantics are exposed to the application.
@@ -336,24 +199,24 @@
  
  This method returns a promise, which is resolved with a RecordArray once the server returns.
  */
-- (PMKPromise *) findQuery:(NSDictionary *)query;
++ (PMKPromise *) findQuery:(NSDictionary *)query;
 
 /**
  This method returns an array of all records adapter can find. It triggers the adapter's findAll method to give it an opportunity to populate the array with records of that type.
  */
-- (PMKPromise *) findAll;
++ (PMKPromise *) findAll;
 
 /**
  
  */
-- (PMKPromise *) findMany:(NSArray *)ids;
++ (PMKPromise *) findMany:(NSArray *)ids;
 
 /**
  Update existing records in the store. Unlike push, update will merge the new data properties with the existing properties. This makes it safe to use with a subset of record attributes. This method expects normalized data.
  
  update is useful if you app broadcasts partial updates to records.
  */
-- (instancetype) updateRecord:(NSDictionary *)properties;
+- (PMKPromise *) updateRecord:(NSDictionary *)properties;
 
 /**
  If the model `isDirty` this function will discard any unsaved changes
@@ -361,9 +224,9 @@
 - (instancetype) rollback;
 
 /**
- For symmetry, a record can be deleted via the store.
+ A record can be deleted.
  */
-- (instancetype) deleteRecord;
+- (PMKPromise *) deleteRecord;
 
 /**
  Create a JSON representation of the record, using the serialization strategy of the store's adapter.

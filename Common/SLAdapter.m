@@ -6,13 +6,14 @@
 //  Copyright (c) 2013 Streamlyne. All rights reserved.
 //
 
-#import "SLAPIManager.h"
+#import "SLAdapter.h"
 #import <AFNetworking.h>
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>
+#import "SLUser.h"
 
-@interface SLAPIManager () {
+@interface SLAdapter () {
     
 }
 
@@ -20,7 +21,7 @@
 
 @end
 
-@implementation SLAPIManager
+@implementation SLAdapter
 @synthesize userEmail = _userEmail, userPassword = _userPassword, userOrganization = _userOrganization, host, httpManager;
 
 - (instancetype) init
@@ -41,13 +42,16 @@
         // Accept HTTP Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
         [httpManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [httpManager.requestSerializer setValue:@"utf-8" forHTTPHeaderField:@"Accept-Charset"];
+        // Handle Response
+        httpManager.responseSerializer = [AFJSONResponseSerializer serializer];
+        httpManager.responseSerializer.acceptableContentTypes = nil;
         
     }
     return self;
 }
 
-static SLAPIManager *sharedSingleton = nil;
-+ (instancetype) sharedManager
+static SLAdapter *sharedSingleton = nil;
++ (instancetype) sharedAdapter
 {
     @synchronized([self class])
     {
@@ -59,13 +63,14 @@ static SLAPIManager *sharedSingleton = nil;
 }
 
 - (void) setPassword:(NSString *)thePassword {
-    _userPassword = [SLAPIManager sha1:thePassword];
+    _userPassword = [SLAdapter sha1:thePassword];
 }
-
 
 +(NSString *) sha1:(NSString *)plainText
 {
-    // TODO: Throw exception if plainText is nil
+    if (plainText == nil) {
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Argument `plainText` cannot be nil." userInfo:nil];
+    }
     
     unsigned char digest[CC_SHA1_DIGEST_LENGTH];
     NSData *stringBytes = [plainText dataUsingEncoding: NSUTF8StringEncoding]; /* or some other encoding */
@@ -83,12 +88,16 @@ static SLAPIManager *sharedSingleton = nil;
     }
 }
 
-+(NSString *)hmac:(NSString *)plainText withSecret:(NSString *)key
++(NSString *)hmac:(NSString *)plainText withSecret:(NSString *)secret
 {
-    // TODO: Throw exception if either plaintText or key are nil
+    if (plainText == nil) {
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Argument `plainText` cannot be nil." userInfo:nil];
+    }
+    if (secret == nil) {
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Argument `secret` cannot be nil." userInfo:nil];
+    }
     
-    
-    const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];
+    const char *cKey  = [secret cStringUsingEncoding:NSASCIIStringEncoding];
     const char *cData = [plainText cStringUsingEncoding:NSASCIIStringEncoding];
     
     unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
@@ -189,7 +198,7 @@ static SLAPIManager *sharedSingleton = nil;
         
         NSString *msg = [NSString stringWithFormat:@"%@:%@:%@:%@", methodStr, absPath, expiry, payload];
         NSLog(@"HMAC message: %@", msg);
-        NSString *hmac = [SLAPIManager hmac:msg withSecret:secret];
+        NSString *hmac = [SLAdapter hmac:msg withSecret:secret];
         [requestManager.requestSerializer setValue:hmac forHTTPHeaderField:@"hmac"];
         
         switch (theMethod) {
@@ -198,7 +207,7 @@ static SLAPIManager *sharedSingleton = nil;
                 NSLog(@"GET %@", fullPathStr);
                 NSString *urlWithParams = [NSString stringWithFormat:@"%@?%@", fullPathStr, payload];
                 NSLog(@"urlWithParams %@", urlWithParams);
-                [requestManager GET:fullPathStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [requestManager GET:fullPathStr parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
                     NSLog(@"Success, JSON: %@", responseObject);
                     fulfiller(PMKManifold(responseObject, operation));
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -210,7 +219,7 @@ static SLAPIManager *sharedSingleton = nil;
                 break;
             case SLHTTPMethodPOST:
             {
-                [requestManager POST:fullPathStr parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [requestManager POST:fullPathStr parameters:theParams success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
                     NSLog(@"Request: %@", operation.request);
                     NSLog(@"Success, JSON: %@", responseObject);
                     fulfiller(PMKManifold(responseObject, operation));
@@ -264,15 +273,17 @@ static SLAPIManager *sharedSingleton = nil;
             [self performRequestWithMethod:SLHTTPMethodGET
                                   withPath:@"me"
                             withParameters:nil]
-            .then(^(id operation, id responseObject) {
+            .then(^(id responseObject, id operation) {
                 
                 // Store the token
                 NSDictionary *response = (NSDictionary *)responseObject;
                 
-                fulfiller(PMKManifold(response, operation));
-            }).catch(^(NSError *error, id operation, id responseObject) {
-                rejecter(error);
-            });
+                //
+                SLSerializer *serializer = [[SLSerializer alloc] init];
+                NSDictionary *serialized = [serializer extractSingle:[SLUser class] withPayload:response withStore:[SLStore sharedStore]];
+                
+                fulfiller(PMKManifold(serialized, operation));
+            }).catch(rejecter);
         } else
         {
             rejecter([NSException exceptionWithName:NSInternalInconsistencyException reason:@"Authenticating requires user's email, password, and organization." userInfo:nil]);
@@ -281,6 +292,15 @@ static SLAPIManager *sharedSingleton = nil;
 }
 
 
+- (PMKPromise *) findAll:(Class)modelClass withStore:(SLStore *)store
+{
+    return [self performRequestWithMethod:SLHTTPMethodGET withPath:[modelClass type] withParameters:nil];
+}
+
+//- (NSString *) buildURL:(Class)modelClass
+//{
+//    
+//}
 
 
 @end

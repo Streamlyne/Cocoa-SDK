@@ -17,7 +17,7 @@
     <entity name="SLModel" representedClassName="SLModel" syncable="YES">
         <attribute name="dateCreated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dateUpdated" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="nid" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="syncState" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="SLOrganization" representedClassName="SLOrganization" parentEntity="SLModel" syncable="YES">
@@ -47,7 +47,7 @@
         <element name="SLAsset" positionX="0" positionY="0" width="128" height="150"/>
         <element name="SLAttribute" positionX="0" positionY="0" width="128" height="45"/>
         <element name="SLGroup" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="SLModel" positionX="0" positionY="0" width="128" height="103"/>
+        <element name="SLModel" positionX="0" positionY="0" width="128" height="105"/>
         <element name="SLOrganization" positionX="0" positionY="0" width="128" height="60"/>
         <element name="SLSite" positionX="0" positionY="0" width="128" height="75"/>
         <element name="SLUser" positionX="0" positionY="0" width="128" height="120"/>

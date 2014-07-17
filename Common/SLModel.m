@@ -7,7 +7,11 @@
 //
 
 #import "SLModel.h"
-#import "SLAPIManager.h"
+#import "SLAdapter.h"
+
+@interface SLModel()
+@property (nonatomic, retain) SLStore *store;
+@end
 
 @implementation SLModel
 
@@ -16,23 +20,25 @@
 @dynamic dateUpdated;
 
 @synthesize saved = _saved;
-@synthesize data, rels;
 
-+ (SLAPIManager *) sharedAPIManager DEPRECATED_ATTRIBUTE
++ (SLAdapter *) sharedAPIManager
 {
     @synchronized([self class]) {
-        return [SLAPIManager sharedManager];
+        return [SLAdapter sharedAdapter];
     }
 }
 
 - (instancetype) init {
     self = [self initInContext:[NSManagedObjectContext MR_defaultContext]];
+
     return self;
 }
 
 - (instancetype) initInContext:(NSManagedObjectContext *)context
 {
     NSLog(@"init %@", [self class]);
+    NSLog(@"inManagedObjectContext: %@", context.persistentStoreCoordinator.managedObjectModel.entities);
+
     
     //self = [super init];
     //self = [[self class] MR_createEntity];
@@ -41,22 +47,8 @@
         // Initialize variables
         _saved = false;
         self.nid = SLNidNodeNotCreated;
-        self.data = [NSDictionary dictionary];
-        self.rels = [NSMutableArray array];
-        
-        // Edit data schema
-        NSMutableDictionary *tempData = [self.data mutableCopy];
-        //SLValue *idVal = [[SLValue alloc]initWithType:[NSString class]];
-        //[tempData setValue:idVal forKey:@"id"];
-        self.data = tempData;
-        
-        /*
-         // Edit data mapping
-         NSMutableDictionary *tempDataMapping = [self.dataMapping mutableCopy];
-         [tempDataMapping setObject:@{ @"class": @"NSNumber", @"key": @"nid" } forKey:@"nid"];
-         self.dataMapping = tempDataMapping;
-         */
     }
+    
     return self;
 }
 
@@ -129,7 +121,7 @@
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         
-        SLAPIManager *manager = [[self class] sharedAPIManager];
+        SLAdapter *manager = [[self class] sharedAPIManager];
         
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
             
@@ -138,25 +130,24 @@
                 //NSLog(@"<%@>: %@", [responseObject class], responseObject);
                 
                 // Process & Read Node
-                SLModel *node = [[self class] initWithId:(SLNid) responseObject[@"id"] inContext:context];
-                node.syncState = @(SLSyncStateSynced);
-                [((SLModel *)node) loadDataFromDictionary: responseObject[@"data"]];
-                [((SLModel *)node) loadRelsFromArray: responseObject[@"rels"] inContext:context];
-                
+                SLModel *record = [[self class] initWithId:(SLNid) responseObject[@"id"] inContext:context];
+                record.syncState = @(SLSyncStateSynced);
+                [record setupData:responseObject];
                 // Return
-                // callback(node); // Returning in completion block now.
                 [context MR_saveToPersistentStoreAndWait];
+                //
+                fulfiller(record);
             };
             
             NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
             [manager performRequestWithMethod:SLHTTPMethodGET withPath:thePath withParameters:filters]
-            .then(completionBlock);
+            .then(completionBlock)
+            .catch(rejecter);
             
         } completion:^(BOOL success, NSError *error) {
             // Return
             fulfiller( [[self class] MR_findFirstByAttribute:@"nid" withValue:nid] );
         }];
-        
         
     }];
 }
@@ -174,12 +165,12 @@
 
 + (PMKPromise *) readAllWithFilters:(NSDictionary *)filters
 {
-    SLAPIManager *manager = [[self class] sharedAPIManager];
+    SLAdapter *manager = [[self class] sharedAPIManager];
     NSLog(@"Manager: %@", manager);
     return [self readAllWithAPIManager:manager withFilters:filters];
 }
 
-+ (PMKPromise *) readAllWithAPIManager:(SLAPIManager *)manager withFilters:(NSDictionary *)filters
++ (PMKPromise *) readAllWithAPIManager:(SLAdapter *)manager withFilters:(NSDictionary *)filters
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         
@@ -198,13 +189,11 @@
                 for (NSDictionary* curr in arr)
                 {
                     NSLog(@"curr: %@", curr);
-                    SLModel *node = [[self class] initWithId:(SLNid) curr[@"id"] inContext:context];
-                    node.syncState = @(SLSyncStateSynced);
-                    [((SLModel *)node) loadDataFromDictionary: curr[@"data"]];
-                    [((SLModel *)node) loadRelsFromArray: curr[@"rels"] inContext:context];
-                    
-                    [nodes addObject: node];
-                    NSLog(@"Node: %@",node);
+                    SLModel *record = [[self class] initWithId:(SLNid) curr[@"id"] inContext:context];
+                    record.syncState = @(SLSyncStateSynced);
+                    [record setupData:curr];
+                    [nodes addObject: record];
+                    NSLog(@"Node: %@",record);
                     
                 }
                 // callback(nodes); // returning in the completion block
@@ -229,32 +218,11 @@
 
 + (instancetype) createWithData:(NSDictionary *)theData withRels:(NSArray *)theRels
 {
-    NSLog(@"this is a test");
-    
-    SLModel *node = [[[self class] alloc] init];
-    node.syncState = @(SLSyncStatePendingCreation);
-    
-    // TODO: Fix this so it validates data and rels first
+    SLModel *record = [[[self class] alloc] init];
+    record.syncState = @(SLSyncStatePendingCreation);
     // Data
-    [node loadDataFromDictionary:theData];
-    /*
-     NSString *key = nil;
-     for (key in theData)
-     {
-     NSLog(@"Update %@: %@", key, [theData objectForKey:key]);
-     [node update:key value:[theData objectForKey:key]];
-     [node setValue:[theData objectForKey:key] forKey:key];
-     }
-     */
-    // FIXME: This is deprecated. Switch to Core Data
-    // Rels
-    SLRelationship *currRel;
-    for (currRel in theRels)
-    {
-        [node addRelationship:currRel];
-    }
-    
-    return node;
+    [record setupData:theData];
+    return record;
 }
 
 + (instancetype) createWithData:(NSDictionary *)data
@@ -275,8 +243,6 @@
 + (PMKPromise *) deleteWithId:(SLNid)nid
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        
-        
         SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
             NSLog(@"SLRequestCallback completionBlock!");
             NSLog(@"<%@>: %@", [responseObject class], responseObject);
@@ -288,11 +254,10 @@
                 rejecter(error);
             }
         };
-        
         NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
         NSLog(@"theDeletePath: %@", thePath);
-        [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodDELETE withPath:thePath withParameters:nil].then(completionBlock);
-        
+        [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodDELETE
+                                                         withPath:thePath withParameters:nil].then(completionBlock);
     }];
 }
 
@@ -368,46 +333,7 @@
     return [[self class] type];
 }
 
-- (NSArray *) relationships
-{
-    return self.rels;
-}
-
-- (BOOL) addRelationship:(SLRelationship *)theRel
-{
-    // Validate relationship
-    if ( (theRel.startNode == self) || (theRel.endNode == self) ) {
-        
-        // Check if already exists
-        // This will eventually contain the index of the object.
-        // Initialize it to NSNotFound so you can check the results after the block has run.
-        __block NSInteger foundIndex = NSNotFound;
-        
-        [self.rels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if ([obj isKindOfClass:[SLRelationship class]]) {
-                foundIndex = idx;
-                // stop the enumeration
-                *stop = YES;
-            }
-        }];
-        
-        if (foundIndex != NSNotFound) {
-            // You've found the first object of that class in the array
-        } else {
-            [self.rels addObject:theRel];
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
-
-- (void) save
-{
-    [self saveWithCallback:nil];
-}
-
-- (PMKPromise *) pushWithAPIManager:(SLAPIManager *)manager
+- (PMKPromise *) pushWithAPIManager:(SLAdapter *)manager
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         //
@@ -421,11 +347,12 @@
         {
             // Update (UPDATE)
             NSLog(@"UPDATE %@", self);
-            thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],self.nid];
+            thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type], self.nid];
         }
         NSLog(@"Save Path: %@", thePath);
         NSLog(@"Manager: %@", manager);
-        [manager performRequestWithMethod:SLHTTPMethodPOST withPath:thePath withParameters:delta].then(completionBlock);
+        [manager performRequestWithMethod:SLHTTPMethodPOST withPath:thePath withParameters:nil]
+        .then(fulfiller).catch(rejecter);
         
     }];
 }
@@ -460,9 +387,73 @@
     }
 }
 
-- (NSDictionary *) serialize
+
++ (instancetype) createRecord:(NSDictionary *)properties
 {
-    
+    return [[[self class] alloc] init];
+}
+
++ (PMKPromise *) findById:(SLNid)nid
+{
+    return [[SLStore sharedStore] find:[self class] byId:nid];
+}
+
++ (PMKPromise *) findQuery:(NSDictionary *)query
+{
+    return [[SLStore sharedStore] find:[self class] withQuery:query];
+}
+
++ (PMKPromise *) findAll
+{
+    return [[SLStore sharedStore] findAll:[self class]];
+}
+
++ (PMKPromise *) findMany:(NSArray *)ids
+{
+    return [[SLStore sharedStore] findMany:[self class] withIds:ids];
+}
+
++ (PMKPromise *) updateRecord:(NSDictionary *)properties
+{
+    return [[SLStore sharedStore] update:[self class] withData:properties];
+}
+
+- (instancetype) rollback
+{
+    return [[SLStore sharedStore] rollback:self];
+}
+
+- (PMKPromise *) deleteRecord
+{
+    return [[SLStore sharedStore] deleteRecord:self];
+}
+
+- (NSDictionary *) serialize:(NSDictionary *)options
+{
+    return [self.store serialize:self withOptions:options];
+}
+
+- (instancetype) setupData:(NSDictionary *)data
+{
+    NSLog(@"inManagedObjectContext: %@", self.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities);
+    NSEntityDescription *modelEntity = [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:self.managedObjectContext];
+
+    // Attributes
+    NSDictionary *attributes = [modelEntity attributesByName];
+    for (NSString *key in attributes)
+    {
+        NSAttributeDescription *attr = [attributes objectForKey:key];
+        NSLog(@"%@: %@", key, attr);
+        NSAttributeType t = [attr attributeType];
+        NSLog(@"Attr Type %lu", (unsigned long)t);
+        // Get Value
+        id val = data[key];
+        // TODO: Transform (deserialize) value
+        // Set value
+        [self setValue:val forKey:key];
+    }
+    // TODO: Relationships
+    return self;
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "SLUser.h"
-#import "SLAPIManager.h"
+#import "SLAdapter.h"
 
 @implementation SLUser
 
