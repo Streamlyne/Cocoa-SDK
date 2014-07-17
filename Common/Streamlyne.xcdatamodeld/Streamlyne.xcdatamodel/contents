@@ -44,13 +44,13 @@
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SLAsset" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLAttribute" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLGroup" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLModel" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLOrganization" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLSite" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLUser" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SLWorkOrder" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SLAsset" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="SLAttribute" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="SLGroup" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="SLModel" positionX="0" positionY="0" width="128" height="103"/>
+        <element name="SLOrganization" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="SLSite" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="SLUser" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="SLWorkOrder" positionX="0" positionY="0" width="128" height="150"/>
     </elements>
 </model>

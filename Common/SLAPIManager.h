@@ -92,5 +92,13 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
                       withPassword:(NSString *)thePassword
                   withOrganization:(NSString *)theOrganization;
 
+/**
+ Create a JSON representation of the record, using the serialization strategy of the store's adapter.
+ 
+ serialize takes an optional hash as a parameter, currently supported options are:
+ 
+ includeId: true if the record's ID should be included in the JSON representation.
+ */
+- (NSDictionary *) serialize:(NSDictionary *)options;
 
 @end

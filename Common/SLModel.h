@@ -9,7 +9,7 @@
 #import "SLNodeProtocol.h"
 #import "CoreData+MagicalRecord.h"
 #import "SLObject.h"
-#import "SLValue.h"
+#import "SLSerializer.h"
 #import <PromiseKit.h>
 
 /**
@@ -29,21 +29,19 @@
 }
 // Properties
 /**
- String s -> SLValue s
  */
-@property (strong, nonatomic) NSDictionary *data DEPRECATED_ATTRIBUTE;
-/**
- A list of relationships to this node.
- 
- @deprecated Use Core Data relationships now.
- */
-@property (strong, nonatomic) NSMutableArray *rels DEPRECATED_ATTRIBUTE;
-/**
- */
-//@property (strong, nonatomic) SLNid nid;
 @property (nonatomic, retain) SLNid nid;
+/**
+ 
+ */
 @property (nonatomic, retain) NSNumber *syncState;
+/**
+ 
+ */
 @property (nonatomic, retain) NSDate *dateCreated;
+/**
+ 
+ */
 @property (nonatomic, retain) NSDate *dateUpdated;
 
 /**
@@ -51,6 +49,8 @@
  call to update.
  */
 @property (getter=isSaved, readonly) BOOL saved;
+
+
 
 /**
  Returns an object initialized.
@@ -85,13 +85,22 @@
  @param nid
  @return    Initialized object.
  
- @deprecated Use `MR_createEntity`.
+ @deprecated Use `setupData`.
  */
 + (instancetype) initWithId:(SLNid)nid DEPRECATED_ATTRIBUTE;
+
 /**
- 
+ @deprecated Use `setupData`.
  */
 + (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context;
+
+/**
+ Setup record with existing data.
+ Used when pushing records from the server into the store.
+ 
+ @private
+ */
++ (instancetype) setupData:(NSDictionary *)data;
 
 /**
  Return the node type name. This is used in the requests to the `SLAPIManager`.
@@ -101,33 +110,18 @@
 + (NSString *) type;
 
 /**
+ Attribute to Key mappings for the Model.
  
- 
- Edit when subclassing.
- 
- ```
- + (NSDictionary *) attributeMappings
- {
- NSMutableDictionary *attrMap = [NSMutableDictionary dictionaryWithDictionary:[[[self superclass] class] attributeMappings]];
- [attrMap setValue:@"name" forKey:@"name"];
- [attrMap setValue:@"location" forKey:@"location"];
- return [NSDictionary dictionaryWithDictionary: attrMap];
- }
- ```
- 
- */
-+ (NSDictionary *) attributeMappings DEPRECATED_ATTRIBUTE;
-
-/**
- 
- */
-- (NSString *) attributeForKey:(NSString *)key DEPRECATED_ATTRIBUTE;
-
-/**
- Key to Attribute mappings for the Model.
+ Edit when subclassing, if neccessary.
  */
 - (NSString *) keyForAttribute:(NSString *)attribute;
 
+/**
+ Relationship to Key mappings for the Model.
+ 
+ Edit when subclassing, if neccessary.
+ */
+- (NSString *) keyForRelationship:(NSString *)relationship;
 
 /**
  Returns an NSArray of pending Nodes.
@@ -266,15 +260,9 @@
 
 
 /**
- Persists the node to the database.
- 
- This done by iterating through {data} and compiling a list of node SLValues
- that haven't been saved. From the set of unsaved properties a update request to
- SLAPI may be formulated.
- 
- @deprecated Use `pushWithAPIManager:withCallback` instead.
+ Save the record and persist any changes to the record to an extenal source via the adapter.
  */
-- (void) save DEPRECATED_ATTRIBUTE;
+- (void) save;
 
 /**
  Persists the node to the database, with callback on completion.
@@ -331,10 +319,60 @@
  */
 - (PMKPromise *) remove;
 
+/**
+ Create a new record in the current store. The properties passed to this method are set on the newly created record.
+ */
+- (instancetype) createRecord:(NSDictionary *)properties;
+
+/**
+ This method returns a record for a given type and id combination.
+ */
+- (PMKPromise *) findById:(SLNid)nid;
+
+/**
+ This method delegates a query to the adapter. This is the one place where adapter-level semantics are exposed to the application.
+ 
+ Exposing queries this way seems preferable to creating an abstract query language for all server-side queries, and then require all adapters to implement them.
+ 
+ This method returns a promise, which is resolved with a RecordArray once the server returns.
+ */
+- (PMKPromise *) findQuery:(NSDictionary *)query;
+
+/**
+ This method returns an array of all records adapter can find. It triggers the adapter's findAll method to give it an opportunity to populate the array with records of that type.
+ */
+- (PMKPromise *) findAll;
 
 /**
  
  */
-- (NSDictionary *) serialize;
+- (PMKPromise *) findMany:(NSArray *)ids;
+
+/**
+ Update existing records in the store. Unlike push, update will merge the new data properties with the existing properties. This makes it safe to use with a subset of record attributes. This method expects normalized data.
+ 
+ update is useful if you app broadcasts partial updates to records.
+ */
+- (instancetype) updateRecord:(NSDictionary *)properties;
+
+/**
+ If the model `isDirty` this function will discard any unsaved changes
+ */
+- (instancetype) rollback;
+
+/**
+ For symmetry, a record can be deleted via the store.
+ */
+- (instancetype) deleteRecord;
+
+/**
+ Create a JSON representation of the record, using the serialization strategy of the store's adapter.
+ 
+ serialize takes an optional hash as a parameter, currently supported options are:
+ 
+ includeId: true if the record's ID should be included in the JSON representation.
+ */
+- (NSDictionary *) serialize:(NSDictionary *)options;
+
 
 @end

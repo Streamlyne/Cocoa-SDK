@@ -7,8 +7,6 @@
 //
 
 #import "SLModel.h"
-#import "SLValue.h"
-#import "SLRelationship.h"
 #import "SLAPIManager.h"
 
 @implementation SLModel
@@ -84,42 +82,21 @@
     }
 }
 
-+ (NSDictionary *) attributeMappings
-{
-    NSMutableDictionary *attrMap = [NSMutableDictionary dictionary];
-    [attrMap setValue:@"dateCreated" forKey:@"date_created"];
-    [attrMap setValue:@"dateUpdated" forKey:@"date_updated"];
-    return [NSDictionary dictionaryWithDictionary: attrMap];
-}
-
-- (NSString *) attributeForKey:(NSString *)key
-{
-    NSDictionary *attributeMappings = [[self class] attributeMappings];
-    NSString *attribute = nil;
-    attribute = [attributeMappings objectForKey:key];
-    if (attribute == nil) {
-        return key;
-    } else {
-        return attribute;
-    }
-}
-
 - (NSString *) keyForAttribute:(NSString *)attribute
 {
-    NSDictionary *attributeMappings = [[self class] attributeMappings];
-    NSString *key = nil;
-    for (NSString *k in attributeMappings)
+    if ([attribute isEqualToString:@"dateCreated"])
     {
-        if ([[attributeMappings objectForKey:k] isEqualToString:attribute]) {
-            key = k; //
-            break; // Stop looping
-        }
+        return @"date_created";
     }
-    if (key == nil) {
-        return attribute;
-    } else {
-        return key;
+    else if ([attribute isEqualToString:@"dateUpdated"])
+    {
+        return @"date_created";
     }
+    return attribute;
+}
+
+- (NSString *) keyForRelationship:(NSString *)relationship {
+    return relationship;
 }
 
 + (NSArray *) pending
@@ -128,69 +105,6 @@
     return pendingNodes;
 }
 
-- (void) loadDataFromDictionary:(NSDictionary *)theData
-{
-    // For date conversion
-    NSDateFormatter *iso8601Formatter = [[NSDateFormatter alloc] init];
-    //[iso8601Formatter setDateStyle:NSDateFormatterLongStyle];
-    //[iso8601Formatter setTimeStyle:NSDateFormatterShortStyle];
-    NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    [iso8601Formatter setLocale:enUSPOSIXLocale];
-    [iso8601Formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
-    
-    // Load Data from NSDictionary
-    NSLog(@"%@", theData);
-    NSString *key = nil;
-    for (key in theData)
-    {
-        id d = [theData objectForKey:key];
-        if (d != [NSNull null]) {
-            NSString *mKey = [self attributeForKey:key];
-            NSDictionary *attributes = [[self entity] attributesByName];
-            NSAttributeDescription *descriptionWithKey = [attributes objectForKey:mKey];
-            // Parse
-            if ([descriptionWithKey attributeType] == NSStringAttributeType) {
-                d = d;//[NSString stringWithString:d];
-            } else if ([descriptionWithKey attributeType] == NSInteger64AttributeType) {
-                d = d;
-            } else if ([descriptionWithKey attributeType] == NSDateAttributeType) {
-                NSLog(@"date before: %@, %@", [d class], d);
-                d = [iso8601Formatter dateFromString: d];
-                NSLog(@"date after: %@", d);
-            } else {
-                NSLog(@"Unknown type.");
-            }
-            [self setValue:d forKey:mKey];
-        }
-        /*
-         // NSLog(@"Update %@: %@", key, [theData objectForKey:key]);
-         [self update:mKey value:[theData objectForKey:key]];
-         // Mark data as saved.
-         SLValue *val = [self.data objectForKey:key];
-         [val setSaved]; // Mark as saved.
-         */
-    }
-}
-
-- (void) loadRelsFromArray:(NSArray *)theRels inContext:(NSManagedObjectContext *)context
-{
-    // Load Relationships from NSArray
-    //NSLog(@"Rels: %@", theRels);
-    for (NSDictionary *curr in theRels)
-    {
-        SLRelationship *rel;
-        id otherNode = [[self class] initWithId:(SLNid) curr[@"id"] inContext:context];
-        if ([curr[@"dir"] isEqual: @"in"])
-        {
-            rel = [[SLRelationship alloc] initWithName: curr[@"relsType"] withStartNode:otherNode withEndNode:self];
-        } else //
-        {
-            rel = [[SLRelationship alloc] initWithName: curr[@"relsType"] withStartNode:self withEndNode:otherNode];
-        }
-        [rel setSaved];
-        [self addRelationship:rel];
-    }
-}
 
 + (NSString *) type
 {
@@ -488,142 +402,14 @@
     }
 }
 
-- (id) get:(NSString *)attr
-{
-    return [(SLValue *)[self.data objectForKey:attr] get];
-}
-
-- (void) update:(NSString *)attr value:(id)value
-{
-    [((SLValue *)[data objectForKey:attr]) set:value];
-    _saved = NO;
-}
-
 - (void) save
 {
     [self saveWithCallback:nil];
 }
 
-- (void) saveWithCallback:(SLSuccessCallback)callback
-{
-    NSLog(@"saveWithCallback DEPRECATED. Use pushWithAPIManager:withCallback: instead.");
-    callback(false);
-}
-
 - (PMKPromise *) pushWithAPIManager:(SLAPIManager *)manager
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        
-        
-        //NSLog(@"pushWithAPIManager:withCallback:");
-        
-        NSLog(@"serializeData: %@", [self serializeData]);
-        
-        // Create serialized delta
-        NSMutableDictionary *notSavedData = [NSMutableDictionary dictionary];
-        /*
-         NSString *key;
-         for (key in data)
-         {
-         SLValue *val = [self.data objectForKey:key];
-         // Check if already saved
-         if (![val isSaved])
-         {
-         // Value is not already saved
-         [notSavedData setObject:[val get] forKey:key];
-         }
-         }
-         */
-        notSavedData = [NSMutableDictionary dictionaryWithDictionary: [self serializeData]];
-        
-        //
-        NSMutableArray *notSavedRels = [NSMutableArray array];
-        SLRelationship* rel;
-        for (rel in self.rels)
-        {
-            // Check if already saved
-            if (![rel isSaved])
-            {
-                SLRelationshipDirection dir = [rel directionWithNode:self];
-                NSLog(@"%@", rel);
-                if (dir == SLRelationshipIncoming) {
-                    SLModel *node = rel.startNode;
-                    NSLog(@"%@", node);
-                    if (node != nil && node.nid != nil) {
-                        NSLog(@"%@, %@, %@, %@", node, node.nid, [rel.startNode type], rel.name);
-                        [notSavedRels addObject:@{
-                                                  @"id":node.nid,
-                                                  @"dir":@"in",
-                                                  @"nodeType": [rel.startNode type],
-                                                  @"relsType": rel.name
-                                                  }];
-                    } else {
-                        NSLog(@"Other node, %@, not yet pushed to server.", node);
-                    }
-                } else if (dir == SLRelationshipOutgoing) {
-                    SLModel *node = rel.endNode;
-                    if (node != nil && node.nid != nil) {
-                        [notSavedRels addObject:@{
-                                                  @"id":node.nid,
-                                                  @"dir":@"out",
-                                                  @"nodeType": [rel.endNode type],
-                                                  @"relsType": rel.name
-                                                  }];
-                    } else {
-                        NSLog(@"Other node, %@, not yet pushed to server.", node);
-                    }
-                } else {
-                    // SLRelationshipNotFound
-                    NSLog(@"SLRelationshipNotFound");
-                    //[notSavedRels addObject:rel];
-                    @throw SLExceptionImplementationNotFound;
-                }
-            }
-            
-        }
-        
-        NSLog(@"delta: %@, %@", notSavedData, notSavedRels);
-        NSDictionary *delta = @{@"data": notSavedData, @"rels": notSavedRels};
-        NSLog(@"Save data: %@", delta);
-        
-        // POST the CREATE/UPDATE
-        SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
-            NSLog(@"SLRequestCallback completionBlock!");
-            NSLog(@"<%@>: %@", [responseObject class], responseObject);
-            
-            // TODO: Check if successful, then mark the successful data and relationship fields as `saved`
-            if (error == nil)
-            {
-                NSDictionary *responseData = (NSDictionary *)responseObject;
-                
-                // Update the Node Id.
-                [self setNid:responseData[@"id"]];
-                [self setSyncState:@(SLSyncStateSynced)];
-                
-                // Mark all `SLValue`s as saved.
-                NSString *key;
-                for (key in self.data)
-                {
-                    SLValue *val = [self.data objectForKey:key];
-                    [val setSaved]; // Mark as saved.
-                }
-                
-                // Mark all `SLRelationship`s as saved.
-                SLRelationship* rel;
-                for (rel in self.rels)
-                {
-                    [rel setSaved];
-                }
-                // Mark Node as saved.
-                _saved = YES;
-                
-                // Return
-                fulfiller(nil);
-                
-            } else {
-                rejecter(nil);
-            }
-        };
         //
         NSString *thePath;
         if (self.nid == SLNidNodeNotCreated)
@@ -644,8 +430,6 @@
     }];
 }
 
-
-
 - (NSDictionary *) serializeData {
     NSMutableDictionary *theData = [NSMutableDictionary dictionary];
     NSEntityDescription *entityDescription = [self entity];
@@ -660,48 +444,6 @@
     return [NSDictionary dictionaryWithDictionary:theData];
 }
 
-- (BOOL) isSaved
-{
-    return _saved;
-}
-
-- (void) checkSaved
-{
-    SLValue *val;
-    for (val in rels) {
-        if ( ! [val isSaved] ) {
-            // Not saved
-            _saved = false;
-            break; // Stop iterating, since it is already proven to not all be saved.
-        }
-    }
-    SLRelationship* rel;
-    for (rel in self.rels)
-    {
-        if ( ! [rel isSaved] ) {
-            // Not saved
-            _saved = false;
-            break; // Stop iterating, since it is already proven to not all be saved.
-        }
-    }
-    
-}
-
-- (void) discardChanges
-{
-    SLValue *val;
-    for (val in rels) {
-        [val discardChanges];
-    }
-}
-
-- (void) discardChangesTo:(NSString *)attr
-{
-    SLValue *val = [data objectForKey:attr];
-    if (val) {
-        [val discardChanges];
-    }
-}
 
 - (PMKPromise *) remove
 {
@@ -716,6 +458,11 @@
         ) {
         [self setSyncState:@(SLSyncStatePendingUpdate)];
     }
+}
+
+- (NSDictionary *) serialize
+{
+    
 }
 
 @end

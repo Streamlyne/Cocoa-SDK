@@ -7,8 +7,6 @@
 //
 
 #import "SLUser.h"
-#import "SLValue.h"
-#import "SLRelationship.h"
 #import "SLAPIManager.h"
 
 @implementation SLUser
