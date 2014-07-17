@@ -83,6 +83,16 @@ while(condition) { \
     
 }
 
+- (void) testHMAC
+{
+    NSString *message = @"ILove2Test!tTest!t";
+    NSString *secret = @"Streamlyne";
+    NSString *hmac = @"1c2c34e017a17a6ae42c0dbdf6a3586f6735de3b";
+    
+    NSString *result = [SLAPIManager hmac:message withSecret:secret];
+    XCTAssertStringEqual(result, hmac, @"HMACs should be the same.");
+}
+
 - (void) testAuthentication
 {
     
