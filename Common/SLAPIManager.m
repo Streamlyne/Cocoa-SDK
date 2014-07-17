@@ -145,22 +145,60 @@ static SLAPIManager *sharedSingleton = nil;
         // HMAC
         NSString *secret = _userPassword;
         NSLog(@"Secret: %@", secret);
-        NSString *msg = @"";
+        // Method
+        NSString *methodStr;
+        switch (theMethod) {
+            case SLHTTPMethodGET: {
+                methodStr = @"GET";
+                break;
+            }
+            case SLHTTPMethodPOST: {
+                methodStr = @"POST";
+                break;
+            }
+            case SLHTTPMethodPUT: {
+                methodStr = @"PUT";
+                break;
+            }
+            case SLHTTPMethodDELETE: {
+                methodStr = @"DELETE";
+                break;
+            }
+            default:
+            {
+                @throw SLExceptionImplementationNotFound;
+                break;
+            }
+        }
+        // Payload
+        NSString *payload;
+        if (theParams != nil) {
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theParams
+                                                               options:(NSJSONWritingOptions) 0
+                                                                 error:&error];
+            if (!error && jsonData)
+            {
+                payload = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            } else {
+                payload = @"";
+            }
+        } else {
+            payload = @"";
+        }
+        
+        NSString *msg = [NSString stringWithFormat:@"%@:%@:%@:%@", methodStr, absPath, expiry, payload];
+        NSLog(@"HMAC message: %@", msg);
         NSString *hmac = [SLAPIManager hmac:msg withSecret:secret];
         [requestManager.requestSerializer setValue:hmac forHTTPHeaderField:@"hmac"];
         
         switch (theMethod) {
             case SLHTTPMethodGET:
             {
-                NSError *error;
-                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theParams
-                                                                   options:NSJSONWritingPrettyPrinted
-                                                                     error:&error];
-                NSString *encodedJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-                NSLog(@"encodedJson: %@", encodedJson);
-                //encodedJson = @"{\"filter\":{\"fields\":true,\"rels\":true}}";
                 NSLog(@"GET %@", fullPathStr);
-                [requestManager GET:fullPathStr parameters:@{@"p":encodedJson} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSString *urlWithParams = [NSString stringWithFormat:@"%@?%@", fullPathStr, payload];
+                NSLog(@"urlWithParams %@", urlWithParams);
+                [requestManager GET:fullPathStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSLog(@"Success, JSON: %@", responseObject);
                     fulfiller(PMKManifold(responseObject, operation));
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -223,12 +261,9 @@ static SLAPIManager *sharedSingleton = nil;
         //
         if (theEmail != nil && thePassword != nil && theOrganization != nil )
         {
-            [self performRequestWithMethod:SLHTTPMethodPOST
+            [self performRequestWithMethod:SLHTTPMethodGET
                                   withPath:@"me"
-                            withParameters:@{
-                                             @"email":theEmail,
-                                             @"password":thePassword
-                                             }]
+                            withParameters:nil]
             .then(^(id operation, id responseObject) {
                 
                 // Store the token
@@ -236,7 +271,7 @@ static SLAPIManager *sharedSingleton = nil;
                 
                 fulfiller(PMKManifold(response, operation));
             }).catch(^(NSError *error, id operation, id responseObject) {
-                    rejecter(error);
+                rejecter(error);
             });
         } else
         {

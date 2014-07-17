@@ -40,19 +40,19 @@ while(condition) { \
 - (void)setUp
 {
     [super setUp];
-
+    
     NSLog(@"setUp");
     
     // Put setup code here. This method is called before the invocation of each test method in the class.
     SLAPIManager *manager = [SLAPIManager sharedManager];
     //[manager setBaseURL:[NSURL URLWithString:@"http://54.208.98.191:5000/api/"]];
-//    [manager setBaseURL:[NSURL URLWithString:@"http://localhost:5000/api/"]];
+    //    [manager setBaseURL:[NSURL URLWithString:@"http://localhost:5000/api/"]];
     [manager setHost:@"localhost:5000"];
     
-    [[SLAPIManager sharedManager]
-     authenticateWithUserEmail:@"testing@streamlyne.co"
-     withPassword:@"testing"
-     withOrganization:@"test"];
+//    [[SLAPIManager sharedManager]
+//        authenticateWithUserEmail:@"testing@streamlyne.co"
+//        withPassword:@"testing"
+//        withOrganization:@"test"];
     
     [MagicalRecord setDefaultModelFromClass:[self class]];
     [MagicalRecord setupCoreDataStackWithInMemoryStore];
@@ -77,6 +77,8 @@ while(condition) { \
     NSLog(@"%@ == %@", encoded, [SLAPIManager sha1:password]);
     XCTAssertStringEqual(encoded, [SLAPIManager sha1:password], @"Password should have been correctly encoded.");
     
+    NSLog(@"%@", [SLAPIManager sha1:@"password"]);
+    
     SLAPIManager *manager = [SLAPIManager sharedManager];
     [manager setPassword:@"thisIsATest"];
     XCTAssertStringEqual(encoded, manager.userPassword, @"Password should have been encoded when saved.");
@@ -99,8 +101,8 @@ while(condition) { \
     StartBlock();
     SLAPIManager *manager = [SLAPIManager sharedManager];
     
-    [manager authenticateWithUserEmail:@"test@streamlyne.co"
-                          withPassword:@"test"
+    [manager authenticateWithUserEmail:@"test@test.co"
+                          withPassword:@"password"
                       withOrganization:@"test"]
     .then(^() {
         XCTAssertTrue(true, @"PARTY. IT WORKED.");
