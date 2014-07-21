@@ -7,6 +7,7 @@
 //
 
 #import "SLSerializer.h"
+#import "SLModel.h"
 
 // Transforms
 #import "SLObjectIdTransform.h"
@@ -35,6 +36,11 @@
     return results;
 }
 
+- (NSArray *) extractArray:(Class)modelClass withPayload:(NSDictionary *)payload withStore:(SLStore *)store
+{
+    return @[];
+}
+
 - (NSDictionary *)normalize:(Class)modelClass withPayload:(NSDictionary *)payload
 {
     NSDictionary *results = [self normalizeIdWithPayload:payload];
@@ -60,9 +66,30 @@
 
 - (NSDictionary *)normalizeAttributes:(Class)modelClass withPayload:(NSDictionary *)payload
 {
-    // TODO: Iterate thru attributes
-    // TODO: Handle different types of Attributes with Transforms
-    return payload;
+    NSDictionary *results = [NSDictionary dictionaryWithDictionary:payload];
+    NSDictionary *attributes = [modelClass attributesByName];
+    for (NSString *attributeKey in attributes)
+    {
+        NSAttributeDescription *attribute = attributes[attributeKey];
+        
+        // TODO: Handle different types of Attributes with Transforms
+        NSAttributeType type = [attribute attributeType];
+        
+        // TODO: Handle renaming keys for attributes
+        NSLog(@"attribute: %@", attribute);
+        NSLog(@"attributeKey: %@", attributeKey);
+        NSString *payloadKey = [modelClass keyForAttribute:attributeKey];
+        NSLog(@"payloadKey: %@", payloadKey);
+        if (![attributeKey isEqualToString:payloadKey])
+        {
+            // Attribute's Key is different
+            // Rename it.
+//            FIXME:
+            //[results setValue:val forKey:<#(NSString *)#>]
+        }
+        
+    }
+    return results;
 }
 
 - (NSDictionary *)normalizeRelationships:(Class)modelClass withPayload:(NSDictionary *)payload

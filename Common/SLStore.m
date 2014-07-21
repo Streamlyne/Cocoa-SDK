@@ -76,4 +76,9 @@ static SLStore *sharedSingleton = nil;
     return record;
 }
 
+- (NSArray *) pushMany:(Class)modelClass withData:(NSArray *)data
+{
+    return @[];
+}
+
 @end

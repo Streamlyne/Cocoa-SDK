@@ -37,7 +37,7 @@
 - (instancetype) initInContext:(NSManagedObjectContext *)context
 {
     NSLog(@"init %@", [self class]);
-    NSLog(@"inManagedObjectContext: %@", context.persistentStoreCoordinator.managedObjectModel.entities);
+//    NSLog(@"inManagedObjectContext: %@", context.persistentStoreCoordinator.managedObjectModel.entities);
 
     
     //self = [super init];
@@ -74,7 +74,7 @@
     }
 }
 
-- (NSString *) keyForAttribute:(NSString *)attribute
++ (NSString *) keyForAttribute:(NSString *)attribute
 {
     if ([attribute isEqualToString:@"dateCreated"])
     {
@@ -87,7 +87,7 @@
     return attribute;
 }
 
-- (NSString *) keyForRelationship:(NSString *)relationship {
++ (NSString *) keyForRelationship:(NSString *)relationship {
     return relationship;
 }
 
@@ -98,6 +98,29 @@
 }
 
 
+/*
+ - (NSString *) description
+ {
+ //return [NSString stringWithFormat:@"<%@>", [self class]];
+ 
+ return [NSString stringWithFormat:@"<%@ %p: %@>", [self class], self,
+ [NSDictionary dictionaryWithObjectsAndKeys:
+ NSNullIfNil([self nid]), @"id",
+ NSNullIfNil([self type]), @"type",
+ NSNullIfNil([self.data description]), @"data",
+ NSNullIfNil([self.rels description]), @"relationships",
+ nil
+ ] ];
+ 
+ //return [NSString stringWithFormat:@"<%@: { type: \"%@\", data: %@, relationships: %@ } >", [self class], [self type], [self.data description], [self.rels description]];
+ }
+ */
+
+- (NSString *) type
+{
+    return [[self class] type];
+}
+
 + (NSString *) type
 {
     // return NSStringFromClass([instance class]);
@@ -105,6 +128,7 @@
                                    reason:[NSString stringWithFormat:@"You must override method '%@' in the subclass '%@'.", NSStringFromSelector(_cmd), [self class]]
                                  userInfo:nil];
 }
+
 
 + (PMKPromise *) readById:(SLNid)nid
 {
@@ -310,29 +334,6 @@
     }];
 }
 
-/*
- - (NSString *) description
- {
- //return [NSString stringWithFormat:@"<%@>", [self class]];
- 
- return [NSString stringWithFormat:@"<%@ %p: %@>", [self class], self,
- [NSDictionary dictionaryWithObjectsAndKeys:
- NSNullIfNil([self nid]), @"id",
- NSNullIfNil([self type]), @"type",
- NSNullIfNil([self.data description]), @"data",
- NSNullIfNil([self.rels description]), @"relationships",
- nil
- ] ];
- 
- //return [NSString stringWithFormat:@"<%@: { type: \"%@\", data: %@, relationships: %@ } >", [self class], [self type], [self.data description], [self.rels description]];
- }
- */
-
-- (NSString *) type
-{
-    return [[self class] type];
-}
-
 - (PMKPromise *) pushWithAPIManager:(SLAdapter *)manager
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
@@ -357,15 +358,35 @@
     }];
 }
 
++ (NSEntityDescription *) entity
+{
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
+    return [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+}
+
++ (NSDictionary *) attributesByName
+{
+    NSEntityDescription *entityDescription = self.entity;
+    NSDictionary *attributes = [entityDescription attributesByName];
+    return attributes;
+}
+
+- (NSDictionary *) attributesByName
+{
+    NSEntityDescription *entityDescription = self.entity;
+    NSDictionary *attributes = [entityDescription attributesByName];
+    return attributes;
+}
+
 - (NSDictionary *) serializeData {
     NSMutableDictionary *theData = [NSMutableDictionary dictionary];
-    NSEntityDescription *entityDescription = [self entity];
+    NSEntityDescription *entityDescription = self.entity;
     NSDictionary *attributes = [entityDescription attributesByName];
     //NSLog(@"%@", attributes);
-    for (NSAttributeDescription *attribute in attributes) {
+    for (NSString *attributeKey in attributes) {
         //NSLog(@"attribute: %@ = %@", attribute, [self valueForKey:(NSString *)attribute]);
-        if ( ![attribute isEqual:@"syncState"] ) {
-            [theData setValue:[self valueForKey:(NSString *)attribute] forKey:[self keyForAttribute:(NSString *)attribute]];
+        if ( ![attributeKey isEqual:@"syncState"] ) {
+            [theData setValue:[self valueForKey:(NSString *)attributeKey] forKey:[[self class] keyForAttribute:(NSString *)attributeKey]];
         }
     }
     return [NSDictionary dictionaryWithDictionary:theData];
@@ -377,16 +398,16 @@
     return [[self class] deleteWithNode:self];
 }
 
-- (void) didChangeValueForKey:(NSString *)key {
-    NSLog(@"didChangeValueForKey %@", key);
-    if (
-        ( ![key isEqual: @"syncState"] ) &&
-        [[self syncState] isEqual: @(SLSyncStateSynced)]
-        ) {
-        [self setSyncState:@(SLSyncStatePendingUpdate)];
-    }
-}
-
+//- (void) didChangeValueForKey:(NSString *)key {
+//    NSLog(@"didChangeValueForKey %@", key);
+//    if (
+//        ( ![key isEqual: @"syncState"] ) &&
+//        [[self syncState] isEqual: @(SLSyncStateSynced)]
+//        ) {
+//        [self setSyncState:@(SLSyncStatePendingUpdate)];
+//    }
+//}
+//
 
 + (instancetype) createRecord:(NSDictionary *)properties
 {
@@ -435,8 +456,8 @@
 
 - (instancetype) setupData:(NSDictionary *)data
 {
-    NSLog(@"inManagedObjectContext: %@", self.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities);
-    NSEntityDescription *modelEntity = [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:self.managedObjectContext];
+//    NSLog(@"inManagedObjectContext: %@", self.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities);
+    NSEntityDescription *modelEntity = self.entity;
 
     // Attributes
     NSDictionary *attributes = [modelEntity attributesByName];

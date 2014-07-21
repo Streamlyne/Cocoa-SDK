@@ -45,7 +45,6 @@
         // Handle Response
         httpManager.responseSerializer = [AFJSONResponseSerializer serializer];
         httpManager.responseSerializer.acceptableContentTypes = nil;
-        
     }
     return self;
 }
@@ -135,10 +134,11 @@ static SLAdapter *sharedSingleton = nil;
         NSLog(@"thePath: %@", thePath);
         NSString *absPath = [NSString stringWithFormat:@"/%@/%@", @"api/v1", thePath];
         NSLog(@"absPath: %@", absPath);
-        NSURL *fullPath = [[NSURL alloc] initWithScheme:@"http" host:self.host path:absPath];
-        //    NSURL *fullPath = [NSURL URLWithString:[NSString stringWithFormat:@"%@", thePath] relativeToURL:self.host];
-        NSLog(@"fullPath: %@", fullPath);
-        NSString *fullPathStr = [fullPath absoluteString];
+//        NSURL *fullPathURL = [[NSURL alloc] initWithScheme:@"http" host:self.host path:absPath];
+//        NSURL *fullPath = [NSURL URLWithString:[NSString stringWithFormat:@"%@", thePath] relativeToURL:self.host];
+//        NSLog(@"fullPath: %@", fullPathURL);
+//        NSString *fullPathStr = [fullPathURL absoluteString];
+        NSString *fullPathStr = [NSString stringWithFormat:@"%@://%@%@", @"http", self.host, absPath];
         NSLog(@"Full path: %@", fullPathStr);
         
         // Prepare headers used for authentication
@@ -238,7 +238,7 @@ static SLAdapter *sharedSingleton = nil;
                 break;
             case SLHTTPMethodDELETE:
             {
-                [self.httpManager DELETE:[fullPath absoluteString] parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [self.httpManager DELETE:fullPathStr parameters:theParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSLog(@"Success, JSON: %@", responseObject);
                     fulfiller(PMKManifold(responseObject, operation));
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -294,7 +294,8 @@ static SLAdapter *sharedSingleton = nil;
 
 - (PMKPromise *) findAll:(Class)modelClass withStore:(SLStore *)store
 {
-    return [self performRequestWithMethod:SLHTTPMethodGET withPath:[modelClass type] withParameters:nil];
+    NSString *path = [NSString stringWithFormat:@"%@/", [modelClass type]];
+    return [self performRequestWithMethod:SLHTTPMethodGET withPath:path withParameters:nil];
 }
 
 //- (NSString *) buildURL:(Class)modelClass

@@ -114,14 +114,14 @@
  
  Edit when subclassing, if neccessary.
  */
-- (NSString *) keyForAttribute:(NSString *)attribute;
++ (NSString *) keyForAttribute:(NSString *)attribute;
 
 /**
  Relationship to Key mappings for the Model.
  
  Edit when subclassing, if neccessary.
  */
-- (NSString *) keyForRelationship:(NSString *)relationship;
++ (NSString *) keyForRelationship:(NSString *)relationship;
 
 /**
  Returns an NSArray of pending Nodes.
@@ -236,6 +236,11 @@
  includeId: true if the record's ID should be included in the JSON representation.
  */
 - (NSDictionary *) serialize:(NSDictionary *)options;
+
+/**
+ Get all model Attributes by name.
+ */
++ (NSDictionary *) attributesByName;
 
 
 @end

@@ -47,8 +47,8 @@ while(condition) { \
     
     [MagicalRecord setDefaultModelFromClass:[self class]];
     [MagicalRecord setupCoreDataStackWithInMemoryStore];
-    NSLog(@"default context: %@", [NSManagedObjectContext MR_defaultContext]);
-    NSLog(@"inManagedObjectContext: %@", [NSManagedObjectContext MR_defaultContext].persistentStoreCoordinator.managedObjectModel.entities);
+    //    NSLog(@"default context: %@", [NSManagedObjectContext MR_defaultContext]);
+    //    NSLog(@"inManagedObjectContext: %@", [NSManagedObjectContext MR_defaultContext].persistentStoreCoordinator.managedObjectModel.entities);
     
     
 }
@@ -125,6 +125,7 @@ while(condition) { \
         XCTAssertTrue(me != nil, @"PARTY. IT WORKED.");
         XCTAssert([me.email isEqualToString:@"test@streamlyne.co"], @"Email of user should be the same as the one used for logging in.");
     }).catch(^(NSError *error) {
+        EndBlock();
         XCTFail(@"%@", error);
     })
     .finally(^() {
@@ -134,35 +135,81 @@ while(condition) { \
     WaitUntilBlockCompletes();
     
 }
-//
-//- (void) testAssets
-//{
-//    
-//    StartBlock();
-//    
-//    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
-//                              withPassword:@"password"
-//                          withOrganization:@"test"]
-//    .then(^(SLClient *client, SLUser *me) {
-//        
-//        [SLAsset findAll]
-//        .then(^(NSArray *assets) {
-//            NSLog(@"%@", assets);
-//            
-//        })
-//        .catch(^(NSError *error) {
-//            NSLog(@"%@", error);
-//            XCTFail(@"%@", error);
-//        })
-//        .finally(^() {
-//            EndBlock();
-//        });
-//        
-//    });
-//    
-//    WaitUntilBlockCompletes();
-//    
-//}
+
+- (void) testDeserializeSingleAssetPayload
+{
+    NSDictionary *payload =  @{
+                               @"_id": @{
+                                       @"$oid": @"538770ab2fb05c514e6cb340"
+                                       },
+                               @"date_created": @{@"$date": [NSNull null]},
+                               @"date_updated": @{@"$date": [NSNull null]},
+                               @"description": @"This is an Asset in a Unit Test.",
+                               @"name": @"PV1234"
+                               };
+    SLSerializer *serialier = [[SLSerializer alloc] init];
+    SLStore *store = [SLStore sharedStore];
+    
+    NSLog(@"Payload: %@", payload);
+    
+    NSDictionary *extracted = [serialier extractSingle:[SLAsset class] withPayload:payload withStore:store];
+    
+    NSLog(@"Extracted: %@", extracted);
+    
+    // Normalize ID
+    XCTAssertStringEqual(payload[@"_id"][@"$oid"], extracted[@"nid"], @"ID should have been normalized.");
+    // Attribute name change
+    XCTAssertStringEqual(payload[@"description"], extracted[@"desc"], @"Attribute key should have been changed.");
+    // TODO: Date Transform
+    
+}
+
+- (void) testPushAssets
+{
+    
+    NSDictionary *pushData = @{
+                               @"nid": @"538770ab2fb05c514e6cb340",
+                               @"dateCreated": [NSDate new],
+                               @"dateUpdated": [NSDate new],
+                               @"desc": @"This is an Asset in a Unit Test.",
+                               @"name": @"PV1234"
+                               };
+    SLAsset *a1 = (SLAsset *)[[SLStore sharedStore] push:[SLAsset class] withData:pushData];
+    
+    XCTAssertStringEqual(pushData[@"nid"], a1.nid, @"`nid`s should match.");
+    XCTAssertStringEqual(pushData[@"desc"], a1.desc, @"`desc`s should match.");
+    XCTAssertStringEqual(pushData[@"name"], a1.name, @"`name`s should match.");
+    
+}
+
+- (void) testAssets
+{
+    
+    StartBlock();
+    
+    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
+                              withPassword:@"password"
+                          withOrganization:@"test"]
+    .then(^(SLClient *client, SLUser *me) {
+        
+        [SLAsset findAll]
+        .then(^(NSArray *assets) {
+            NSLog(@"%@", assets);
+            
+        })
+        .catch(^(NSError *error) {
+            NSLog(@"%@", error);
+            XCTFail(@"%@", error);
+        })
+        .finally(^() {
+            EndBlock();
+        });
+        
+    });
+    
+    WaitUntilBlockCompletes();
+    
+}
 
 
 @end

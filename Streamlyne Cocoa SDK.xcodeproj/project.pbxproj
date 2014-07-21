@@ -30,6 +30,8 @@
 		7720FC2A18369CA20092D39B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC1A18369CA10092D39B /* Foundation.framework */; };
 		7720FC2C18369CA20092D39B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7720FC2B18369CA20092D39B /* UIKit.framework */; };
 		7720FC3518369CA20092D39B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7720FC3318369CA20092D39B /* InfoPlist.strings */; };
+		77754CCA197D80FC005772F4 /* SLAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77754CC9197D80FC005772F4 /* SLAdapter.m */; };
+		77754CCB197D80FC005772F4 /* SLAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77754CC9197D80FC005772F4 /* SLAdapter.m */; };
 		7783AFF81974535D000CAB0A /* SLAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 7783AFF61974535D000CAB0A /* SLAsset.h */; };
 		7783AFF91974535D000CAB0A /* SLAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 7783AFF61974535D000CAB0A /* SLAsset.h */; };
 		7783AFFA1974535D000CAB0A /* SLAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 7783AFF71974535D000CAB0A /* SLAsset.m */; };
@@ -44,7 +46,6 @@
 		7787C62B1845173C00D91E20 /* SLGroup.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7E2618430F1A0053C02C /* SLGroup.h */; };
 		7787C62C1845173C00D91E20 /* SLGroup.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7E2718430F1A0053C02C /* SLGroup.m */; };
 		7787C62D1845173C00D91E20 /* SLAdapter.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DE91842F6DC0053C02C /* SLAdapter.h */; };
-		7787C62E1845173C00D91E20 /* SLAdapter.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DEA1842F6DC0053C02C /* SLAdapter.m */; };
 		7787C62F1845173C00D91E20 /* SLCommon.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DEB1842F6DC0053C02C /* SLCommon.h */; };
 		7787C6301845173C00D91E20 /* SLModel.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DEC1842F6DC0053C02C /* SLModel.h */; };
 		7787C6311845173C00D91E20 /* SLModel.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 77AD7DED1842F6DC0053C02C /* SLModel.m */; };
@@ -101,8 +102,6 @@
 		77AD7E061842F6DC0053C02C /* SLWorkOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */; };
 		77AD7E081842F6DC0053C02C /* SLWorkOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */; };
 		77AD7E0A1842F6DC0053C02C /* SLAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DE91842F6DC0053C02C /* SLAdapter.h */; };
-		77AD7E0B1842F6DC0053C02C /* SLAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DEA1842F6DC0053C02C /* SLAdapter.m */; };
-		77AD7E0D1842F6DC0053C02C /* SLAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DEA1842F6DC0053C02C /* SLAdapter.m */; };
 		77AD7E0F1842F6DC0053C02C /* SLCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEB1842F6DC0053C02C /* SLCommon.h */; };
 		77AD7E101842F6DC0053C02C /* SLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEC1842F6DC0053C02C /* SLModel.h */; };
 		77AD7E111842F6DC0053C02C /* SLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AD7DED1842F6DC0053C02C /* SLModel.m */; };
@@ -166,7 +165,6 @@
 				7787C62B1845173C00D91E20 /* SLGroup.h in Copy Files */,
 				7787C62C1845173C00D91E20 /* SLGroup.m in Copy Files */,
 				7787C62D1845173C00D91E20 /* SLAdapter.h in Copy Files */,
-				7787C62E1845173C00D91E20 /* SLAdapter.m in Copy Files */,
 				7787C62F1845173C00D91E20 /* SLCommon.h in Copy Files */,
 				7787C6301845173C00D91E20 /* SLModel.h in Copy Files */,
 				7787C6311845173C00D91E20 /* SLModel.m in Copy Files */,
@@ -195,6 +193,7 @@
 		7720FC3218369CA20092D39B /* Streamlyne-iOS-SDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Streamlyne-iOS-SDKTests-Info.plist"; sourceTree = "<group>"; };
 		7720FC3418369CA20092D39B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Streamlyne_iOS_SDKTests.m; sourceTree = "<group>"; };
+		77754CC9197D80FC005772F4 /* SLAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAdapter.m; sourceTree = "<group>"; };
 		7783AFF419744B19000CAB0A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		7783AFF519744B25000CAB0A /* install.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install.sh; sourceTree = "<group>"; };
 		7783AFF61974535D000CAB0A /* SLAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAsset.h; sourceTree = "<group>"; };
@@ -220,7 +219,6 @@
 		77AD7DE71842F6DC0053C02C /* SLWorkOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLWorkOrder.h; sourceTree = "<group>"; };
 		77AD7DE81842F6DC0053C02C /* SLWorkOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLWorkOrder.m; sourceTree = "<group>"; };
 		77AD7DE91842F6DC0053C02C /* SLAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAdapter.h; sourceTree = "<group>"; };
-		77AD7DEA1842F6DC0053C02C /* SLAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAdapter.m; sourceTree = "<group>"; };
 		77AD7DEB1842F6DC0053C02C /* SLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCommon.h; sourceTree = "<group>"; };
 		77AD7DEC1842F6DC0053C02C /* SLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLModel.h; sourceTree = "<group>"; };
 		77AD7DED1842F6DC0053C02C /* SLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLModel.m; sourceTree = "<group>"; };
@@ -398,7 +396,7 @@
 				77AD7DF31842F6DC0053C02C /* StreamlyneSDK.h */,
 				77AD7DE01842F6DC0053C02C /* Models */,
 				77AD7DE91842F6DC0053C02C /* SLAdapter.h */,
-				77AD7DEA1842F6DC0053C02C /* SLAdapter.m */,
+				77754CC9197D80FC005772F4 /* SLAdapter.m */,
 				77AD7DEB1842F6DC0053C02C /* SLCommon.h */,
 				77AD7DEC1842F6DC0053C02C /* SLModel.h */,
 				77AD7DED1842F6DC0053C02C /* SLModel.m */,
@@ -798,6 +796,7 @@
 			files = (
 				77AD7E171842F6DC0053C02C /* SLObject.m in Sources */,
 				77A473C21978710600748E1F /* NSString+SLStringHelpers.m in Sources */,
+				77754CCA197D80FC005772F4 /* SLAdapter.m in Sources */,
 				77AD7E011842F6DC0053C02C /* SLUser.m in Sources */,
 				77AD7E061842F6DC0053C02C /* SLWorkOrder.m in Sources */,
 				77A473BB197820E100748E1F /* SLClient.m in Sources */,
@@ -810,7 +809,6 @@
 				778A2BFF1977946F00B7DF1D /* SLStore.m in Sources */,
 				77AD7E2918430F1A0053C02C /* SLGroup.m in Sources */,
 				7783AFFA1974535D000CAB0A /* SLAsset.m in Sources */,
-				77AD7E0B1842F6DC0053C02C /* SLAdapter.m in Sources */,
 				77BE8F2718773B600098C907 /* SLSite.m in Sources */,
 				778A2BF91977874500B7DF1D /* SLObjectIdTransform.m in Sources */,
 			);
@@ -838,10 +836,10 @@
 				77AD7E031842F6DC0053C02C /* SLUser.m in Sources */,
 				77AD7E191842F6DC0053C02C /* SLObject.m in Sources */,
 				77AD7E131842F6DC0053C02C /* SLModel.m in Sources */,
-				77AD7E0D1842F6DC0053C02C /* SLAdapter.m in Sources */,
 				77AD7E2B18430F1A0053C02C /* SLGroup.m in Sources */,
 				77BE8F2818773B600098C907 /* SLSite.m in Sources */,
 				7783AFFB1974535D000CAB0A /* SLAsset.m in Sources */,
+				77754CCB197D80FC005772F4 /* SLAdapter.m in Sources */,
 				77AD7DFE1842F6DC0053C02C /* SLOrganization.m in Sources */,
 				77A473BC197820E100748E1F /* SLClient.m in Sources */,
 				771F4B98186029D90093674F /* Streamlyne.xcdatamodeld in Sources */,

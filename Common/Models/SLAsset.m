@@ -21,7 +21,20 @@
 
 + (NSString *) type
 {
-    return @"asset";
+    return @"assets";
 }
+
+
++ (NSString *) keyForAttribute:(NSString *)attribute
+{
+    attribute = [super keyForAttribute:attribute];
+    
+    if ([attribute isEqualToString:@"desc"])
+    {
+        return @"description";
+    }
+    return attribute;
+}
+
 
 @end
