@@ -10,28 +10,26 @@
 
 @implementation SLDateTransform
 
-- (NSDictionary *)serialize:(NSDate *)deserialized
++ (NSDictionary *)serialize:(NSDate *)deserialized
 {
     // For date conversion
-    NSDateFormatter *iso8601Formatter = [[NSDateFormatter alloc] init];
-    NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    [iso8601Formatter setLocale:enUSPOSIXLocale];
-    [iso8601Formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
+    NSTimeInterval ti = [deserialized timeIntervalSince1970];
     return @{
-             @"$date":
-                 [iso8601Formatter stringFromDate:deserialized]
+             @"$date": [NSNumber numberWithDouble:ti]
              };
 }
 
-- (NSDate *)deserialize:(NSDictionary *)serialized
++ (NSDate *)deserialize:(NSDictionary *)serialized
 {
-    NSString *str = serialized[@"$date"];
     // For date conversion
-    NSDateFormatter *iso8601Formatter = [[NSDateFormatter alloc] init];
-    NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    [iso8601Formatter setLocale:enUSPOSIXLocale];
-    [iso8601Formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
-    return [iso8601Formatter dateFromString: str];
+    NSNumber *timestamp = serialized[@"$date"];
+    if ([timestamp isEqualTo:[NSNull null]])
+    {
+        return nil;
+    }
+    NSNumber *timestampInSeconds = @([timestamp doubleValue]/1000);
+    NSDate *deserialized = [NSDate dateWithTimeIntervalSince1970:[timestampInSeconds doubleValue]];
+    return deserialized;
 }
 
 @end

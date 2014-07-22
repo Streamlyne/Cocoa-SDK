@@ -10,14 +10,14 @@
 
 @implementation SLObjectIdTransform
 
-- (NSDictionary *)serialize:(NSString *)deserialized
++ (NSDictionary *)serialize:(NSString *)deserialized
 {
     return @{
              @"$oid": deserialized
             };
 }
 
-- (NSString *)deserialize:(NSDictionary *)serialized
++ (NSString *)deserialize:(NSDictionary *)serialized
 {
     return serialized[@"$oid"];
 }

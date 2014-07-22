@@ -456,11 +456,8 @@
 
 - (instancetype) setupData:(NSDictionary *)data
 {
-//    NSLog(@"inManagedObjectContext: %@", self.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities);
-    NSEntityDescription *modelEntity = self.entity;
-
     // Attributes
-    NSDictionary *attributes = [modelEntity attributesByName];
+    NSDictionary *attributes = [self attributesByName];
     for (NSString *key in attributes)
     {
         NSAttributeDescription *attr = [attributes objectForKey:key];
@@ -468,8 +465,7 @@
         NSAttributeType t = [attr attributeType];
         NSLog(@"Attr Type %lu", (unsigned long)t);
         // Get Value
-        id val = data[key];
-        // TODO: Transform (deserialize) value
+        id val = [data objectForKey:key];
         // Set value
         [self setValue:val forKey:key];
     }

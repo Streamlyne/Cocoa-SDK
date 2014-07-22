@@ -10,7 +10,7 @@
 
 @interface SLTransform : SLObject
 
-- (id) deserialize:(id)serialized;
-- (id) serialize:(id)deserialized;
++ (id) deserialize:(id)serialized;
++ (id) serialize:(id)deserialized;
 
 @end

@@ -99,7 +99,8 @@ while(condition) { \
                       withOrganization:@"test"]
     .then(^() {
         XCTAssertTrue(true, @"PARTY. IT WORKED.");
-    }).catch(^(NSError *error) {
+    })
+    .catch(^(NSError *error) {
         XCTFail(@"%@", error);
     })
     .finally(^() {
@@ -142,8 +143,8 @@ while(condition) { \
                                @"_id": @{
                                        @"$oid": @"538770ab2fb05c514e6cb340"
                                        },
-                               @"date_created": @{@"$date": [NSNull null]},
-                               @"date_updated": @{@"$date": [NSNull null]},
+//                               @"date_created": @{@"$date": [[NSDate now] timeIntervalSince1970]/1000},
+//                               @"date_updated": @{@"$date": [NSNull null]},
                                @"description": @"This is an Asset in a Unit Test.",
                                @"name": @"PV1234"
                                };
@@ -194,14 +195,15 @@ while(condition) { \
         
         [SLAsset findAll]
         .then(^(NSArray *assets) {
-            NSLog(@"%@", assets);
-            
+            NSLog(@"Assets: %@", assets);
         })
         .catch(^(NSError *error) {
             NSLog(@"%@", error);
+            EndBlock();
             XCTFail(@"%@", error);
         })
         .finally(^() {
+            NSLog(@"Finally!");
             EndBlock();
         });
         

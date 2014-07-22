@@ -11,6 +11,7 @@
 
 // Transforms
 #import "SLObjectIdTransform.h"
+#import "SLDateTransform.h"
 
 @interface SLSerializer ()
 @property (nonatomic, retain) NSDictionary *registeredTransforms;
@@ -55,7 +56,7 @@
     // Get Dictionary form ObjectId
     NSDictionary *dId = payload[@"_id"];
     // Convert to String Id
-    SLNid nid = [[SLObjectIdTransform alloc] deserialize:dId];
+    SLNid nid = [SLObjectIdTransform deserialize:dId];
     // Save!
     [results setValue:nid forKey:@"nid"];
     // Remove the old field
@@ -66,14 +67,12 @@
 
 - (NSDictionary *)normalizeAttributes:(Class)modelClass withPayload:(NSDictionary *)payload
 {
-    NSDictionary *results = [NSDictionary dictionaryWithDictionary:payload];
+    NSLog(@"Payload: %@", payload);
+    NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:payload];
     NSDictionary *attributes = [modelClass attributesByName];
     for (NSString *attributeKey in attributes)
     {
         NSAttributeDescription *attribute = attributes[attributeKey];
-        
-        // TODO: Handle different types of Attributes with Transforms
-        NSAttributeType type = [attribute attributeType];
         
         // TODO: Handle renaming keys for attributes
         NSLog(@"attribute: %@", attribute);
@@ -84,12 +83,30 @@
         {
             // Attribute's Key is different
             // Rename it.
-//            FIXME:
-            //[results setValue:val forKey:<#(NSString *)#>]
+            id origVal = [payload objectForKey:payloadKey];
+            if (origVal == nil)
+            {
+                continue;
+            }
+            // TODO: Handle different types of Attributes with Transforms
+            NSAttributeType type = [attribute attributeType];
+            //
+            id val = origVal;
+            switch (type)
+            {
+                case NSDateAttributeType:
+                {
+                    val = [SLDateTransform deserialize:origVal];
+                }
+                break;
+            }
+            NSLog(@"Val: %@", val);
+            [results setValue:val forKey:attributeKey];
+            [results removeObjectForKey:payloadKey];
         }
         
     }
-    return results;
+    return [NSDictionary dictionaryWithDictionary:results];
 }
 
 - (NSDictionary *)normalizeRelationships:(Class)modelClass withPayload:(NSDictionary *)payload
