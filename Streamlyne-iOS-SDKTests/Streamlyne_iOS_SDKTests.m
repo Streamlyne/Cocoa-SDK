@@ -122,7 +122,7 @@ while(condition) { \
                               withPassword:@"password"
                           withOrganization:@"test"]
     .then(^(SLClient *client, SLUser *me) {
-        NSLog(@"%@", me);
+        NSLog(@"Me User: %@", me);
         XCTAssertTrue(me != nil, @"PARTY. IT WORKED.");
         XCTAssert([me.email isEqualToString:@"test@streamlyne.co"], @"Email of user should be the same as the one used for logging in.");
     }).catch(^(NSError *error) {

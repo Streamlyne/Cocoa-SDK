@@ -22,20 +22,4 @@
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * password;
 
-
-/**
- 
- */
-//+ (void) registerUser:(SLUser *)theUser
-//     withOrganization:(SLOrganization *)theOrg
-//         withCallback:(SLSuccessCallback)theCallback;
-//
-//+ (void) registerUserWithEmail:(NSString *)email
-//                  withPassword:(NSString *)password
-//                  withJobTitle:(NSString *)jobTitle
-//                 withFirstName:(NSString *)firstName
-//                  withLastName:(NSString *)lastName
-//              withOrganization:(SLOrganization *)theOrg
-//                  withCallback:(SLSuccessCallback)theCallback;
-
 @end
