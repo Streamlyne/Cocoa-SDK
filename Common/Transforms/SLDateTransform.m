@@ -22,11 +22,12 @@
 + (NSDate *)deserialize:(NSDictionary *)serialized
 {
     // For date conversion
-    NSNumber *timestamp = serialized[@"$date"];
-    if ([timestamp isEqualTo:[NSNull null]])
+    id val = serialized[@"$date"];
+    if (val == [NSNull null])
     {
         return nil;
     }
+    NSNumber *timestamp = (NSNumber *)val;
     NSNumber *timestampInSeconds = @([timestamp doubleValue]/1000);
     NSDate *deserialized = [NSDate dateWithTimeIntervalSince1970:[timestampInSeconds doubleValue]];
     return deserialized;
