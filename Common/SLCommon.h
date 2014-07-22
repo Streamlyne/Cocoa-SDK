@@ -90,6 +90,10 @@ typedef void(^SLRequestCallback)(NSError *error, id operation, id responseObject
  */
 #define SLSharedAPIManager [SLAPIManager sharedManager]
 
+/**
+ 
+ */
+#define SLErrorDomain @"com.Streamlyne-Technologies-Ltd.Streamlyne"
 
 /**
  Source: http://stackoverflow.com/a/12137979/2578205

@@ -286,7 +286,17 @@ static SLAdapter *sharedSingleton = nil;
             }).catch(rejecter);
         } else
         {
-            rejecter([NSException exceptionWithName:NSInternalInconsistencyException reason:@"Authenticating requires user's email, password, and organization." userInfo:nil]);
+            
+            NSDictionary *userInfo = @{
+                                       NSLocalizedDescriptionKey: NSLocalizedString(@"Login was unsuccessful.", nil),
+                                       NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Authenticating requires user's email, password, and organization.", nil),
+                                       NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Verify that you have entered all of the required fields.", nil)
+                                       };
+            NSError *error = [NSError errorWithDomain:SLErrorDomain
+                                                 code:kCFErrorHTTPBadCredentials
+                                             userInfo:userInfo];
+            rejecter(error);
+
         }
     }];
 }
