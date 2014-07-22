@@ -133,5 +133,6 @@ Pod::Spec.new do |s|
   # s.dependency 'JSONKit', '~> 1.4'
   s.dependency 'AFNetworking', '~> 2.0'
   s.dependency 'MagicalRecord', '~> 2.2'
+  s.dependency 'PromiseKit'
 
 end
