@@ -139,12 +139,15 @@ while(condition) { \
 
 - (void) testDeserializeSingleAssetPayload
 {
+    NSTimeInterval ti = [[NSDate new] timeIntervalSince1970]/1000;
+    NSNumber *tin = [NSNumber numberWithDouble:ti];
+    
     NSDictionary *payload =  @{
                                @"_id": @{
                                        @"$oid": @"538770ab2fb05c514e6cb340"
                                        },
-//                               @"date_created": @{@"$date": [[NSDate now] timeIntervalSince1970]/1000},
-//                               @"date_updated": @{@"$date": [NSNull null]},
+                               @"date_created": @{@"$date": tin},
+                               @"date_updated": @{@"$date": tin},
                                @"description": @"This is an Asset in a Unit Test.",
                                @"name": @"PV1234"
                                };
@@ -165,7 +168,7 @@ while(condition) { \
     
 }
 
-- (void) testPushAssets
+- (void) testPushAsset
 {
     
     NSDictionary *pushData = @{
@@ -176,7 +179,6 @@ while(condition) { \
                                @"name": @"PV1234"
                                };
     SLAsset *a1 = (SLAsset *)[[SLStore sharedStore] push:[SLAsset class] withData:pushData];
-    
     XCTAssertStringEqual(pushData[@"nid"], a1.nid, @"`nid`s should match.");
     XCTAssertStringEqual(pushData[@"desc"], a1.desc, @"`desc`s should match.");
     XCTAssertStringEqual(pushData[@"name"], a1.name, @"`name`s should match.");
@@ -210,6 +212,44 @@ while(condition) { \
     });
     
     WaitUntilBlockCompletes();
+    
+}
+
+
+
+- (void) testDeserializeSingleUserPayload
+{
+    NSTimeInterval ti = [[NSDate new] timeIntervalSince1970]/1000;
+    NSNumber *tin = [NSNumber numberWithDouble:ti];
+    
+    NSDictionary *payload =  @{
+                               @"_id": @{
+                                       @"$oid": @"538770ab2fb05c514e6cb340"
+                                       },
+                               @"date_created": @{@"$date": tin},
+                               @"date_updated": @{@"$date": tin},
+                               @"email": @"test@streamlyne.co",
+                               @"first_name": @"Testie",
+                               @"last_name": @"Testerson",
+                               @"job_title": @"Tester at Streamlyne Technologies"
+                               };
+    SLSerializer *serialier = [[SLSerializer alloc] init];
+    SLStore *store = [SLStore sharedStore];
+    
+    NSLog(@"Payload: %@", payload);
+    
+    NSDictionary *extracted = [serialier extractSingle:[SLUser class] withPayload:payload withStore:store];
+    
+    NSLog(@"Extracted: %@", extracted);
+    
+    // Normalize ID
+    XCTAssertStringEqual(payload[@"_id"][@"$oid"], extracted[@"nid"], @"ID should have been normalized.");
+    // Attribute name change
+    XCTAssertStringEqual(payload[@"first_name"], extracted[@"firstName"], @"Attribute key should have been changed.");
+    XCTAssertStringEqual(payload[@"last_name"], extracted[@"lastName"], @"Attribute key should have been changed.");
+    XCTAssertStringEqual(payload[@"job_title"], extracted[@"jobTitle"], @"Attribute key should have been changed.");
+    // Matching values, no normalization changes
+    XCTAssertStringEqual(payload[@"email"], extracted[@"email"], @"Attribute values should match.");
     
 }
 

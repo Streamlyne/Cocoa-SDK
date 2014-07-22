@@ -8,6 +8,7 @@
 
 #import "SLModel.h"
 #import "SLAdapter.h"
+#import "NSString+SLStringHelpers.h"
 
 @interface SLModel()
 @property (nonatomic, retain) SLStore *store;
@@ -76,14 +77,15 @@
 
 + (NSString *) keyForAttribute:(NSString *)attribute
 {
-    if ([attribute isEqualToString:@"dateCreated"])
-    {
-        return @"date_created";
-    }
-    else if ([attribute isEqualToString:@"dateUpdated"])
-    {
-        return @"date_created";
-    }
+    attribute = [attribute underscore];
+//    if ([attribute isEqualToString:@"dateCreated"])
+//    {
+//        return @"date_created";
+//    }
+//    else if ([attribute isEqualToString:@"dateUpdated"])
+//    {
+//        return @"date_created";
+//    }
     return attribute;
 }
 
