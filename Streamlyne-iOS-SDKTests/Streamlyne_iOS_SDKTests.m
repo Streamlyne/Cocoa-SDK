@@ -113,6 +113,42 @@ while(condition) { \
 }
 
 
+- (void) testDeserializeSingleUserPayload
+{
+    NSTimeInterval ti = [[NSDate new] timeIntervalSince1970]/1000;
+    NSNumber *tin = [NSNumber numberWithDouble:ti];
+    
+    NSDictionary *payload =  @{
+                               @"_id": @{
+                                       @"$oid": @"538770ab2fb05c514e6cb340"
+                                       },
+                               @"date_created": @{@"$date": tin},
+                               @"date_updated": @{@"$date": tin},
+                               @"email": @"test@streamlyne.co",
+                               @"first_name": @"Testie",
+                               @"last_name": @"Testerson",
+                               @"job_title": @"Tester at Streamlyne Technologies"
+                               };
+    SLSerializer *serialier = [[SLSerializer alloc] init];
+    SLStore *store = [SLStore sharedStore];
+    
+    NSLog(@"Payload: %@", payload);
+    
+    NSDictionary *extracted = [serialier extractSingle:[SLUser class] withPayload:payload withStore:store];
+    
+    NSLog(@"Extracted: %@", extracted);
+    
+    // Normalize ID
+    XCTAssertStringEqual(payload[@"_id"][@"$oid"], extracted[@"nid"], @"ID should have been normalized.");
+    // Attribute name change
+    XCTAssertStringEqual(payload[@"first_name"], extracted[@"firstName"], @"Attribute key should have been changed.");
+    XCTAssertStringEqual(payload[@"last_name"], extracted[@"lastName"], @"Attribute key should have been changed.");
+    XCTAssertStringEqual(payload[@"job_title"], extracted[@"jobTitle"], @"Attribute key should have been changed.");
+    // Matching values, no normalization changes
+    XCTAssertStringEqual(payload[@"email"], extracted[@"email"], @"Attribute values should match.");
+    
+}
+
 
 - (void) testLogin
 {
@@ -222,42 +258,77 @@ while(condition) { \
 }
 
 
-
-- (void) testDeserializeSingleUserPayload
+- (void) testFindAllAttributes
 {
-    NSTimeInterval ti = [[NSDate new] timeIntervalSince1970]/1000;
-    NSNumber *tin = [NSNumber numberWithDouble:ti];
     
-    NSDictionary *payload =  @{
-                               @"_id": @{
-                                       @"$oid": @"538770ab2fb05c514e6cb340"
-                                       },
-                               @"date_created": @{@"$date": tin},
-                               @"date_updated": @{@"$date": tin},
-                               @"email": @"test@streamlyne.co",
-                               @"first_name": @"Testie",
-                               @"last_name": @"Testerson",
-                               @"job_title": @"Tester at Streamlyne Technologies"
-                               };
-    SLSerializer *serialier = [[SLSerializer alloc] init];
-    SLStore *store = [SLStore sharedStore];
+    StartBlock();
     
-    NSLog(@"Payload: %@", payload);
+    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
+                              withPassword:@"password"
+                          withOrganization:@"test"]
+    .then(^(SLClient *client, SLUser *me) {
+        
+        [SLAttribute findAll]
+        .then(^(NSArray *attributes) {
+            NSLog(@"Attributes: %@", attributes);
+        })
+        .catch(^(NSError *error) {
+            NSLog(@"%@", error);
+            EndBlock();
+            
+            XCTFail(@"%@", error);
+        })
+        .finally(^() {
+            NSLog(@"Finally!");
+            EndBlock();
+        });
+        
+    })
+    .catch(^(NSError *error) {
+        XCTFail(@"%@", error);
+        EndBlock();
+    });
     
-    NSDictionary *extracted = [serialier extractSingle:[SLUser class] withPayload:payload withStore:store];
-    
-    NSLog(@"Extracted: %@", extracted);
-    
-    // Normalize ID
-    XCTAssertStringEqual(payload[@"_id"][@"$oid"], extracted[@"nid"], @"ID should have been normalized.");
-    // Attribute name change
-    XCTAssertStringEqual(payload[@"first_name"], extracted[@"firstName"], @"Attribute key should have been changed.");
-    XCTAssertStringEqual(payload[@"last_name"], extracted[@"lastName"], @"Attribute key should have been changed.");
-    XCTAssertStringEqual(payload[@"job_title"], extracted[@"jobTitle"], @"Attribute key should have been changed.");
-    // Matching values, no normalization changes
-    XCTAssertStringEqual(payload[@"email"], extracted[@"email"], @"Attribute values should match.");
+    WaitUntilBlockCompletes();
     
 }
+
+
+- (void) testFindAllAttributeCollections
+{
+    
+    StartBlock();
+    
+    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
+                              withPassword:@"password"
+                          withOrganization:@"test"]
+    .then(^(SLClient *client, SLUser *me) {
+        
+        [SLAttributeCollection findAll]
+        .then(^(NSArray *attributeCollections) {
+            NSLog(@"attributeCollections: %@", attributeCollections);
+        })
+        .catch(^(NSError *error) {
+            NSLog(@"%@", error);
+            EndBlock();
+            
+            XCTFail(@"%@", error);
+        })
+        .finally(^() {
+            NSLog(@"Finally!");
+            EndBlock();
+        });
+        
+    })
+    .catch(^(NSError *error) {
+        XCTFail(@"%@", error);
+        EndBlock();
+    });
+    
+    WaitUntilBlockCompletes();
+    
+}
+
 
 
 @end

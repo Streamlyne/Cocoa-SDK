@@ -117,7 +117,11 @@
 
 + (NSString *) type
 {
-    // return NSStringFromClass([instance class]);
+//    NSString *className = NSStringFromClass([self class]);
+//    NSString *name = [className lowercaseString];
+//    // TODO: Pluralize
+//    // TODO: Dasherize
+//    return name;
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override method '%@' in the subclass '%@'.", NSStringFromSelector(_cmd), [self class]]
                                  userInfo:nil];

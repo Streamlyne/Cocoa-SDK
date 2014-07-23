@@ -13,11 +13,13 @@
 #import "SLAdapter.h"
 #import "SLModel.h"
 // Custom Nodes
+#import "SLAttribute.h"
+#import "SLAttributeCollection.h"
+#import "SLAsset.h"
 #import "SLOrganization.h"
 #import "SLUser.h"
-#import "SLGroup.h"
 #import "SLWorkOrder.h"
-#import "SLAsset.h"
+#import "SLGroup.h"
 #import "SLSite.h"
 
 /**

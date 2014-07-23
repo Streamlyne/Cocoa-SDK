@@ -16,6 +16,12 @@
 @dynamic attributes;
 
 
++ (NSString *) type
+{
+    return @"attribute-collections";
+}
+
+
 + (NSString *) keyForAttribute:(NSString *)attribute
 {
     attribute = [super keyForAttribute:attribute];

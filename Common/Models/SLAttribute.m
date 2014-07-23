@@ -17,6 +17,11 @@
 @dynamic desc;
 
 
++ (NSString *) type
+{
+    return @"attributes";
+}
+
 + (NSString *) keyForAttribute:(NSString *)attribute
 {
     attribute = [super keyForAttribute:attribute];
