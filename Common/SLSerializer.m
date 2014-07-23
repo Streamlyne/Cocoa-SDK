@@ -39,7 +39,14 @@
 
 - (NSArray *) extractArray:(Class)modelClass withPayload:(NSDictionary *)payload withStore:(SLStore *)store
 {
-    return @[];
+    NSArray *results = payload[@"results"];
+    NSMutableArray *extracted = [NSMutableArray array];
+    for (NSDictionary *p in results)
+    {
+        NSDictionary *s = [self extractSingle:modelClass withPayload:p withStore:store];
+        [extracted addObject:s];
+    }
+    return [NSArray arrayWithArray:extracted];
 }
 
 - (NSDictionary *)normalize:(Class)modelClass withPayload:(NSDictionary *)payload

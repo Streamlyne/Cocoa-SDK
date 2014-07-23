@@ -78,14 +78,6 @@
 + (NSString *) keyForAttribute:(NSString *)attribute
 {
     attribute = [attribute underscore];
-//    if ([attribute isEqualToString:@"dateCreated"])
-//    {
-//        return @"date_created";
-//    }
-//    else if ([attribute isEqualToString:@"dateUpdated"])
-//    {
-//        return @"date_created";
-//    }
     return attribute;
 }
 

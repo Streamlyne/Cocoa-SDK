@@ -19,7 +19,8 @@
 // Macro - Set the flag for block completion
 #define StartBlock() __block BOOL waitingForBlock = YES
 // Macro - Set the flag to stop the loop
-#define EndBlock() waitingForBlock = NO
+#define EndBlock() waitingForBlock = NO; \
+WaitUntilBlockCompletes();
 // Macro - Wait and loop until flag is set
 #define WaitUntilBlockCompletes() WaitWhile(waitingForBlock)
 // Macro - Wait for condition to be NO/false in blocks and asynchronous calls
@@ -185,7 +186,7 @@ while(condition) { \
     
 }
 
-- (void) testAssets
+- (void) testFindAllAssets
 {
     
     StartBlock();
@@ -202,6 +203,7 @@ while(condition) { \
         .catch(^(NSError *error) {
             NSLog(@"%@", error);
             EndBlock();
+
             XCTFail(@"%@", error);
         })
         .finally(^() {
@@ -209,6 +211,10 @@ while(condition) { \
             EndBlock();
         });
         
+    })
+    .catch(^(NSError *error) {
+        XCTFail(@"%@", error);
+        EndBlock();
     });
     
     WaitUntilBlockCompletes();

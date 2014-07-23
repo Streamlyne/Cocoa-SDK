@@ -43,7 +43,7 @@ static SLStore *sharedSingleton = nil;
        return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
            [self.adapter findAll:modelClass withStore:self]
            .then(^(NSDictionary *adapterPayload) {
-               // FIXME
+               // FIXME: Should used a shared Serializer, etc.
                SLSerializer *serializer = [[SLSerializer alloc] init];
                // Extract from Payload
                NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
@@ -78,7 +78,12 @@ static SLStore *sharedSingleton = nil;
 
 - (NSArray *) pushMany:(Class)modelClass withData:(NSArray *)data
 {
-    return @[];
+    NSLog(@"pushMany <%@>: %@", modelClass, data);
+    NSMutableArray *records = [NSMutableArray array];
+    for (NSDictionary *datum in data) {
+        [records addObject:[self push:modelClass withData:datum]];
+    }
+    return [NSArray arrayWithArray:records];
 }
 
 @end
