@@ -32,6 +32,14 @@
 		7720FC3518369CA20092D39B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7720FC3318369CA20092D39B /* InfoPlist.strings */; };
 		77754CCA197D80FC005772F4 /* SLAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77754CC9197D80FC005772F4 /* SLAdapter.m */; };
 		77754CCB197D80FC005772F4 /* SLAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77754CC9197D80FC005772F4 /* SLAdapter.m */; };
+		7778F66F197F5B4D00803E94 /* SLAttributeCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 7778F66D197F5B4D00803E94 /* SLAttributeCollection.h */; };
+		7778F670197F5B4D00803E94 /* SLAttributeCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 7778F66D197F5B4D00803E94 /* SLAttributeCollection.h */; };
+		7778F671197F5B4D00803E94 /* SLAttributeCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7778F66E197F5B4D00803E94 /* SLAttributeCollection.m */; };
+		7778F672197F5B4D00803E94 /* SLAttributeCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7778F66E197F5B4D00803E94 /* SLAttributeCollection.m */; };
+		7778F675197F5D2300803E94 /* SLAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 7778F673197F5D2300803E94 /* SLAttribute.h */; };
+		7778F676197F5D2300803E94 /* SLAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 7778F673197F5D2300803E94 /* SLAttribute.h */; };
+		7778F677197F5D2300803E94 /* SLAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 7778F674197F5D2300803E94 /* SLAttribute.m */; };
+		7778F678197F5D2300803E94 /* SLAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 7778F674197F5D2300803E94 /* SLAttribute.m */; };
 		7783AFF81974535D000CAB0A /* SLAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 7783AFF61974535D000CAB0A /* SLAsset.h */; };
 		7783AFF91974535D000CAB0A /* SLAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 7783AFF61974535D000CAB0A /* SLAsset.h */; };
 		7783AFFA1974535D000CAB0A /* SLAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 7783AFF71974535D000CAB0A /* SLAsset.m */; };
@@ -194,6 +202,10 @@
 		7720FC3418369CA20092D39B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7720FC3618369CA20092D39B /* Streamlyne_iOS_SDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Streamlyne_iOS_SDKTests.m; sourceTree = "<group>"; };
 		77754CC9197D80FC005772F4 /* SLAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAdapter.m; sourceTree = "<group>"; };
+		7778F66D197F5B4D00803E94 /* SLAttributeCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAttributeCollection.h; sourceTree = "<group>"; };
+		7778F66E197F5B4D00803E94 /* SLAttributeCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAttributeCollection.m; sourceTree = "<group>"; };
+		7778F673197F5D2300803E94 /* SLAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAttribute.h; sourceTree = "<group>"; };
+		7778F674197F5D2300803E94 /* SLAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAttribute.m; sourceTree = "<group>"; };
 		7783AFF419744B19000CAB0A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		7783AFF519744B25000CAB0A /* install.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install.sh; sourceTree = "<group>"; };
 		7783AFF61974535D000CAB0A /* SLAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAsset.h; sourceTree = "<group>"; };
@@ -420,6 +432,10 @@
 		77AD7DE01842F6DC0053C02C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7778F673197F5D2300803E94 /* SLAttribute.h */,
+				7778F674197F5D2300803E94 /* SLAttribute.m */,
+				7778F66D197F5B4D00803E94 /* SLAttributeCollection.h */,
+				7778F66E197F5B4D00803E94 /* SLAttributeCollection.m */,
 				7783AFF61974535D000CAB0A /* SLAsset.h */,
 				7783AFF71974535D000CAB0A /* SLAsset.m */,
 				77AD7DE31842F6DC0053C02C /* SLOrganization.h */,
@@ -491,6 +507,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7778F66F197F5B4D00803E94 /* SLAttributeCollection.h in Headers */,
 				778A2BF71977874500B7DF1D /* SLObjectIdTransform.h in Headers */,
 				77A473C01978710600748E1F /* NSString+SLStringHelpers.h in Headers */,
 				778A2BEB19777AE100B7DF1D /* SLDateTransform.h in Headers */,
@@ -506,6 +523,7 @@
 				7787C69C1845217400D91E20 /* SLCommon.h in Headers */,
 				778A2BF119777C9400B7DF1D /* SLSerializer.h in Headers */,
 				7783AFF81974535D000CAB0A /* SLAsset.h in Headers */,
+				7778F675197F5D2300803E94 /* SLAttribute.h in Headers */,
 				7787C69D1845217400D91E20 /* SLModel.h in Headers */,
 				7787C69F1845217400D91E20 /* SLNodeProtocol.h in Headers */,
 				7787C6A01845217400D91E20 /* SLObject.h in Headers */,
@@ -517,6 +535,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7778F670197F5B4D00803E94 /* SLAttributeCollection.h in Headers */,
 				778A2BF81977874500B7DF1D /* SLObjectIdTransform.h in Headers */,
 				77A473C11978710600748E1F /* NSString+SLStringHelpers.h in Headers */,
 				778A2BEC19777AE100B7DF1D /* SLDateTransform.h in Headers */,
@@ -532,6 +551,7 @@
 				778A2BF219777C9400B7DF1D /* SLSerializer.h in Headers */,
 				77AD7DFB1842F6DC0053C02C /* SLOrganization.h in Headers */,
 				7783AFF91974535D000CAB0A /* SLAsset.h in Headers */,
+				7778F676197F5D2300803E94 /* SLAttribute.h in Headers */,
 				77AD7E151842F6DC0053C02C /* SLNodeProtocol.h in Headers */,
 				77AD7E0A1842F6DC0053C02C /* SLAdapter.h in Headers */,
 				77AD7E101842F6DC0053C02C /* SLModel.h in Headers */,
@@ -797,6 +817,7 @@
 				77AD7E171842F6DC0053C02C /* SLObject.m in Sources */,
 				77A473C21978710600748E1F /* NSString+SLStringHelpers.m in Sources */,
 				77754CCA197D80FC005772F4 /* SLAdapter.m in Sources */,
+				7778F671197F5B4D00803E94 /* SLAttributeCollection.m in Sources */,
 				77AD7E011842F6DC0053C02C /* SLUser.m in Sources */,
 				77AD7E061842F6DC0053C02C /* SLWorkOrder.m in Sources */,
 				77A473BB197820E100748E1F /* SLClient.m in Sources */,
@@ -804,6 +825,7 @@
 				778A2BE71977793500B7DF1D /* SLTransform.m in Sources */,
 				778A2BF319777C9400B7DF1D /* SLSerializer.m in Sources */,
 				77AD7DFC1842F6DC0053C02C /* SLOrganization.m in Sources */,
+				7778F677197F5D2300803E94 /* SLAttribute.m in Sources */,
 				771F4B97186029D90093674F /* Streamlyne.xcdatamodeld in Sources */,
 				77AD7E111842F6DC0053C02C /* SLModel.m in Sources */,
 				778A2BFF1977946F00B7DF1D /* SLStore.m in Sources */,
@@ -829,6 +851,7 @@
 			files = (
 				778A2C001977946F00B7DF1D /* SLStore.m in Sources */,
 				778A2BFA1977874500B7DF1D /* SLObjectIdTransform.m in Sources */,
+				7778F672197F5B4D00803E94 /* SLAttributeCollection.m in Sources */,
 				77AD7E081842F6DC0053C02C /* SLWorkOrder.m in Sources */,
 				77B4EA1D184094D400435B97 /* Streamlyne_Mac_SDK.m in Sources */,
 				778A2BF419777C9400B7DF1D /* SLSerializer.m in Sources */,
@@ -845,6 +868,7 @@
 				771F4B98186029D90093674F /* Streamlyne.xcdatamodeld in Sources */,
 				778A2BEE19777AE100B7DF1D /* SLDateTransform.m in Sources */,
 				77A473C31978710600748E1F /* NSString+SLStringHelpers.m in Sources */,
+				7778F678197F5D2300803E94 /* SLAttribute.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

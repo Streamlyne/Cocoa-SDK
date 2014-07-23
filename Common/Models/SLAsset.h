@@ -10,7 +10,6 @@
 #import <CoreData/CoreData.h>
 #import "SLModel.h"
 
-
 @interface SLAsset : SLModel
 
 @property (nonatomic, retain) NSString * name;
