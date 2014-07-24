@@ -6,23 +6,27 @@
 //  Copyright (c) 2013 Streamlyne. All rights reserved.
 //
 
-#import "SLNodeProtocol.h"
+#import "SLModelProtocol.h"
 #import "CoreData+MagicalRecord.h"
 #import "SLObject.h"
 #import "SLSerializer.h"
 #import <PromiseKit.h>
 
 /**
- `SLNode` is intended to be implemented and then subclassed.
+ `SLModel` is intended to be implemented and then subclassed.
  
  ## Subclassing Notes
- `SLNode` is intended to be implemented and then subclassed.
+ `sLModel` is intended to be implemented and then subclassed.
  
  ### Methods to Override
  In a subclass, you must override all these methods.
  
- - `init`
  - `type`
+ 
+ ### Optional Overrides
+ 
+ - `keyForAttribute`
+ - `keyForRelationship`
  
  */
 @interface SLModel : NSManagedObject <SLModelProtocol> {
@@ -60,6 +64,7 @@
  ## Manipulating the Schema
  Sample code to put in your init method.
  
+ <pre>
  // Create a Mutable copy of the data
  NSMutableDictionary *tempData = [self.data mutableCopy];
  // Make changes, by adding `SLValue`s
@@ -67,10 +72,10 @@
  [tempData setValue:idVal forKey:@"id"];
  // Change the base data schema to the new data schema.
  self.data = tempData;
+ </pre>
  
- @deprecated Use `MR_createEntity`.
  */
-- (instancetype) init DEPRECATED_ATTRIBUTE;
+- (instancetype) init;
 /**
  
  */
@@ -85,12 +90,11 @@
  @param nid
  @return    Initialized object.
  
- @deprecated Use `setupData`.
  */
-+ (instancetype) initWithId:(SLNid)nid DEPRECATED_ATTRIBUTE;
++ (instancetype) initWithId:(SLNid)nid;
 
 /**
- @deprecated Use `setupData`.
+ 
  */
 + (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context;
 
@@ -124,9 +128,11 @@
 + (NSString *) keyForRelationship:(NSString *)relationship;
 
 /**
- Returns an NSArray of pending Nodes.
+ Returns a set of pending Nodes.
+ 
+ @deprecated Use Core Data's built-in methods.
  */
-+ (NSArray *) pending;
++ (NSArray *) pending DEPRECATED_ATTRIBUTE;
 
 
 
@@ -209,7 +215,7 @@
 /**
  
  */
-+ (PMKPromise *) findMany:(NSArray *)ids;
++ (PMKPromise *) findMany:(NSSet *)ids;
 
 /**
  Update existing records in the store. Unlike push, update will merge the new data properties with the existing properties. This makes it safe to use with a subset of record attributes. This method expects normalized data.
@@ -241,6 +247,11 @@
  Get all model Attributes by name.
  */
 + (NSDictionary *) attributesByName;
+
+/**
+ Get all model Attributes by name.
+ */
++ (NSDictionary *) relationshipsByName;
 
 
 @end

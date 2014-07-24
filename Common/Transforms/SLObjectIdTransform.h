@@ -9,5 +9,6 @@
 #import "SLTransform.h"
 
 @interface SLObjectIdTransform : SLTransform
-
++ (NSDictionary *)serialize:(NSString *)deserialized;
++ (NSString *)deserialize:(NSDictionary *)serialized;
 @end

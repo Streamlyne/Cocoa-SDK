@@ -12,7 +12,7 @@
 #import "SLClient.h"
 #import "SLAdapter.h"
 #import "SLModel.h"
-// Custom Nodes
+// Custom Models
 #import "SLAttribute.h"
 #import "SLAttributeCollection.h"
 #import "SLAsset.h"
@@ -21,6 +21,9 @@
 #import "SLWorkOrder.h"
 #import "SLGroup.h"
 #import "SLSite.h"
+// Transforms
+#import "SLObjectIdTransform.h"
+#import "SLDateTransform.h"
 
 /**
 Main file to include to start using Streamlyne's iOS SDK.

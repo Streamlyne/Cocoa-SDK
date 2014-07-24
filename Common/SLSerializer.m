@@ -74,7 +74,7 @@
 
 - (NSDictionary *)normalizeAttributes:(Class)modelClass withPayload:(NSDictionary *)payload
 {
-    NSLog(@"Payload: %@", payload);
+//    NSLog(@"normalizeAttributes Payload: %@", payload);
     NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:payload];
     NSDictionary *attributes = [modelClass attributesByName];
     for (NSString *attributeKey in attributes)
@@ -82,10 +82,10 @@
         NSAttributeDescription *attribute = attributes[attributeKey];
         
         // TODO: Handle renaming keys for attributes
-        NSLog(@"attribute: %@", attribute);
-        NSLog(@"attributeKey: %@", attributeKey);
+        //NSLog(@"attribute: %@", attribute);
+        //NSLog(@"attributeKey: %@", attributeKey);
         NSString *payloadKey = [modelClass keyForAttribute:attributeKey];
-        NSLog(@"payloadKey: %@", payloadKey);
+        //NSLog(@"payloadKey: %@", payloadKey);
         if (![attributeKey isEqualToString:payloadKey])
         {
             // Attribute's Key is different
@@ -95,7 +95,6 @@
             {
                 continue;
             }
-            // TODO: Handle different types of Attributes with Transforms
             NSAttributeType type = [attribute attributeType];
             //
             id val = origVal;
@@ -105,9 +104,9 @@
                 {
                     val = [SLDateTransform deserialize:origVal];
                 }
-                break;
+                    break;
             }
-            NSLog(@"Val: %@", val);
+            //NSLog(@"Val: %@", val);
             [results setValue:val forKey:attributeKey];
             [results removeObjectForKey:payloadKey];
         }
@@ -116,10 +115,58 @@
     return [NSDictionary dictionaryWithDictionary:results];
 }
 
+
+
 - (NSDictionary *)normalizeRelationships:(Class)modelClass withPayload:(NSDictionary *)payload
 {
-    // TODO: Iterate thru relationships
-    return payload;
+    NSLog(@"normalizeRelationships Payload: %@", payload);
+    NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:payload];
+    NSDictionary *relationships = [modelClass relationshipsByName];
+    for (NSString *relationshipKey in relationships)
+    {
+        NSRelationshipDescription *relationship = relationships[relationshipKey];
+        
+        // TODO: Handle renaming keys for attributes
+        NSLog(@"relationship: %@", relationship);
+        NSLog(@"relationshipKey: %@", relationshipKey);
+        NSString *payloadKey = [modelClass keyForAttribute:relationshipKey];
+        NSLog(@"payloadKey: %@", payloadKey);
+        if (![relationshipKey isEqualToString:payloadKey])
+        {
+            // Attribute's Key is different
+            // Rename it.
+            id origVal = [payload objectForKey:payloadKey];
+            if (origVal == nil)
+            {
+                continue;
+            }
+            //
+            id val = origVal;
+            NSLog(@"OriginVal: %@", val);
+            if ([relationship isToMany])
+            {
+                // Has Many
+                NSMutableArray *r = [NSMutableArray array];
+                for (NSDictionary *i in (NSArray *)origVal )
+                {
+                    SLNid j = [SLObjectIdTransform deserialize:(NSDictionary *)i];
+                    [r addObject:j];
+                }
+                val = [NSArray arrayWithArray:r];
+            }
+            else
+            {
+                // Belongs-To / Has-One
+                SLNid nid = [SLObjectIdTransform deserialize:(NSDictionary *)origVal];
+                val = nid;
+            }
+            //NSLog(@"Val: %@", val);
+            [results setValue:val forKey:relationshipKey];
+            [results removeObjectForKey:payloadKey];
+        }
+        
+    }
+    return [NSDictionary dictionaryWithDictionary:results];
 }
 
 @end

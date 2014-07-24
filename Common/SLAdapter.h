@@ -123,7 +123,7 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
 /**
  Find multiple records at once.
 */
-- (PMKPromise *) findMany:(Class)modelClass withIds:(NSArray *)ids withStore:(SLStore *)store;
+- (PMKPromise *) findMany:(Class)modelClass withIds:(NSSet *)ids withStore:(SLStore *)store;
 
 /**
  Proxies to the serializer's serialize method.

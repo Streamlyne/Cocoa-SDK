@@ -9,5 +9,6 @@
 #import "SLTransform.h"
 
 @interface SLDateTransform : SLTransform
-
++ (NSDictionary *)serialize:(NSDate *)deserialized;
++ (NSDate *)deserialize:(NSDictionary *)serialized;
 @end

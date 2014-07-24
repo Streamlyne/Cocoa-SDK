@@ -12,16 +12,6 @@
 /**
  
  */
-typedef NS_ENUM(NSUInteger, SLRelationshipDirection)
-{
-    SLRelationshipNotFound,
-    SLRelationshipIncoming,
-    SLRelationshipOutgoing
-};
-
-/**
- 
- */
 typedef NS_ENUM(NSUInteger, SLSyncState)
 {
     SLSyncStateSynced,
@@ -29,14 +19,6 @@ typedef NS_ENUM(NSUInteger, SLSyncState)
     SLSyncStatePendingUpdate,
     SLSyncStatePendingDeletion
 };
-
-
-/*
- typedef enum {
- INCOMING,
- OUTGOING
- } Direction;
- */
 
 /**
  

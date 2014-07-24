@@ -330,5 +330,24 @@ while(condition) { \
 }
 
 
+- (void) testPushAssetWithRelationships
+{
+    
+    NSDictionary *pushData = @{
+                               @"nid": @"538770ab2fb05c514e6cb340",
+                               @"attributes": @[
+                                       [SLObjectIdTransform serialize:@"abc"],
+                                       [SLObjectIdTransform serialize:@"def"]
+                                ]
+                               };
+    SLAsset *a1 = (SLAsset *)[[SLStore sharedStore] push:[SLAsset class] withData:pushData];
+    XCTAssertStringEqual(pushData[@"nid"], a1.nid, @"`nid`s should match.");
+    
+    SLAttribute *attr = [SLAttribute initWithId:@"abc"];
+    
+    NSLog(@"Attr: %@", attr);
+    
+}
+
 
 @end

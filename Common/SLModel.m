@@ -31,15 +31,14 @@
 
 - (instancetype) init {
     self = [self initInContext:[NSManagedObjectContext MR_defaultContext]];
-
+    
     return self;
 }
 
 - (instancetype) initInContext:(NSManagedObjectContext *)context
 {
     NSLog(@"init %@", [self class]);
-//    NSLog(@"inManagedObjectContext: %@", context.persistentStoreCoordinator.managedObjectModel.entities);
-
+    //    NSLog(@"inManagedObjectContext: %@", context.persistentStoreCoordinator.managedObjectModel.entities);
     
     //self = [super init];
     //self = [[self class] MR_createEntity];
@@ -117,11 +116,11 @@
 
 + (NSString *) type
 {
-//    NSString *className = NSStringFromClass([self class]);
-//    NSString *name = [className lowercaseString];
-//    // TODO: Pluralize
-//    // TODO: Dasherize
-//    return name;
+    //    NSString *className = NSStringFromClass([self class]);
+    //    NSString *name = [className lowercaseString];
+    //    // TODO: Pluralize
+    //    // TODO: Dasherize
+    //    return name;
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override method '%@' in the subclass '%@'.", NSStringFromSelector(_cmd), [self class]]
                                  userInfo:nil];
@@ -318,15 +317,15 @@
         {
             [node remove]
             .then(^()
-             {
-                 if (progress != nil) {
-                     progress(completed, node);
-                 }
-                 completed++;
-                 completionCallback();
-             }).catch(^(NSError *error) {
-                 rejecter(error);
-             });
+                  {
+                      if (progress != nil) {
+                          progress(completed, node);
+                      }
+                      completed++;
+                      completionCallback();
+                  }).catch(^(NSError *error) {
+                      rejecter(error);
+                  });
         }
         
     }];
@@ -376,10 +375,16 @@
     return attributes;
 }
 
++ (NSDictionary *) relationshipsByName
+{
+    NSEntityDescription *entityDescription = self.entity;
+    NSDictionary *relationships = [entityDescription relationshipsByName];
+    return relationships;
+}
+
 - (NSDictionary *) serializeData {
     NSMutableDictionary *theData = [NSMutableDictionary dictionary];
-    NSEntityDescription *entityDescription = self.entity;
-    NSDictionary *attributes = [entityDescription attributesByName];
+    NSDictionary *attributes = [self attributesByName];
     //NSLog(@"%@", attributes);
     for (NSString *attributeKey in attributes) {
         //NSLog(@"attribute: %@ = %@", attribute, [self valueForKey:(NSString *)attribute]);
@@ -458,16 +463,23 @@
     NSDictionary *attributes = [self attributesByName];
     for (NSString *key in attributes)
     {
-        NSAttributeDescription *attr = [attributes objectForKey:key];
-        NSLog(@"%@: %@", key, attr);
-        NSAttributeType t = [attr attributeType];
-        NSLog(@"Attr Type %lu", (unsigned long)t);
+        //        NSAttributeDescription *attr = [attributes objectForKey:key];
+        //        NSLog(@"%@: %@", key, attr);
+        //        NSAttributeType t = [attr attributeType];
+        //NSLog(@"Attr Type %lu", (unsigned long)t);
         // Get Value
         id val = [data objectForKey:key];
         // Set value
         [self setValue:val forKey:key];
     }
     // TODO: Relationships
+    NSDictionary *relationships = [[self class] relationshipsByName];
+    for (NSString *key in relationships)
+    {
+        //        NSRelationshipDescription *rel = [relationships objectForKey:key];
+        id val = [data objectForKey:key];
+        [self setValue:val forKeyPath:key];
+    }
     return self;
 }
 
