@@ -12,6 +12,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>
 #import "SLUser.h"
+#import "SLObjectIdTransform.h"
 
 @interface SLAdapter () {
     
@@ -134,10 +135,10 @@ static SLAdapter *sharedSingleton = nil;
         NSLog(@"thePath: %@", thePath);
         NSString *absPath = [NSString stringWithFormat:@"/%@/%@", @"api/v1", thePath];
         NSLog(@"absPath: %@", absPath);
-//        NSURL *fullPathURL = [[NSURL alloc] initWithScheme:@"http" host:self.host path:absPath];
-//        NSURL *fullPath = [NSURL URLWithString:[NSString stringWithFormat:@"%@", thePath] relativeToURL:self.host];
-//        NSLog(@"fullPath: %@", fullPathURL);
-//        NSString *fullPathStr = [fullPathURL absoluteString];
+        //        NSURL *fullPathURL = [[NSURL alloc] initWithScheme:@"http" host:self.host path:absPath];
+        //        NSURL *fullPath = [NSURL URLWithString:[NSString stringWithFormat:@"%@", thePath] relativeToURL:self.host];
+        //        NSLog(@"fullPath: %@", fullPathURL);
+        //        NSString *fullPathStr = [fullPathURL absoluteString];
         NSString *fullPathStr = [NSString stringWithFormat:@"%@://%@%@", @"http", self.host, absPath];
         NSLog(@"Full path: %@", fullPathStr);
         
@@ -296,7 +297,7 @@ static SLAdapter *sharedSingleton = nil;
                                                  code:kCFErrorHTTPBadCredentials
                                              userInfo:userInfo];
             rejecter(error);
-
+            
         }
     }];
 }
@@ -308,10 +309,52 @@ static SLAdapter *sharedSingleton = nil;
     return [self performRequestWithMethod:SLHTTPMethodGET withPath:path withParameters:nil];
 }
 
-//- (NSString *) buildURL:(Class)modelClass
-//{
-//    
-//}
+- (PMKPromise *) findMany:(Class)modelClass withIds:(NSArray *)ids withStore:(SLStore *)store
+{
+    // Map IDs to ObjectId
+    NSMutableArray *nids = [NSMutableArray array];
+    for (NSDictionary *i in ids)
+    {
+        SLNid nid = [SLObjectIdTransform deserialize:i];
+        [nids addObject:nid];
+    }
+    
+    // Create Query
+    NSDictionary *query = @{
+                            @"criteria": @{
+                                    @"_id": @{ @"$in": nids }
+                                    }
+                            };
+    // Send query
+    return [self findQuery:modelClass withQuery:query withStore:store];
+}
+
+- (PMKPromise *) findQuery:(Class)modelClass withQuery:(NSDictionary *)query withStore:(SLStore *)store
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        
+        NSString *stringifiedQuery = nil;
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:query
+                                                           options:(NSJSONWritingOptions) 0
+                                                             error:&error];
+        if (!error && jsonData)
+        {
+            stringifiedQuery = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        } else {
+            stringifiedQuery = @"";
+            rejecter(error);
+            return;
+        }
+        
+        NSString *path = [NSString stringWithFormat:@"%@?%@", [modelClass type], stringifiedQuery];
+        
+        [self performRequestWithMethod:SLHTTPMethodGET withPath:path withParameters:nil]
+        .then(fulfiller)
+        .catch(rejecter);
+        
+    }];
+}
 
 
 @end

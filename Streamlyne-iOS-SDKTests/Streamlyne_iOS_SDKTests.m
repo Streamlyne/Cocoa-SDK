@@ -239,7 +239,7 @@ while(condition) { \
         .catch(^(NSError *error) {
             NSLog(@"%@", error);
             EndBlock();
-
+            
             XCTFail(@"%@", error);
         })
         .finally(^() {
@@ -334,24 +334,47 @@ while(condition) { \
 {
     
     NSDictionary *payload = @{
-                               @"_id": [SLObjectIdTransform serialize:@"538770ab2fb05c514e6cb340"],
-                               @"attributes": @[
-                                       [SLObjectIdTransform serialize:@"abc"],
-                                       [SLObjectIdTransform serialize:@"def"]
-                                ]
-                               };
+                              @"_id": [SLObjectIdTransform serialize:@"538770ab2fb05c514e6cb340"],
+                              @"attributes": @[
+                                      [SLObjectIdTransform serialize:@"abc"],
+                                      [SLObjectIdTransform serialize:@"def"]
+                                      ]
+                              };
     
     SLSerializer *serializer = [[SLSerializer alloc] init];
     NSDictionary *pushData = [serializer extractSingle:[SLAsset class] withPayload:payload withStore:[SLStore sharedStore]];
-//    NSLog(@"pushData: %@", pushData);
+    //    NSLog(@"pushData: %@", pushData);
     SLAsset *a1 = (SLAsset *)[[SLStore sharedStore] push:[SLAsset class] withData:pushData];
-//    NSLog(@"a1: %@", a1);
+    //    NSLog(@"a1: %@", a1);
     XCTAssertStringEqual(pushData[@"nid"], a1.nid, @"`nid`s should match.");
     SLAttribute *attr = [SLAttribute initWithId:@"abc"];
     NSLog(@"Attr: %@", attr);
     NSSet *attrs = a1.attributes;
     NSLog(@"Attrs: %@", attrs);
     XCTAssert([attrs containsObject:attr], @"Asset's `attributes` relationship should contain this attribute.");
+}
+
+- (void) testFindMany
+{
+    StartBlock();
+    
+    NSArray *ids = @[
+                     @"538770b42fb05c514e6cb341",
+                     @"53986c682fb05c52e0f5e686"
+                     ];
+    [SLAttribute findMany:ids]
+    .then(^(NSArray *attributes) {
+        NSLog(@"Attributes: %@", attributes);
+        EndBlock();
+    })
+    .catch(^(NSError *error) {
+        NSLog(@"Error: %@", error);
+        XCTFail(@"%@", error);
+        EndBlock();
+    });
+    
+    WaitUntilBlockCompletes();
+    
 }
 
 

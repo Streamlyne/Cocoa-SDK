@@ -215,7 +215,7 @@
 /**
  
  */
-+ (PMKPromise *) findMany:(NSSet *)ids;
++ (PMKPromise *) findMany:(NSArray *)ids;
 
 /**
  Update existing records in the store. Unlike push, update will merge the new data properties with the existing properties. This makes it safe to use with a subset of record attributes. This method expects normalized data.
