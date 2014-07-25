@@ -333,20 +333,25 @@ while(condition) { \
 - (void) testPushAssetWithRelationships
 {
     
-    NSDictionary *pushData = @{
-                               @"nid": @"538770ab2fb05c514e6cb340",
+    NSDictionary *payload = @{
+                               @"_id": [SLObjectIdTransform serialize:@"538770ab2fb05c514e6cb340"],
                                @"attributes": @[
                                        [SLObjectIdTransform serialize:@"abc"],
                                        [SLObjectIdTransform serialize:@"def"]
                                 ]
                                };
+    
+    SLSerializer *serializer = [[SLSerializer alloc] init];
+    NSDictionary *pushData = [serializer extractSingle:[SLAsset class] withPayload:payload withStore:[SLStore sharedStore]];
+//    NSLog(@"pushData: %@", pushData);
     SLAsset *a1 = (SLAsset *)[[SLStore sharedStore] push:[SLAsset class] withData:pushData];
+//    NSLog(@"a1: %@", a1);
     XCTAssertStringEqual(pushData[@"nid"], a1.nid, @"`nid`s should match.");
-    
     SLAttribute *attr = [SLAttribute initWithId:@"abc"];
-    
     NSLog(@"Attr: %@", attr);
-    
+    NSSet *attrs = a1.attributes;
+    NSLog(@"Attrs: %@", attrs);
+    XCTAssert([attrs containsObject:attr], @"Asset's `attributes` relationship should contain this attribute.");
 }
 
 

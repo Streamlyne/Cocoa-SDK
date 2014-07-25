@@ -18,7 +18,7 @@
     <entity name="SLAttributeCollection" representedClassName="SLAttributeCollection" parentEntity="SLModel" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="attributes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SLAttribute" syncable="YES"/>
+        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SLAttribute" syncable="YES"/>
     </entity>
     <entity name="SLGroup" representedClassName="SLGroup" parentEntity="SLModel" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
@@ -56,7 +56,7 @@
     <elements>
         <element name="SLAsset" positionX="0" positionY="0" width="128" height="150"/>
         <element name="SLAttribute" positionX="0" positionY="0" width="128" height="103"/>
-        <element name="SLAttributeCollection" positionX="9" positionY="63" width="128" height="88"/>
+        <element name="SLAttributeCollection" positionX="9" positionY="63" width="128" height="90"/>
         <element name="SLGroup" positionX="0" positionY="0" width="128" height="75"/>
         <element name="SLModel" positionX="0" positionY="0" width="128" height="105"/>
         <element name="SLOrganization" positionX="0" positionY="0" width="128" height="60"/>

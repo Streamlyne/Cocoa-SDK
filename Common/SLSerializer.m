@@ -74,7 +74,7 @@
 
 - (NSDictionary *)normalizeAttributes:(Class)modelClass withPayload:(NSDictionary *)payload
 {
-//    NSLog(@"normalizeAttributes Payload: %@", payload);
+    //    NSLog(@"normalizeAttributes Payload: %@", payload);
     NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:payload];
     NSDictionary *attributes = [modelClass attributesByName];
     for (NSString *attributeKey in attributes)
@@ -131,40 +131,42 @@
         NSLog(@"relationshipKey: %@", relationshipKey);
         NSString *payloadKey = [modelClass keyForAttribute:relationshipKey];
         NSLog(@"payloadKey: %@", payloadKey);
+        id origVal = [payload objectForKey:payloadKey];
+        if (origVal == nil)
+        {
+            continue;
+        }
+        //
+        id val = origVal;
+        NSLog(@"OriginVal: %@", val);
+        if ([relationship isToMany])
+        {
+            // Has Many
+            NSLog(@"Has Many");
+            NSMutableArray *r = [NSMutableArray array];
+            for (NSDictionary *i in (NSArray *)origVal )
+            {
+                SLNid j = [SLObjectIdTransform deserialize:(NSDictionary *)i];
+                NSLog(@"i: %@, j: %@", i, j);
+                [r addObject:j];
+            }
+            val = [NSArray arrayWithArray:r];
+        }
+        else
+        {
+            // Belongs-To / Has-One
+            NSLog(@"Belongs To / Has One");
+            SLNid nid = [SLObjectIdTransform deserialize:(NSDictionary *)origVal];
+            val = nid;
+        }
+        NSLog(@"Val: %@", val);
+        [results setValue:val forKey:relationshipKey];
         if (![relationshipKey isEqualToString:payloadKey])
         {
             // Attribute's Key is different
             // Rename it.
-            id origVal = [payload objectForKey:payloadKey];
-            if (origVal == nil)
-            {
-                continue;
-            }
-            //
-            id val = origVal;
-            NSLog(@"OriginVal: %@", val);
-            if ([relationship isToMany])
-            {
-                // Has Many
-                NSMutableArray *r = [NSMutableArray array];
-                for (NSDictionary *i in (NSArray *)origVal )
-                {
-                    SLNid j = [SLObjectIdTransform deserialize:(NSDictionary *)i];
-                    [r addObject:j];
-                }
-                val = [NSArray arrayWithArray:r];
-            }
-            else
-            {
-                // Belongs-To / Has-One
-                SLNid nid = [SLObjectIdTransform deserialize:(NSDictionary *)origVal];
-                val = nid;
-            }
-            //NSLog(@"Val: %@", val);
-            [results setValue:val forKey:relationshipKey];
             [results removeObjectForKey:payloadKey];
         }
-        
     }
     return [NSDictionary dictionaryWithDictionary:results];
 }
