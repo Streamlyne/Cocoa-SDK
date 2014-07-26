@@ -358,19 +358,32 @@ while(condition) { \
 {
     StartBlock();
     
-    NSArray *ids = @[
-                     @"538770b42fb05c514e6cb341",
-                     @"53986c682fb05c52e0f5e686"
-                     ];
-    [SLAttribute findMany:ids]
-    .then(^(NSArray *attributes) {
-        NSLog(@"Attributes: %@", attributes);
-        EndBlock();
+    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
+                              withPassword:@"password"
+                          withOrganization:@"test"]
+    .then(^(SLClient *client, SLUser *me) {
+        
+        NSLog(@"Me: %@", me);
+        
+        NSArray *ids = @[
+                         @"538770b42fb05c514e6cb341",
+                         @"53986c682fb05c52e0f5e686"
+                         ];
+        [SLAttribute findMany:ids]
+        .then(^(NSArray *attributes) {
+            EndBlock();
+            NSLog(@"Attributes: %@", attributes);
+        })
+        .catch(^(NSError *error) {
+            EndBlock();
+            NSLog(@"Error: %@", error);
+            XCTFail(@"%@", error);
+        });
+        
     })
     .catch(^(NSError *error) {
-        NSLog(@"Error: %@", error);
-        XCTFail(@"%@", error);
         EndBlock();
+        XCTFail(@"%@", error);
     });
     
     WaitUntilBlockCompletes();

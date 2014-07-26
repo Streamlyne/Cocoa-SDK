@@ -206,9 +206,28 @@ static SLAdapter *sharedSingleton = nil;
             case SLHTTPMethodGET:
             {
                 NSLog(@"GET %@", fullPathStr);
-                NSString *urlWithParams = [NSString stringWithFormat:@"%@?%@", fullPathStr, payload];
+                NSString *urlWithParams;
+                if (theParams != nil)
+                {
+                    urlWithParams = [NSString stringWithFormat:@"%@?%@", fullPathStr, payload];
+                }
+                else{
+                    urlWithParams = fullPathStr;
+                }
+                
                 NSLog(@"urlWithParams %@", urlWithParams);
-                [requestManager GET:fullPathStr parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+                
+                NSURL *getUrl = [NSURL URLWithString:urlWithParams];
+                NSLog(@"getURL: %@", getUrl);
+                NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:getUrl
+                                                                          cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                                      timeoutInterval:60.0];
+                [urlRequest setHTTPMethod:@"GET"];
+                
+                NSURLRequest *r = [self.httpManager.requestSerializer requestBySerializingRequest:urlRequest withParameters:nil error:nil];
+                
+                //[requestManager GET:urlWithParams parameters:nil
+                AFHTTPRequestOperation *operation = [requestManager HTTPRequestOperationWithRequest:r success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
                     NSLog(@"Success, JSON: %@", responseObject);
                     fulfiller(PMKManifold(responseObject, operation));
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -216,6 +235,9 @@ static SLAdapter *sharedSingleton = nil;
                     NSLog(@"Response: %@", operation.responseString);
                     rejecter(error);
                 }];
+                
+                [requestManager.operationQueue addOperation:operation];
+                
             }
                 break;
             case SLHTTPMethodPOST:
@@ -311,11 +333,12 @@ static SLAdapter *sharedSingleton = nil;
 
 - (PMKPromise *) findMany:(Class)modelClass withIds:(NSArray *)ids withStore:(SLStore *)store
 {
+    NSLog(@"ids: %@", ids);
     // Map IDs to ObjectId
     NSMutableArray *nids = [NSMutableArray array];
     for (NSDictionary *i in ids)
     {
-        SLNid nid = [SLObjectIdTransform deserialize:i];
+        SLNid nid = [SLObjectIdTransform serialize:i];
         [nids addObject:nid];
     }
     
@@ -326,30 +349,15 @@ static SLAdapter *sharedSingleton = nil;
                                     }
                             };
     // Send query
+    NSLog(@"Query: %@", query);
     return [self findQuery:modelClass withQuery:query withStore:store];
 }
 
 - (PMKPromise *) findQuery:(Class)modelClass withQuery:(NSDictionary *)query withStore:(SLStore *)store
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        
-        NSString *stringifiedQuery = nil;
-        NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:query
-                                                           options:(NSJSONWritingOptions) 0
-                                                             error:&error];
-        if (!error && jsonData)
-        {
-            stringifiedQuery = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        } else {
-            stringifiedQuery = @"";
-            rejecter(error);
-            return;
-        }
-        
-        NSString *path = [NSString stringWithFormat:@"%@?%@", [modelClass type], stringifiedQuery];
-        
-        [self performRequestWithMethod:SLHTTPMethodGET withPath:path withParameters:nil]
+        NSString *path = [NSString stringWithFormat:@"%@/", [modelClass type]];
+        [self performRequestWithMethod:SLHTTPMethodGET withPath:path withParameters:query]
         .then(fulfiller)
         .catch(rejecter);
         
