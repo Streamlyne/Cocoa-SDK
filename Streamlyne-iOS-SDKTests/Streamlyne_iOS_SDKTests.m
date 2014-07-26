@@ -36,6 +36,11 @@ while(condition) { \
 #define XCTAssertStringEqual(a, b, format) \
 (XCTAssertTrue([a isEqualToString:b], format) );
 
+// Login Credentials
+#define SLLoginEmail @"test@test.co"
+#define SLLoginPassword @"test"
+#define SLLoginOrganization @"test"
+
 
 // Put setup code here. This method is called before the invocation of each test method in the class.
 - (void)setUp
@@ -71,7 +76,7 @@ while(condition) { \
     NSLog(@"%@ == %@", encoded, [SLAdapter sha1:password]);
     XCTAssertStringEqual(encoded, [SLAdapter sha1:password], @"Password should have been correctly encoded.");
     
-    NSLog(@"%@", [SLAdapter sha1:@"password"]);
+    NSLog(@"SLLoginPassword: %@", [SLAdapter sha1:SLLoginPassword]);
     
     SLAdapter *manager = [SLAdapter sharedAdapter];
     [manager setPassword:@"thisIsATest"];
@@ -95,9 +100,9 @@ while(condition) { \
     StartBlock();
     SLAdapter *manager = [SLAdapter sharedAdapter];
     
-    [manager authenticateWithUserEmail:@"test@streamlyne.co"
-                          withPassword:@"password"
-                      withOrganization:@"test"]
+    [manager authenticateWithUserEmail:SLLoginEmail
+                          withPassword:SLLoginPassword
+                      withOrganization:SLLoginOrganization]
     .then(^() {
         XCTAssertTrue(true, @"PARTY. IT WORKED.");
     })
@@ -124,7 +129,7 @@ while(condition) { \
                                        },
                                @"date_created": @{@"$date": tin},
                                @"date_updated": @{@"$date": tin},
-                               @"email": @"test@streamlyne.co",
+                               @"email": SLLoginEmail,
                                @"first_name": @"Testie",
                                @"last_name": @"Testerson",
                                @"job_title": @"Tester at Streamlyne Technologies"
@@ -155,13 +160,13 @@ while(condition) { \
     
     StartBlock();
     
-    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
-                              withPassword:@"password"
-                          withOrganization:@"test"]
+    [self.client authenticateWithUserEmail:SLLoginEmail
+                              withPassword:SLLoginPassword
+                          withOrganization:SLLoginOrganization]
     .then(^(SLClient *client, SLUser *me) {
         NSLog(@"Me User: %@", me);
         XCTAssertTrue(me != nil, @"PARTY. IT WORKED.");
-        XCTAssert([me.email isEqualToString:@"test@streamlyne.co"], @"Email of user should be the same as the one used for logging in.");
+        XCTAssert([me.email isEqualToString:SLLoginEmail], @"Email of user should be the same as the one used for logging in.");
     }).catch(^(NSError *error) {
         EndBlock();
         XCTFail(@"%@", error);
@@ -227,9 +232,9 @@ while(condition) { \
     
     StartBlock();
     
-    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
-                              withPassword:@"password"
-                          withOrganization:@"test"]
+    [self.client authenticateWithUserEmail:SLLoginEmail
+                              withPassword:SLLoginPassword
+                          withOrganization:SLLoginOrganization]
     .then(^(SLClient *client, SLUser *me) {
         
         [SLAsset findAll]
@@ -263,9 +268,9 @@ while(condition) { \
     
     StartBlock();
     
-    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
-                              withPassword:@"password"
-                          withOrganization:@"test"]
+    [self.client authenticateWithUserEmail:SLLoginEmail
+                              withPassword:SLLoginPassword
+                          withOrganization:SLLoginOrganization]
     .then(^(SLClient *client, SLUser *me) {
         
         [SLAttribute findAll]
@@ -299,9 +304,9 @@ while(condition) { \
     
     StartBlock();
     
-    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
-                              withPassword:@"password"
-                          withOrganization:@"test"]
+    [self.client authenticateWithUserEmail:SLLoginEmail
+                              withPassword:SLLoginPassword
+                          withOrganization:SLLoginOrganization]
     .then(^(SLClient *client, SLUser *me) {
         
         [SLAttributeCollection findAll]
@@ -358,9 +363,9 @@ while(condition) { \
 {
     StartBlock();
     
-    [self.client authenticateWithUserEmail:@"test@streamlyne.co"
-                              withPassword:@"password"
-                          withOrganization:@"test"]
+    [self.client authenticateWithUserEmail:SLLoginEmail
+                              withPassword:SLLoginPassword
+                          withOrganization:SLLoginOrganization]
     .then(^(SLClient *client, SLUser *me) {
         
         NSLog(@"Me: %@", me);

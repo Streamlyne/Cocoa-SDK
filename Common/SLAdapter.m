@@ -200,34 +200,19 @@ static SLAdapter *sharedSingleton = nil;
         NSString *msg = [NSString stringWithFormat:@"%@:%@:%@:%@", methodStr, absPath, expiry, payload];
         NSLog(@"HMAC message: %@", msg);
         NSString *hmac = [SLAdapter hmac:msg withSecret:secret];
+        NSLog(@"HMAC: %@", hmac);
         [requestManager.requestSerializer setValue:hmac forHTTPHeaderField:@"hmac"];
         
         switch (theMethod) {
             case SLHTTPMethodGET:
             {
                 NSLog(@"GET %@", fullPathStr);
-                NSString *urlWithParams;
+                NSDictionary *params = nil;
                 if (theParams != nil)
                 {
-                    urlWithParams = [NSString stringWithFormat:@"%@?%@", fullPathStr, payload];
+                    params = @{@"q":payload};
                 }
-                else{
-                    urlWithParams = fullPathStr;
-                }
-                
-                NSLog(@"urlWithParams %@", urlWithParams);
-                
-                NSURL *getUrl = [NSURL URLWithString:urlWithParams];
-                NSLog(@"getURL: %@", getUrl);
-                NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:getUrl
-                                                                          cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                                      timeoutInterval:60.0];
-                [urlRequest setHTTPMethod:@"GET"];
-                
-                NSURLRequest *r = [self.httpManager.requestSerializer requestBySerializingRequest:urlRequest withParameters:nil error:nil];
-                
-                //[requestManager GET:urlWithParams parameters:nil
-                AFHTTPRequestOperation *operation = [requestManager HTTPRequestOperationWithRequest:r success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+                [requestManager GET:fullPathStr parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
                     NSLog(@"Success, JSON: %@", responseObject);
                     fulfiller(PMKManifold(responseObject, operation));
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -235,8 +220,6 @@ static SLAdapter *sharedSingleton = nil;
                     NSLog(@"Response: %@", operation.responseString);
                     rejecter(error);
                 }];
-                
-                [requestManager.operationQueue addOperation:operation];
                 
             }
                 break;
