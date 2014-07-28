@@ -37,9 +37,13 @@ while(condition) { \
 (XCTAssertTrue([a isEqualToString:b], format) );
 
 // Login Credentials
-#define SLLoginEmail @"test@test.co"
-#define SLLoginPassword @"test"
-#define SLLoginOrganization @"test"
+//#define SLLoginEmail @"test@test.co"
+//#define SLLoginPassword @"test"
+//#define SLLoginOrganization @"test"
+
+#define SLLoginEmail @"glavin@streamlyne.co"
+#define SLLoginPassword @"glavin"
+#define SLLoginOrganization @"nevis"
 
 
 // Put setup code here. This method is called before the invocation of each test method in the class.

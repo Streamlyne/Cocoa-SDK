@@ -125,21 +125,25 @@ static SLStore *sharedSingleton = nil;
         }
         
         id val = origVal;
+        Class<SLModelProtocol> relationshipModel = [self typeForRelationship:relationship];
         // Has Many
         if (relationship.isToMany)
         {
             NSArray *ids = (NSArray *)origVal;
             NSArray *records = [self deserializeRecordIds:ids withRelationship:relationship withStore:store];
             val = [NSSet setWithArray:records];
+            // Load all of the records
+            [self findMany:relationshipModel withIds:ids];
         }
         // Belongs To / Has One
         else
         {
             SLNid nid = (SLNid)origVal;
             val = [self deserializeRecordId:nid withRelationship:relationship withStore:store];
+            // Load this record
+            [self find:relationshipModel byId:nid];
         }
         [results setValue:val forKey:relationshipKey];
-        
         
     }
     return [NSDictionary dictionaryWithDictionary:results];
