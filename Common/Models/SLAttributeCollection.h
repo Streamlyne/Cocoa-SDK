@@ -14,6 +14,6 @@
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * desc;
-@property (nonatomic, retain) NSManagedObject *attributes;
+@property (nonatomic, retain) NSSet *attributes;
 
 @end

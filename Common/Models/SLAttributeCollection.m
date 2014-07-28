@@ -15,7 +15,6 @@
 @dynamic desc;
 @dynamic attributes;
 
-
 + (NSString *) type
 {
     return @"attribute-collections";
