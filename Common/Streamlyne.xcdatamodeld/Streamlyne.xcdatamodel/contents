@@ -20,6 +20,10 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SLAttribute" syncable="YES"/>
     </entity>
+    <entity name="SLAttributeDatum" representedClassName="SLAttributeDatum" parentEntity="SLModel" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="attribute" maxCount="1" deletionRule="Nullify" destinationEntity="SLAttribute" syncable="YES"/>
+    </entity>
     <entity name="SLGroup" representedClassName="SLGroup" parentEntity="SLModel" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -63,5 +67,6 @@
         <element name="SLSite" positionX="0" positionY="0" width="128" height="75"/>
         <element name="SLUser" positionX="0" positionY="0" width="128" height="120"/>
         <element name="SLWorkOrder" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="SLAttributeDatum" positionX="9" positionY="63" width="128" height="75"/>
     </elements>
 </model>

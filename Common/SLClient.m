@@ -20,7 +20,7 @@
         // 
         self.store = [SLStore sharedStore];
         [self.store.adapter setHost:host];
-        self.me = [NSNull null];
+        self.me = nil;
     }
     return self;
 }

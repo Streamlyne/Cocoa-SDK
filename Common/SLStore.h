@@ -38,7 +38,7 @@
 /**
  Create a new record in the current store. The properties passed to this method are set on the newly created record.
  */
-- (instancetype) createRecord:(Class)modelClass withProperties:(NSDictionary *)properties;
+- (SLModel *) createRecord:(Class)modelClass withProperties:(NSDictionary *)properties;
 
 /**
  This method returns a record for a given type and id combination.
@@ -75,6 +75,11 @@
  If the model `isDirty` this function will discard any unsaved changes
  */
 - (SLModel *) rollback:(SLModel *)record;
+
+/**
+ For symmetry, a record can be deleted via the store.
+ */
+- (PMKPromise *) updateRecord:(SLModel *)record;
 
 /**
  For symmetry, a record can be deleted via the store.

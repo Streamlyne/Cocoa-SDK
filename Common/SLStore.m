@@ -39,7 +39,13 @@ static SLStore *sharedSingleton = nil;
     }
     return self;
 }
-
+//
+//- (SLModel *) createRecord:(Class<SLModelProtocol>)modelClass withProperties:(NSDictionary *)properties
+//{
+//    SLModel *record = [modelClass init];
+//    [record setupData:properties];
+//    return record;
+//}
 
 - (PMKPromise *) findAll:(Class)modelClass
 {

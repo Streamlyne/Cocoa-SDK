@@ -62,6 +62,16 @@ NSLog(@"Completed wait.")
     //    NSLog(@"default context: %@", [NSManagedObjectContext MR_defaultContext]);
     //    NSLog(@"inManagedObjectContext: %@", [NSManagedObjectContext MR_defaultContext].persistentStoreCoordinator.managedObjectModel.entities);
     
+    StartBlock();
+    
+    [self.client authenticateWithUserEmail:SLLoginEmail
+                              withPassword:SLLoginPassword
+                          withOrganization:SLLoginOrganization]
+    .then(^(SLClient *client, SLUser *me) {
+        EndBlock();
+    });
+    
+    WaitUntilBlockCompletes();
     
 }
 
@@ -264,7 +274,7 @@ NSLog(@"Completed wait.")
     })
     .finally(^() {
         NSLog(@"Finally!");
-//        EndBlock();
+        //        EndBlock();
     });
     
     WaitUntilBlockCompletes();
@@ -411,8 +421,8 @@ NSLog(@"Completed wait.")
         NSLog(@"Me: %@", me);
         
         NSArray *ids = @[
-//                         @"53a72de02fb05c0788545ea9",
-//                         @"53a72de02fb05c0788545ead"
+                         //                         @"53a72de02fb05c0788545ea9",
+                         //                         @"53a72de02fb05c0788545ead"
                          @"53a72ddf2fb05c0788545e8c",
                          @"53a72de32fb05c0788545f51",
                          @"53a72de22fb05c0788545f2e"
@@ -473,6 +483,26 @@ NSLog(@"Completed wait.")
         EndBlock();
         XCTFail(@"%@", error);
     });
+    
+    WaitUntilBlockCompletes();
+    
+}
+
+- (void) testCreateAttributeDatum
+{
+    StartBlock();
+    
+    // Create
+    SLAttributeDatum *attributeDatum = [SLAttributeDatum createRecord:@{}];
+    // Save
+    [attributeDatum save]
+    .then(^(SLAttributeDatum *attributeDatum) {
+        NSLog(@"Datum: %@", attributeDatum);
+    })
+    .catch(^(NSError *error){
+        NSLog(@"%@", error);
+    });
+    
     
     WaitUntilBlockCompletes();
     

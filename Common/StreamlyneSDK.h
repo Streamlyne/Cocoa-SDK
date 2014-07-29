@@ -15,6 +15,7 @@
 // Custom Models
 #import "SLAttribute.h"
 #import "SLAttributeCollection.h"
+#import "SLAttributeDatum.h"
 #import "SLAsset.h"
 #import "SLOrganization.h"
 #import "SLUser.h"

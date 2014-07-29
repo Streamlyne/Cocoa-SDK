@@ -63,7 +63,7 @@
 + (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context
 {
     NSLog(@"SLModel initWithId: %@ inContext: %@", nid, context);
-
+    
     @synchronized([self class])
     {
         __block SLModel *node;
@@ -419,7 +419,7 @@
 
 + (instancetype) createRecord:(NSDictionary *)properties
 {
-    return [[[self class] alloc] init];
+    return [[SLStore sharedStore] createRecord:[self class] withProperties:properties];
 }
 
 + (PMKPromise *) findById:(SLNid)nid
@@ -454,12 +454,30 @@
 
 - (PMKPromise *) deleteRecord
 {
+#pragma mark - Should first flag as deleted in Core Data, then persist the deletion on save and delete from Core Data after successfuly deletion on server.
     return [[SLStore sharedStore] deleteRecord:self];
 }
 
 - (NSDictionary *) serialize:(NSDictionary *)options
 {
     return [self.store serialize:self withOptions:options];
+}
+
+- (PMKPromise *) save
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        
+        // Check if already CREATED
+        if (true)
+        {
+            //        return [self.store createRecord:[self class] withProperties:<#(NSDictionary *)#>];
+        }
+        else
+        {
+            
+        }
+        
+    }];
 }
 
 - (instancetype) setupData:(NSDictionary *)data
