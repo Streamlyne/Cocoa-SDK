@@ -18,7 +18,7 @@
     <entity name="SLAttributeCollection" representedClassName="SLAttributeCollection" parentEntity="SLModel" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SLAttribute" syncable="YES"/>
+        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SLAttribute" syncable="YES"/>
     </entity>
     <entity name="SLGroup" representedClassName="SLGroup" parentEntity="SLModel" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
