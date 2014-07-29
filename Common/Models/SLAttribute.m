@@ -13,7 +13,7 @@
 
 @dynamic name;
 @dynamic parameters;
-@dynamic asset_name;
+@dynamic assetName;
 @dynamic desc;
 
 

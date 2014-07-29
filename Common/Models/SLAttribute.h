@@ -14,7 +14,7 @@
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) id parameters;
-@property (nonatomic, retain) NSString * asset_name;
+@property (nonatomic, retain) NSString * assetName;
 @property (nonatomic, retain) NSString * desc;
 
 @end
