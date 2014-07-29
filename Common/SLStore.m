@@ -13,7 +13,7 @@
 @end
 
 @implementation SLStore
-@synthesize adapter;
+@synthesize adapter, context;
 
 static SLStore *sharedSingleton = nil;
 + (instancetype) sharedStore
@@ -34,6 +34,8 @@ static SLStore *sharedSingleton = nil;
     {
         // Adapter
         self.adapter = [SLAdapter sharedAdapter];
+//        self.context = [NSManagedObjectContext MR_contextForCurrentThread];
+        self.context = [NSManagedObjectContext MR_defaultContext];
     }
     return self;
 }
@@ -93,11 +95,7 @@ static SLStore *sharedSingleton = nil;
     SLNid nid = (NSString *) datum[@"nid"];
     SLModel *record;
     
-    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_defaultContext];
-//    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * localContext) {
-        record = [self record:modelClass forId:nid withContext:localContext];
-//        [localContext MR_saveToPersistentStoreAndWait];
-//    }];
+    record = [self record:modelClass forId:nid withContext:self.context];
     
     datum = [self normalizeRelationships:modelClass withData:datum withStore:self];
     NSLog(@"post normalizeRelationships datum: %@", datum);
@@ -109,9 +107,9 @@ static SLStore *sharedSingleton = nil;
     return record;
 }
 
-- (SLModel *) record:(Class<SLModelProtocol>)modelClass forId:(SLNid)nid withContext:(NSManagedObjectContext *)context
+- (SLModel *) record:(Class<SLModelProtocol>)modelClass forId:(SLNid)nid withContext:(NSManagedObjectContext *)localContext
 {
-    SLModel *record = [modelClass initWithId:nid inContext:context];
+    SLModel *record = [modelClass initWithId:nid inContext:localContext];
     return record;
 }
 

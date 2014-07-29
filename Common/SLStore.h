@@ -23,6 +23,11 @@
  */
 @property (nonatomic, retain) SLAdapter *adapter;
 
+
+/**
+ 
+ */
+@property (strong, nonatomic) NSManagedObjectContext *context;
 /**
  Push some raw data into the store.
  

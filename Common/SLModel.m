@@ -31,7 +31,8 @@
 
 - (instancetype) init {
     NSLog(@"SLModel init");
-    self = [self initInContext:[NSManagedObjectContext MR_defaultContext]];
+    NSManagedObjectContext *localContext = [SLStore sharedStore].context;
+    self = [self initInContext:localContext];
     
     return self;
 }
@@ -55,7 +56,8 @@
 
 + (instancetype) initWithId:(SLNid)nid {
     NSLog(@"SLModel initWithId: %@", nid);
-    return [self initWithId:nid inContext:[NSManagedObjectContext MR_defaultContext]];
+    NSManagedObjectContext *localContext = [SLStore sharedStore].context;
+    return [self initWithId:nid inContext:localContext];
 }
 
 + (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context
@@ -198,7 +200,7 @@
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         
-        __block NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
+        __block NSManagedObjectContext *context = [SLStore sharedStore].context;
         
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             
@@ -360,8 +362,8 @@
 
 + (NSEntityDescription *) entity
 {
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
-    return [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+    NSManagedObjectContext *localContext = [SLStore sharedStore].context;
+    return [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:localContext];
 }
 
 + (NSDictionary *) attributesByName

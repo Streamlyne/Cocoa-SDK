@@ -19,7 +19,8 @@
 // Macro - Set the flag for block completion
 #define StartBlock() __block BOOL waitingForBlock = YES
 // Macro - Set the flag to stop the loop
-#define EndBlock() waitingForBlock = NO; \
+#define EndBlock() waitingForBlock = NO;
+#define EndBlockAndWait() EndBlock(); \
 WaitUntilBlockCompletes();
 // Macro - Wait and loop until flag is set
 #define WaitUntilBlockCompletes() WaitWhile(waitingForBlock)
@@ -30,7 +31,8 @@ do { \
 while(condition) { \
 [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]]; \
 } \
-} while(0)
+} while(0); \
+NSLog(@"Completed wait.")
 
 //
 #define XCTAssertStringEqual(a, b, format) \
@@ -52,11 +54,11 @@ while(condition) { \
     [super setUp];
     
     NSLog(@"setUp");
+    [MagicalRecord setDefaultModelFromClass:[self class]];
+    [MagicalRecord setupCoreDataStackWithInMemoryStore];
     
     self.client = [SLClient connectWithHost:@"localhost:5000"];
     
-    [MagicalRecord setDefaultModelFromClass:[self class]];
-    [MagicalRecord setupCoreDataStackWithInMemoryStore];
     //    NSLog(@"default context: %@", [NSManagedObjectContext MR_defaultContext]);
     //    NSLog(@"inManagedObjectContext: %@", [NSManagedObjectContext MR_defaultContext].persistentStoreCoordinator.managedObjectModel.entities);
     
@@ -244,7 +246,6 @@ while(condition) { \
         [SLAsset findAll]
         .then(^(NSArray *assets) {
             NSLog(@"Assets: %@", assets);
-            EndBlock();
         })
         .catch(^(NSError *error) {
             NSLog(@"%@", error);
@@ -260,6 +261,10 @@ while(condition) { \
     .catch(^(NSError *error) {
         EndBlock();
         XCTFail(@"%@", error);
+    })
+    .finally(^() {
+        NSLog(@"Finally!");
+//        EndBlock();
     });
     
     WaitUntilBlockCompletes();

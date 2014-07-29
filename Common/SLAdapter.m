@@ -7,7 +7,7 @@
 //
 
 #import "SLAdapter.h"
-#import <AFNetworking.h>
+#import <AFNetworking/AFNetworking.h>
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>

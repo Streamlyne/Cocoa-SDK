@@ -6,13 +6,14 @@ target 'Streamlyne-iOS-SDK' do
     pod 'MagicalRecord', '~> 2.2'
     pod 'PromiseKit'
 
-    post_install do |installer|
-        installer.project.targets.each do |target|
-            target.build_configurations.each do |config|
-                config.build_settings['ARCHS'] = "$(ARCHS_STANDARD_INCLUDING_64_BIT)"
-            end
-        end
-    end
+    #post_install do |installer|
+    #    installer.project.targets.each do |target|
+    #        target.build_configurations.each do |config|
+    #            config.build_settings['ARCHS'] = "$(ARCHS_STANDARD_INCLUDING_64_BIT)"
+    #        end
+    #    end
+    #end
+    
 end
 
 target 'Streamlyne-Mac-SDK' do
