@@ -392,7 +392,7 @@ NSLog(@"Completed wait.")
     SLAsset *a1 = (SLAsset *)[[SLStore sharedStore] push:[SLAsset class] withData:pushData];
     //    NSLog(@"a1: %@", a1);
     XCTAssertStringEqual(pushData[@"nid"], a1.nid, @"`nid`s should match.");
-    SLAttribute *attr = [SLAttribute initWithId:@"abc"];
+    SLAttribute *attr = [SLAttribute initWithId:@"abc" inContext:[SLStore sharedStore].context];
     NSLog(@"Attr: %@", attr);
     NSSet *attrs = a1.attributes;
     NSLog(@"Attrs: %@", attrs);

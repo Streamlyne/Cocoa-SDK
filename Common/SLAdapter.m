@@ -185,16 +185,17 @@ static SLAdapter *sharedSingleton = nil;
         // Payload
         NSString *payload;
         if (theParams != nil) {
-            NSError *error;
+            NSError *error = nil;
             NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theParams
                                                                options:(NSJSONWritingOptions) 0
                                                                  error:&error];
-            if (!error && jsonData)
+            if (error == nil && jsonData)
             {
                 payload = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
             } else {
                 NSLog(@"JSON stringify error: %@", error);
                 payload = @"";
+                return rejecter(error);
             }
         } else {
             NSLog(@"theParams is empty.");
