@@ -7,7 +7,7 @@
         <attribute name="mfg" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="serial" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SLAttribute" syncable="YES"/>
+        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SLAttribute" syncable="YES"/>
     </entity>
     <entity name="SLAttribute" representedClassName="SLAttribute" parentEntity="SLModel" syncable="YES">
         <attribute name="asset_name" optional="YES" attributeType="String" syncable="YES"/>

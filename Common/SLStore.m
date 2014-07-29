@@ -58,7 +58,7 @@ static SLStore *sharedSingleton = nil;
 - (PMKPromise *) findMany:(Class)modelClass withIds:(NSArray *)ids
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-       [self.adapter findMany:modelClass withIds:ids withStore:self]
+        [self.adapter findMany:modelClass withIds:ids withStore:self]
         .then(^(NSDictionary *adapterPayload) {
             // FIXME: Should used a shared Serializer, etc.
             SLSerializer *serializer = [[SLSerializer alloc] init];
@@ -131,7 +131,13 @@ static SLStore *sharedSingleton = nil;
         {
             NSArray *ids = (NSArray *)origVal;
             NSArray *records = [self deserializeRecordIds:ids withRelationship:relationship withStore:store];
-            val = [NSSet setWithArray:records];
+            if (relationship.isOrdered)
+            {
+                val = [NSOrderedSet orderedSetWithArray:records];
+            }
+            else {
+                val = [NSSet setWithArray:records];
+            }
             // Load all of the records
             [self findMany:relationshipModel withIds:ids];
         }
