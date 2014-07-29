@@ -121,6 +121,8 @@ static SLAdapter *sharedSingleton = nil;
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         
+        NSLog(@"performRequestWithMethod: %lu, withPath: %@, withParameters: %@", theMethod, thePath, theParams);
+
         AFHTTPRequestOperationManager *requestManager = self.httpManager;
         //NSLog(@"requestManager: %@", requestManager);
         
@@ -191,9 +193,11 @@ static SLAdapter *sharedSingleton = nil;
             {
                 payload = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
             } else {
+                NSLog(@"JSON stringify error: %@", error);
                 payload = @"";
             }
         } else {
+            NSLog(@"theParams is empty.");
             payload = @"";
         }
         
@@ -321,7 +325,7 @@ static SLAdapter *sharedSingleton = nil;
     NSMutableArray *nids = [NSMutableArray array];
     for (NSDictionary *i in ids)
     {
-        SLNid nid = [SLObjectIdTransform serialize:i];
+        NSDictionary *nid = [SLObjectIdTransform serialize:i];
         [nids addObject:nid];
     }
     

@@ -71,6 +71,22 @@ static SLStore *sharedSingleton = nil;
     }];
 }
 
+- (PMKPromise *) find:(Class)modelClass withQuery:(NSDictionary *)query;
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        [self.adapter findQuery:modelClass withQuery:query withStore:self]
+        .then(^(NSDictionary *adapterPayload) {
+            // FIXME: Should used a shared Serializer, etc.
+            SLSerializer *serializer = [[SLSerializer alloc] init];
+            // Extract from Payload
+            NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
+            NSArray *records = [self pushMany:modelClass withData:extractedPayload];
+            fulfiller(records);
+        })
+        .catch(rejecter);
+    }];
+}
+
 - (SLModel *) push:(Class)modelClass withData:(NSDictionary *)datum
 {
     //
