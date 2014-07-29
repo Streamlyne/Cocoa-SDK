@@ -74,8 +74,9 @@
  self.data = tempData;
  </pre>
  
+ @deprecated Use initWithContext.
  */
-- (instancetype) init;
+- (instancetype) init DEPRECATED_ATTRIBUTE;
 /**
  
  */

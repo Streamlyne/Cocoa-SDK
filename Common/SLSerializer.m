@@ -59,6 +59,7 @@
 
 - (NSDictionary *)normalizeIdWithPayload:(NSDictionary *)payload
 {
+//    NSMutableDictionary *results = [NSMutableDictionary dictionary];
     NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:payload];
     // Get Dictionary form ObjectId
     NSDictionary *dId = payload[@"_id"];
@@ -75,6 +76,7 @@
 - (NSDictionary *)normalizeAttributes:(Class)modelClass withPayload:(NSDictionary *)payload
 {
     //    NSLog(@"normalizeAttributes Payload: %@", payload);
+//    NSMutableDictionary *results = [NSMutableDictionary dictionary];
     NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:payload];
     NSDictionary *attributes = [modelClass attributesByName];
     for (NSString *attributeKey in attributes)

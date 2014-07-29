@@ -34,7 +34,10 @@
  @return    Initialized object.
  */
 @required
-+ (instancetype) initWithId:(SLNid)nid;
++ (instancetype) initWithId:(SLNid)nid DEPRECATED_ATTRIBUTE;
+
+@required
++ (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context;
 
 
 /**

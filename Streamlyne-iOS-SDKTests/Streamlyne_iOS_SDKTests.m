@@ -316,6 +316,37 @@ while(condition) { \
         [SLAttributeCollection findAll]
         .then(^(NSArray *attributeCollections) {
             NSLog(@"attributeCollections: %@", attributeCollections);
+            
+            //StartBlock();
+            
+            [SLAttributeCollection findAll]
+            .then(^(NSArray *attributeCollections2)
+                  {
+                      NSLog(@"attributeCollections2: %@", attributeCollections2);
+                      
+                      for (SLAttributeCollection *attributeCollection in attributeCollections)
+                      {
+                          NSLog(@"Attributes: %@", attributeCollection.attributes);
+                      }
+                      
+                      for (SLAttributeCollection *attributeCollection in attributeCollections2)
+                      {
+                          NSLog(@"Attributes2: %@", attributeCollection.attributes);
+                      }
+                      EndBlock();
+                      
+                  })
+            .catch(^(NSError *error)
+                   {
+                       NSLog(@"%@", error);
+                       EndBlock();
+                   })
+            .finally(^()
+                   {
+                       NSLog(@"Finally!");
+                       EndBlock();
+                   });
+            
         })
         .catch(^(NSError *error) {
             NSLog(@"%@", error);
@@ -325,7 +356,7 @@ while(condition) { \
         })
         .finally(^() {
             NSLog(@"Finally!");
-            EndBlock();
+            //EndBlock();
         });
         
     })
@@ -375,13 +406,14 @@ while(condition) { \
         NSLog(@"Me: %@", me);
         
         NSArray *ids = @[
-                         @"538770b42fb05c514e6cb341",
-                         @"53986c682fb05c52e0f5e686"
+                         @"53a72de02fb05c0788545ea9",
+                         @"53a72de02fb05c0788545ead"
                          ];
         [SLAttribute findMany:ids]
         .then(^(NSArray *attributes) {
             EndBlock();
             NSLog(@"Attributes: %@", attributes);
+            
         })
         .catch(^(NSError *error) {
             EndBlock();

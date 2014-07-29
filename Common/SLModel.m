@@ -30,6 +30,7 @@
 }
 
 - (instancetype) init {
+    NSLog(@"SLModel init");
     self = [self initInContext:[NSManagedObjectContext MR_defaultContext]];
     
     return self;
@@ -37,7 +38,7 @@
 
 - (instancetype) initInContext:(NSManagedObjectContext *)context
 {
-    NSLog(@"init %@", [self class]);
+    NSLog(@"SLModel init %@", [self class]);
     //    NSLog(@"inManagedObjectContext: %@", context.persistentStoreCoordinator.managedObjectModel.entities);
     
     //self = [super init];
@@ -53,23 +54,25 @@
 }
 
 + (instancetype) initWithId:(SLNid)nid {
+    NSLog(@"SLModel initWithId: %@", nid);
     return [self initWithId:nid inContext:[NSManagedObjectContext MR_defaultContext]];
 }
 
 + (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context
 {
+    NSLog(@"SLModel initWithId: %@ inContext: %@", nid, context);
+
     @synchronized([self class])
     {
         __block SLModel *node;
-        //[context performBlockAndWait:^(void){
         NSLog(@"initWithId, before find node");
         node = [[self class] MR_findFirstByAttribute:@"nid" withValue:nid inContext:context];
         NSLog(@"initWithId: %@, node: %@", nid, node);
         if (node == nil) {
+            NSLog(@"Record does not exist! %@", nid);
             node = [[[self class] alloc] initInContext:context];
             node.nid = nid;
         }
-        //}];
         return node;
     }
 }

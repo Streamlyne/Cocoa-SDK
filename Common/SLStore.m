@@ -74,21 +74,28 @@ static SLStore *sharedSingleton = nil;
 - (SLModel *) push:(Class)modelClass withData:(NSDictionary *)datum
 {
     //
-    SLNid nid = (NSString *) datum[@"id"];
-    SLModel *record = [self record:modelClass forId:nid];
+    SLNid nid = (NSString *) datum[@"nid"];
+    SLModel *record;
     
-    // TODO: Normalize Relationships from IDs into Records
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_defaultContext];
+//    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * localContext) {
+        record = [self record:modelClass forId:nid withContext:localContext];
+//        [localContext MR_saveToPersistentStoreAndWait];
+//    }];
+    
     datum = [self normalizeRelationships:modelClass withData:datum withStore:self];
+    NSLog(@"post normalizeRelationships datum: %@", datum);
     
     //
     [record setupData:datum];
+    NSLog(@"Pushed record: %@", record);
     
     return record;
 }
 
-- (SLModel *) record:(Class<SLModelProtocol>)modelClass forId:(SLNid)nid
+- (SLModel *) record:(Class<SLModelProtocol>)modelClass forId:(SLNid)nid withContext:(NSManagedObjectContext *)context
 {
-    SLModel *record = [modelClass initWithId:nid];
+    SLModel *record = [modelClass initWithId:nid inContext:context];
     return record;
 }
 
@@ -99,6 +106,7 @@ static SLStore *sharedSingleton = nil;
     for (NSDictionary *datum in data) {
         [records addObject:[self push:modelClass withData:datum]];
     }
+    NSLog(@"pushed: %@", records);
     return [NSArray arrayWithArray:records];
 }
 
