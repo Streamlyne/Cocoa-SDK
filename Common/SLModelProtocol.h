@@ -40,6 +40,8 @@
 @required
 + (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context;
 
+@required
++ (instancetype) initInContext:(NSManagedObjectContext *)context;
 
 /**
  Attribute to Key mappings for the Model.
@@ -65,17 +67,32 @@
  
  includeId: true if the record's ID should be included in the JSON representation.
  */
+@required
 - (NSDictionary *) serialize:(NSDictionary *)options;
 
 /**
  Get all model Attributes by name.
  */
+@required
 + (NSDictionary *) attributesByName;
 
 /**
  Get all model Attributes by name.
  */
+@required
 + (NSDictionary *) relationshipsByName;
+
+/**
+ Iterate over all of the attributes with a callback.
+ */
+@required
++ (void) eachAttribute:(void(^)(NSString *key, NSAttributeDescription *attribute))callback;
+
+/**
+ Iterate over all of the relationships with a callback.
+ */
+@required
++ (void) eachRelationship:(void(^)(NSString *key, NSRelationshipDescription *relationship))callback;
 
 
 @end

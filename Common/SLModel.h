@@ -82,6 +82,8 @@
  */
 - (instancetype) initInContext:(NSManagedObjectContext *)context;
 
++ (instancetype) initInContext:(NSManagedObjectContext *)context;
+
 /**
  Returns an object initialized with the specific `SLNid` nid.
  
@@ -138,20 +140,14 @@
 
 
 /**
- Return the {type} of this node.
+ Return the {type} of this model.
  */
 - (NSString *) type;
 
 /**
  Returns the current value of the `SLValue` of the node's data with the key `attr`.
  */
-- (id) get:(NSString *)attr;
-
-/**
- Update a single attribute. Updating a node sets it's internal boolean,
- {isSaved}, false.
- */
-- (void) update:(NSString *)attr value:(id)value;
+- (PMKPromise *) get:(NSString *)attr;
 
 
 /**
@@ -245,14 +241,19 @@
 - (NSDictionary *) serialize:(NSDictionary *)options;
 
 /**
- Get all model Attributes by name.
+ Push some data for a given type into the store.
+ 
+ This method expects normalized data:
+ 
+ The ID is a key named id (an ID is mandatory)
+ The names of attributes are the ones you used in your model's DS.attrs.
+ Your relationships must be:
+ represented as IDs or Arrays of IDs
+ represented as model instances
+ represented as URLs, under the links key
+ 
  */
-+ (NSDictionary *) attributesByName;
-
-/**
- Get all model Attributes by name.
- */
-+ (NSDictionary *) relationshipsByName;
+- (SLModel *) pushWithData:(NSDictionary *)datum;
 
 
 @end

@@ -14,16 +14,7 @@
 /**
  
  */
--(void)registerTransform:(SLTransform *)transform forClass:(Class)cls;
-
-/**
- Create a JSON representation of the record, using the serialization strategy of the store's adapter.
- 
- serialize takes an optional hash as a parameter, currently supported options are:
- 
- includeId: true if the record's ID should be included in the JSON representation.
- */
-- (NSDictionary *) serialize:(SLModel *)record withOptions:(NSDictionary *)options;
+-(void)registerTransform:(SLTransform *)transform forClass:(Class)cls DEPRECATED_ATTRIBUTE;
 
 /**
  Called when the server has returned a payload representing multiple records, such as in response to a findAll or findQuery.
@@ -149,5 +140,95 @@
  keyForRelationship can be used to define a custom key when serializing relationship properties. By default JSONSerializer does not provide an implementation of this method.
  */
 - (NSString *)keyForRelationship:(NSString *)relationship;
+
+
+/**
+ Create a JSON representation of the record, using the serialization strategy of the store's adapter.
+ 
+ serialize takes an optional hash as a parameter, currently supported options are:
+ 
+ includeId: true if the record's ID should be included in the JSON representation.
+ */
+- (NSDictionary *) serialize:(SLModel *)record withOptions:(NSDictionary *)options;
+
+/**
+ `serializeAttribute` can be used to customize how `DS.attr`
+ properties are serialized
+ 
+ For example if you wanted to ensure all your attributes were always
+ serialized as properties on an `attributes` object you could
+ write:
+ 
+ ```javascript
+ App.ApplicationSerializer = DS.JSONSerializer.extend({
+ serializeAttribute: function(record, json, key, attributes) {
+ json.attributes = json.attributes || {};
+ this._super(record, json.attributes, key, attributes);
+ }
+ });
+ ```
+ 
+ @method serializeAttribute
+ @param {DS.Model} record
+ @param {Object} json
+ @param {String} key
+ @param {Object} attribute
+ */
+- (NSDictionary *) serializeAttribute:(SLModel *)record withKey:(NSString *)key withData:(NSDictionary *)data;
+
+/**
+ `serializeBelongsTo` can be used to customize how `DS.belongsTo`
+ properties are serialized.
+ 
+ Example
+ 
+ ```javascript
+ App.PostSerializer = DS.JSONSerializer.extend({
+ serializeBelongsTo: function(record, json, relationship) {
+ var key = relationship.key;
+ 
+ var belongsTo = get(record, key);
+ 
+ key = this.keyForRelationship ? this.keyForRelationship(key, "belongsTo") : key;
+ 
+ json[key] = Ember.isNone(belongsTo) ? belongsTo : belongsTo.toJSON();
+ }
+ });
+ ```
+ 
+ @method serializeBelongsTo
+ @param {DS.Model} record
+ @param {Object} json
+ @param {Object} relationship
+ */
+
+- (NSDictionary *) serializeBelongsTo:(SLModel *)record withKey:(NSString *)key withData:(NSDictionary *)data;
+
+/**
+ `serializeHasMany` can be used to customize how `DS.hasMany`
+ properties are serialized.
+ 
+ Example
+ 
+ ```javascript
+ App.PostSerializer = DS.JSONSerializer.extend({
+ serializeHasMany: function(record, json, relationship) {
+ var key = relationship.key;
+ if (key === 'comments') {
+ return;
+ } else {
+ this._super.apply(this, arguments);
+ }
+ }
+ });
+ ```
+ 
+ @method serializeHasMany
+ @param {DS.Model} record
+ @param {Object} json
+ @param {Object} relationship
+ */
+
+- (NSDictionary *) serializeHasMany:(SLModel *)record withKey:(NSString *)key withData:(NSDictionary *)data;
 
 @end

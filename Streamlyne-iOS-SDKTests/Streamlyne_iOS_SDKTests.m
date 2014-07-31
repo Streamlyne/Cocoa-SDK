@@ -493,14 +493,18 @@ NSLog(@"Completed wait.")
     StartBlock();
     
     // Create
-    SLAttributeDatum *attributeDatum = [SLAttributeDatum createRecord:@{}];
+    SLAttributeDatum *attributeDatum = [SLAttributeDatum createRecord:@{
+                                                                        }];
     // Save
     [attributeDatum save]
     .then(^(SLAttributeDatum *attributeDatum) {
         NSLog(@"Datum: %@", attributeDatum);
+        EndBlock();
     })
     .catch(^(NSError *error){
         NSLog(@"%@", error);
+        EndBlock();
+        XCTFail(@"%@", error);
     });
     
     

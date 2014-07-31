@@ -39,13 +39,13 @@ static SLStore *sharedSingleton = nil;
     }
     return self;
 }
-//
-//- (SLModel *) createRecord:(Class<SLModelProtocol>)modelClass withProperties:(NSDictionary *)properties
-//{
-//    SLModel *record = [modelClass init];
-//    [record setupData:properties];
-//    return record;
-//}
+
+- (SLModel *) createRecord:(Class<SLModelProtocol>)modelClass withProperties:(NSDictionary *)properties
+{
+    SLModel *record = [modelClass initInContext:self.context];
+    [record setupData:properties];
+    return record;
+}
 
 - (PMKPromise *) findAll:(Class)modelClass
 {
@@ -92,6 +92,35 @@ static SLStore *sharedSingleton = nil;
             fulfiller(records);
         })
         .catch(rejecter);
+    }];
+}
+
+- (PMKPromise *)saveRecord:(SLModel *)record
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        
+        // Check if already CREATED
+        if (record.isInserted)
+        {
+            // Create record
+            [self.adapter createRecord:record withStore:self]
+            .then(fulfiller)
+            .catch(rejecter);
+        }
+        // Check if should be deleted
+        else if (record.isUpdated)
+        {
+            // Delete record
+            [self.adapter deleteRecord:record withStore:self]
+            .then(fulfiller)
+            .catch(rejecter);
+            
+        } else {
+            // UPDATE existing record
+            [self.adapter updateRecord:record withStore:self]
+            .then(fulfiller)
+            .catch(rejecter);
+        }
     }];
 }
 
@@ -213,6 +242,11 @@ static SLStore *sharedSingleton = nil;
         [arr addObject:v];
     }
     return [NSArray arrayWithArray:arr];
+}
+
+- (NSDictionary *) serialize:(SLModel *)record withOptions:(NSDictionary *) options
+{
+    return [self.adapter serialize:record withOptions:options];
 }
 
 @end

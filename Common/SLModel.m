@@ -54,6 +54,12 @@
     return self;
 }
 
+
++ (instancetype) initInContext:(NSManagedObjectContext *)context
+{
+    return [[self alloc] initInContext:context];
+}
+
 + (instancetype) initWithId:(SLNid)nid {
     NSLog(@"SLModel initWithId: %@", nid);
     NSManagedObjectContext *localContext = [SLStore sharedStore].context;
@@ -131,117 +137,6 @@
                                  userInfo:nil];
 }
 
-
-+ (PMKPromise *) readById:(SLNid)nid
-{
-    NSDictionary *filters = @{
-                              @"filter":@{
-                                      @"fields": [NSNumber numberWithBool: TRUE],
-                                      @"rels": [NSNumber numberWithBool: TRUE]
-                                      }
-                              };
-    return [self readById:nid withFilters:filters];
-}
-
-+ (PMKPromise *) readById:(SLNid)nid withFilters:(NSDictionary *)filters
-{
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        
-        SLAdapter *manager = [[self class] sharedAPIManager];
-        
-        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
-            
-            SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
-                //NSLog(@"SLRequestCallback completionBlock!");
-                //NSLog(@"<%@>: %@", [responseObject class], responseObject);
-                
-                // Process & Read Node
-                SLModel *record = [[self class] initWithId:(SLNid) responseObject[@"id"] inContext:context];
-                record.syncState = @(SLSyncStateSynced);
-                [record setupData:responseObject];
-                // Return
-                [context MR_saveToPersistentStoreAndWait];
-                //
-                fulfiller(record);
-            };
-            
-            NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
-            [manager performRequestWithMethod:SLHTTPMethodGET withPath:thePath withParameters:filters]
-            .then(completionBlock)
-            .catch(rejecter);
-            
-        } completion:^(BOOL success, NSError *error) {
-            // Return
-            fulfiller( [[self class] MR_findFirstByAttribute:@"nid" withValue:nid] );
-        }];
-        
-    }];
-}
-
-+ (PMKPromise *) readAll
-{
-    NSDictionary *filters = @{
-                              @"filter":@{
-                                      @"fields": [NSNumber numberWithBool: TRUE],
-                                      @"rels": [NSNumber numberWithBool: TRUE]
-                                      }
-                              };
-    return [self readAllWithFilters:filters];
-}
-
-+ (PMKPromise *) readAllWithFilters:(NSDictionary *)filters
-{
-    SLAdapter *manager = [[self class] sharedAPIManager];
-    NSLog(@"Manager: %@", manager);
-    return [self readAllWithAPIManager:manager withFilters:filters];
-}
-
-+ (PMKPromise *) readAllWithAPIManager:(SLAdapter *)manager withFilters:(NSDictionary *)filters
-{
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        
-        __block NSManagedObjectContext *context = [SLStore sharedStore].context;
-        
-        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-            
-            NSLog(@"Inside saving block");
-            
-            [manager performRequestWithMethod:SLHTTPMethodGET withPath:[[self class] type] withParameters:filters]
-            .then(^(id responseObject, id operation) {
-                NSLog(@"SLRequestCallback completionBlock.");
-                NSLog(@"<%@>: %@", [responseObject class], responseObject);
-                NSMutableArray *nodes = [NSMutableArray array];
-                NSArray *arr = ((NSDictionary *)responseObject)[@"nodes"];
-                for (NSDictionary* curr in arr)
-                {
-                    NSLog(@"curr: %@", curr);
-                    SLModel *record = [[self class] initWithId:(SLNid) curr[@"id"] inContext:context];
-                    record.syncState = @(SLSyncStateSynced);
-                    [record setupData:curr];
-                    [nodes addObject: record];
-                    NSLog(@"Node: %@",record);
-                    
-                }
-                // callback(nodes); // returning in the completion block
-                [context MR_saveToPersistentStoreAndWait];
-                [localContext save:nil];
-                
-                //
-                NSLog(@"Done!!!");
-                NSLog(@"%@ %@", context, localContext);
-                
-                // Return all nodes!
-                fulfiller( [[self class] MR_findAll] );
-                
-            })
-            .catch(rejecter);
-            
-        }];
-        
-        
-    }];
-}
-
 + (instancetype) createWithData:(NSDictionary *)theData withRels:(NSArray *)theRels
 {
     SLModel *record = [[[self class] alloc] init];
@@ -266,99 +161,6 @@
     return [[self class] createWithData:nil withRels:nil];
 }
 
-+ (PMKPromise *) deleteWithId:(SLNid)nid
-{
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        SLRequestCallback completionBlock = ^(NSError *error, id operation, id responseObject) {
-            NSLog(@"SLRequestCallback completionBlock!");
-            NSLog(@"<%@>: %@", [responseObject class], responseObject);
-            
-            // TODO: Check if successful
-            if (error != nil) {
-                fulfiller(PMKManifold(responseObject, operation));
-            } else {
-                rejecter(error);
-            }
-        };
-        NSString *thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type],nid];
-        NSLog(@"theDeletePath: %@", thePath);
-        [[[self class] sharedAPIManager] performRequestWithMethod:SLHTTPMethodDELETE
-                                                         withPath:thePath withParameters:nil].then(completionBlock);
-    }];
-}
-
-+ (PMKPromise *) deleteWithNode:(SLModel *)node
-{
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        
-        [[self class] deleteWithId:node.nid].then(^() {
-            node.nid = SLNidNodeNotCreated; // Remove
-            fulfiller(node);
-        }).catch(rejecter);
-    }];
-}
-
-+ (PMKPromise *) deleteWithNodeArray:(NSArray *)nodes
-{
-    return [[self class] deleteWithNodeArray:nodes withProgressCallback:nil];
-}
-
-+ (PMKPromise *) deleteWithNodeArray:(NSArray *)nodes withProgressCallback:(void (^)(NSUInteger idx, id item)) progress {
-    
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        
-        __block NSUInteger completed = 0;
-        __block NSUInteger totalNodes = [nodes count];
-        __block void (^ completionCallback)() = ^{
-            // Check if all nodes have been processed (removed)
-            if (completed >= totalNodes)
-            {
-                // All nodes processed, check for completion callback
-                fulfiller(nodes);
-            }
-        };
-        SLModel *node;
-        for (node in nodes)
-        {
-            [node remove]
-            .then(^()
-                  {
-                      if (progress != nil) {
-                          progress(completed, node);
-                      }
-                      completed++;
-                      completionCallback();
-                  }).catch(^(NSError *error) {
-                      rejecter(error);
-                  });
-        }
-        
-    }];
-}
-
-- (PMKPromise *) pushWithAPIManager:(SLAdapter *)manager
-{
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        //
-        NSString *thePath;
-        if (self.nid == SLNidNodeNotCreated)
-        {
-            // New (CREATE)
-            NSLog(@"CREATE %@", self);
-            thePath = [NSString stringWithFormat:@"%@", [[self class] type]];
-        } else
-        {
-            // Update (UPDATE)
-            NSLog(@"UPDATE %@", self);
-            thePath = [NSString stringWithFormat:@"%@/%@", [[self class] type], self.nid];
-        }
-        NSLog(@"Save Path: %@", thePath);
-        NSLog(@"Manager: %@", manager);
-        [manager performRequestWithMethod:SLHTTPMethodPOST withPath:thePath withParameters:nil]
-        .then(fulfiller).catch(rejecter);
-        
-    }];
-}
 
 + (NSEntityDescription *) entity
 {
@@ -399,23 +201,6 @@
     }
     return [NSDictionary dictionaryWithDictionary:theData];
 }
-
-
-- (PMKPromise *) remove
-{
-    return [[self class] deleteWithNode:self];
-}
-
-//- (void) didChangeValueForKey:(NSString *)key {
-//    NSLog(@"didChangeValueForKey %@", key);
-//    if (
-//        ( ![key isEqual: @"syncState"] ) &&
-//        [[self syncState] isEqual: @(SLSyncStateSynced)]
-//        ) {
-//        [self setSyncState:@(SLSyncStatePendingUpdate)];
-//    }
-//}
-//
 
 + (instancetype) createRecord:(NSDictionary *)properties
 {
@@ -465,19 +250,7 @@
 
 - (PMKPromise *) save
 {
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        
-        // Check if already CREATED
-        if (true)
-        {
-            //        return [self.store createRecord:[self class] withProperties:<#(NSDictionary *)#>];
-        }
-        else
-        {
-            
-        }
-        
-    }];
+    return [[SLStore sharedStore] saveRecord:self];
 }
 
 - (instancetype) setupData:(NSDictionary *)data
@@ -504,6 +277,32 @@
         [self setValue:val forKeyPath:key];
     }
     return self;
+}
+
+- (SLModel *) pushWithData:(NSDictionary *)datum
+{
+    return [[SLStore sharedStore] push:[self class] withData:datum];
+}
+
++ (void) eachAttribute:(void(^)(NSString *key, NSAttributeDescription *attribute))callback
+{
+    NSDictionary *attributes = [self attributesByName];
+    for (NSString *key in attributes)
+    {
+        NSAttributeDescription *attribute = [attributes objectForKey:key];
+        callback(key, attribute);
+    }
+}
+
++ (void) eachRelationship:(void(^)(NSString *key, NSRelationshipDescription *relationship))callback
+{
+    
+    NSDictionary *relationships = [self relationshipsByName];
+    for (NSString *key in relationships)
+    {
+        NSRelationshipDescription *relationship = [relationships objectForKey:key];
+        callback(key, relationship);
+    }
 }
 
 @end

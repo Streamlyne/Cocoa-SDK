@@ -122,4 +122,9 @@
  */
 - (NSArray *) pushMany:(Class)modelClass withData:(NSArray *)data;
 
+/**
+ Save the record and persist any changes to the record to an extenal source via the adapter.
+*/
+- (PMKPromise *) saveRecord:(SLModel *)record;
+
 @end

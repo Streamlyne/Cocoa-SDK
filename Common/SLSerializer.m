@@ -25,12 +25,6 @@
     [self.registeredTransforms setValue:transform forKey:clsName];
 }
 
-- (NSDictionary *) serialize:(SLModel *)record withOptions:(NSDictionary *)options
-{
-    // Iterate through all attributes and use the correct Transform to serialize.
-    return @{};
-}
-
 - (NSDictionary *)extractSingle:(Class)modelClass withPayload:(NSDictionary *)payload withStore:(SLStore *)store
 {
     NSDictionary *results = [self normalize:modelClass withPayload:payload];
@@ -171,6 +165,35 @@
         }
     }
     return [NSDictionary dictionaryWithDictionary:results];
+}
+
+
+- (NSDictionary *) serialize:(SLModel *)record withOptions:(NSDictionary *)options
+{
+    NSMutableDictionary *serialized = [NSMutableDictionary dictionary];
+    
+    // TODO: Implement option, `excludeId`.
+    
+    Class<SLModelProtocol> modelClass = [record class];
+    
+    // Attributes
+    [modelClass eachAttribute:^(NSString *key, NSAttributeDescription *attribute) {
+        
+        [self serializeAttribute:record withKey:key withData:serialized];
+    }];
+    
+    // Relationships
+    [modelClass eachRelationship:^(NSString *key, NSRelationshipDescription *relationship) {
+        
+        if ([relationship isToMany]) {
+            [self serializeHasMany:record withKey:key withData:serialized];
+        } else {
+            [self serializeBelongsTo:record withKey:key withData:serialized];
+        }
+    }];
+    
+    // Iterate through all attributes and use the correct Transform to serialize.
+    return [NSDictionary dictionaryWithDictionary:serialized];
 }
 
 @end

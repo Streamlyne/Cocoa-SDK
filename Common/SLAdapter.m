@@ -15,7 +15,7 @@
 #import "SLObjectIdTransform.h"
 
 @interface SLAdapter () {
-    
+
 }
 
 @property (strong, nonatomic) AFHTTPRequestOperationManager* httpManager;
@@ -23,7 +23,7 @@
 @end
 
 @implementation SLAdapter
-@synthesize userEmail = _userEmail, userPassword = _userPassword, userOrganization = _userOrganization, host, httpManager;
+@synthesize userEmail = _userEmail, userPassword = _userPassword, userOrganization = _userOrganization, host, httpManager, serializer;
 
 - (instancetype) init
 {
@@ -35,6 +35,7 @@
         _userPassword = nil;
         _userOrganization = nil;
         host = nil;
+        serializer = [[SLSerializer alloc] init];
         //httpManager = [AFHTTPRequestOperationManager manager];
         httpManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:nil];
         httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
@@ -290,7 +291,6 @@ static SLAdapter *sharedSingleton = nil;
                 NSDictionary *response = (NSDictionary *)responseObject;
                 
                 //
-                SLSerializer *serializer = [[SLSerializer alloc] init];
                 NSDictionary *serialized = [serializer extractSingle:[SLUser class] withPayload:response withStore:[SLStore sharedStore]];
                 
                 fulfiller(PMKManifold(serialized, operation));
@@ -312,6 +312,13 @@ static SLAdapter *sharedSingleton = nil;
     }];
 }
 
+- (PMKPromise *) createRecord:(SLModel *)record withStore:(SLStore *)store;
+{
+    NSDictionary *options =  @{};
+    NSDictionary *data = [self serialize:record withOptions:options];
+    NSString *path = [NSString stringWithFormat:@"%@/", [[record class] type]];
+    return [self performRequestWithMethod:SLHTTPMethodPOST withPath:path withParameters:data];
+}
 
 - (PMKPromise *) findAll:(Class)modelClass withStore:(SLStore *)store
 {
@@ -324,7 +331,7 @@ static SLAdapter *sharedSingleton = nil;
     NSLog(@"ids: %@", ids);
     // Map IDs to ObjectId
     NSMutableArray *nids = [NSMutableArray array];
-    for (NSDictionary *i in ids)
+    for (NSString *i in ids)
     {
         NSDictionary *nid = [SLObjectIdTransform serialize:i];
         [nids addObject:nid];
@@ -350,6 +357,11 @@ static SLAdapter *sharedSingleton = nil;
         .catch(rejecter);
         
     }];
+}
+
+- (NSDictionary *) serialize:(SLModel *)record withOptions:(NSDictionary *)options
+{
+    return [serializer serialize:record withOptions:options];
 }
 
 

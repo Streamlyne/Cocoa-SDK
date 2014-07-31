@@ -34,7 +34,7 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
 @property (strong, nonatomic, setter=setEmail:) NSString *userEmail;
 @property (strong, nonatomic, setter=setPassword:) NSString *userPassword;
 @property (strong, nonatomic, setter=setOrganization:) NSString *userOrganization;
-
+@property (strong, nonatomic) SLSerializer *serializer;
 
 /**
  SHA-1 encoding of a plain text string.
@@ -100,7 +100,7 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
 /**
  Serializes the record and send it to the server.
  */
-- (PMKPromise *) createRecord:(Class)modelClass withId:(SLNid)nid withStore:(SLStore *)store;
+- (PMKPromise *) createRecord:(SLModel *)record withStore:(SLStore *)store;
 /*
  Serializes the record update and send it to the server.
  */
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
 /**
  Proxies to the serializer's serialize method.
   */
-- (NSDictionary *) serialize:(NSDictionary *)options;
+- (NSDictionary *) serialize:(SLModel *)record withOptions:(NSDictionary *)options;
 
 /**
  Builds a URL for a given type and optional ID.
