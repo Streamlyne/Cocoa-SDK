@@ -19,10 +19,24 @@
 
 @implementation SLSerializer
 
--(void)registerTransform:(SLTransform *)transform forClass:(Class)cls
+//-(void)registerTransform:(Class<SLTransformProtocol> *)transform forClass:(Class)cls
+//{
+//    NSString *clsName = NSStringFromClass(cls);
+//    [self.registeredTransforms setValue:transform forKey:clsName];
+//}
+
+-(Class<SLTransformProtocol>)transformForAttributeType:(NSAttributeType)type
 {
-    NSString *clsName = NSStringFromClass(cls);
-    [self.registeredTransforms setValue:transform forKey:clsName];
+    switch (type)
+    {
+        case NSDateAttributeType:
+        {
+            return [SLDateTransform class];
+        }
+            break;
+        default:
+            return nil;
+    }
 }
 
 - (NSDictionary *)extractSingle:(Class)modelClass withPayload:(NSDictionary *)payload withStore:(SLStore *)store
@@ -94,13 +108,10 @@
             NSAttributeType type = [attribute attributeType];
             //
             id val = origVal;
-            switch (type)
+            Class<SLTransformProtocol> transform = [self transformForAttributeType:type];
+            if (transform != nil)
             {
-                case NSDateAttributeType:
-                {
-                    val = [SLDateTransform deserialize:origVal];
-                }
-                    break;
+                val = [transform deserialize:origVal];
             }
             //NSLog(@"Val: %@", val);
             [results setValue:val forKey:attributeKey];
@@ -170,30 +181,73 @@
 
 - (NSDictionary *) serialize:(SLModel *)record withOptions:(NSDictionary *)options
 {
-    NSMutableDictionary *serialized = [NSMutableDictionary dictionary];
+    __block NSDictionary *serialized = [NSDictionary dictionary];
     
     // TODO: Implement option, `excludeId`.
     
     Class<SLModelProtocol> modelClass = [record class];
     
     // Attributes
+    NSArray *excludedAttributeKeys = @[@"syncState", @"nid"];
+    // Iterate through all attributes and use the correct Transform to serialize.
     [modelClass eachAttribute:^(NSString *key, NSAttributeDescription *attribute) {
-        
-        [self serializeAttribute:record withKey:key withData:serialized];
+        // Check if should be exlcuded
+        if ([excludedAttributeKeys containsObject:key]) {
+            return; // Ignore this
+        }
+        // Continue serializing this attribute
+        serialized = [self serializeAttribute:record withKey:key withData:serialized];
     }];
     
     // Relationships
     [modelClass eachRelationship:^(NSString *key, NSRelationshipDescription *relationship) {
-        
         if ([relationship isToMany]) {
-            [self serializeHasMany:record withKey:key withData:serialized];
+            serialized = [self serializeHasMany:record withKey:key withData:serialized];
         } else {
-            [self serializeBelongsTo:record withKey:key withData:serialized];
+            serialized = [self serializeBelongsTo:record withKey:key withData:serialized];
         }
     }];
     
-    // Iterate through all attributes and use the correct Transform to serialize.
-    return [NSDictionary dictionaryWithDictionary:serialized];
+    return serialized;
 }
+
+- (NSDictionary *) serializeAttribute:(SLModel *)record withKey:(NSString *)key withData:(NSDictionary *)data
+{
+    NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:data];
+    
+    Class<SLModelProtocol> modelClass = [record class];
+    NSDictionary *attributes = [modelClass attributesByName];
+    NSAttributeDescription *attribute = attributes[key];
+    NSAttributeType type = [attribute attributeType];
+    NSString *payloadKey = [modelClass keyForAttribute:key];
+    id origVal = [record valueForKeyPath:key];
+    Class<SLTransformProtocol> transform = [self transformForAttributeType:type];
+    id val = origVal;
+    // Transform, if available.
+    if (transform != nil)
+    {
+        val = [transform serialize:origVal];
+    }
+    // Replace all nil with null, which is allowed in Dictionarys.
+    if (val == nil)
+    {
+        val = [NSNull null];
+    }
+    [results setObject:val forKey:payloadKey];
+    //
+    return [NSDictionary dictionaryWithDictionary:results];
+}
+
+- (NSDictionary *) serializeBelongsTo:(SLModel *)record withKey:(NSString *)key withData:(NSDictionary *)data
+{
+    return data;
+}
+
+- (NSDictionary *) serializeHasMany:(SLModel *)record withKey:(NSString *)key withData:(NSDictionary *)data
+{
+    return data;
+}
+
+
 
 @end

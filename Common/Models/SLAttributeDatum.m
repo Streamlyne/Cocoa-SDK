@@ -12,13 +12,13 @@
 
 @implementation SLAttributeDatum
 
-@dynamic data;
+@dynamic value;
 @dynamic attribute;
 
 
 + (NSString *) type
 {
-    return @"attributes";
+    return @"attribute-data";
 }
 
 @end

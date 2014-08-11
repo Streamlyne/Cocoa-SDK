@@ -68,10 +68,8 @@
 		7787C69D1845217400D91E20 /* SLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEC1842F6DC0053C02C /* SLModel.h */; };
 		7787C69F1845217400D91E20 /* SLModelProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEE1842F6DC0053C02C /* SLModelProtocol.h */; };
 		7787C6A01845217400D91E20 /* SLObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AD7DEF1842F6DC0053C02C /* SLObject.h */; };
-		778A2BE51977793500B7DF1D /* SLTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 778A2BE31977793500B7DF1D /* SLTransform.h */; };
-		778A2BE61977793500B7DF1D /* SLTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 778A2BE31977793500B7DF1D /* SLTransform.h */; };
-		778A2BE71977793500B7DF1D /* SLTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 778A2BE41977793500B7DF1D /* SLTransform.m */; };
-		778A2BE81977793500B7DF1D /* SLTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 778A2BE41977793500B7DF1D /* SLTransform.m */; };
+		778A2BE51977793500B7DF1D /* SLTransformProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 778A2BE31977793500B7DF1D /* SLTransformProtocol.h */; };
+		778A2BE61977793500B7DF1D /* SLTransformProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 778A2BE31977793500B7DF1D /* SLTransformProtocol.h */; };
 		778A2BEB19777AE100B7DF1D /* SLDateTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 778A2BE919777AE100B7DF1D /* SLDateTransform.h */; };
 		778A2BEC19777AE100B7DF1D /* SLDateTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 778A2BE919777AE100B7DF1D /* SLDateTransform.h */; };
 		778A2BED19777AE100B7DF1D /* SLDateTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 778A2BEA19777AE100B7DF1D /* SLDateTransform.m */; };
@@ -214,8 +212,7 @@
 		7783AFF519744B25000CAB0A /* install.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install.sh; sourceTree = "<group>"; };
 		7783AFF61974535D000CAB0A /* SLAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAsset.h; sourceTree = "<group>"; };
 		7783AFF71974535D000CAB0A /* SLAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAsset.m; sourceTree = "<group>"; };
-		778A2BE31977793500B7DF1D /* SLTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLTransform.h; sourceTree = "<group>"; };
-		778A2BE41977793500B7DF1D /* SLTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLTransform.m; sourceTree = "<group>"; };
+		778A2BE31977793500B7DF1D /* SLTransformProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLTransformProtocol.h; sourceTree = "<group>"; };
 		778A2BE919777AE100B7DF1D /* SLDateTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDateTransform.h; sourceTree = "<group>"; };
 		778A2BEA19777AE100B7DF1D /* SLDateTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDateTransform.m; sourceTree = "<group>"; };
 		778A2BEF19777C9400B7DF1D /* SLSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSerializer.h; sourceTree = "<group>"; };
@@ -422,8 +419,7 @@
 				77AD7DEF1842F6DC0053C02C /* SLObject.h */,
 				77AD7DF01842F6DC0053C02C /* SLObject.m */,
 				771F4B95186029D90093674F /* Streamlyne.xcdatamodeld */,
-				778A2BE31977793500B7DF1D /* SLTransform.h */,
-				778A2BE41977793500B7DF1D /* SLTransform.m */,
+				778A2BE31977793500B7DF1D /* SLTransformProtocol.h */,
 				778A2BEF19777C9400B7DF1D /* SLSerializer.h */,
 				778A2BF019777C9400B7DF1D /* SLSerializer.m */,
 				778A2BFB1977946F00B7DF1D /* SLStore.h */,
@@ -536,7 +532,7 @@
 				7787C69D1845217400D91E20 /* SLModel.h in Headers */,
 				7787C69F1845217400D91E20 /* SLModelProtocol.h in Headers */,
 				7787C6A01845217400D91E20 /* SLObject.h in Headers */,
-				778A2BE51977793500B7DF1D /* SLTransform.h in Headers */,
+				778A2BE51977793500B7DF1D /* SLTransformProtocol.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,7 +561,7 @@
 				77AD7E151842F6DC0053C02C /* SLModelProtocol.h in Headers */,
 				77AD7E0A1842F6DC0053C02C /* SLAdapter.h in Headers */,
 				77AD7E101842F6DC0053C02C /* SLModel.h in Headers */,
-				778A2BE61977793500B7DF1D /* SLTransform.h in Headers */,
+				778A2BE61977793500B7DF1D /* SLTransformProtocol.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,7 +829,6 @@
 				77AD7E061842F6DC0053C02C /* SLWorkOrder.m in Sources */,
 				77A473BB197820E100748E1F /* SLClient.m in Sources */,
 				778A2BED19777AE100B7DF1D /* SLDateTransform.m in Sources */,
-				778A2BE71977793500B7DF1D /* SLTransform.m in Sources */,
 				778A2BF319777C9400B7DF1D /* SLSerializer.m in Sources */,
 				77AD7DFC1842F6DC0053C02C /* SLOrganization.m in Sources */,
 				7778F677197F5D2300803E94 /* SLAttribute.m in Sources */,
@@ -868,7 +863,6 @@
 				77AD7E081842F6DC0053C02C /* SLWorkOrder.m in Sources */,
 				77B4EA1D184094D400435B97 /* Streamlyne_Mac_SDK.m in Sources */,
 				778A2BF419777C9400B7DF1D /* SLSerializer.m in Sources */,
-				778A2BE81977793500B7DF1D /* SLTransform.m in Sources */,
 				77AD7E031842F6DC0053C02C /* SLUser.m in Sources */,
 				77AD7E191842F6DC0053C02C /* SLObject.m in Sources */,
 				77AD7E131842F6DC0053C02C /* SLModel.m in Sources */,

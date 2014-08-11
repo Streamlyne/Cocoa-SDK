@@ -14,7 +14,7 @@
 
 @interface SLAttributeDatum : SLModel
 
-@property (nonatomic, retain) id data;
+@property (nonatomic, retain) id value;
 @property (nonatomic, retain) SLAttribute *attribute;
 
 @end

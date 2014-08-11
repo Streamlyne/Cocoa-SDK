@@ -8,9 +8,11 @@
 
 #import "SLObject.h"
 
-@interface SLTransform : SLObject
+@protocol SLTransformProtocol <NSObject>
 
+@required
 + (id) deserialize:(id)serialized;
+@required
 + (id) serialize:(id)deserialized;
 
 @end

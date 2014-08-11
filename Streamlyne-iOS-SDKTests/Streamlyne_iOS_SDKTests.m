@@ -494,6 +494,7 @@ NSLog(@"Completed wait.")
     
     // Create
     SLAttributeDatum *attributeDatum = [SLAttributeDatum createRecord:@{
+                                                                        @"value": @123.0
                                                                         }];
     // Save
     [attributeDatum save]

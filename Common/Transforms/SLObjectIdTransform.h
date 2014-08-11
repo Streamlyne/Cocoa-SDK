@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Streamlyne. All rights reserved.
 //
 
-#import "SLTransform.h"
+#import "SLTransformProtocol.h"
 
-@interface SLObjectIdTransform : SLTransform
+@interface SLObjectIdTransform : SLObject <SLTransformProtocol>
 + (NSDictionary *)serialize:(NSString *)deserialized;
 + (NSString *)deserialize:(NSDictionary *)serialized;
 @end

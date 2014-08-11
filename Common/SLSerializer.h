@@ -7,14 +7,27 @@
 //
 
 #import "SLObject.h"
-#import "SLTransform.h"
+#import "SLTransformProtocol.h"
 
 @interface SLSerializer : SLObject
 
 /**
  
  */
--(void)registerTransform:(SLTransform *)transform forClass:(Class)cls DEPRECATED_ATTRIBUTE;
+//-(void)registerTransform:(Class<SLTransformProtocol> *)transform forClass:(Class)cls DEPRECATED_ATTRIBUTE;
+
+/**
+ 
+ ```
+ Class<SLTransformProtocol> transform = [self transformForAttributeType:type];
+ if (transform != nil)
+ {
+ val = [transform deserialize:origVal];
+ ```
+ 
+ }
+ */
+-(Class<SLTransformProtocol>)transformForAttributeType:(NSAttributeType)type;
 
 /**
  Called when the server has returned a payload representing multiple records, such as in response to a findAll or findQuery.
