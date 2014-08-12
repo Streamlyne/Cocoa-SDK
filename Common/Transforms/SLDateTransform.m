@@ -15,7 +15,7 @@
     // For date conversion
     NSTimeInterval ti = [deserialized timeIntervalSince1970];
     return @{
-             @"$date": [NSNumber numberWithDouble:ti]
+             @"$date": @([[NSNumber numberWithDouble:ti] doubleValue] * 1000)
              };
 }
 
