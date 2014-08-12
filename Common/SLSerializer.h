@@ -8,6 +8,7 @@
 
 #import "SLObject.h"
 #import "SLTransformProtocol.h"
+#import <CoreData/CoreData.h>
 
 @interface SLSerializer : SLObject
 

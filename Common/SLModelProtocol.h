@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MagicalRecord/MagicalRecord.h>
 #import "SLObject.h"
+#import <CoreData/CoreData.h>
 
 @protocol SLModelProtocol <NSObject>
 
