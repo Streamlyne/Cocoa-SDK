@@ -15,7 +15,7 @@
 @dynamic parameters;
 @dynamic assetName;
 @dynamic desc;
-
+@dynamic humanName;
 
 + (NSString *) type
 {

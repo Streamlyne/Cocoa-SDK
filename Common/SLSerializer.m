@@ -240,7 +240,22 @@
 
 - (NSDictionary *) serializeBelongsTo:(SLModel *)record withKey:(NSString *)key withData:(NSDictionary *)data
 {
-    return data;
+    NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:data];
+    
+    Class<SLModelProtocol> modelClass = [record class];
+    NSString *payloadKey = [modelClass keyForAttribute:key];
+    // Get the record
+    SLModel *origVal = [record valueForKeyPath:key];
+    // Check if there is a record in the relationship
+    if (origVal != nil)
+    {
+        // Serialize the ID
+        NSDictionary *val = [SLObjectIdTransform serialize:origVal.nid];
+        // Save it
+        [results setObject:val forKey:payloadKey];
+    }
+    // Return the current serialized form of this record
+    return [NSDictionary dictionaryWithDictionary:results];
 }
 
 - (NSDictionary *) serializeHasMany:(SLModel *)record withKey:(NSString *)key withData:(NSDictionary *)data

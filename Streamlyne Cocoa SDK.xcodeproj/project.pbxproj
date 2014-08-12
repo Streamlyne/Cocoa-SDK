@@ -311,8 +311,8 @@
 			children = (
 				7783AFF519744B25000CAB0A /* install.sh */,
 				7783AFF419744B19000CAB0A /* README.md */,
-				77AD7DDF1842F6DC0053C02C /* Common */,
 				77B4EA361840960B00435B97 /* Guide */,
+				77AD7DDF1842F6DC0053C02C /* Common */,
 				7720FC1C18369CA20092D39B /* Streamlyne-iOS-SDK */,
 				7720FC3018369CA20092D39B /* Streamlyne-iOS-SDKTests */,
 				77B4EA14184094D400435B97 /* Streamlyne-Mac-SDK */,
@@ -401,7 +401,7 @@
 				77A473BE1978710600748E1F /* NSString+SLStringHelpers.h */,
 				77A473BF1978710600748E1F /* NSString+SLStringHelpers.m */,
 			);
-			name = Categories;
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		77AD7DDF1842F6DC0053C02C /* Common */ = {

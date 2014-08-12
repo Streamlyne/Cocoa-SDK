@@ -202,6 +202,11 @@
     return [NSDictionary dictionaryWithDictionary:theData];
 }
 
++ (instancetype) createRecord
+{
+    return [self createRecord:@{}];
+}
+
 + (instancetype) createRecord:(NSDictionary *)properties
 {
     return [[SLStore sharedStore] createRecord:[self class] withProperties:properties];

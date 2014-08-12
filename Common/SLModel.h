@@ -188,6 +188,7 @@
 /**
  Create a new record in the current store. The properties passed to this method are set on the newly created record.
  */
++ (instancetype) createRecord;
 + (instancetype) createRecord:(NSDictionary *)properties;
 
 /**

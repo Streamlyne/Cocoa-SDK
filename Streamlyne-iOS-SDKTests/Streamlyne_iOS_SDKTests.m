@@ -39,13 +39,12 @@ NSLog(@"Completed wait.")
 (XCTAssertTrue([a isEqualToString:b], format) );
 
 // Login Credentials
-//#define SLLoginEmail @"test@test.co"
-//#define SLLoginPassword @"test"
-//#define SLLoginOrganization @"test"
-
-#define SLLoginEmail @"glavin@streamlyne.co"
-#define SLLoginPassword @"glavin"
-#define SLLoginOrganization @"nevis"
+#define SLLoginEmail @"test@test.co"
+#define SLLoginPassword @"test"
+#define SLLoginOrganization @"test"
+//#define SLLoginEmail @"glavin@streamlyne.co"
+//#define SLLoginPassword @"glavin"
+//#define SLLoginOrganization @"nevis"
 
 
 // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -69,6 +68,10 @@ NSLog(@"Completed wait.")
                           withOrganization:SLLoginOrganization]
     .then(^(SLClient *client, SLUser *me) {
         EndBlock();
+    })
+    .catch(^(NSError *error) {
+        EndBlock();
+        XCTFail(@"setUp failed to authenticate with error: %@",error);
     });
     
     WaitUntilBlockCompletes();
@@ -105,7 +108,6 @@ NSLog(@"Completed wait.")
     NSString *message = @"ILove2Test!tTest!t";
     NSString *secret = @"Streamlyne";
     NSString *hmac = @"1c2c34e017a17a6ae42c0dbdf6a3586f6735de3b";
-    
     NSString *result = [SLAdapter hmac:message withSecret:secret];
     XCTAssertStringEqual(result, hmac, @"HMACs should be the same.");
 }
@@ -120,9 +122,12 @@ NSLog(@"Completed wait.")
                           withPassword:SLLoginPassword
                       withOrganization:SLLoginOrganization]
     .then(^() {
+        NSLog(@"TESTTT");
         XCTAssertTrue(true, @"PARTY. IT WORKED.");
+        EndBlock();
     })
     .catch(^(NSError *error) {
+        EndBlock();
         XCTFail(@"%@", error);
     })
     .finally(^() {
@@ -488,18 +493,18 @@ NSLog(@"Completed wait.")
     
 }
 
-- (void) testCreateAttributeDatum
+- (void) testCreateAttribute
 {
     StartBlock();
-    
     // Create
-    SLAttributeDatum *attributeDatum = [SLAttributeDatum createRecord:@{
-                                                                        @"value": @123.0
-                                                                        }];
+    SLAttribute *attribute = [SLAttribute createRecord];
+    attribute.name = @"TESTATTR1";
+    attribute.humanName = @"Test Attribute";
+    
     // Save
-    [attributeDatum save]
-    .then(^(SLAttributeDatum *attributeDatum) {
-        NSLog(@"Datum: %@", attributeDatum);
+    [attribute save]
+    .then(^(SLAttribute *attribute) {
+        NSLog(@"Attribute: %@", attribute);
         EndBlock();
     })
     .catch(^(NSError *error){
@@ -507,10 +512,47 @@ NSLog(@"Completed wait.")
         EndBlock();
         XCTFail(@"%@", error);
     });
-    
-    
     WaitUntilBlockCompletes();
-    
+}
+
+- (void) testCreateAttributeDatum
+{
+    StartBlock();
+    // Create
+    SLAttributeDatum *attributeDatum = [SLAttributeDatum createRecord:@{
+                                                                        @"value": @123.0
+                                                                        }];
+    [SLAttribute findAll]
+    .then(^(NSArray *attributes) {
+        if ([attributes count] > 0)
+        {
+            // Get the first Attribute
+            SLAttribute *attribute = [attributes objectAtIndex:0];
+            // Associate the Attribute to the AttributeDatum
+            attributeDatum.attribute = attribute;
+            // Save
+            [attributeDatum save]
+            .then(^(SLAttributeDatum *attributeDatum) {
+                NSLog(@"Datum: %@", attributeDatum);
+                EndBlock();
+            })
+            .catch(^(NSError *error){
+                NSLog(@"%@", error);
+                EndBlock();
+                XCTFail(@"%@", error);
+            });
+        }
+        else
+        {
+            EndBlock();
+            XCTFail(@"No attributes found for this AttributeDatum to be associated to.");
+        }
+    })
+    .catch(^(NSError *error) {
+        EndBlock();
+        XCTFail(@"Could not get an attribute to associate the AttributeDatum to: %@", error);
+    });
+    WaitUntilBlockCompletes();
 }
 
 
