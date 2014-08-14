@@ -248,6 +248,11 @@
     return [[SLStore sharedStore] deleteRecord:self];
 }
 
+- (PMKPromise *) reloadRecord
+{
+    return [[self class] findById:self.nid];
+}
+
 - (NSDictionary *) serialize:(NSDictionary *)options
 {
     return [self.store serialize:self withOptions:options];

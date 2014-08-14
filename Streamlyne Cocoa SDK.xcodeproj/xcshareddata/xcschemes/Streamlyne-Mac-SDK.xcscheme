@@ -37,6 +37,11 @@
                BlueprintName = "Streamlyne-Mac-SDKTests"
                ReferencedContainer = "container:Streamlyne Cocoa SDK.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "Streamlyne_iOS_SDKTests/testFindAssetById">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

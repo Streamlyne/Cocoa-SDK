@@ -47,6 +47,22 @@ static SLStore *sharedSingleton = nil;
     return record;
 }
 
+- (PMKPromise *) find:(Class)modelClass byId:(SLNid)nid
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        [self.adapter find:modelClass withId:nid withStore:self]
+        .then(^(NSDictionary *adapterPayload) {
+            // FIXME: Should used a shared Serializer, etc.
+            SLSerializer *serializer = [[SLSerializer alloc] init];
+            // Extract from Payload
+            NSDictionary *extractedPayload = [serializer extractSingle:modelClass withPayload:adapterPayload withStore:self];
+            SLModel *record = [self push:modelClass withData:extractedPayload];
+            fulfiller(record);
+        })
+        .catch(rejecter);
+    }];
+}
+
 - (PMKPromise *) findAll:(Class)modelClass
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {

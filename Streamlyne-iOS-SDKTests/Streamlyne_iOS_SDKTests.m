@@ -287,6 +287,36 @@ NSLog(@"Completed wait.")
 }
 
 
+- (void) testFindAssetById
+{
+    
+    StartBlock();
+    
+    SLNid nid = @"53ea62d94812a24be2ea786d";
+    
+    [SLAsset findById:nid]
+    .then(^(SLAsset *asset) {
+        NSLog(@"Asset: %@", asset);
+        XCTAssert(asset != nil, @"Should have an Asset");
+        
+        [asset reloadRecord].finally(^() {
+            NSLog(@"Finished reloading: %@", asset);
+            EndBlock();
+        });
+    })
+    .catch(^(NSError *error) {
+        NSLog(@"%@", error);
+        EndBlock();
+        XCTFail(@"%@", error);
+    })
+    .finally(^() {
+        NSLog(@"Finally!");
+    });
+    
+    WaitUntilBlockCompletes();
+    
+}
+
 - (void) testFindAllAttributes
 {
     

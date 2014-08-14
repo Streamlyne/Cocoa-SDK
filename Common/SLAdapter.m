@@ -320,6 +320,12 @@ static SLAdapter *sharedSingleton = nil;
     return [self performRequestWithMethod:SLHTTPMethodPOST withPath:path withParameters:data];
 }
 
+- (PMKPromise *) find:(Class)modelClass withId:(SLNid)nid withStore:(SLStore *)store
+{
+    NSString *path = [NSString stringWithFormat:@"%@/%@", [modelClass type], nid];
+    return [self performRequestWithMethod:SLHTTPMethodGET withPath:path withParameters:nil];
+}
+
 - (PMKPromise *) findAll:(Class)modelClass withStore:(SLStore *)store
 {
     NSString *path = [NSString stringWithFormat:@"%@/", [modelClass type]];

@@ -233,6 +233,11 @@
 - (PMKPromise *) deleteRecord;
 
 /**
+ Reload this record.
+ */
+- (PMKPromise *) reloadRecord;
+
+/**
  Create a JSON representation of the record, using the serialization strategy of the store's adapter.
  
  serialize takes an optional hash as a parameter, currently supported options are:
