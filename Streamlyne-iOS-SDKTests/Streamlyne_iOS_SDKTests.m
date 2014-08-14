@@ -300,6 +300,27 @@ NSLog(@"Completed wait.")
         [SLAttribute findAll]
         .then(^(NSArray *attributes) {
             NSLog(@"Attributes: %@", attributes);
+            XCTAssert(true, @"Retrieved Attributes without errors");
+            
+            // get first attribute
+            if ([attributes count] > 0)
+            {
+                SLAttribute *attribute = [attributes objectAtIndex:0];
+                NSLog(@"%@", attribute);
+                
+                attribute.asset.then(^(SLAsset *asset) {
+                    NSLog(@"Attribute's Asset: %@", asset);
+                    XCTAssert(asset != nil, @"Should have an Asset");
+                    EndBlock();
+                })
+                .catch(^(NSError *error) {
+                    EndBlock();
+                    XCTFail(@"Failed to retrieve Asset for attribute, with error: %@", error);
+                });
+            } else {
+                EndBlock();
+            }
+            
         })
         .catch(^(NSError *error) {
             NSLog(@"%@", error);
@@ -309,7 +330,6 @@ NSLog(@"Completed wait.")
         })
         .finally(^() {
             NSLog(@"Finally!");
-            EndBlock();
         });
         
     })
@@ -518,16 +538,16 @@ NSLog(@"Completed wait.")
 - (void) testCreateAttributeDatum
 {
     StartBlock();
-    // Create
-    SLAttributeDatum *attributeDatum = [SLAttributeDatum createRecord:@{
-                                                                        @"value": @123.0
-                                                                        }];
     [SLAttribute findAll]
     .then(^(NSArray *attributes) {
         if ([attributes count] > 0)
         {
             // Get the first Attribute
             SLAttribute *attribute = [attributes objectAtIndex:0];
+            // Create
+            SLAttributeDatum *attributeDatum = [SLAttributeDatum createRecord:@{
+                                                                                @"value": @123.0
+                                                                                }];
             // Associate the Attribute to the AttributeDatum
             attributeDatum.attribute = attribute;
             // Save

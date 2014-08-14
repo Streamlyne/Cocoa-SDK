@@ -18,4 +18,6 @@
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSString * humanName;
 
+- (PMKPromise *) asset;
+
 @end
