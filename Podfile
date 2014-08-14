@@ -4,7 +4,7 @@ target 'Streamlyne-iOS-SDK' do
     platform :ios, '7.0'
     pod 'AFNetworking', '~> 2.0'
     pod 'MagicalRecord', '~> 2.2'
-    pod 'PromiseKit'
+    pod 'PromiseKit', '0.9.14'
 
     #post_install do |installer|
     #    installer.project.targets.each do |target|
@@ -21,6 +21,6 @@ target 'Streamlyne-Mac-SDK' do
     platform :osx, '10.9'
     pod 'AFNetworking', '~> 2.0'
     pod 'MagicalRecord', '~> 2.2'
-    pod 'PromiseKit'
+    pod 'PromiseKit', '0.9.14'
 
 end
