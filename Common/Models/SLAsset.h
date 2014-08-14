@@ -13,6 +13,7 @@
 @interface SLAsset : SLModel
 
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * humanName;
 @property (nonatomic, retain) NSString * costCenter;
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSString * location;

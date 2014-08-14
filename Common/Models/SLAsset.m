@@ -12,6 +12,7 @@
 @implementation SLAsset
 
 @dynamic name;
+@dynamic humanName;
 @dynamic costCenter;
 @dynamic desc;
 @dynamic location;
