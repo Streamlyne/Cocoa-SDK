@@ -9,6 +9,7 @@
 #import "SLStore.h"
 #import "SLObjectIdTransform.h"
 #import "CoreData+MagicalRecord.h"
+#import <PromiseKit/Promise+When.h>
 
 @interface SLStore ()
 @end
@@ -44,12 +45,20 @@ static SLStore *sharedSingleton = nil;
 - (PMKPromise *) createRecord:(Class<SLModelProtocol>)modelClass withProperties:(NSDictionary *)properties
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        
+        __block SLModel *record;
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-            SLModel *record = (SLModel *)[modelClass MR_createInContext:localContext];
+            record = (SLModel *)[modelClass MR_createInContext:localContext];
             [record setupData:properties];
             [localContext MR_saveToPersistentStoreAndWait];
             record = [record MR_inContext:self.context];
-            fulfiller(record);
+        } completion:^(BOOL success, NSError *error) {
+            NSLog(@"%hhd %@ %@", success, error, record);
+            if (error) {
+                rejecter(error);
+            } else {
+                fulfiller(record);
+            }
         }];
     }];
 }
@@ -59,9 +68,9 @@ static SLStore *sharedSingleton = nil;
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         
+        __block SLModel *record;
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             
-            SLModel *record;
             NSLog(@"record:forId:, before find node");
             record = [modelClass MR_findFirstByAttribute:@"nid" withValue:nid inContext:localContext];
             NSLog(@"record:forId: %@, node: %@", nid, record);
@@ -72,7 +81,13 @@ static SLStore *sharedSingleton = nil;
             }
             [localContext MR_saveToPersistentStoreAndWait];
             record = [record MR_inContext:self.context];
-            fulfiller(record);
+        } completion:^(BOOL success, NSError *error) {
+            NSLog(@"%hhd %@ %@", success, error, record);
+            if (error) {
+                rejecter(error);
+            } else {
+                fulfiller(record);
+            }
         }];
         
     }];
@@ -210,27 +225,27 @@ static SLStore *sharedSingleton = nil;
 
 - (PMKPromise *) push:(Class)modelClass withData:(NSDictionary *)datum
 {
-    NSLog(@"push: %@",datum);
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        //
+        
+        NSLog(@"push: %@",datum);
         SLNid nid = (NSString *) datum[@"nid"];
         
-        [self record:modelClass forId:nid]
-        .then(^(SLModel *record) {
+        [PMKPromise when:@[
+                           [self record:modelClass forId:nid],
+                           [self normalizeRelationships:modelClass withData:datum withStore:self]
+                           ]
+         ]
+        .then(^(NSArray *results) {
+            SLModel *record = results[0];
+            NSDictionary *newDatum = results[1];
+            NSLog(@"record: %@", record);
+            NSLog(@"post normalizeRelationships datum: %@", newDatum);
             
-            [self normalizeRelationships:modelClass withData:datum withStore:self]
-            .then(^(NSDictionary *newDatum) {
-                
-                NSLog(@"post normalizeRelationships datum: %@", newDatum);
-                
-                //
-                [record setupData:newDatum];
-                NSLog(@"Pushed record: %@", record);
-                
-                fulfiller(record);
-                
-            })
-            .catch(rejecter);
+            //
+            [record setupData:newDatum];
+            NSLog(@"Pushed record: %@", record);
+            
+            fulfiller(record);
             
         })
         .catch(rejecter);
@@ -263,7 +278,6 @@ static SLStore *sharedSingleton = nil;
 - (PMKPromise *)normalizeRelationships:(Class)modelClass withData:(NSDictionary *)data withStore:(SLStore *)store
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        
         NSLog(@"normalizeRelationships data: %@", data);
         NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:data];
         NSDictionary *relationships = [modelClass relationshipsByName];
@@ -301,6 +315,7 @@ static SLStore *sharedSingleton = nil;
                     else {
                         val = [NSSet setWithArray:records];
                     }
+                    NSLog(@"rel val: %@", val),
                     [results setValue:val forKey:relationshipKey];
                     // Load all of the records
                     [self findMany:relationshipModel withIds:ids];
@@ -314,7 +329,7 @@ static SLStore *sharedSingleton = nil;
                 PMKPromise *relPromise = [self deserializeRecordId:nid withRelationship:relationship withStore:store];
                 [relationshipPromises addObject:relPromise];
                 relPromise
-                .then(^(id val) {
+                .then(^(SLModel *val) {
                     [results setValue:val forKey:relationshipKey];
                     // Load this record
                     [self find:relationshipModel byId:nid];
