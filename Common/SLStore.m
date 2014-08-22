@@ -8,6 +8,7 @@
 
 #import "SLStore.h"
 #import "SLObjectIdTransform.h"
+#import "CoreData+MagicalRecord.h"
 
 @interface SLStore ()
 @end
@@ -40,12 +41,43 @@ static SLStore *sharedSingleton = nil;
     return self;
 }
 
-- (SLModel *) createRecord:(Class<SLModelProtocol>)modelClass withProperties:(NSDictionary *)properties
+- (PMKPromise *) createRecord:(Class<SLModelProtocol>)modelClass withProperties:(NSDictionary *)properties
 {
-    SLModel *record = [modelClass initInContext:self.context];
-    [record setupData:properties];
-    return record;
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            SLModel *record = (SLModel *)[modelClass MR_createInContext:localContext];
+            [record setupData:properties];
+            [localContext MR_saveToPersistentStoreAndWait];
+            record = [record MR_inContext:self.context];
+            fulfiller(record);
+        }];
+    }];
 }
+
+
+- (PMKPromise *) record:(Class<SLModelProtocol>)modelClass forId:(SLNid)nid
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            
+            SLModel *record;
+            NSLog(@"record:forId:, before find node");
+            record = [modelClass MR_findFirstByAttribute:@"nid" withValue:nid inContext:localContext];
+            NSLog(@"record:forId: %@, node: %@", nid, record);
+            if (record == nil) {
+                NSLog(@"Record does not exist! %@", nid);
+                record = (SLModel *)[modelClass MR_createInContext:localContext];
+                record.nid = nid;
+            }
+            [localContext MR_saveToPersistentStoreAndWait];
+            record = [record MR_inContext:self.context];
+            fulfiller(record);
+        }];
+        
+    }];
+}
+
 
 - (PMKPromise *) find:(Class)modelClass byId:(SLNid)nid
 {
@@ -60,8 +92,11 @@ static SLStore *sharedSingleton = nil;
                 NSDictionary *extractedPayload = [serializer extractSingle:modelClass withPayload:adapterPayload withStore:self];
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     //Run UI Updates
-                    SLModel *record = [self push:modelClass withData:extractedPayload];
-                    fulfiller(record);
+                    [self push:modelClass withData:extractedPayload]
+                    .then(^(SLModel *record) {
+                        fulfiller(record);
+                    })
+                    .catch(rejecter);
                 });
             });
         })
@@ -82,8 +117,11 @@ static SLStore *sharedSingleton = nil;
                 NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     //Run UI Updates
-                    NSArray *records = [self pushMany:modelClass withData:extractedPayload];
-                    fulfiller(records);
+                    [self pushMany:modelClass withData:extractedPayload]
+                    .then(^(NSArray *records) {
+                        fulfiller(records);
+                    })
+                    .catch(rejecter);
                 });
             });
         })
@@ -104,8 +142,11 @@ static SLStore *sharedSingleton = nil;
                 NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     //Run UI Updates
-                    NSArray *records = [self pushMany:modelClass withData:extractedPayload];
-                    fulfiller(records);
+                    [self pushMany:modelClass withData:extractedPayload]
+                    .then(^(NSArray *records) {
+                        fulfiller(records);
+                    })
+                    .catch(rejecter);
                 });
             });
         })
@@ -126,8 +167,11 @@ static SLStore *sharedSingleton = nil;
                 NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     //Run UI Updates
-                    NSArray *records = [self pushMany:modelClass withData:extractedPayload];
-                    fulfiller(records);
+                    [self pushMany:modelClass withData:extractedPayload]
+                    .then(^(NSArray *records) {
+                        fulfiller(records);
+                    })
+                    .catch(rejecter);
                 });
             });
         })
@@ -164,100 +208,141 @@ static SLStore *sharedSingleton = nil;
     }];
 }
 
-- (SLModel *) push:(Class)modelClass withData:(NSDictionary *)datum
+- (PMKPromise *) push:(Class)modelClass withData:(NSDictionary *)datum
 {
-    //
-    SLNid nid = (NSString *) datum[@"nid"];
-    SLModel *record;
-    
-    record = [self record:modelClass forId:nid withContext:self.context];
-    
-    datum = [self normalizeRelationships:modelClass withData:datum withStore:self];
-    NSLog(@"post normalizeRelationships datum: %@", datum);
-    
-    //
-    [record setupData:datum];
-    NSLog(@"Pushed record: %@", record);
-    
-    return record;
-}
-
-- (SLModel *) record:(Class<SLModelProtocol>)modelClass forId:(SLNid)nid withContext:(NSManagedObjectContext *)localContext
-{
-    SLModel *record = [modelClass initWithId:nid inContext:localContext];
-    return record;
-}
-
-- (NSArray *) pushMany:(Class)modelClass withData:(NSArray *)data
-{
-    NSLog(@"pushMany <%@>: %@", modelClass, data);
-    NSMutableArray *records = [NSMutableArray array];
-    for (NSDictionary *datum in data) {
-        [records addObject:[self push:modelClass withData:datum]];
-    }
-    NSLog(@"pushed: %@", records);
-    return [NSArray arrayWithArray:records];
-}
-
-- (NSDictionary *)normalizeRelationships:(Class)modelClass withData:(NSDictionary *)data withStore:(SLStore *)store
-{
-    
-    NSLog(@"normalizeRelationships data: %@", data);
-    NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:data];
-    NSDictionary *relationships = [modelClass relationshipsByName];
-    for (NSString *relationshipKey in relationships)
-    {
-        NSRelationshipDescription *relationship = relationships[relationshipKey];
+    NSLog(@"push: %@",datum);
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        //
+        SLNid nid = (NSString *) datum[@"nid"];
         
-        // TODO: Handle renaming keys for attributes
-        NSLog(@"relationship: %@", relationship);
-        NSLog(@"relationshipKey: %@", relationshipKey);
-        NSString *payloadKey = [modelClass keyForAttribute:relationshipKey];
-        NSLog(@"payloadKey: %@", payloadKey);
-        id origVal = [data objectForKey:payloadKey];
-        NSLog(@"OriginVal: %@", origVal);
-        if (origVal == nil)
-        {
-            continue;
+        [self record:modelClass forId:nid]
+        .then(^(SLModel *record) {
+            
+            [self normalizeRelationships:modelClass withData:datum withStore:self]
+            .then(^(NSDictionary *newDatum) {
+                
+                NSLog(@"post normalizeRelationships datum: %@", newDatum);
+                
+                //
+                [record setupData:newDatum];
+                NSLog(@"Pushed record: %@", record);
+                
+                fulfiller(record);
+                
+            })
+            .catch(rejecter);
+            
+        })
+        .catch(rejecter);
+    }];
+}
+
+//- (PMKPromise *) record:(Class<SLModelProtocol>)modelClass forId:(SLNid)nid withContext:(NSManagedObjectContext *)localContext DEPRECATED_ATTRIBUTE
+//{
+//    PMKPromise *recordPromse = [modelClass recordForId:nid];
+//    return recordPromise;
+//}
+
+- (PMKPromise *) pushMany:(Class)modelClass withData:(NSArray *)data
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        NSLog(@"pushMany <%@>: %@", modelClass, data);
+        NSMutableArray *records = [NSMutableArray array];
+        for (NSDictionary *datum in data) {
+            [records addObject:[self push:modelClass withData:datum]];
         }
+        [PMKPromise when:records]
+        .then(^(NSArray *results) {
+            NSLog(@"pushed: %@", results);
+            fulfiller(results);
+        })
+        .catch(rejecter);
+    }];
+}
+
+- (PMKPromise *)normalizeRelationships:(Class)modelClass withData:(NSDictionary *)data withStore:(SLStore *)store
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         
-        id val = origVal;
-        Class<SLModelProtocol> relationshipModel = [self typeForRelationship:relationship];
-        // Has Many
-        if (relationship.isToMany)
+        NSLog(@"normalizeRelationships data: %@", data);
+        NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:data];
+        NSDictionary *relationships = [modelClass relationshipsByName];
+        NSMutableArray *relationshipPromises = [NSMutableArray array];
+        for (NSString *relationshipKey in relationships)
         {
-            NSArray *ids = (NSArray *)origVal;
-            NSArray *records = [self deserializeRecordIds:ids withRelationship:relationship withStore:store];
-            if (relationship.isOrdered)
+            NSRelationshipDescription *relationship = relationships[relationshipKey];
+            
+            // TODO: Handle renaming keys for attributes
+            NSLog(@"relationship: %@", relationship);
+            NSLog(@"relationshipKey: %@", relationshipKey);
+            NSString *payloadKey = [modelClass keyForAttribute:relationshipKey];
+            NSLog(@"payloadKey: %@", payloadKey);
+            id origVal = [data objectForKey:payloadKey];
+            NSLog(@"OriginVal: %@", origVal);
+            if (origVal == nil)
             {
-                val = [NSOrderedSet orderedSetWithArray:records];
+                continue;
             }
-            else {
-                val = [NSSet setWithArray:records];
+            
+            Class<SLModelProtocol> relationshipModel = [self typeForRelationship:relationship];
+            // Has Many
+            if (relationship.isToMany)
+            {
+                NSArray *ids = (NSArray *)origVal;
+                PMKPromise *relPromise = [self deserializeRecordIds:ids withRelationship:relationship withStore:store];
+                [relationshipPromises addObject:relPromise];
+                relPromise
+                .then(^(NSArray *records) {
+                    id val;
+                    if (relationship.isOrdered)
+                    {
+                        val = [NSOrderedSet orderedSetWithArray:records];
+                    }
+                    else {
+                        val = [NSSet setWithArray:records];
+                    }
+                    [results setValue:val forKey:relationshipKey];
+                    // Load all of the records
+                    [self findMany:relationshipModel withIds:ids];
+                })
+                .catch(rejecter);
             }
-            // Load all of the records
-            [self findMany:relationshipModel withIds:ids];
+            // Belongs To / Has One
+            else
+            {
+                SLNid nid = (SLNid)origVal;
+                PMKPromise *relPromise = [self deserializeRecordId:nid withRelationship:relationship withStore:store];
+                [relationshipPromises addObject:relPromise];
+                relPromise
+                .then(^(id val) {
+                    [results setValue:val forKey:relationshipKey];
+                    // Load this record
+                    [self find:relationshipModel byId:nid];
+                })
+                .catch(rejecter);
+            }
         }
-        // Belongs To / Has One
-        else
-        {
-            SLNid nid = (SLNid)origVal;
-            val = [self deserializeRecordId:nid withRelationship:relationship withStore:store];
-            // Load this record
-            [self find:relationshipModel byId:nid];
-        }
-        [results setValue:val forKey:relationshipKey];
+        [PMKPromise when:relationshipPromises]
+        .then(^() {
+            fulfiller([NSDictionary dictionaryWithDictionary:results]);
+        })
+        .catch(rejecter);
         
-    }
-    return [NSDictionary dictionaryWithDictionary:results];
+    }];
     
 }
 
-- (SLModel *) deserializeRecordId:(SLNid)nid withRelationship:(NSRelationshipDescription *)relationship withStore:(SLStore *)store {
-    
-    Class<SLModelProtocol> modelClass = [self typeForRelationship:relationship];
-    SLModel *record = [modelClass initWithId:nid];
-    return record;
+- (PMKPromise *) deserializeRecordId:(SLNid)nid withRelationship:(NSRelationshipDescription *)relationship withStore:(SLStore *)store {
+    NSLog(@"deserializeRecordId");
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        Class<SLModelProtocol> modelClass = [self typeForRelationship:relationship];
+        PMKPromise *recordPromise = [self record:modelClass forId:nid];
+        recordPromise
+        .then(^(SLModel *record) {
+            fulfiller(record);
+        })
+        .catch(rejecter);
+    }];
 }
 
 - (Class<SLModelProtocol>) typeForRelationship:(NSRelationshipDescription *)relationship {
@@ -274,14 +359,14 @@ static SLStore *sharedSingleton = nil;
     return destinationModelClass;
 }
 
-- (NSArray *) deserializeRecordIds:(NSArray *)ids withRelationship:(NSRelationshipDescription *)relationship withStore:(SLStore *)store {
+- (PMKPromise *) deserializeRecordIds:(NSArray *)ids withRelationship:(NSRelationshipDescription *)relationship withStore:(SLStore *)store {
     NSMutableArray *arr = [NSMutableArray array];
     for (SLNid nid in ids)
     {
         id v = [self deserializeRecordId:nid withRelationship:relationship withStore:store];
         [arr addObject:v];
     }
-    return [NSArray arrayWithArray:arr];
+    return [PMKPromise when:arr];
 }
 
 - (NSDictionary *) serialize:(SLModel *)record withOptions:(NSDictionary *) options

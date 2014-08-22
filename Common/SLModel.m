@@ -16,6 +16,7 @@
 
 @implementation SLModel
 
+@synthesize store;
 @dynamic nid;
 @dynamic dateCreated;
 @dynamic dateUpdated;
@@ -28,61 +29,66 @@
         return [SLAdapter sharedAdapter];
     }
 }
+//
+//- (instancetype) init {
+////    NSLog(@"SLModel init");
+//    NSManagedObjectContext *localContext = [SLStore sharedStore].context;
+//    self = [self initInContext:localContext];
+//    
+//    return self;
+//}
+//
+//- (instancetype) initInContext:(NSManagedObjectContext *)context
+//{
+////    NSLog(@"SLModel init %@", [self class]);
+//    //    NSLog(@"inManagedObjectContext: %@", context.persistentStoreCoordinator.managedObjectModel.entities);
+//    
+//    //self = [super init];
+//    //self = [[self class] MR_createEntity];
+//    self = [[self class] MR_createInContext:context];
+//    if (self) {
+//        // Initialize variables
+//        _saved = false;
+//        self.nid = SLNidNodeNotCreated;
+//    }
+//    
+//    return self;
+//}
+//
+//
+//+ (instancetype) initInContext:(NSManagedObjectContext *)context
+//{
+//    return [[self alloc] initInContext:context];
+//}
+//
+//+ (instancetype) initWithId:(SLNid)nid {
+//    NSLog(@"SLModel initWithId: %@", nid);
+//    NSManagedObjectContext *localContext = [SLStore sharedStore].context;
+//    return [self initWithId:nid inContext:localContext];
+//}
+//
+//+ (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context
+//{
+//    NSLog(@"SLModel initWithId: %@ inContext: %@", nid, context);
+//    
+//    @synchronized([self class])
+//    {
+//        __block SLModel *node;
+//        NSLog(@"initWithId, before find node");
+//        node = [[self class] MR_findFirstByAttribute:@"nid" withValue:nid inContext:context];
+//        NSLog(@"initWithId: %@, node: %@", nid, node);
+//        if (node == nil) {
+//            NSLog(@"Record does not exist! %@", nid);
+//            node = [[[self class] alloc] initInContext:context];
+//            node.nid = nid;
+//        }
+//        return node;
+//    }
+//}
 
-- (instancetype) init {
-    NSLog(@"SLModel init");
-    NSManagedObjectContext *localContext = [SLStore sharedStore].context;
-    self = [self initInContext:localContext];
-    
-    return self;
-}
-
-- (instancetype) initInContext:(NSManagedObjectContext *)context
++ (PMKPromise *) recordForId:(SLNid)nid
 {
-    NSLog(@"SLModel init %@", [self class]);
-    //    NSLog(@"inManagedObjectContext: %@", context.persistentStoreCoordinator.managedObjectModel.entities);
-    
-    //self = [super init];
-    //self = [[self class] MR_createEntity];
-    self = [[self class] MR_createInContext:context];
-    if (self) {
-        // Initialize variables
-        _saved = false;
-        self.nid = SLNidNodeNotCreated;
-    }
-    
-    return self;
-}
-
-
-+ (instancetype) initInContext:(NSManagedObjectContext *)context
-{
-    return [[self alloc] initInContext:context];
-}
-
-+ (instancetype) initWithId:(SLNid)nid {
-    NSLog(@"SLModel initWithId: %@", nid);
-    NSManagedObjectContext *localContext = [SLStore sharedStore].context;
-    return [self initWithId:nid inContext:localContext];
-}
-
-+ (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context
-{
-    NSLog(@"SLModel initWithId: %@ inContext: %@", nid, context);
-    
-    @synchronized([self class])
-    {
-        __block SLModel *node;
-        NSLog(@"initWithId, before find node");
-        node = [[self class] MR_findFirstByAttribute:@"nid" withValue:nid inContext:context];
-        NSLog(@"initWithId: %@, node: %@", nid, node);
-        if (node == nil) {
-            NSLog(@"Record does not exist! %@", nid);
-            node = [[[self class] alloc] initInContext:context];
-            node.nid = nid;
-        }
-        return node;
-    }
+    return [[SLStore sharedStore] record:[self class] forId:nid];
 }
 
 + (NSString *) keyForAttribute:(NSString *)attribute

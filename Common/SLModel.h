@@ -55,51 +55,60 @@
 @property (getter=isSaved, readonly) BOOL saved;
 
 
+///**
+// Returns an object initialized.
+// 
+// Use for initializing new nodes that do not have existing an `SLNid` nid.
+// 
+// ## Manipulating the Schema
+// Sample code to put in your init method.
+// 
+// <pre>
+// // Create a Mutable copy of the data
+// NSMutableDictionary *tempData = [self.data mutableCopy];
+// // Make changes, by adding `SLValue`s
+// SLValue *idVal = [[SLValue alloc]initWithType:[NSString class]];
+// [tempData setValue:idVal forKey:@"id"];
+// // Change the base data schema to the new data schema.
+// self.data = tempData;
+// </pre>
+// 
+// @deprecated Use createRecord.
+// */
+//- (instancetype) init DEPRECATED_ATTRIBUTE;
+///**
+// @deprecated Use createRecord.
+// */
+//- (instancetype) initInContext:(NSManagedObjectContext *)context DEPRECATED_ATTRIBUTE;
+//
+///**
+// @deprecated Use createRecord.
+//*/
+//+ (instancetype) initInContext:(NSManagedObjectContext *)context DEPRECATED_ATTRIBUTE;
+//
+///**
+// Returns an object initialized with the specific `SLNid` nid.
+// 
+// Used for initializing nodes given a known nid.
+// If the node has already been initialized, that same node in memory will be returned.
+// 
+// @param nid
+// @return    Initialized object.
+// 
+// @deprecated Use recordForId:
+// */
+//+ (instancetype) initWithId:(SLNid)nid DEPRECATED_ATTRIBUTE;
+//
+///**
+// @deprecated Use recordForId:
+// */
+//+ (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context DEPRECATED_ATTRIBUTE;
 
 /**
- Returns an object initialized.
- 
- Use for initializing new nodes that do not have existing an `SLNid` nid.
- 
- ## Manipulating the Schema
- Sample code to put in your init method.
- 
- <pre>
- // Create a Mutable copy of the data
- NSMutableDictionary *tempData = [self.data mutableCopy];
- // Make changes, by adding `SLValue`s
- SLValue *idVal = [[SLValue alloc]initWithType:[NSString class]];
- [tempData setValue:idVal forKey:@"id"];
- // Change the base data schema to the new data schema.
- self.data = tempData;
- </pre>
- 
- @deprecated Use initWithContext.
+ Get the record for the given ID.
+ @return Promise that will be a `SLModel` if successful.
  */
-- (instancetype) init DEPRECATED_ATTRIBUTE;
-/**
- 
- */
-- (instancetype) initInContext:(NSManagedObjectContext *)context;
-
-+ (instancetype) initInContext:(NSManagedObjectContext *)context;
-
-/**
- Returns an object initialized with the specific `SLNid` nid.
- 
- Used for initializing nodes given a known nid.
- If the node has already been initialized, that same node in memory will be returned.
- 
- @param nid
- @return    Initialized object.
- 
- */
-+ (instancetype) initWithId:(SLNid)nid;
-
-/**
- 
- */
-+ (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context;
++ (PMKPromise *) recordForId:(SLNid)nid;
 
 /**
  Setup record with existing data.

@@ -10,6 +10,7 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "SLObject.h"
 #import <CoreData/CoreData.h>
+#import <PromiseKit.h>
 
 @protocol SLModelProtocol <NSObject>
 
@@ -25,24 +26,43 @@
 @required
 + (NSString *) type;
 
+//
+///**
+// Returns an object initialized with the specific `SLNid` nid.
+// 
+// Used for initializing nodes given a known nid.
+// If the node has already been initialized, that same node in memory will be returned.
+// 
+// @param nid
+// @return    Initialized object.
+// */
+//@required
+//+ (instancetype) initWithId:(SLNid)nid DEPRECATED_ATTRIBUTE;
+//
+//@required
+//+ (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context;
+//
+//@required
+//+ (instancetype) initInContext:(NSManagedObjectContext *)context;
+//
 
 /**
- Returns an object initialized with the specific `SLNid` nid.
- 
- Used for initializing nodes given a known nid.
- If the node has already been initialized, that same node in memory will be returned.
- 
- @param nid
- @return    Initialized object.
+ Create a new record in the current store. The properties passed to this method are set on the newly created record.
  */
 @required
-+ (instancetype) initWithId:(SLNid)nid DEPRECATED_ATTRIBUTE;
++ (instancetype) createRecord;
+@required
++ (instancetype) createRecord:(NSDictionary *)properties;
 
 @required
-+ (instancetype) initWithId:(SLNid)nid inContext:(NSManagedObjectContext *)context;
++ (instancetype) MR_createInContext:(NSManagedObjectContext *)context;
++ (instancetype) MR_findFirstByAttribute:(NSString *)attribute withValue:(id)searchValue inContext:(NSManagedObjectContext *)context;
 
-@required
-+ (instancetype) initInContext:(NSManagedObjectContext *)context;
+/**
+ Get the record for the given ID.
+ @return Promise that will be a `SLModel` if successful.
+ */
++ (PMKPromise *) recordForId:(SLNid)nid;
 
 /**
  Attribute to Key mappings for the Model.

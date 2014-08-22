@@ -43,6 +43,7 @@ NSLog(@"Completed wait.")
 //#define SLLoginPassword @"test"
 //#define SLLoginOrganization @"test"
 //#define SLServerHost @"localhost:5000"
+
 #define SLLoginEmail @"todd@streamlyne.co"
 #define SLLoginPassword @"streamlyne"
 #define SLLoginOrganization @"nevis"
@@ -187,12 +188,14 @@ NSLog(@"Completed wait.")
                               withPassword:SLLoginPassword
                           withOrganization:SLLoginOrganization]
     .then(^(SLClient *client, SLUser *me) {
-        NSLog(@"Me User: %@", me);
+        NSLog(@"Me User:");
+        NSLog(@"%@", me);
         XCTAssertTrue(me != nil, @"PARTY. IT WORKED.");
-        XCTAssert([me.email isEqualToString:SLLoginEmail], @"Email of user should be the same as the one used for logging in.");
+        XCTAssertTrue([me isKindOfClass:[SLUser class]], @"Should be instance of SLUser class");
+        XCTAssertTrue([me.email isEqualToString:SLLoginEmail], @"Email of user should be the same as the one used for logging in.");
     }).catch(^(NSError *error) {
         EndBlock();
-        XCTFail(@"%@", error);
+        XCTFail(@"Error: %@", error);
     })
     .finally(^() {
         EndBlock();
@@ -459,11 +462,13 @@ NSLog(@"Completed wait.")
     SLAsset *a1 = (SLAsset *)[[SLStore sharedStore] push:[SLAsset class] withData:pushData];
     //    NSLog(@"a1: %@", a1);
     XCTAssertStringEqual(pushData[@"nid"], a1.nid, @"`nid`s should match.");
-    SLAttribute *attr = [SLAttribute initWithId:@"abc" inContext:[SLStore sharedStore].context];
-    NSLog(@"Attr: %@", attr);
-    NSSet *attrs = a1.attributes;
-    NSLog(@"Attrs: %@", attrs);
-    XCTAssert([attrs containsObject:attr], @"Asset's `attributes` relationship should contain this attribute.");
+    [SLAttribute recordForId:@"abc"]
+    .then(^(SLAttribute *attr) {
+        NSLog(@"Attr: %@", attr);
+        NSSet *attrs = a1.attributes;
+        NSLog(@"Attrs: %@", attrs);
+        XCTAssert([attrs containsObject:attr], @"Asset's `attributes` relationship should contain this attribute.");
+    });
 }
 
 - (void) testFindMany

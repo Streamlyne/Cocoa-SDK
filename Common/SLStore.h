@@ -38,7 +38,13 @@
 /**
  Create a new record in the current store. The properties passed to this method are set on the newly created record.
  */
-- (SLModel *) createRecord:(Class)modelClass withProperties:(NSDictionary *)properties;
+- (PMKPromise *) createRecord:(Class)modelClass withProperties:(NSDictionary *)properties;
+
+/**
+ Get the record for the given ID.
+ @return Promise that will be a `SLModel` if successful.
+ */
+- (PMKPromise *) record:(Class<SLModelProtocol>)modelClass forId:(SLNid)nid;
 
 /**
  This method returns a record for a given type and id combination.
@@ -115,12 +121,12 @@
  represented as URLs, under the links key
 
  */
-- (SLModel *) push:(Class)modelClass withData:(NSDictionary *)datum;
+- (PMKPromise *) push:(Class)modelClass withData:(NSDictionary *)datum;
 
 /**
  If you have an Array of normalized data to push, you can call pushMany with the Array, and it will call push repeatedly for you.
  */
-- (NSArray *) pushMany:(Class)modelClass withData:(NSArray *)data;
+- (PMKPromise *) pushMany:(Class)modelClass withData:(NSArray *)data;
 
 /**
  Save the record and persist any changes to the record to an extenal source via the adapter.

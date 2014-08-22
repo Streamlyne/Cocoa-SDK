@@ -40,8 +40,11 @@
                                            withPassword:thePassword
                                        withOrganization:theOrganization]
         .then(^(NSDictionary *payload) {
-            self.me = (SLUser *)[self.store push:[SLUser class] withData:payload];
-            fulfiller(PMKManifold(self, self.me));
+            return [self.store push:[SLUser class] withData:payload]
+            .then(^(SLUser *user) {
+                self.me = user;
+                fulfiller(PMKManifold(self, self.me));
+            });
         })
         .catch(^(NSError *error) {
             rejecter(error);
