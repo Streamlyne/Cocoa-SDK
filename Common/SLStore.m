@@ -34,7 +34,7 @@ static SLStore *sharedSingleton = nil;
     {
         // Adapter
         self.adapter = [SLAdapter sharedAdapter];
-//        self.context = [NSManagedObjectContext MR_contextForCurrentThread];
+        //        self.context = [NSManagedObjectContext MR_contextForCurrentThread];
         self.context = [NSManagedObjectContext MR_defaultContext];
     }
     return self;
@@ -52,12 +52,18 @@ static SLStore *sharedSingleton = nil;
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         [self.adapter find:modelClass withId:nid withStore:self]
         .then(^(NSDictionary *adapterPayload) {
-            // FIXME: Should used a shared Serializer, etc.
-            SLSerializer *serializer = [[SLSerializer alloc] init];
-            // Extract from Payload
-            NSDictionary *extractedPayload = [serializer extractSingle:modelClass withPayload:adapterPayload withStore:self];
-            SLModel *record = [self push:modelClass withData:extractedPayload];
-            fulfiller(record);
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                //Background Thread
+                // FIXME: Should used a shared Serializer, etc.
+                SLSerializer *serializer = [[SLSerializer alloc] init];
+                // Extract from Payload
+                NSDictionary *extractedPayload = [serializer extractSingle:modelClass withPayload:adapterPayload withStore:self];
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    //Run UI Updates
+                    SLModel *record = [self push:modelClass withData:extractedPayload];
+                    fulfiller(record);
+                });
+            });
         })
         .catch(rejecter);
     }];
@@ -68,12 +74,18 @@ static SLStore *sharedSingleton = nil;
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         [self.adapter findAll:modelClass withStore:self]
         .then(^(NSDictionary *adapterPayload) {
-            // FIXME: Should used a shared Serializer, etc.
-            SLSerializer *serializer = [[SLSerializer alloc] init];
-            // Extract from Payload
-            NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
-            NSArray *records = [self pushMany:modelClass withData:extractedPayload];
-            fulfiller(records);
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                //Background Thread
+                // FIXME: Should used a shared Serializer, etc.
+                SLSerializer *serializer = [[SLSerializer alloc] init];
+                // Extract from Payload
+                NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    //Run UI Updates
+                    NSArray *records = [self pushMany:modelClass withData:extractedPayload];
+                    fulfiller(records);
+                });
+            });
         })
         .catch(rejecter);
     }];
@@ -84,12 +96,18 @@ static SLStore *sharedSingleton = nil;
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         [self.adapter findMany:modelClass withIds:ids withStore:self]
         .then(^(NSDictionary *adapterPayload) {
-            // FIXME: Should used a shared Serializer, etc.
-            SLSerializer *serializer = [[SLSerializer alloc] init];
-            // Extract from Payload
-            NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
-            NSArray *records = [self pushMany:modelClass withData:extractedPayload];
-            fulfiller(records);
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                //Background Thread
+                // FIXME: Should used a shared Serializer, etc.
+                SLSerializer *serializer = [[SLSerializer alloc] init];
+                // Extract from Payload
+                NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    //Run UI Updates
+                    NSArray *records = [self pushMany:modelClass withData:extractedPayload];
+                    fulfiller(records);
+                });
+            });
         })
         .catch(rejecter);
     }];
@@ -100,12 +118,18 @@ static SLStore *sharedSingleton = nil;
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         [self.adapter findQuery:modelClass withQuery:query withStore:self]
         .then(^(NSDictionary *adapterPayload) {
-            // FIXME: Should used a shared Serializer, etc.
-            SLSerializer *serializer = [[SLSerializer alloc] init];
-            // Extract from Payload
-            NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
-            NSArray *records = [self pushMany:modelClass withData:extractedPayload];
-            fulfiller(records);
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                //Background Thread
+                // FIXME: Should used a shared Serializer, etc.
+                SLSerializer *serializer = [[SLSerializer alloc] init];
+                // Extract from Payload
+                NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    //Run UI Updates
+                    NSArray *records = [self pushMany:modelClass withData:extractedPayload];
+                    fulfiller(records);
+                });
+            });
         })
         .catch(rejecter);
     }];
