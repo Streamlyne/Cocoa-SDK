@@ -39,12 +39,14 @@ NSLog(@"Completed wait.")
 (XCTAssertTrue([a isEqualToString:b], format) );
 
 // Login Credentials
-#define SLLoginEmail @"test@test.co"
-#define SLLoginPassword @"test"
-#define SLLoginOrganization @"test"
-//#define SLLoginEmail @"glavin@streamlyne.co"
-//#define SLLoginPassword @"glavin"
-//#define SLLoginOrganization @"nevis"
+//#define SLLoginEmail @"test@test.co"
+//#define SLLoginPassword @"test"
+//#define SLLoginOrganization @"test"
+//#define SLServerHost @"localhost:5000"
+#define SLLoginEmail @"todd@streamlyne.co"
+#define SLLoginPassword @"streamlyne"
+#define SLLoginOrganization @"nevis"
+#define SLServerHost @"54.183.15.175:5000"
 
 
 // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -56,7 +58,7 @@ NSLog(@"Completed wait.")
     [MagicalRecord setDefaultModelFromClass:[self class]];
     [MagicalRecord setupCoreDataStackWithInMemoryStore];
     
-    self.client = [SLClient connectWithHost:@"localhost:5000"];
+    self.client = [SLClient connectWithHost:SLServerHost];
     
     //    NSLog(@"default context: %@", [NSManagedObjectContext MR_defaultContext]);
     //    NSLog(@"inManagedObjectContext: %@", [NSManagedObjectContext MR_defaultContext].persistentStoreCoordinator.managedObjectModel.entities);

@@ -18,6 +18,11 @@
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSString * humanName;
 
+/**
+ Query for the related Asset to this Attribute.
+ This promise is cached for performance. 
+ Subsequent requests will return the same promise which has the same resulting Asset.
+ */
 - (PMKPromise *) asset;
 
 @end

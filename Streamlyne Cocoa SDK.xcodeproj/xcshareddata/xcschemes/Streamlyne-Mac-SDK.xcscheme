@@ -39,6 +39,15 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "Streamlyne_iOS_SDKTests/testCreateAttribute">
+               </Test>
+               <Test
+                  Identifier = "Streamlyne_iOS_SDKTests/testCreateAttributeDatum">
+               </Test>
+               <Test
+                  Identifier = "Streamlyne_iOS_SDKTests/testFindAllAssets">
+               </Test>
+               <Test
                   Identifier = "Streamlyne_iOS_SDKTests/testFindAssetById">
                </Test>
             </SkippedTests>
