@@ -52,6 +52,7 @@ static SLStore *sharedSingleton = nil;
             [record setupData:properties];
             [localContext MR_saveToPersistentStoreAndWait];
             record = [record MR_inContext:self.context];
+//            [self.context MR_saveToPersistentStoreAndWait];
         } completion:^(BOOL success, NSError *error) {
             NSLog(@"%hhd %@ %@", success, error, record);
             if (error) {
@@ -62,7 +63,6 @@ static SLStore *sharedSingleton = nil;
         }];
     }];
 }
-
 
 - (PMKPromise *) record:(Class<SLModelProtocol>)modelClass forId:(SLNid)nid
 {
@@ -81,6 +81,7 @@ static SLStore *sharedSingleton = nil;
             }
             [localContext MR_saveToPersistentStoreAndWait];
             record = [record MR_inContext:self.context];
+//            [self.context MR_saveToPersistentStoreAndWait];
         } completion:^(BOOL success, NSError *error) {
             NSLog(@"%hhd %@ %@", success, error, record);
             if (error) {
@@ -236,6 +237,7 @@ static SLStore *sharedSingleton = nil;
                            ]
          ]
         .then(^(NSArray *results) {
+            
             SLModel *record = results[0];
             NSDictionary *newDatum = results[1];
             NSLog(@"record: %@", record);
@@ -251,12 +253,6 @@ static SLStore *sharedSingleton = nil;
         .catch(rejecter);
     }];
 }
-
-//- (PMKPromise *) record:(Class<SLModelProtocol>)modelClass forId:(SLNid)nid withContext:(NSManagedObjectContext *)localContext DEPRECATED_ATTRIBUTE
-//{
-//    PMKPromise *recordPromse = [modelClass recordForId:nid];
-//    return recordPromise;
-//}
 
 - (PMKPromise *) pushMany:(Class)modelClass withData:(NSArray *)data
 {

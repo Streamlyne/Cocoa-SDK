@@ -97,9 +97,7 @@ NSLog(@"Completed wait.")
     NSString *encoded = @"99ca2860a3204a9f4e50d6940a67f5ed279f45a9";
     NSLog(@"%@ == %@", encoded, [SLAdapter sha1:password]);
     XCTAssertStringEqual(encoded, [SLAdapter sha1:password], @"Password should have been correctly encoded.");
-    
     NSLog(@"SLLoginPassword: %@", [SLAdapter sha1:SLLoginPassword]);
-    
     SLAdapter *manager = [SLAdapter sharedAdapter];
     [manager setPassword:@"thisIsATest"];
     XCTAssertStringEqual(encoded, manager.userPassword, @"Password should have been encoded when saved.");
@@ -238,7 +236,6 @@ NSLog(@"Completed wait.")
 
 - (void) testPushAsset
 {
-    
     NSDictionary *pushData = @{
                                @"nid": @"538770ab2fb05c514e6cb340",
                                @"dateCreated": [NSDate new],
@@ -246,10 +243,12 @@ NSLog(@"Completed wait.")
                                @"desc": @"This is an Asset in a Unit Test.",
                                @"name": @"PV1234"
                                };
-    SLAsset *a1 = (SLAsset *)[[SLStore sharedStore] push:[SLAsset class] withData:pushData];
-    XCTAssertStringEqual(pushData[@"nid"], a1.nid, @"`nid`s should match.");
-    XCTAssertStringEqual(pushData[@"desc"], a1.desc, @"`desc`s should match.");
-    XCTAssertStringEqual(pushData[@"name"], a1.name, @"`name`s should match.");
+   [[SLStore sharedStore] push:[SLAsset class] withData:pushData]
+    .then(^( SLAsset *a1) {
+        XCTAssertStringEqual(pushData[@"nid"], a1.nid, @"`nid`s should match.");
+        XCTAssertStringEqual(pushData[@"desc"], a1.desc, @"`desc`s should match.");
+        XCTAssertStringEqual(pushData[@"name"], a1.name, @"`name`s should match.");
+    });
     
 }
 
