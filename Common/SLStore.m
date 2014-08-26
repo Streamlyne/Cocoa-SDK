@@ -52,7 +52,7 @@ static SLStore *sharedSingleton = nil;
             [record setupData:properties];
             [localContext MR_saveToPersistentStoreAndWait];
             record = [record MR_inContext:self.context];
-//            [self.context MR_saveToPersistentStoreAndWait];
+            //            [self.context MR_saveToPersistentStoreAndWait];
         } completion:^(BOOL success, NSError *error) {
             NSLog(@"%hhd %@ %@", success, error, record);
             if (error) {
@@ -81,7 +81,7 @@ static SLStore *sharedSingleton = nil;
             }
             [localContext MR_saveToPersistentStoreAndWait];
             record = [record MR_inContext:self.context];
-//            [self.context MR_saveToPersistentStoreAndWait];
+            //            [self.context MR_saveToPersistentStoreAndWait];
         } completion:^(BOOL success, NSError *error) {
             NSLog(@"%hhd %@ %@", success, error, record);
             if (error) {
@@ -97,102 +97,54 @@ static SLStore *sharedSingleton = nil;
 
 - (PMKPromise *) find:(Class)modelClass byId:(SLNid)nid
 {
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        [self.adapter find:modelClass withId:nid withStore:self]
-        .then(^(NSDictionary *adapterPayload) {
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                //Background Thread
-                // FIXME: Should used a shared Serializer, etc.
-                SLSerializer *serializer = [[SLSerializer alloc] init];
-                // Extract from Payload
-                NSDictionary *extractedPayload = [serializer extractSingle:modelClass withPayload:adapterPayload withStore:self];
-                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    //Run UI Updates
-                    [self push:modelClass withData:extractedPayload]
-                    .then(^(SLModel *record) {
-                        fulfiller(record);
-                    })
-                    .catch(rejecter);
-                });
-            });
-        })
-        .catch(rejecter);
-    }];
+    id q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    return [self.adapter find:modelClass withId:nid withStore:self]
+    .thenOn(q, ^(NSDictionary *adapterPayload) {
+        // FIXME: Should used a shared Serializer, etc.
+        SLSerializer *serializer = [[SLSerializer alloc] init];
+        // Extract from Payload
+        NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
+        return [self pushMany:modelClass withData:extractedPayload];
+    });
 }
 
 - (PMKPromise *) findAll:(Class)modelClass
 {
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        [self.adapter findAll:modelClass withStore:self]
-        .then(^(NSDictionary *adapterPayload) {
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                //Background Thread
-                // FIXME: Should used a shared Serializer, etc.
-                SLSerializer *serializer = [[SLSerializer alloc] init];
-                // Extract from Payload
-                NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
-                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    //Run UI Updates
-                    [self pushMany:modelClass withData:extractedPayload]
-                    .then(^(NSArray *records) {
-                        fulfiller(records);
-                    })
-                    .catch(rejecter);
-                });
-            });
-        })
-        .catch(rejecter);
-    }];
+    id q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    return [self.adapter findAll:modelClass withStore:self]
+    .thenOn(q, ^(NSDictionary *adapterPayload) {
+        // FIXME: Should used a shared Serializer, etc.
+        SLSerializer *serializer = [[SLSerializer alloc] init];
+        // Extract from Payload
+        NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
+        return [self pushMany:modelClass withData:extractedPayload];
+    });
 }
 
 - (PMKPromise *) findMany:(Class)modelClass withIds:(NSArray *)ids
 {
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        [self.adapter findMany:modelClass withIds:ids withStore:self]
-        .then(^(NSDictionary *adapterPayload) {
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                //Background Thread
-                // FIXME: Should used a shared Serializer, etc.
-                SLSerializer *serializer = [[SLSerializer alloc] init];
-                // Extract from Payload
-                NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
-                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    //Run UI Updates
-                    [self pushMany:modelClass withData:extractedPayload]
-                    .then(^(NSArray *records) {
-                        fulfiller(records);
-                    })
-                    .catch(rejecter);
-                });
-            });
-        })
-        .catch(rejecter);
-    }];
+    id q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    return [self.adapter findMany:modelClass withIds:ids withStore:self]
+    .thenOn(q, ^(NSDictionary *adapterPayload) {
+        // FIXME: Should used a shared Serializer, etc.
+        SLSerializer *serializer = [[SLSerializer alloc] init];
+        // Extract from Payload
+        NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
+        return [self pushMany:modelClass withData:extractedPayload];
+    });
 }
 
 - (PMKPromise *) find:(Class)modelClass withQuery:(NSDictionary *)query;
 {
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        [self.adapter findQuery:modelClass withQuery:query withStore:self]
-        .then(^(NSDictionary *adapterPayload) {
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                //Background Thread
-                // FIXME: Should used a shared Serializer, etc.
-                SLSerializer *serializer = [[SLSerializer alloc] init];
-                // Extract from Payload
-                NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
-                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    //Run UI Updates
-                    [self pushMany:modelClass withData:extractedPayload]
-                    .then(^(NSArray *records) {
-                        fulfiller(records);
-                    })
-                    .catch(rejecter);
-                });
-            });
-        })
-        .catch(rejecter);
-    }];
+    id q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    return [self.adapter findQuery:modelClass withQuery:query withStore:self]
+    .thenOn(q, ^(NSDictionary *adapterPayload) {
+        // FIXME: Should used a shared Serializer, etc.
+        SLSerializer *serializer = [[SLSerializer alloc] init];
+        // Extract from Payload
+        NSArray *extractedPayload = [serializer extractArray:modelClass withPayload:adapterPayload withStore:self];
+        return [self pushMany:modelClass withData:extractedPayload];
+    });
 }
 
 - (PMKPromise *)saveRecord:(SLModel *)record
@@ -226,49 +178,37 @@ static SLStore *sharedSingleton = nil;
 
 - (PMKPromise *) push:(Class)modelClass withData:(NSDictionary *)datum
 {
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+    NSLog(@"push: %@",datum);
+    SLNid nid = (NSString *) datum[@"nid"];
+    
+    return [PMKPromise when:@[
+                              [self record:modelClass forId:nid],
+                              [self normalizeRelationships:modelClass withData:datum withStore:self]
+                              ]
+            ]
+    .then(^(NSArray *results) {
         
-        NSLog(@"push: %@",datum);
-        SLNid nid = (NSString *) datum[@"nid"];
+        SLModel *record = results[0];
+        NSDictionary *newDatum = results[1];
+        NSLog(@"record: %@", record);
+        NSLog(@"post normalizeRelationships datum: %@", newDatum);
         
-        [PMKPromise when:@[
-                           [self record:modelClass forId:nid],
-                           [self normalizeRelationships:modelClass withData:datum withStore:self]
-                           ]
-         ]
-        .then(^(NSArray *results) {
-            
-            SLModel *record = results[0];
-            NSDictionary *newDatum = results[1];
-            NSLog(@"record: %@", record);
-            NSLog(@"post normalizeRelationships datum: %@", newDatum);
-            
-            //
-            [record setupData:newDatum];
-            NSLog(@"Pushed record: %@", record);
-            
-            fulfiller(record);
-            
-        })
-        .catch(rejecter);
-    }];
+        //
+        [record setupData:newDatum];
+        NSLog(@"Pushed record: %@", record);
+        
+        return record;
+    });
 }
 
 - (PMKPromise *) pushMany:(Class)modelClass withData:(NSArray *)data
 {
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        NSLog(@"pushMany <%@>: %@", modelClass, data);
-        NSMutableArray *records = [NSMutableArray array];
-        for (NSDictionary *datum in data) {
-            [records addObject:[self push:modelClass withData:datum]];
-        }
-        [PMKPromise when:records]
-        .then(^(NSArray *results) {
-            NSLog(@"pushed: %@", results);
-            fulfiller(results);
-        })
-        .catch(rejecter);
-    }];
+    NSLog(@"pushMany <%@>: %@", modelClass, data);
+    NSMutableArray *records = [NSMutableArray array];
+    for (NSDictionary *datum in data) {
+        [records addObject:[self push:modelClass withData:datum]];
+    }
+    return [PMKPromise when:records];
 }
 
 - (PMKPromise *)normalizeRelationships:(Class)modelClass withData:(NSDictionary *)data withStore:(SLStore *)store
