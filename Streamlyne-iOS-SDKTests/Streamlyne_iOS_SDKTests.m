@@ -447,6 +447,8 @@ NSLog(@"Completed wait.")
 - (void) testPushAssetWithRelationships
 {
     
+    StartBlock();
+
     NSDictionary *payload = @{
                               @"_id": [SLObjectIdTransform serialize:@"538770ab2fb05c514e6cb340"],
                               @"attributes": @[
@@ -458,16 +460,25 @@ NSLog(@"Completed wait.")
     SLSerializer *serializer = [[SLSerializer alloc] init];
     NSDictionary *pushData = [serializer extractSingle:[SLAsset class] withPayload:payload withStore:[SLStore sharedStore]];
     //    NSLog(@"pushData: %@", pushData);
-    SLAsset *a1 = (SLAsset *)[[SLStore sharedStore] push:[SLAsset class] withData:pushData];
-    //    NSLog(@"a1: %@", a1);
-    XCTAssertStringEqual(pushData[@"nid"], a1.nid, @"`nid`s should match.");
-    [SLAttribute recordForId:@"abc"]
-    .then(^(SLAttribute *attr) {
-        NSLog(@"Attr: %@", attr);
-        NSSet *attrs = a1.attributes;
-        NSLog(@"Attrs: %@", attrs);
-        XCTAssert([attrs containsObject:attr], @"Asset's `attributes` relationship should contain this attribute.");
+    [[SLStore sharedStore] push:[SLAsset class] withData:pushData].then(^(SLAsset *a1) {
+        
+        //    NSLog(@"a1: %@", a1);
+        XCTAssertStringEqual(pushData[@"nid"], a1.nid, @"`nid`s should match.");
+        [SLAttribute recordForId:@"abc"]
+        .then(^(SLAttribute *attr) {
+            NSLog(@"Attr: %@", attr);
+            NSSet *attrs = a1.attributes;
+            NSLog(@"Attrs: %@", attrs);
+            XCTAssert([attrs containsObject:attr], @"Asset's `attributes` relationship should contain this attribute.");
+        })
+        .finally(^{
+            EndBlock();
+        });
+            
     });
+    
+    WaitUntilBlockCompletes();
+
 }
 
 - (void) testFindMany
