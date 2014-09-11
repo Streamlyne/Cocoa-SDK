@@ -54,6 +54,11 @@ typedef NS_ENUM(NSUInteger, SLHTTPMethodType)
 @property (strong, nonatomic) NSString *host;
 
 /**
+ http or https
+ */
+@property (strong, nonatomic) NSString *protocol;
+
+/**
  Returns the Shared Adapter instance of `SLAdapter`.
  */
 + (instancetype) sharedAdapter;

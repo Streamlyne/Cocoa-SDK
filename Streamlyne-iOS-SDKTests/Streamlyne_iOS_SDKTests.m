@@ -43,12 +43,13 @@ NSLog(@"Completed wait.")
 //#define SLLoginPassword @"test"
 //#define SLLoginOrganization @"test"
 //#define SLServerHost @"localhost:5000"
+//#define SLServerSSL false
 
 #define SLLoginEmail @"todd@streamlyne.co"
 #define SLLoginPassword @"streamlyne"
 #define SLLoginOrganization @"nevis"
 #define SLServerHost @"54.183.15.175:5000"
-
+#define SLServerSSL false
 
 // Put setup code here. This method is called before the invocation of each test method in the class.
 - (void)setUp
@@ -59,7 +60,7 @@ NSLog(@"Completed wait.")
     [MagicalRecord setDefaultModelFromClass:[self class]];
     [MagicalRecord setupCoreDataStackWithInMemoryStore];
     
-    self.client = [SLClient connectWithHost:SLServerHost];
+    self.client = [SLClient connectWithHost:SLServerHost withSSLEnabled:SLServerSSL];
     
     //    NSLog(@"default context: %@", [NSManagedObjectContext MR_defaultContext]);
     //    NSLog(@"inManagedObjectContext: %@", [NSManagedObjectContext MR_defaultContext].persistentStoreCoordinator.managedObjectModel.entities);

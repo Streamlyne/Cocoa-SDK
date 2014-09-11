@@ -12,7 +12,7 @@
 
 @synthesize store, me;
 
-- (instancetype) initWithHost:(NSString *)host
+- (instancetype) initWithHost:(NSString *)host withSSLEnabled:(BOOL)isSSL;
 {
     self = [super init];
     if (self)
@@ -20,14 +20,25 @@
         // 
         self.store = [SLStore sharedStore];
         [self.store.adapter setHost:host];
+        if (isSSL) {
+            [self.store.adapter setProtocol:@"https"];
+        } else {
+            [self.store.adapter setProtocol:@"http"];
+        }
         self.me = nil;
     }
     return self;
 }
 
+
++ (instancetype) connectWithHost:(NSString *)host withSSLEnabled:(BOOL)isSSL
+{
+    return [[SLClient alloc] initWithHost:host withSSLEnabled:isSSL];
+}
+
 + (instancetype) connectWithHost:(NSString *)host
 {
-    return [[SLClient alloc] initWithHost:host];
+    return [self connectWithHost:host withSSLEnabled:false];
 }
 
 

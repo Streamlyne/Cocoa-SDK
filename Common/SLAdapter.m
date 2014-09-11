@@ -23,7 +23,7 @@
 @end
 
 @implementation SLAdapter
-@synthesize userEmail = _userEmail, userPassword = _userPassword, userOrganization = _userOrganization, host, httpManager, serializer;
+@synthesize userEmail = _userEmail, userPassword = _userPassword, userOrganization = _userOrganization, host, protocol, httpManager, serializer;
 
 - (instancetype) init
 {
@@ -35,6 +35,7 @@
         _userPassword = nil;
         _userOrganization = nil;
         host = nil;
+        protocol = @"http";
         serializer = [[SLSerializer alloc] init];
         //httpManager = [AFHTTPRequestOperationManager manager];
         httpManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:nil];
@@ -142,7 +143,7 @@ static SLAdapter *sharedSingleton = nil;
         //        NSURL *fullPath = [NSURL URLWithString:[NSString stringWithFormat:@"%@", thePath] relativeToURL:self.host];
         //        NSLog(@"fullPath: %@", fullPathURL);
         //        NSString *fullPathStr = [fullPathURL absoluteString];
-        NSString *fullPathStr = [NSString stringWithFormat:@"%@://%@%@", @"http", self.host, absPath];
+        NSString *fullPathStr = [NSString stringWithFormat:@"%@://%@%@", self.protocol, self.host, absPath];
         NSLog(@"Full path: %@", fullPathStr);
         
         // Prepare headers used for authentication
@@ -316,19 +317,19 @@ static SLAdapter *sharedSingleton = nil;
 {
     NSDictionary *options =  @{};
     NSDictionary *data = [self serialize:record withOptions:options];
-    NSString *path = [NSString stringWithFormat:@"%@/", [[record class] type]];
+    NSString *path = [NSString stringWithFormat:@"%@/create", [[record class] type]];
     return [self performRequestWithMethod:SLHTTPMethodPOST withPath:path withParameters:data];
 }
 
 - (PMKPromise *) find:(Class)modelClass withId:(SLNid)nid withStore:(SLStore *)store
 {
-    NSString *path = [NSString stringWithFormat:@"%@/%@", [modelClass type], nid];
+    NSString *path = [NSString stringWithFormat:@"%@/findOne/%@", [modelClass type], nid];
     return [self performRequestWithMethod:SLHTTPMethodGET withPath:path withParameters:nil];
 }
 
 - (PMKPromise *) findAll:(Class)modelClass withStore:(SLStore *)store
 {
-    NSString *path = [NSString stringWithFormat:@"%@/", [modelClass type]];
+    NSString *path = [NSString stringWithFormat:@"%@/find", [modelClass type]];
     return [self performRequestWithMethod:SLHTTPMethodGET withPath:path withParameters:nil];
 }
 
@@ -357,7 +358,7 @@ static SLAdapter *sharedSingleton = nil;
 - (PMKPromise *) findQuery:(Class)modelClass withQuery:(NSDictionary *)query withStore:(SLStore *)store
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-        NSString *path = [NSString stringWithFormat:@"%@/", [modelClass type]];
+        NSString *path = [NSString stringWithFormat:@"%@/find", [modelClass type]];
         [self performRequestWithMethod:SLHTTPMethodGET withPath:path withParameters:query]
         .then(fulfiller)
         .catch(rejecter);

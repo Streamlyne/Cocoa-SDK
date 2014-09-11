@@ -19,13 +19,20 @@
 /**
  
  @public
+ @deprecated
  */
-+ (instancetype) connectWithHost:(NSString *)host;
++ (instancetype) connectWithHost:(NSString *)host DEPRECATED_ATTRIBUTE;
+
+/**
  
+ @public
+ */
++ (instancetype) connectWithHost:(NSString *)host withSSLEnabled:(BOOL)isSSL;
+
  /**
   @private
   */
-- (instancetype) initWithHost:(NSString *)host;
+- (instancetype) initWithHost:(NSString *)host withSSLEnabled:(BOOL)isSSL;
 
 /**
  Authenticate with user credentials.
