@@ -366,6 +366,12 @@ static SLAdapter *sharedSingleton = nil;
     }];
 }
 
+- (PMKPromise *) deleteRecord:(SLModel *)record withStore:(SLStore *)store
+{
+    
+    return [PMKPromise promiseWithValue:nil];
+}
+
 - (NSDictionary *) serialize:(SLModel *)record withOptions:(NSDictionary *)options
 {
     return [serializer serialize:record withOptions:options];

@@ -68,11 +68,11 @@ static SLStore *sharedSingleton = nil;
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
         
-        __block SLModel *record;
+//        __block SLModel *record;
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             
             NSLog(@"record:forId:, before find node");
-            record = [modelClass MR_findFirstByAttribute:@"nid" withValue:nid inContext:localContext];
+            SLModel *record = [modelClass MR_findFirstByAttribute:@"nid" withValue:nid inContext:localContext];
             NSLog(@"record:forId: %@, node: %@", nid, record);
             if (record == nil) {
                 NSLog(@"Record does not exist! %@", nid);
@@ -81,9 +81,10 @@ static SLStore *sharedSingleton = nil;
             }
             [localContext MR_saveToPersistentStoreAndWait];
             record = [record MR_inContext:self.context];
-            //            [self.context MR_saveToPersistentStoreAndWait];
+//            [self.context MR_saveToPersistentStoreAndWait];
         } completion:^(BOOL success, NSError *error) {
-            NSLog(@"%hhd %@ %@", success, error, record);
+//            NSLog(@"%hhd %@ %@", success, error, record);
+            SLModel *record = [modelClass MR_findFirstByAttribute:@"nid" withValue:nid inContext:self.context];
             if (error) {
                 rejecter(error);
             } else {
@@ -150,9 +151,10 @@ static SLStore *sharedSingleton = nil;
 - (PMKPromise *)saveRecord:(SLModel *)record
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+        NSLog(@"saveRecord: %@", record);
         
         // Check if already CREATED
-        if (record.isInserted)
+        if (record.isInserted || record.nid == nil)
         {
             // Create record
             [self.adapter createRecord:record withStore:self]
@@ -163,9 +165,10 @@ static SLStore *sharedSingleton = nil;
         else if (record.isUpdated)
         {
             // Delete record
-            [self.adapter deleteRecord:record withStore:self]
-            .then(fulfiller)
-            .catch(rejecter);
+//            [self.adapter deleteRecord:record withStore:self]
+//            .then(fulfiller)
+//            .catch(rejecter);
+            fulfiller(record);
             
         } else {
             // UPDATE existing record

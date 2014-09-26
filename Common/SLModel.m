@@ -208,12 +208,12 @@
     return [NSDictionary dictionaryWithDictionary:theData];
 }
 
-+ (instancetype) createRecord
++ (PMKPromise *) createRecord
 {
     return [self createRecord:@{}];
 }
 
-+ (instancetype) createRecord:(NSDictionary *)properties
++ (PMKPromise *) createRecord:(NSDictionary *)properties
 {
     return [[SLStore sharedStore] createRecord:[self class] withProperties:properties];
 }
